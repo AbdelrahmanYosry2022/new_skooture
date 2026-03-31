@@ -2,18 +2,59 @@ import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 import { useTheme } from '../../context/ThemeContext';
+import { useState } from 'react';
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
 const markers = [
-  { markerOffset: -30, name: "London", coordinates: [-0.1276, 51.5074] as [number, number] },
-  { markerOffset: 15, name: "Egypt", coordinates: [30.8025, 26.8206] as [number, number] },
-  { markerOffset: 15, name: "UAE", coordinates: [54.2098, 23.4241] as [number, number] }
+  { markerOffset: -30, name: "London", nameAr: "لندن", coordinates: [-0.1276, 51.5074] as [number, number] },
+  { markerOffset: 15, name: "Egypt", nameAr: "مصر", coordinates: [30.8025, 26.8206] as [number, number] },
+  { markerOffset: 15, name: "UAE", nameAr: "الإمارات", coordinates: [54.2098, 23.4241] as [number, number] }
 ];
+
+// Dictionary to show dynamic translation feature
+const countryTranslations: Record<string, string> = {
+  "Egypt": "مصر",
+  "Saudi Arabia": "السعودية",
+  "United Arab Emirates": "الإمارات",
+  "United Kingdom": "المملكة المتحدة",
+  "United States of America": "الولايات المتحدة",
+  /* Add more dynamically or via backend */
+};
 
 export default function GlobalPresence() {
   const { content, t } = useContent();
   const { theme } = useTheme();
+
+  const [tooltip, setTooltip] = useState({
+    show: false,
+    en: '',
+    ar: '',
+    x: 0,
+    y: 0
+  });
+
+  const handleMouseEnter = (name: string, nameAr: string, e: React.MouseEvent) => {
+    setTooltip({
+      show: true,
+      en: name,
+      ar: nameAr,
+      x: e.clientX,
+      y: e.clientY
+    });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setTooltip(prev => ({
+      ...prev,
+      x: e.clientX,
+      y: e.clientY
+    }));
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip(prev => ({ ...prev, show: false }));
+  };
 
   return (
     <section id="global" className="py-32 bg-zinc-50 dark:bg-zinc-950 relative border-t border-zinc-200 dark:border-zinc-900 transition-colors duration-300 overflow-hidden">
@@ -43,42 +84,74 @@ export default function GlobalPresence() {
           >
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
-                geographies.map((geo) => (
+                geographies.map((geo) => {
+                  const enName = geo.properties.name;
+                  const arName = countryTranslations[enName] || 'غير محدد';
+
+                  return (
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={theme === 'dark' ? '#374151' : '#cbd5e1'}
-                    stroke={theme === 'dark' ? '#4b5563' : '#94a3b8'}
+                    onMouseEnter={(e) => handleMouseEnter(enName, arName, e as any)}
+                    onMouseMove={handleMouseMove as any}
+                    onMouseLeave={handleMouseLeave}
+                    fill={theme === 'dark' ? '#2c3340' : '#cbd5e1'}
+                    stroke={theme === 'dark' ? '#1e242d' : '#94a3b8'}
                     strokeWidth={0.5}
+                    className="transition-all duration-300 cursor-pointer"
                     style={{
-                      default: { outline: 'none', transition: 'all 250ms' },
-                      hover: { outline: 'none', fill: theme === 'dark' ? '#4b5563' : '#94a3b8', transition: 'all 250ms' },
-                      pressed: { outline: 'none' },
+                      default: { outline: 'none' },
+                      hover: { 
+                        outline: 'none', 
+                        fill: '#3b82f6', 
+                        filter: 'drop-shadow(0px 0px 8px rgba(59, 130, 246, 0.6))',
+                        strokeWidth: 1
+                      },
+                      pressed: { outline: 'none', fill: '#2563eb' },
                     }}
                   />
-                ))
+                  );
+                })
               }
             </Geographies>
             
-            {markers.map(({ name, coordinates, markerOffset }) => (
-              <Marker key={name} coordinates={coordinates}>
+            {markers.map(({ name, nameAr, coordinates, markerOffset }) => (
+              <Marker 
+                key={name} 
+                coordinates={coordinates}
+                onMouseEnter={(e) => handleMouseEnter(name, nameAr, e as any)}
+                onMouseMove={handleMouseMove as any}
+                onMouseLeave={handleMouseLeave}
+              >
                 <g className="group cursor-pointer">
                   <circle r={4} fill="#3b82f6" className="animate-pulse" />
                   <circle r={12} fill="#3b82f6" opacity={0.3} className="animate-ping" />
-                  <text
-                    textAnchor="middle"
-                    y={markerOffset}
-                    style={{ fontFamily: "system-ui", fill: theme === 'dark' ? '#f4f4f5' : '#1f2937', fontSize: '14px', fontWeight: 'bold' }}
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-md"
-                  >
-                    {name}
-                  </text>
                 </g>
               </Marker>
             ))}
           </ComposableMap>
         </div>
       </div>
+
+      {/* Glassmorphism Tooltip Render */}
+      {tooltip.show && (
+        <div 
+          className="fixed pointer-events-none z-[9999] px-4 py-2 flex flex-col items-center gap-1 rounded-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-md bg-slate-800/65"
+          style={{
+            left: `${tooltip.x}px`,
+            top: `${tooltip.y - 15}px`, // Slight offset above the mouse
+            transform: 'translate(-50%, -100%)',
+            transition: 'opacity 0.15s ease'
+          }}
+        >
+          <span className="font-bold text-slate-50 text-[15px]" style={{ fontFamily: "'Cairo', 'Tajawal', sans-serif" }}>
+            {tooltip.ar}
+          </span>
+          <span className="text-slate-400 font-medium text-[12px]" style={{ fontFamily: "'Inter', sans-serif" }}>
+            {tooltip.en}
+          </span>
+        </div>
+      )}
     </section>
   );
 }

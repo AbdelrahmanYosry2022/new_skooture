@@ -35,7 +35,7 @@ export default function TrustedBy() {
           {partners.logos.map((logo: string, index: number) => (
             <div
               key={index}
-              className="group mx-12 md:mx-20 flex items-center justify-center opacity-50 hover:opacity-100 transition-all duration-300"
+              className="group mx-12 md:mx-20 flex items-center justify-center p-2 opacity-50 hover:opacity-100 dark:hover:bg-white/90 dark:hover:rounded-xl transition-all duration-300"
             >
               <img
                 src={logo}
