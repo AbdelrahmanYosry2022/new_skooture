@@ -5,6 +5,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import type { Language, AdminSection } from '../../../types';
+import { useTranslation } from 'react-i18next';
 
 interface AdminHeaderProps {
   adminLanguage: Language;
@@ -23,13 +24,15 @@ export default function AdminHeader({
   onSave,
   onReset,
 }: AdminHeaderProps) {
+  const { t } = useTranslation('admin');
+
   return (
     <header className="flex items-center justify-between sticky top-0 z-30 py-4 -mx-8 px-8 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border-b border-zinc-200/50 dark:border-white/5 transition-all shadow-sm">
       <div className="flex items-center gap-6">
         <div className="flex flex-col">
           <h1 className="text-2xl font-black text-zinc-900 dark:text-white tracking-tight flex items-center gap-3">
             <span className="w-2 h-8 bg-blue-600 rounded-full" />
-            {adminLanguage === 'ar' ? 'نظام سكوتشر الذكي' : 'Skooture Hub'}
+            {t('header.title')}
           </h1>
           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mt-1">
             {sections.find(s => s.id === activeSection)?.label}
@@ -39,9 +42,11 @@ export default function AdminHeader({
 
       <div className="flex items-center gap-3 p-1.5 bg-zinc-100/50 dark:bg-white/5 rounded-2xl border border-zinc-200/50 dark:border-white/5">
         <button
-          onClick={() => { if(confirm('Reset all changes to default?')) onReset(); }}
+          onClick={() => {
+            if (confirm(t('header.resetConfirm'))) onReset();
+          }}
           className="p-2.5 text-zinc-500 hover:text-red-500 transition-all rounded-xl hover:bg-white dark:hover:bg-zinc-800 shadow-sm"
-          title={adminLanguage === 'ar' ? 'إعادة ضبط الإعدادات' : 'Reset Everything'}
+          title={t('header.resetTitle')}
         >
           <RotateCcw size={18} />
         </button>
@@ -57,7 +62,7 @@ export default function AdminHeader({
           }`}
         >
           {isSaved ? <CheckCircle size={16} /> : <Save size={16} />}
-          {isSaved ? (adminLanguage === 'ar' ? 'تم الحفظ' : 'Saved') : (adminLanguage === 'ar' ? 'تحديث الموقع' : 'Update Portal')}
+          {isSaved ? t('header.saved') : t('header.updatePortal')}
         </button>
 
         <div className="w-px h-6 bg-zinc-200 dark:bg-zinc-800 mx-1" />
@@ -67,7 +72,7 @@ export default function AdminHeader({
             href="/" 
             target="_blank"
             className="p-2.5 rounded-xl bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-blue-600 shadow-sm border border-zinc-100 dark:border-white/5 transition-all"
-            title="View Site"
+            title={t('header.viewSite')}
           >
             <ExternalLink size={18} />
           </a>

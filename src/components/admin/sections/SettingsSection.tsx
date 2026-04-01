@@ -1,6 +1,7 @@
 import { Languages, Moon, User, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Language } from '../../../types';
+import { useTranslation } from 'react-i18next';
 
 interface SettingsSectionProps {
   isRTL: boolean;
@@ -17,6 +18,8 @@ export default function SettingsSection({
   setAdminLanguage,
   setAdminTheme,
 }: SettingsSectionProps) {
+  const { t } = useTranslation('admin');
+
   return (
     <motion.div
       key="settings"
@@ -32,8 +35,8 @@ export default function SettingsSection({
             <Languages size={24} />
           </div>
           <div>
-            <h3 className="text-xl font-black text-zinc-900 dark:text-white">{isRTL ? 'لغة لوحة التحكم' : 'Dashboard Language'}</h3>
-            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">EN / AR</p>
+            <h3 className="text-xl font-black text-zinc-900 dark:text-white">{t('settings.languageTitle')}</h3>
+            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{t('settings.languageHint')}</p>
           </div>
         </div>
         <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1.5 rounded-2xl gap-2">
@@ -41,13 +44,13 @@ export default function SettingsSection({
             onClick={() => setAdminLanguage('ar')}
             className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer ${adminLanguage === 'ar' ? 'bg-white dark:bg-zinc-700 text-blue-600 shadow-sm' : 'text-zinc-400'}`}
           >
-            عربي
+            {t('settings.arabic')}
           </button>
           <button 
             onClick={() => setAdminLanguage('en')}
             className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer ${adminLanguage === 'en' ? 'bg-white dark:bg-zinc-700 text-blue-600 shadow-sm' : 'text-zinc-400'}`}
           >
-            English
+            {t('settings.english')}
           </button>
         </div>
       </div>
@@ -59,8 +62,8 @@ export default function SettingsSection({
             <Moon size={24} />
           </div>
           <div>
-            <h3 className="text-xl font-black text-zinc-900 dark:text-white">{isRTL ? 'الوضع الداكن' : 'Dark Mode'}</h3>
-            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{adminTheme === 'dark' ? 'Dark' : 'Light'}</p>
+            <h3 className="text-xl font-black text-zinc-900 dark:text-white">{t('settings.darkModeTitle')}</h3>
+            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{adminTheme === 'dark' ? t('settings.dark') : t('settings.light')}</p>
           </div>
         </div>
         <button 
@@ -82,38 +85,38 @@ export default function SettingsSection({
             <User size={24} />
           </div>
           <div>
-            <h3 className="text-xl font-black text-zinc-900 dark:text-white">{isRTL ? 'الملف الشخصي' : 'Profile Settings'}</h3>
-            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">Admin Account</p>
+            <h3 className="text-xl font-black text-zinc-900 dark:text-white">{t('settings.profileTitle')}</h3>
+            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{t('settings.adminAccount')}</p>
           </div>
         </div>
 
         <div className="space-y-6">
           <div className="space-y-2">
-            <label className="text-xs font-black text-zinc-400 uppercase tracking-widest ml-1">{isRTL ? 'الاسم' : 'Name'}</label>
+            <label className={`text-xs font-black text-zinc-400 uppercase tracking-widest ${isRTL ? 'mr-1' : 'ml-1'}`}>{t('settings.name')}</label>
             <div className="relative">
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-300" size={18} />
+              <User className={`absolute top-1/2 -translate-y-1/2 text-zinc-300 ${isRTL ? 'right-4' : 'left-4'}`} size={18} />
               <input 
                 type="text" 
                 defaultValue="Admin" 
-                className="w-full pl-12 pr-6 py-4 bg-zinc-50 dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-2xl font-bold text-zinc-900 dark:text-white focus:border-blue-500 outline-none transition-all"
+                className={`w-full py-4 bg-zinc-50 dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-2xl font-bold text-zinc-900 dark:text-white focus:border-blue-500 outline-none transition-all ${isRTL ? 'pr-12 pl-6 text-right' : 'pl-12 pr-6 text-left'}`}
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label className="text-xs font-black text-zinc-400 uppercase tracking-widest ml-1">{isRTL ? 'البريد الإلكتروني' : 'Email Address'}</label>
+            <label className={`text-xs font-black text-zinc-400 uppercase tracking-widest ${isRTL ? 'mr-1' : 'ml-1'}`}>{t('settings.email')}</label>
             <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-300" size={18} />
+              <Mail className={`absolute top-1/2 -translate-y-1/2 text-zinc-300 ${isRTL ? 'right-4' : 'left-4'}`} size={18} />
               <input 
                 type="email" 
                 defaultValue="admin@skooture.ai" 
-                className="w-full pl-12 pr-6 py-4 bg-zinc-50 dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-2xl font-bold text-zinc-900 dark:text-white focus:border-blue-500 outline-none transition-all"
+                className={`w-full py-4 bg-zinc-50 dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-2xl font-bold text-zinc-900 dark:text-white focus:border-blue-500 outline-none transition-all ${isRTL ? 'pr-12 pl-6 text-right' : 'pl-12 pr-6 text-left'}`}
               />
             </div>
           </div>
 
           <button className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all mt-4 cursor-pointer">
-            {isRTL ? 'حفظ التغييرات' : 'Save Profile'}
+            {t('settings.saveProfile')}
           </button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { LucideIcon, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useContent } from '../../../context/ContentContext';
+import { useTranslation } from 'react-i18next';
 
 interface SidebarProps {
   sections: {
@@ -16,10 +17,11 @@ interface SidebarProps {
 
 export default function Sidebar({ sections, activeSection, setActiveSection, onLogout }: SidebarProps) {
   const { adminLanguage, content } = useContent();
+  const { t } = useTranslation('admin');
   const isRTL = adminLanguage === 'ar';
 
   return (
-    <div className={`w-[20rem] bg-white dark:bg-zinc-900 h-screen sticky top-0 flex flex-col p-6 transition-all duration-500 shadow-xl shadow-zinc-200/50 dark:shadow-none z-40 ${
+    <aside className={`w-[20rem] h-screen sticky top-0 flex flex-col p-6 transition-all duration-500 shadow-xl shadow-zinc-200/50 dark:shadow-none z-40 glass ${
       isRTL ? 'border-l border-zinc-200 dark:border-white/5' : 'border-r border-zinc-200 dark:border-white/5'
     }`}>
       {/* Branding */}
@@ -40,12 +42,12 @@ export default function Sidebar({ sections, activeSection, setActiveSection, onL
               </div>
             )}
           </div>
-          <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest opacity-80">Platform Hub</span>
+          <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest opacity-80">{t('sidebar.brand')}</span>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-2.5 overflow-y-auto pr-2 -mr-2 custom-scrollbar">
+      <nav className={`flex-1 space-y-2.5 overflow-y-auto custom-scrollbar ${isRTL ? 'pl-2 -ml-2' : 'pr-2 -mr-2'}`}>
         {sections.map((section, index) => {
           const Icon = section.icon;
           const isActive = activeSection === section.id;
@@ -94,9 +96,9 @@ export default function Sidebar({ sections, activeSection, setActiveSection, onL
           className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-zinc-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all font-black text-sm group cursor-pointer uppercase tracking-widest"
         >
           <LogOut size={18} className={`transition-transform ${isRTL ? 'group-hover:translate-x-1' : 'group-hover:-translate-x-1'}`} />
-          {isRTL ? 'خروج' : 'Logout Hub'}
+          {t('sidebar.logout')}
         </button>
       </div>
-    </div>
+    </aside>
   );
 }

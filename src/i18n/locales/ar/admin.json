@@ -1,0 +1,42 @@
+{
+  "sidebar": {
+    "brand": "منصة التحكم",
+    "logout": "تسجيل الخروج"
+  },
+  "sections": {
+    "overview": "نظرة عامة",
+    "general": "الإعدادات العامة",
+    "hero": "قسم البطل",
+    "traction": "الإحصائيات والأداء",
+    "legacy": "إرثنا",
+    "features": "ميزات الذكاء الاصطناعي",
+    "topFeatures": "أهم الميزات",
+    "testimonials": "آراء العملاء",
+    "pricing": "خطط الأسعار",
+    "faq": "الأسئلة الشائعة",
+    "messages": "رسائل المستخدمين",
+    "settings": "إعدادات المنصة"
+  },
+  "header": {
+    "title": "نظام سكوتشر الذكي",
+    "resetConfirm": "هل تريد إعادة جميع التعديلات إلى الوضع الافتراضي؟",
+    "resetTitle": "إعادة ضبط الكل",
+    "saved": "تم الحفظ",
+    "updatePortal": "تحديث المنصة",
+    "viewSite": "عرض الموقع"
+  },
+  "settings": {
+    "languageTitle": "لغة لوحة التحكم",
+    "languageHint": "AR / EN",
+    "arabic": "عربي",
+    "english": "English",
+    "darkModeTitle": "الوضع الداكن",
+    "dark": "داكن",
+    "light": "فاتح",
+    "profileTitle": "الملف الشخصي",
+    "adminAccount": "حساب المدير",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "saveProfile": "حفظ التغييرات"
+  }
+}
