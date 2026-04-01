@@ -1,7 +1,7 @@
 {
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "npm install --no-package-lock && npx prisma generate && npx prisma db push && npx tsx src/seed.ts"
+    "buildCommand": "npm install --no-package-lock && npx prisma generate && npx prisma db push"
   },
   "deploy": {
     "startCommand": "npx tsx src/index.ts",
