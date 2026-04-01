@@ -1,0 +1,42 @@
+{
+  "sidebar": {
+    "brand": "Platform Hub",
+    "logout": "Logout Hub"
+  },
+  "sections": {
+    "overview": "Dashboard Overview",
+    "general": "General Settings",
+    "hero": "Hero Section",
+    "traction": "Stats & Traction",
+    "legacy": "Our Legacy",
+    "features": "AI Features",
+    "topFeatures": "Top Features",
+    "testimonials": "Testimonials",
+    "pricing": "Pricing Plans",
+    "faq": "FAQ",
+    "messages": "User Messages",
+    "settings": "Portal Settings"
+  },
+  "header": {
+    "title": "Skooture Hub",
+    "resetConfirm": "Reset all changes to default?",
+    "resetTitle": "Reset Everything",
+    "saved": "Saved",
+    "updatePortal": "Update Portal",
+    "viewSite": "View Site"
+  },
+  "settings": {
+    "languageTitle": "Dashboard Language",
+    "languageHint": "EN / AR",
+    "arabic": "Arabic",
+    "english": "English",
+    "darkModeTitle": "Dark Mode",
+    "dark": "Dark",
+    "light": "Light",
+    "profileTitle": "Profile Settings",
+    "adminAccount": "Admin Account",
+    "name": "Name",
+    "email": "Email Address",
+    "saveProfile": "Save Profile"
+  }
+}

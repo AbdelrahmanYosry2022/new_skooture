@@ -12,21 +12,24 @@ import {
   Layout,
   MessageSquare,
 } from 'lucide-react';
-import type { AdminSection, Language } from '../types';
+import type { AdminSection } from '../types';
 
-export function getAdminSections(adminLanguage: Language, messageCount: number): AdminSection[] {
+export function getAdminSections(
+  t: (key: string) => string,
+  messageCount: number,
+): AdminSection[] {
   return [
-    { id: 'overview', label: adminLanguage === 'ar' ? 'نظرة عامة' : 'Dashboard Overview', icon: LayoutDashboard },
-    { id: 'general', label: 'General Settings', icon: Layout },
-    { id: 'hero', label: 'Hero Section', icon: Type },
-    { id: 'traction', label: 'Stats & Traction', icon: BarChart3 },
-    { id: 'legacy', label: 'Our Legacy', icon: History },
-    { id: 'features', label: 'AI Features', icon: Zap },
-    { id: 'topFeatures', label: 'Top Features', icon: Target },
-    { id: 'testimonials', label: 'Testimonials', icon: Quote },
-    { id: 'pricing', label: 'Pricing Plans', icon: CreditCard },
-    { id: 'faq', label: 'FAQ', icon: HelpCircle },
-    { id: 'messages', label: 'User Messages', icon: MessageSquare, badge: messageCount },
-    { id: 'settings', label: 'Portal Settings', icon: Settings },
+    { id: 'overview', label: t('sections.overview'), icon: LayoutDashboard },
+    { id: 'general', label: t('sections.general'), icon: Layout },
+    { id: 'hero', label: t('sections.hero'), icon: Type },
+    { id: 'traction', label: t('sections.traction'), icon: BarChart3 },
+    { id: 'legacy', label: t('sections.legacy'), icon: History },
+    { id: 'features', label: t('sections.features'), icon: Zap },
+    { id: 'topFeatures', label: t('sections.topFeatures'), icon: Target },
+    { id: 'testimonials', label: t('sections.testimonials'), icon: Quote },
+    { id: 'pricing', label: t('sections.pricing'), icon: CreditCard },
+    { id: 'faq', label: t('sections.faq'), icon: HelpCircle },
+    { id: 'messages', label: t('sections.messages'), icon: MessageSquare, badge: messageCount },
+    { id: 'settings', label: t('sections.settings'), icon: Settings },
   ];
 }
