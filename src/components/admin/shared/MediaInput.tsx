@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Link, Upload, X, Check, Film, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useContent } from '../../../context/ContentContext';
 
 interface MediaInputProps {
   label: string;
@@ -10,6 +11,8 @@ interface MediaInputProps {
 }
 
 export default function MediaInput({ label, value, onChange, type = 'image' }: MediaInputProps) {
+  const { adminLanguage } = useContent();
+  const isRTL = adminLanguage === 'ar';
   const [mode, setMode] = useState<'url' | 'upload'>(value?.startsWith('data:') ? 'upload' : 'url');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
@@ -70,13 +73,13 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
               exit={{ opacity: 0, scale: 0.98 }}
               className="relative"
             >
-              <Link className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+              <Link className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 ${isRTL ? 'right-4' : 'left-4'}`} />
               <input
                 type="text"
                 value={value?.startsWith('data:') ? '' : value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={`Paste ${type} address...`}
-                className={`${inputClasses} pl-12`}
+                className={`${inputClasses} ${isRTL ? 'pr-12 text-right' : 'pl-12 text-left'}`}
               />
             </motion.div>
           ) : (

@@ -87,6 +87,29 @@ body {
   font-family: "Cairo", "Tajawal", sans-serif;
 }
 
+/* Admin RTL layout and alignment defaults */
+.admin-dashboard.admin-rtl {
+  direction: rtl;
+}
+
+.admin-dashboard.admin-rtl main,
+.admin-dashboard.admin-rtl section,
+.admin-dashboard.admin-rtl article,
+.admin-dashboard.admin-rtl .glass-card,
+.admin-dashboard.admin-rtl .glass {
+  text-align: right;
+}
+
+.admin-dashboard.admin-rtl table,
+.admin-dashboard.admin-rtl th,
+.admin-dashboard.admin-rtl td {
+  text-align: right;
+}
+
+.admin-dashboard.admin-rtl .rtl-flip {
+  transform: scaleX(-1);
+}
+
 .pricing-scrollbar::-webkit-scrollbar {
   width: 6px;
 }

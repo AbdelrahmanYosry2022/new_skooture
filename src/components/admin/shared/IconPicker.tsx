@@ -2,6 +2,7 @@ import * as LucideIcons from 'lucide-react';
 import { Search, ChevronDown, Sparkles } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useContent } from '../../../context/ContentContext';
 
 const COMMON_ICONS = [
   'Brain', 'Zap', 'Settings', 'MessageSquare', 'School', 'Users', 'GraduationCap', 
@@ -17,6 +18,8 @@ interface IconPickerProps {
 }
 
 export default function IconPicker({ value, onChange, label }: IconPickerProps) {
+  const { adminLanguage } = useContent();
+  const isRTL = adminLanguage === 'ar';
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -42,7 +45,7 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
   return (
     <div className="space-y-4">
       {label && (
-        <label className="text-[11px] uppercase tracking-[0.2em] font-black text-zinc-400 dark:text-zinc-500 px-1 flex items-center gap-2">
+        <label className={`text-[11px] uppercase tracking-[0.2em] font-black text-zinc-400 dark:text-zinc-500 px-1 flex items-center gap-2 ${isRTL ? 'justify-end' : ''}`}>
           <Sparkles size={12} className="text-blue-500" />
           {label}
         </label>
@@ -52,15 +55,15 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className={`${inputClasses} flex items-center justify-between cursor-pointer`}
+          className={`${inputClasses} flex items-center justify-between cursor-pointer ${isRTL ? 'text-right' : 'text-left'}`}
         >
-          <div className="flex items-center gap-4">
+          <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className="w-10 h-10 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-inner">
               <CurrentIcon size={20} />
             </div>
             <span className="font-bold tracking-tight">{value || 'Select Platform Icon'}</span>
           </div>
-          <ChevronDown size={20} className={`text-zinc-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown size={20} className={`text-zinc-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''} ${isRTL ? 'scale-x-[-1]' : ''}`} />
         </button>
 
         <AnimatePresence>
@@ -73,13 +76,13 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
             >
               <div className="p-4 border-b border-zinc-100 dark:border-white/5">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400" size={16} />
+                  <Search className={`absolute top-1/2 -translate-y-1/2 text-zinc-400 ${isRTL ? 'right-4' : 'left-4'}`} size={16} />
                   <input
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search all icons..."
-                    className="w-full pl-12 pr-4 py-3 bg-zinc-50 dark:bg-black/20 border-none focus:ring-2 focus:ring-blue-500/20 text-sm font-bold rounded-xl dark:text-white outline-none"
+                    className={`w-full py-3 bg-zinc-50 dark:bg-black/20 border-none focus:ring-2 focus:ring-blue-500/20 text-sm font-bold rounded-xl dark:text-white outline-none ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4 text-left'}`}
                     autoFocus
                   />
                 </div>

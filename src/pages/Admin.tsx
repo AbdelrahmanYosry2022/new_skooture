@@ -40,6 +40,11 @@ export default function Admin() {
   const sections = getAdminSections(t, messages.length);
   const isRTL = adminLanguage === 'ar';
 
+  useEffect(() => {
+    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+    document.body.dir = isRTL ? 'rtl' : 'ltr';
+  }, [isRTL]);
+
   const handleSave = () => {
     setContent(localContent);
     setIsSaved(true);
@@ -94,8 +99,8 @@ export default function Admin() {
 
   return (
     <div
-      className={`min-h-screen bg-zinc-50 dark:bg-zinc-950 flex transition-colors duration-500 ${adminLanguage === 'ar' ? 'font-arabic flex-row-reverse' : 'flex-row'}`}
-      dir={adminLanguage === 'ar' ? 'rtl' : 'ltr'}
+      className={`admin-dashboard min-h-screen bg-zinc-50 dark:bg-zinc-950 flex transition-colors duration-500 ${isRTL ? 'admin-rtl font-arabic flex-row-reverse' : 'flex-row'}`}
+      dir={isRTL ? 'rtl' : 'ltr'}
     >
       <Sidebar
         sections={sections}
@@ -108,6 +113,7 @@ export default function Admin() {
         <div className="max-w-6xl mx-auto px-8 py-10 space-y-10">
           <AdminHeader
             adminLanguage={adminLanguage}
+            isRTL={isRTL}
             activeSection={activeSection}
             sections={sections}
             isSaved={isSaved}

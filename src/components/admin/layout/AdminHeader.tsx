@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 interface AdminHeaderProps {
   adminLanguage: Language;
+  isRTL: boolean;
   activeSection: string;
   sections: AdminSection[];
   isSaved: boolean;
@@ -18,6 +19,7 @@ interface AdminHeaderProps {
 
 export default function AdminHeader({
   adminLanguage,
+  isRTL,
   activeSection,
   sections,
   isSaved,
@@ -27,10 +29,10 @@ export default function AdminHeader({
   const { t } = useTranslation('admin');
 
   return (
-    <header className="flex items-center justify-between sticky top-0 z-30 py-4 -mx-8 px-8 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border-b border-zinc-200/50 dark:border-white/5 transition-all shadow-sm">
-      <div className="flex items-center gap-6">
+    <header className={`flex items-center justify-between sticky top-0 z-30 py-4 -mx-8 px-8 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border-b border-zinc-200/50 dark:border-white/5 transition-all shadow-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className={`flex items-center gap-6 ${isRTL ? 'text-right' : ''}`}>
         <div className="flex flex-col">
-          <h1 className="text-2xl font-black text-zinc-900 dark:text-white tracking-tight flex items-center gap-3">
+          <h1 className={`text-2xl font-black text-zinc-900 dark:text-white tracking-tight flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <span className="w-2 h-8 bg-blue-600 rounded-full" />
             {t('header.title')}
           </h1>
@@ -40,7 +42,7 @@ export default function AdminHeader({
         </div>
       </div>
 
-      <div className="flex items-center gap-3 p-1.5 bg-zinc-100/50 dark:bg-white/5 rounded-2xl border border-zinc-200/50 dark:border-white/5">
+      <div className={`flex items-center gap-3 p-1.5 bg-zinc-100/50 dark:bg-white/5 rounded-2xl border border-zinc-200/50 dark:border-white/5 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button
           onClick={() => {
             if (confirm(t('header.resetConfirm'))) onReset();
