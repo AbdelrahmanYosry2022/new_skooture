@@ -21,7 +21,7 @@ export default function Sidebar({ sections, activeSection, setActiveSection, onL
   const isRTL = adminLanguage === 'ar';
 
   return (
-    <aside className={`w-[20rem] h-screen sticky top-0 flex flex-col p-6 transition-all duration-500 shadow-xl shadow-zinc-200/50 dark:shadow-none z-40 glass ${
+    <aside className={`w-[20rem] h-screen sticky top-0 flex flex-col p-6 transition-all duration-500 shadow-xl shadow-zinc-200/50 dark:shadow-none z-40 glass ${isRTL ? 'order-2' : 'order-1'} ${
       isRTL ? 'border-l border-zinc-200 dark:border-white/5' : 'border-r border-zinc-200 dark:border-white/5'
     }`}>
       {/* Branding */}

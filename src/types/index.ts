@@ -65,6 +65,7 @@ export interface FaqItem {
 
 export interface SiteContent {
   brand: { logoUrl: string };
+  headerSettings: HeaderSettings;
   hero: {
     topBadge: Translatable;
     videoUrl: string;
@@ -131,6 +132,40 @@ export interface SiteContent {
     subtitle: Translatable;
     button: Translatable;
   };
+}
+
+export interface HeaderMobileMenuLinkConfig {
+  enabled: boolean;
+  targetId: string;
+}
+
+export interface HeaderGlowColors {
+  mobile: string;
+}
+
+export interface HeaderBottomNavConfig {
+  home: {
+    enabled: boolean;
+    targetId: string;
+  };
+  courses: {
+    enabled: boolean;
+    targetId: string;
+  };
+  accountHref: string;
+}
+
+export interface HeaderSettings {
+  menuIcon: string;
+  glowColors: HeaderGlowColors;
+  mobileMenuLinks: {
+    home: HeaderMobileMenuLinkConfig;
+    features: HeaderMobileMenuLinkConfig;
+    pricing: HeaderMobileMenuLinkConfig;
+    faq: HeaderMobileMenuLinkConfig;
+    contact: HeaderMobileMenuLinkConfig;
+  };
+  bottomNav: HeaderBottomNavConfig;
 }
 
 export interface AdminSection {

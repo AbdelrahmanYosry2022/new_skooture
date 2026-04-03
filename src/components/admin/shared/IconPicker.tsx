@@ -7,7 +7,7 @@ import { useContent } from '../../../context/ContentContext';
 const COMMON_ICONS = [
   'Brain', 'Zap', 'Settings', 'MessageSquare', 'School', 'Users', 'GraduationCap', 
   'Globe', 'Shield', 'BarChart3', 'History', 'CheckCircle', 'ArrowRight', 
-  'Bell', 'Calendar', 'Briefcase', 'Star', 'Heart', 'Layout', 'Sparkles', 
+  'Bell', 'Calendar', 'Briefcase', 'Star', 'Heart', 'Layout', 'Sparkles', 'Menu', 
   'Database', 'Cloud', 'Cpu', 'Rocket', 'Activity'
 ];
 

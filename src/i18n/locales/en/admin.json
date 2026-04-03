@@ -6,6 +6,7 @@
   "sections": {
     "overview": "Dashboard Overview",
     "general": "General Settings",
+    "header": "Header Settings",
     "hero": "Hero Section",
     "traction": "Stats & Traction",
     "legacy": "Our Legacy",

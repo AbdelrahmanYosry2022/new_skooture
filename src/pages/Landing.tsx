@@ -14,10 +14,11 @@ import FAQ from '../components/landing/FAQ';
 import Contact from '../components/landing/Contact';
 import CTASection from '../components/landing/CTASection';
 import Footer from '../components/landing/Footer';
+import BottomNav from '../components/landing/BottomNav';
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans selection:bg-blue-500/30 transition-colors duration-300">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans selection:bg-blue-500/30 transition-colors duration-300 pb-24 md:pb-0">
       <Navbar />
       <main>
         <Hero />
@@ -36,6 +37,7 @@ export default function Landing() {
         <CTASection />
       </main>
       <Footer />
+      <BottomNav />
     </div>
   );
 }

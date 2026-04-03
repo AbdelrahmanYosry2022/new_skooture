@@ -24,6 +24,7 @@ import PricingSection from '../components/admin/sections/PricingSection';
 import FaqSection from '../components/admin/sections/FaqSection';
 import MessagesSection from '../components/admin/sections/MessagesSection';
 import SettingsSection from '../components/admin/sections/SettingsSection';
+import HeaderSettingsSection from '../components/admin/sections/HeaderSettingsSection';
 
 export default function Admin() {
   const { content, setContent, resetToDefault, adminLanguage, setAdminLanguage, messages, refreshMessages } = useContent();
@@ -64,6 +65,8 @@ export default function Admin() {
         return <OverviewSection isRTL={isRTL} messages={messages} setActiveSection={setActiveSection} />;
       case 'general':
         return <GeneralSection {...sectionProps} />;
+      case 'header':
+        return <HeaderSettingsSection {...sectionProps} />;
       case 'hero':
         return <HeroSection {...sectionProps} />;
       case 'traction':
@@ -99,7 +102,7 @@ export default function Admin() {
 
   return (
     <div
-      className={`admin-dashboard min-h-screen bg-zinc-50 dark:bg-zinc-950 flex transition-colors duration-500 ${isRTL ? 'admin-rtl font-arabic flex-row-reverse' : 'flex-row'}`}
+      className={`admin-dashboard min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-row transition-colors duration-500 ${isRTL ? 'admin-rtl font-arabic' : ''}`}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <Sidebar

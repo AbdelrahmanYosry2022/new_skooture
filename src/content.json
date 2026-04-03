@@ -2,6 +2,24 @@
   "brand": {
     "logoUrl": "https://skooture.ai/storage/super-admin/system-settings/69738ddd57f6d9.609751151769180637.png"
   },
+  "headerSettings": {
+    "menuIcon": "Menu",
+    "glowColors": {
+      "mobile": "rgba(59, 130, 246, 0.35)"
+    },
+    "mobileMenuLinks": {
+      "home": { "enabled": true, "targetId": "home" },
+      "features": { "enabled": true, "targetId": "features" },
+      "pricing": { "enabled": true, "targetId": "pricing" },
+      "faq": { "enabled": true, "targetId": "faq" },
+      "contact": { "enabled": true, "targetId": "contact" }
+    },
+    "bottomNav": {
+      "home": { "enabled": true, "targetId": "home" },
+      "courses": { "enabled": true, "targetId": "features" },
+      "accountHref": "/login"
+    }
+  },
   "hero": {
     "topBadge": {
       "en": "The Evolution of Smart Schools",

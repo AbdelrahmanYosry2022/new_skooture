@@ -11,6 +11,7 @@ import {
   Target,
   Layout,
   MessageSquare,
+  Menu,
 } from 'lucide-react';
 import type { AdminSection } from '../types';
 
@@ -21,6 +22,7 @@ export function getAdminSections(
   return [
     { id: 'overview', label: t('sections.overview'), icon: LayoutDashboard },
     { id: 'general', label: t('sections.general'), icon: Layout },
+    { id: 'header', label: t('sections.header'), icon: Menu },
     { id: 'hero', label: t('sections.hero'), icon: Type },
     { id: 'traction', label: t('sections.traction'), icon: BarChart3 },
     { id: 'legacy', label: t('sections.legacy'), icon: History },
