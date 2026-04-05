@@ -1,0 +1,39 @@
+{
+  "sidebar": {
+    "overview": "Overview",
+    "generalSettings": "General Settings",
+    "heroSection": "Hero Section",
+    "features": "Features",
+    "topFeatures": "Top Features",
+    "whyChooseUs": "Why Choose Us",
+    "traction": "Traction",
+    "pricing": "Pricing",
+    "legacy": "Legacy",
+    "testimonials": "Testimonials",
+    "faq": "FAQ",
+    "messages": "Messages"
+  },
+  "header": {
+    "dashboard": "Dashboard",
+    "logout": "Logout"
+  },
+  "overview": {
+    "activeFeatures": "Active Features",
+    "testimonials": "Testimonials",
+    "trustedPartners": "Trusted Partners",
+    "activeSections": "Active Sections",
+    "systemStatus": "System Status",
+    "database": "Database",
+    "connected": "Connected",
+    "apiService": "API Service",
+    "operational": "Operational",
+    "quickStats": "Quick Stats",
+    "totalMessages": "Total Messages",
+    "lastContentUpdate": "Last Content Update"
+  },
+  "actions": {
+    "saveChanges": "Save Changes",
+    "saved": "Saved!",
+    "reset": "Reset to Default"
+  }
+}

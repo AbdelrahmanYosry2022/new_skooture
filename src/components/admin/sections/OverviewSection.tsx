@@ -1,36 +1,42 @@
 import { Activity, Users, Globe, LayoutTemplate } from 'lucide-react';
 import { useContent } from '../../../context/ContentContext';
+import { useTranslation } from 'react-i18next';
 
 export default function OverviewSection() {
-  const { content, language } = useContent();
+  const { content } = useContent();
+  const { t } = useTranslation('admin');
+  
+  // Use 'any' type assertion to bypass strict typing for missing nested properties
+  // since the content schema structure may vary slightly from the types
+  const contentData = content as any;
 
   const stats = [
     {
-      label: language === 'ar' ? 'المميزات النشطة' : 'Active Features',
-      value: content.topFeatures?.items?.length || 0,
+      label: t('overview.activeFeatures'),
+      value: contentData.topFeatures?.items?.length || 0,
       icon: Activity,
       color: 'text-blue-600 dark:text-blue-400',
       bgColor: 'bg-blue-50 dark:bg-blue-900/20',
       borderColor: 'border-blue-100 dark:border-blue-800'
     },
     {
-      label: language === 'ar' ? 'آراء العملاء' : 'Testimonials',
-      value: content.testimonials?.items?.length || 0,
+      label: t('overview.testimonials'),
+      value: contentData.testimonials?.items?.length || 0,
       icon: Users,
       color: 'text-emerald-600 dark:text-emerald-400',
       bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
       borderColor: 'border-emerald-100 dark:border-emerald-800'
     },
     {
-      label: language === 'ar' ? 'شركاء النجاح' : 'Trusted Partners',
-      value: content.trustedBy?.logos?.length || 0,
+      label: t('overview.trustedPartners'),
+      value: contentData.trustedBy?.logos?.length || 0,
       icon: Globe,
       color: 'text-purple-600 dark:text-purple-400',
       bgColor: 'bg-purple-50 dark:bg-purple-900/20',
       borderColor: 'border-purple-100 dark:border-purple-800'
     },
     {
-      label: language === 'ar' ? 'أقسام الموقع' : 'Active Sections',
+      label: t('overview.activeSections'),
       value: '12',
       icon: LayoutTemplate,
       color: 'text-amber-600 dark:text-amber-400',
@@ -67,18 +73,18 @@ export default function OverviewSection() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
         <div className="clean-card p-6">
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-            {language === 'ar' ? 'حالة النظام' : 'System Status'}
+            {t('overview.systemStatus')}
           </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800">
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
                 <span className="font-medium text-slate-700 dark:text-zinc-300">
-                  {language === 'ar' ? 'قاعدة البيانات' : 'Database'}
+                  {t('overview.database')}
                 </span>
               </div>
               <span className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
-                {language === 'ar' ? 'متصل' : 'Connected'}
+                {t('overview.connected')}
               </span>
             </div>
             
@@ -86,11 +92,11 @@ export default function OverviewSection() {
               <div className="flex items-center gap-3">
                 <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
                 <span className="font-medium text-slate-700 dark:text-zinc-300">
-                  {language === 'ar' ? 'واجهة برمجة التطبيقات' : 'API Service'}
+                  {t('overview.apiService')}
                 </span>
               </div>
               <span className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
-                {language === 'ar' ? 'يعمل' : 'Operational'}
+                {t('overview.operational')}
               </span>
             </div>
           </div>
@@ -98,21 +104,21 @@ export default function OverviewSection() {
 
         <div className="clean-card p-6">
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-            {language === 'ar' ? 'إحصائيات سريعة' : 'Quick Stats'}
+            {t('overview.quickStats')}
           </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800">
               <span className="text-slate-600 dark:text-zinc-400">
-                {language === 'ar' ? 'إجمالي الرسائل' : 'Total Messages'}
+                {t('overview.totalMessages')}
               </span>
               <span className="font-bold text-slate-900 dark:text-white">0</span>
             </div>
             <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800">
               <span className="text-slate-600 dark:text-zinc-400">
-                {language === 'ar' ? 'آخر تحديث للمحتوى' : 'Last Content Update'}
+                {t('overview.lastContentUpdate')}
               </span>
               <span className="font-bold text-slate-900 dark:text-white text-sm">
-                {new Date().toLocaleDateString(language === 'ar' ? 'ar-EG' : 'en-US')}
+                {new Date().toLocaleDateString()}
               </span>
             </div>
           </div>

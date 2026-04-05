@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import defaultContent from '../content.json';
 import * as api from '../api/client';
 import i18n from '../i18n';
@@ -22,7 +22,7 @@ interface ContentContextType {
   content: typeof defaultContent;
   setContent: (content: typeof defaultContent) => void;
   resetToDefault: () => void;
-  t: (obj: { en: string; ar: string } | string) => string;
+  t: (obj: { en: string; ar: string } | string | undefined) => string;
   messages: Message[];
   addMessage: (msg: Omit<Message, 'id' | 'timestamp'>) => void;
   refreshMessages: () => Promise<void>;
@@ -33,7 +33,7 @@ interface ContentContextType {
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
 export function ContentProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => {
+  const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('skooture_language');
     return (saved as Language) || 'en';
   });
@@ -43,102 +43,99 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     return (saved as Language) || 'en';
   });
 
+  const [content, setContentState] = useState(() => {
+    const saved = localStorage.getItem('skooture_content');
+    return saved ? JSON.parse(saved) : defaultContent;
+  });
+
   const [messages, setMessages] = useState<Message[]>([]);
-  const [content, setContentState] = useState(defaultContent);
   const [isContentLoading, setIsContentLoading] = useState(true);
 
-  // Fetch content from API on mount
-  useEffect(() => {
-    api.getContent()
-      .then((data) => setContentState(data as typeof defaultContent))
-      .catch(() => setContentState(defaultContent))
-      .finally(() => setIsContentLoading(false));
-  }, []);
-
-  // Fetch messages if authenticated
   const refreshMessages = useCallback(async () => {
     try {
-      const msgs = await api.getMessages();
-      setMessages(msgs.map((m: any) => ({
+      const data = await api.getMessages();
+      setMessages(data.map((m: any) => ({
         ...m,
         timestamp: new Date(m.createdAt).getTime(),
       })));
-    } catch {
-      // Not authenticated or server error — keep local state
+    } catch (error) {
+      console.error('Failed to fetch messages:', error);
     }
   }, []);
 
-  useEffect(() => {
-    if (localStorage.getItem('skooture_token')) {
-      refreshMessages();
-    }
-  }, [refreshMessages]);
-
-  useEffect(() => {
-    const isDashboard = window.location.pathname.startsWith('/admin');
-    const currentLang = isDashboard ? adminLanguage : language;
-
-    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = currentLang;
-    void i18n.changeLanguage(currentLang);
-    
-    localStorage.setItem('skooture_language', language);
-    localStorage.setItem('skooture_admin_language', adminLanguage);
-  }, [language, adminLanguage]);
-
-  const setContent = async (newContent: typeof defaultContent) => {
-    setContentState(newContent);
-    try {
-      await api.updateContent(newContent);
-    } catch (err) {
-      console.error('Failed to save content to server:', err);
-    }
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    localStorage.setItem('skooture_language', lang);
+    i18n.changeLanguage(lang);
   };
 
   const setAdminLanguage = (lang: Language) => {
     setAdminLanguageState(lang);
+    localStorage.setItem('skooture_admin_language', lang);
+    i18n.changeLanguage(lang);
+  };
+
+  const setContent = (newContent: typeof defaultContent) => {
+    setContentState(newContent);
+    localStorage.setItem('skooture_content', JSON.stringify(newContent));
   };
 
   const resetToDefault = async () => {
     setContentState(defaultContent);
     try {
       await api.resetContent();
-    } catch (err) {
-      console.error('Failed to reset content on server:', err);
+      localStorage.removeItem('skooture_content');
+    } catch (error) {
+      console.error('Failed to reset content on server:', error);
     }
   };
 
   const addMessage = async (msg: Omit<Message, 'id' | 'timestamp'>) => {
     try {
-      const created = await api.sendMessage({
-        name: msg.name,
-        email: msg.email,
-        message: msg.message,
-      });
-      setMessages(prev => [{
-        ...created,
-        timestamp: new Date(created.createdAt).getTime(),
-      }, ...prev]);
-    } catch (err) {
-      console.error('Failed to send message:', err);
+      await api.sendMessage(msg);
+      await refreshMessages();
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      throw error;
     }
   };
 
-  const deleteMsg = async (id: string) => {
+  const deleteMessage = async (id: string) => {
     try {
       await api.deleteMessage(id);
-      setMessages(prev => prev.filter(m => m.id !== id));
-    } catch (err) {
-      console.error('Failed to delete message:', err);
+      await refreshMessages();
+    } catch (error) {
+      console.error('Failed to delete message:', error);
+      throw error;
     }
   };
 
-  const t = (obj: any) => {
+  useEffect(() => {
+    const loadInitialData = async () => {
+      try {
+        const serverContent = await api.getContent();
+        setContentState(serverContent);
+      } catch (error) {
+        console.error('Failed to load content from server, using local:', error);
+      } finally {
+        setIsContentLoading(false);
+      }
+    };
+    loadInitialData();
+    refreshMessages();
+  }, [refreshMessages]);
+
+  useEffect(() => {
+    const isDashboard = window.location.pathname.startsWith('/admin');
+    i18n.changeLanguage(isDashboard ? adminLanguage : language);
+  }, []);
+
+  const t = (obj: { en: string; ar: string } | string | undefined) => {
     if (!obj) return '';
     if (typeof obj === 'string') return obj;
     const isDashboard = window.location.pathname.startsWith('/admin');
-    const currentLang = isDashboard ? adminLanguage : language;
-    return obj[currentLang] || obj['en'] || '';
+    const activeLang = isDashboard ? adminLanguage : language;
+    return obj[activeLang as keyof typeof obj] || obj.en;
   };
 
   return (
@@ -154,8 +151,8 @@ export function ContentProvider({ children }: { children: ReactNode }) {
       messages,
       addMessage,
       refreshMessages,
-      deleteMessage: deleteMsg,
-      isContentLoading,
+      deleteMessage,
+      isContentLoading
     }}>
       {children}
     </ContentContext.Provider>

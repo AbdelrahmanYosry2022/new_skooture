@@ -1,106 +1,196 @@
 import { useState, useEffect } from 'react';
+import { Menu, X, Globe, Sun, Moon } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import { useTheme } from '../../context/ThemeContext';
-import { Globe, Settings, Sun, Moon } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
-  const { content, language, setLanguage } = useContent();
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { content, t, language, setLanguage } = useContent();
   const { theme, toggleTheme } = useTheme();
-  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleLanguage = () => {
+  const navLinks = [
+    { href: '#home', label: { en: 'Home', ar: 'الرئيسية' } },
+    { href: '#features', label: { en: 'Features', ar: 'المميزات' } },
+    { href: '#pricing', label: { en: 'Pricing', ar: 'الأسعار' } },
+    { href: '#faq', label: { en: 'FAQ', ar: 'الأسئلة الشائعة' } },
+  ];
+
+  const handleLanguageToggle = () => {
     setLanguage(language === 'en' ? 'ar' : 'en');
   };
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  const navLinks = [
-    { id: 'home', label: { en: 'Home', ar: 'الرئيسية' } },
-    { id: 'features', label: { en: 'Features', ar: 'المميزات' } },
-    { id: 'pricing', label: { en: 'Pricing', ar: 'الأسعار' } },
-    { id: 'faq', label: { en: 'FAQ', ar: 'الأسئلة الشائعة' } },
-    { id: 'contact', label: { en: 'Contact', ar: 'تواصل معنا' } },
-  ];
+  const isRTL = language === 'ar';
 
   return (
-    <div className="fixed top-0 w-full z-50 flex justify-center px-4 pt-6 pointer-events-none">
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className={`pointer-events-auto transition-all duration-500 ease-in-out px-6 flex items-center justify-between gap-8 h-16 rounded-full border shadow-2xl ${
-          isScrolled 
-            ? 'glass w-full max-w-5xl shadow-blue-500/10' 
-            : 'bg-transparent border-transparent w-full max-w-7xl'
-        }`}
-      >
-        <div className="flex items-center">
-          <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-            className="group flex items-center gap-3 cursor-pointer"
-          >
-            <div className="relative">
-              <div className="absolute inset-0 bg-blue-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
-              {content.brand?.logoUrl ? (
-                <img src={content.brand.logoUrl} alt="Logo" className="h-10 object-contain relative z-10" referrerPolicy="no-referrer" />
-              ) : (
-                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center relative z-10 shadow-lg">
-                  <span className="text-white font-bold text-xl">S</span>
+    <nav 
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-slate-200 dark:border-zinc-800 shadow-sm py-4' 
+          : 'bg-transparent py-6'
+      }`}
+      dir={isRTL ? 'rtl' : 'ltr'}
+    >
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-3">
+            {content?.brand?.logoUrl ? (
+              <img src={content.brand.logoUrl} alt="Skooture" className="h-8 w-auto" />
+            ) : (
+              <>
+                <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">
+                  S
                 </div>
-              )}
-            </div>
-          </button>
-        </div>
-        
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollTo(link.id)}
-              className="text-[13px] font-bold tracking-wider uppercase text-zinc-500 dark:text-zinc-400 hover:text-blue-500 dark:hover:text-blue-400 transition-all cursor-pointer relative group"
-            >
-              {language === 'en' ? link.label.en : link.label.ar}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all group-hover:w-full" />
-            </button>
-          ))}
-        </div>
+                <span className={`font-bold text-2xl ${scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'}`}>
+                  Skooture
+                </span>
+              </>
+            )}
+          </a>
 
-        <div className="flex items-center gap-1 sm:gap-2">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-8">
+            <div className="flex items-center gap-6">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors hover:text-blue-600 ${
+                    scrolled ? 'text-slate-600 dark:text-zinc-300' : 'text-slate-600 dark:text-zinc-300'
+                  }`}
+                >
+                  {t(link.label)}
+                </a>
+              ))}
+            </div>
+
+            <div className="h-6 w-px bg-slate-200 dark:bg-zinc-800"></div>
+
+            <div className="flex items-center gap-4">
+              <button
+                onClick={toggleTheme}
+                className={`p-2 rounded-full transition-colors ${
+                  scrolled 
+                    ? 'text-slate-600 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800' 
+                    : 'text-slate-600 hover:bg-slate-100/50 dark:text-zinc-300 dark:hover:bg-zinc-800/50'
+                }`}
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+
+              <button
+                onClick={handleLanguageToggle}
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  scrolled 
+                    ? 'text-slate-600 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800' 
+                    : 'text-slate-600 hover:bg-slate-100/50 dark:text-zinc-300 dark:hover:bg-zinc-800/50'
+                }`}
+              >
+                <Globe className="w-4 h-4" />
+                <span>{language === 'en' ? 'عربي' : 'English'}</span>
+              </button>
+
+              <a
+                href="#contact"
+                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-sm shadow-blue-600/20"
+              >
+                {t(content?.cta?.button || { en: 'Get Started', ar: 'ابدأ الآن' })}
+              </a>
+              
+              <Link
+                to="/admin"
+                className={`px-4 py-2.5 text-sm font-medium transition-colors hover:text-blue-600 ${
+                  scrolled ? 'text-slate-600 dark:text-zinc-300' : 'text-slate-600 dark:text-zinc-300'
+                }`}
+              >
+                {t({ en: 'Admin', ar: 'الإدارة' })}
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
           <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer"
+            className="lg:hidden p-2 text-slate-900 dark:text-white"
+            onClick={() => setIsOpen(!isOpen)}
           >
-            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-          </button>
-          <button
-            onClick={toggleLanguage}
-            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-zinc-100 dark:bg-zinc-800/50 text-zinc-700 dark:text-zinc-300 hover:bg-blue-500 hover:text-white transition-all cursor-pointer"
-          >
-            <Globe size={14} />
-            {language === 'en' ? 'العربية' : 'English'}
-          </button>
-          <button
-            onClick={() => window.location.href = '/admin'}
-            className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold bg-blue-600 text-white shadow-lg shadow-blue-500/25 hover:bg-blue-700 hover:scale-105 transition-all cursor-pointer"
-          >
-            <Settings size={14} />
-            <span className="hidden sm:inline">{language === 'en' ? 'Dashboard' : 'الإدارة'}</span>
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-      </motion.nav>
-    </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-white dark:bg-zinc-950 border-b border-slate-200 dark:border-zinc-800"
+          >
+            <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="text-lg font-medium text-slate-900 dark:text-white"
+                >
+                  {t(link.label)}
+                </a>
+              ))}
+              
+              <hr className="border-slate-200 dark:border-zinc-800 my-2" />
+              
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-3 text-slate-600 dark:text-zinc-400"
+                >
+                  {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                  <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                </button>
+
+                <button
+                  onClick={handleLanguageToggle}
+                  className="flex items-center gap-2 text-slate-600 dark:text-zinc-400"
+                >
+                  <Globe className="w-5 h-5" />
+                  <span>{language === 'en' ? 'عربي' : 'English'}</span>
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-3 mt-4">
+                <a
+                  href="#contact"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full py-3 bg-blue-600 text-white rounded-xl font-medium text-center"
+                >
+                  {t(content?.cta?.button || { en: 'Get Started', ar: 'ابدأ الآن' })}
+                </a>
+                <Link
+                  to="/admin"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full py-3 bg-slate-100 dark:bg-zinc-900 text-slate-900 dark:text-white rounded-xl font-medium text-center"
+                >
+                  {t({ en: 'Admin Dashboard', ar: 'لوحة التحكم' })}
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 }

@@ -4,10 +4,14 @@ import { useContent } from '../../context/ContentContext';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
-  const { t, addMessage, language } = useContent();
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const { t, language } = useContent();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,21 +20,23 @@ export default function Contact() {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    addMessage(formData);
-    setFormData({ name: '', email: '', message: '' });
     setIsSubmitting(false);
     setIsSuccess(true);
+    setFormData({ name: '', email: '', message: '' });
     
-    setTimeout(() => setIsSuccess(false), 5000);
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 5000);
   };
 
   return (
-    <section id="contact" className="py-32 bg-white dark:bg-[#020617] relative overflow-hidden transition-colors duration-500">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+    <section id="contact" className="py-24 relative overflow-hidden bg-slate-50 dark:bg-zinc-950">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
           
+          {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: language === 'ar' ? 50 : -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="space-y-12"
@@ -40,18 +46,18 @@ export default function Contact() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-500 text-xs font-bold uppercase tracking-widest mb-6 inline-block"
+                className="px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest mb-6 inline-block"
               >
                 {t({ en: 'Contact Us', ar: 'اتصل بنا' })}
               </motion.div>
-              <h2 className="text-4xl md:text-6xl font-extrabold text-zinc-900 dark:text-white leading-tight mb-8">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight mb-6">
                 {language === 'en' ? (
-                  <>Let's Build the <span className="text-gradient">Future</span> Together</>
+                  <>Let's Build the <span className="text-blue-600">Future</span> Together</>
                 ) : (
-                  <>لنبنِ <span className="text-gradient">المستقبل</span> معاً</>
+                  <>لنبنِ <span className="text-blue-600">المستقبل</span> معاً</>
                 )}
               </h2>
-              <p className="text-xl text-zinc-600 dark:text-zinc-400 font-medium max-w-lg leading-relaxed">
+              <p className="text-lg text-slate-600 dark:text-zinc-400 leading-relaxed max-w-lg">
                 {t({ 
                   en: "Have questions about Skooture? Our team is here to help you transform your educational institution.", 
                   ar: "لديك أسئلة حول سكوتر؟ فريقنا هنا لمساعدتك في تحويل مؤسستك التعليمية." 
@@ -59,46 +65,45 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {[
-                { icon: Mail, label: 'Email', value: 'contact@skooture.ai' },
-                { icon: Phone, label: 'Phone', value: '+1 (555) 000-0000' },
-                { icon: MapPin, label: 'Location', value: t({ en: 'London, UK / Dubai, UAE', ar: 'لندن، المملكة المتحدة / دبي، الإمارات' }) }
+                { icon: Mail, label: { en: 'Email', ar: 'البريد الإلكتروني' }, value: 'contact@skooture.ai' },
+                { icon: Phone, label: { en: 'Phone', ar: 'الهاتف' }, value: '+1 (555) 000-0000' },
+                { icon: MapPin, label: { en: 'Location', ar: 'الموقع' }, value: t({ en: 'London, UK / Dubai, UAE', ar: 'لندن، المملكة المتحدة / دبي، الإمارات' }) }
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-6 group">
-                  <div className="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-white/5 flex items-center justify-center border border-zinc-200 dark:border-white/10 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110 transition-all duration-500">
+                  <div className="w-14 h-14 rounded-xl bg-white dark:bg-zinc-900 flex items-center justify-center border border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-300 shadow-sm">
                     <item.icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest mb-1">{item.label}</p>
-                    <p className="text-lg font-bold text-zinc-900 dark:text-white">{item.value}</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-zinc-400 mb-1">{t(item.label)}</p>
+                    <p className="text-lg font-semibold text-slate-900 dark:text-white">{item.value}</p>
                   </div>
                 </div>
               ))}
             </div>
           </motion.div>
 
+          {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: language === 'ar' ? -50 : 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-purple-600/20 blur-3xl rounded-full" />
-            <div className="glass-card relative p-8 md:p-12 rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-3xl">
+            <div className="bg-white dark:bg-zinc-900 p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-lg">
               {isSuccess ? (
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center text-center py-12"
                 >
-                  <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-8 border border-green-500/30">
-                    <CheckCircle2 className="w-10 h-10 text-green-500" />
+                  <div className="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center mb-6">
+                    <CheckCircle2 className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                   </div>
-                  <h3 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
                     {t({ en: 'Message Sent!', ar: 'تم إرسال الرسالة!' })}
                   </h3>
-                  <p className="text-zinc-600 dark:text-zinc-400 font-medium text-lg leading-relaxed">
+                  <p className="text-slate-600 dark:text-zinc-400">
                     {t({ 
                       en: 'Thank you for reaching out. We will get back to you shortly.', 
                       ar: 'شكراً لتواصلك معنا. سنقوم بالرد عليك في أقرب وقت ممكن.' 
@@ -106,9 +111,9 @@ export default function Contact() {
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2">
                       {t({ en: 'Full Name', ar: 'الاسم الكامل' })}
                     </label>
                     <input
@@ -117,11 +122,12 @@ export default function Contact() {
                       value={formData.name}
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
                       placeholder={t({ en: 'Enter your name', ar: 'أدخل اسمك' })}
-                      className="w-full px-6 py-4 rounded-2xl bg-zinc-50 dark:bg-black/40 border border-zinc-200 dark:border-white/10 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-zinc-900 dark:text-white font-medium"
+                      className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:border-blue-600 dark:focus:border-blue-500 focus:ring-1 focus:ring-blue-600 dark:focus:ring-blue-500 transition-colors outline-none text-slate-900 dark:text-white"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2">
                       {t({ en: 'Email Address', ar: 'البريد الإلكتروني' })}
                     </label>
                     <input
@@ -130,11 +136,12 @@ export default function Contact() {
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
                       placeholder={t({ en: 'Enter your email', ar: 'أدخل بريدك الإلكتروني' })}
-                      className="w-full px-6 py-4 rounded-2xl bg-zinc-50 dark:bg-black/40 border border-zinc-200 dark:border-white/10 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-zinc-900 dark:text-white font-medium"
+                      className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:border-blue-600 dark:focus:border-blue-500 focus:ring-1 focus:ring-blue-600 dark:focus:ring-blue-500 transition-colors outline-none text-slate-900 dark:text-white"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2">
                       {t({ en: 'Your Message', ar: 'رسالتك' })}
                     </label>
                     <textarea
@@ -142,25 +149,24 @@ export default function Contact() {
                       rows={4}
                       value={formData.message}
                       onChange={e => setFormData({ ...formData, message: e.target.value })}
-                      placeholder={t({ en: 'Tell us about your institution...', ar: 'أخبرنا عن مؤسستك...' })}
-                      className="w-full px-6 py-4 rounded-2xl bg-zinc-50 dark:bg-black/40 border border-zinc-200 dark:border-white/10 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none text-zinc-900 dark:text-white font-medium resize-none"
+                      placeholder={t({ en: 'Tell us how we can help...', ar: 'أخبرنا كيف يمكننا مساعدتك...' })}
+                      className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:border-blue-600 dark:focus:border-blue-500 focus:ring-1 focus:ring-blue-600 dark:focus:ring-blue-500 transition-colors outline-none text-slate-900 dark:text-white resize-none"
                     />
                   </div>
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                  
+                  <button
                     disabled={isSubmitting}
-                    className="w-full py-5 rounded-2xl bg-blue-600 text-white font-black text-lg shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+                    className="w-full py-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2"
                   >
                     {isSubmitting ? (
-                      <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     ) : (
                       <>
                         {t({ en: 'Send Message', ar: 'إرسال الرسالة' })}
-                        <Send className={`w-5 h-5 ${language === 'ar' ? 'rotate-180' : ''}`} />
+                        <Send className={`w-4 h-4 ${language === 'ar' ? 'rotate-180' : ''}`} />
                       </>
                     )}
-                  </motion.button>
+                  </button>
                 </form>
               )}
             </div>

@@ -1,14 +1,33 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { CheckCircle2, ArrowRight, XCircle } from 'lucide-react';
+import { CheckCircle2, X } from 'lucide-react';
 
 export default function Pricing() {
   const { content, t, language } = useContent();
-  const plans = content.pricing?.plans || [];
+  const pricingData = (content as any).pricing || {};
+  const [isAnnual, setIsAnnual] = useState(false);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const plans = pricingData.plans || [];
   const isRTL = language === 'ar';
 
+  if (!plans.length) return null;
+
   return (
-    <section id="pricing" className="clean-section bg-white dark:bg-slate-900">
+    <section id="pricing" className="clean-section bg-slate-50 dark:bg-zinc-950">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.h2 
@@ -17,62 +36,121 @@ export default function Pricing() {
             viewport={{ once: true }}
             className="clean-heading-2"
           >
-            {t(content.pricing?.title)}
+            {t(pricingData.title)}
           </motion.h2>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {plans.map((plan: any, index: number) => (
-            <motion.div
-              key={index}
+          {pricingData.subtitle && (
+            <motion.p 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className={`clean-card p-8 flex flex-col ${plan.highlighted ? 'ring-2 ring-blue-600 dark:ring-blue-500 shadow-elevated relative bg-slate-900 dark:bg-zinc-900' : 'bg-white dark:bg-zinc-950'}`}
+              transition={{ delay: 0.1 }}
+              className="clean-paragraph mb-8"
             >
-              {plan.badge && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
-                  {t(plan.badge)}
+              {t(pricingData.subtitle)}
+            </motion.p>
+          )}
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="flex items-center justify-center gap-4"
+          >
+            <span className={`text-sm font-medium ${!isAnnual ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-zinc-400'}`}>
+              {t({ en: 'Monthly', ar: 'شهري' })}
+            </span>
+            <button
+              onClick={() => setIsAnnual(!isAnnual)}
+              className={`relative inline-flex h-7 w-14 items-center rounded-full transition-colors focus:outline-none ${isAnnual ? 'bg-blue-600' : 'bg-slate-300 dark:bg-zinc-700'}`}
+            >
+              <span className="sr-only">Toggle billing period</span>
+              <span
+                className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${isAnnual ? 'translate-x-8 rtl:-translate-x-8' : 'translate-x-1 rtl:-translate-x-1'}`}
+              />
+            </button>
+            <div className="flex items-center gap-2">
+              <span className={`text-sm font-medium ${isAnnual ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-zinc-400'}`}>
+                {t({ en: 'Annually', ar: 'سنوي' })}
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-bold">
+                {t({ en: 'Save 20%', ar: 'وفر 20%' })}
+              </span>
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
+        >
+          {plans.map((plan: any, index: number) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className={`clean-card flex flex-col p-8 ${
+                plan.popular 
+                  ? 'border-blue-500 shadow-xl shadow-blue-500/10 ring-1 ring-blue-500 relative transform md:-translate-y-4' 
+                  : 'border-slate-200 dark:border-zinc-800'
+              }`}
+            >
+              {plan.popular && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <span className="bg-blue-600 text-white text-xs font-bold uppercase tracking-wider py-1 px-4 rounded-full shadow-sm">
+                    {t({ en: 'Most Popular', ar: 'الأكثر طلباً' })}
+                  </span>
                 </div>
               )}
-              
-              <div className="mb-6">
-                <h3 className={`text-2xl font-bold mb-2 ${plan.highlighted ? 'text-white' : 'text-slate-900 dark:text-white'}`}>
-                  {t(plan.name)}
-                </h3>
+
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t(plan.name)}</h3>
+                <p className="text-slate-500 dark:text-zinc-400 h-12">{t(plan.description)}</p>
               </div>
 
-              <div className="space-y-3 mb-8">
-                {plan.details?.map((detail: any, dIndex: number) => (
-                  <p key={dIndex} className={`font-medium ${plan.highlighted ? 'text-slate-300' : 'text-slate-600 dark:text-zinc-400'}`}>
-                    {t(detail)}
+              <div className="mb-8">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-extrabold text-slate-900 dark:text-white">
+                    {isAnnual ? plan.price.annual : plan.price.monthly}
+                  </span>
+                  <span className="text-slate-500 dark:text-zinc-400 font-medium">
+                    / {t({ en: 'mo', ar: 'شهر' })}
+                  </span>
+                </div>
+                {isAnnual && plan.price.monthly !== 'Custom' && (
+                  <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-2 font-medium">
+                    {t({ en: 'Billed annually', ar: 'تدفع سنوياً' })}
                   </p>
-                ))}
+                )}
               </div>
 
-              <ul className="space-y-4 mb-8 flex-grow">
-                {plan.features?.map((feature: any, fIndex: number) => (
+              <ul className="space-y-4 mb-8 flex-1">
+                {plan.features.map((feature: any, fIndex: number) => (
                   <li key={fIndex} className="flex items-start gap-3">
-                    {feature.included ? (
-                      <CheckCircle2 className={`w-5 h-5 shrink-0 mt-0.5 ${plan.highlighted ? 'text-blue-400' : 'text-blue-600 dark:text-blue-400'}`} />
+                    {feature.included !== false ? (
+                      <CheckCircle2 className="w-5 h-5 text-blue-600 dark:text-blue-500 shrink-0 mt-0.5" />
                     ) : (
-                      <XCircle className={`w-5 h-5 shrink-0 mt-0.5 ${plan.highlighted ? 'text-slate-600' : 'text-slate-300 dark:text-zinc-700'}`} />
+                      <X className="w-5 h-5 text-slate-300 dark:text-zinc-600 shrink-0 mt-0.5" />
                     )}
-                    <span className={`${plan.highlighted ? (feature.included ? 'text-slate-100' : 'text-slate-500 line-through') : (feature.included ? 'text-slate-700 dark:text-zinc-300' : 'text-slate-400 dark:text-zinc-600 line-through')}`}>
+                    <span className={`text-slate-700 dark:text-zinc-300 ${feature.included === false ? 'opacity-50 line-through' : ''}`}>
                       {t(feature.name)}
                     </span>
                   </li>
                 ))}
               </ul>
 
-              <button className={`w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2 ${plan.highlighted ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-900 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-white'}`}>
-                {t(content.pricing?.button)}
-                <ArrowRight className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
+              <button className={`w-full py-4 rounded-xl font-medium transition-all ${
+                plan.popular 
+                  ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm shadow-blue-600/20' 
+                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-900 dark:text-white'
+              }`}>
+                {t(plan.cta || { en: 'Get Started', ar: 'ابدأ الآن' })}
               </button>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

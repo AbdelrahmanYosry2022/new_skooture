@@ -31,18 +31,26 @@ export default function Admin() {
   const { t } = useTranslation('admin');
   const navigate = useNavigate();
 
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState<any>('overview');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const { localContent, updateNestedContent } = useAdminContent(content);
 
   useEffect(() => { refreshMessages(); }, [refreshMessages]);
 
   const sections = getAdminSections(t, messages.length);
-  const isRTL = adminLanguage === 'ar';
+  // Always use adminLanguage for dashboard layout direction to ensure consistency
+  const isRTL = adminLanguage === 'ar' || (adminLanguage as string) === 'ar';
 
   useEffect(() => {
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
     document.body.dir = isRTL ? 'rtl' : 'ltr';
+    // Force specific classes on body for RTL support in the dashboard
+    if (isRTL) {
+      document.body.classList.add('rtl');
+    } else {
+      document.body.classList.remove('rtl');
+    }
   }, [isRTL]);
 
   const handleSave = () => {
@@ -61,7 +69,7 @@ export default function Admin() {
   const renderSection = () => {
     switch (activeSection) {
       case 'overview':
-        return <OverviewSection isRTL={isRTL} messages={messages} setActiveSection={setActiveSection} />;
+        return <OverviewSection />;
       case 'general':
         return <GeneralSection {...sectionProps} />;
       case 'hero':
@@ -93,37 +101,59 @@ export default function Admin() {
           />
         );
       default:
-        return null;
+        return <OverviewSection />;
     }
   };
 
   return (
     <div
-      className={`admin-dashboard min-h-screen bg-zinc-50 dark:bg-zinc-950 flex transition-colors duration-500 ${isRTL ? 'admin-rtl font-arabic flex-row-reverse' : 'flex-row'}`}
+      className={`admin-dashboard min-h-screen bg-slate-50 dark:bg-zinc-950 flex transition-colors duration-500 ${isRTL ? 'font-arabic flex-row-reverse' : 'flex-row'}`}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <Sidebar
-        sections={sections}
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-        onLogout={handleLogout}
+        currentSection={activeSection}
+        onSectionChange={setActiveSection}
+        isOpen={isSidebarOpen}
+        setIsOpen={setIsSidebarOpen}
       />
 
-      <main className="flex-1 overflow-y-auto max-h-screen scroll-smooth bg-[#f8fafc] dark:bg-zinc-950">
-        <div className="max-w-6xl mx-auto px-8 py-10 space-y-10">
-          <AdminHeader
-            adminLanguage={adminLanguage}
-            isRTL={isRTL}
-            activeSection={activeSection}
-            sections={sections}
-            isSaved={isSaved}
-            onSave={handleSave}
-            onReset={resetToDefault}
-          />
+      {/* Main Content Area */}
+      <main className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-zinc-950 relative">
+        <AdminHeader
+          onMenuClick={() => setIsSidebarOpen(true)}
+        />
+        
+        <div className="flex-1 overflow-y-auto w-full p-4 sm:p-6 lg:p-8">
+          <div className="max-w-6xl mx-auto space-y-8">
+            {/* Quick save actions bar - sticky at top */}
+            <div className="sticky top-0 z-20 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white capitalize">
+                {activeSection.replace(/([A-Z])/g, ' $1').trim()}
+              </h2>
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <button
+                  onClick={resetToDefault}
+                  className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-slate-600 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors"
+                >
+                  {isRTL ? 'إعادة الضبط' : 'Reset'}
+                </button>
+                <button
+                  onClick={handleSave}
+                  className={`flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-white rounded-lg transition-all ${
+                    isSaved 
+                      ? 'bg-emerald-500 hover:bg-emerald-600' 
+                      : 'bg-blue-600 hover:bg-blue-700 shadow-sm shadow-blue-600/20'
+                  }`}
+                >
+                  {isSaved ? (isRTL ? 'تم الحفظ' : 'Saved!') : (isRTL ? 'حفظ التغييرات' : 'Save Changes')}
+                </button>
+              </div>
+            </div>
 
-          <AnimatePresence mode="wait">
-            {renderSection()}
-          </AnimatePresence>
+            <AnimatePresence mode="wait">
+              {renderSection()}
+            </AnimatePresence>
+          </div>
         </div>
       </main>
     </div>

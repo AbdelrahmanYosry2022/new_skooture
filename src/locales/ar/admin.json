@@ -1,0 +1,39 @@
+{
+  "sidebar": {
+    "overview": "نظرة عامة",
+    "generalSettings": "الإعدادات العامة",
+    "heroSection": "القسم الرئيسي",
+    "features": "المميزات",
+    "topFeatures": "أهم المميزات",
+    "whyChooseUs": "لماذا نحن",
+    "traction": "الأرقام والإحصائيات",
+    "pricing": "الباقات والأسعار",
+    "legacy": "الإرث",
+    "testimonials": "آراء العملاء",
+    "faq": "الأسئلة الشائعة",
+    "messages": "الرسائل"
+  },
+  "header": {
+    "dashboard": "لوحة التحكم",
+    "logout": "تسجيل الخروج"
+  },
+  "overview": {
+    "activeFeatures": "المميزات النشطة",
+    "testimonials": "آراء العملاء",
+    "trustedPartners": "شركاء النجاح",
+    "activeSections": "أقسام الموقع",
+    "systemStatus": "حالة النظام",
+    "database": "قاعدة البيانات",
+    "connected": "متصل",
+    "apiService": "واجهة برمجة التطبيقات",
+    "operational": "يعمل",
+    "quickStats": "إحصائيات سريعة",
+    "totalMessages": "إجمالي الرسائل",
+    "lastContentUpdate": "آخر تحديث للمحتوى"
+  },
+  "actions": {
+    "saveChanges": "حفظ التغييرات",
+    "saved": "تم الحفظ",
+    "reset": "إعادة الضبط"
+  }
+}
