@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import { useTheme } from '../../context/ThemeContext';
 import { Link } from 'react-router-dom';
+import { Button } from '../ui/button';
+import { cn } from '../../lib/utils';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,11 +36,12 @@ export default function Navbar() {
 
   return (
     <nav 
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={cn(
+        "fixed w-full z-50 transition-all duration-300",
         scrolled 
-          ? 'bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-slate-200 dark:border-zinc-800 shadow-sm py-4' 
-          : 'bg-transparent py-6'
-      }`}
+          ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-slate-200 dark:border-zinc-800 shadow-sm py-4" 
+          : "bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm border-b border-transparent py-6"
+      )}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-6">
@@ -52,7 +55,7 @@ export default function Navbar() {
                 <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">
                   S
                 </div>
-                <span className={`font-bold text-2xl ${scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'}`}>
+                <span className="font-bold text-2xl text-slate-900 dark:text-white">
                   Skooture
                 </span>
               </>
@@ -66,67 +69,58 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors hover:text-blue-600 ${
-                    scrolled ? 'text-slate-600 dark:text-zinc-300' : 'text-slate-600 dark:text-zinc-300'
-                  }`}
+                  className="text-sm font-medium transition-colors hover:text-blue-600 text-slate-600 dark:text-zinc-300"
                 >
                   {t(link.label)}
                 </a>
               ))}
             </div>
 
-            <div className="h-6 w-px bg-slate-200 dark:bg-zinc-800"></div>
+            <div className="h-6 w-px bg-slate-200 dark:border-zinc-800"></div>
 
             <div className="flex items-center gap-4">
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={toggleTheme}
-                className={`p-2 rounded-full transition-colors ${
-                  scrolled 
-                    ? 'text-slate-600 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800' 
-                    : 'text-slate-600 hover:bg-slate-100/50 dark:text-zinc-300 dark:hover:bg-zinc-800/50'
-                }`}
+                className="text-slate-600 dark:text-zinc-300"
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
+              </Button>
 
-              <button
+              <Button
+                variant="ghost"
                 onClick={handleLanguageToggle}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  scrolled 
-                    ? 'text-slate-600 hover:bg-slate-100 dark:text-zinc-300 dark:hover:bg-zinc-800' 
-                    : 'text-slate-600 hover:bg-slate-100/50 dark:text-zinc-300 dark:hover:bg-zinc-800/50'
-                }`}
+                className="text-slate-600 dark:text-zinc-300 gap-2"
               >
                 <Globe className="w-4 h-4" />
                 <span>{language === 'en' ? 'عربي' : 'English'}</span>
-              </button>
+              </Button>
 
-              <a
-                href="#contact"
-                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors shadow-sm shadow-blue-600/20"
-              >
-                {t(content?.cta?.button || { en: 'Get Started', ar: 'ابدأ الآن' })}
-              </a>
-              
-              <Link
-                to="/admin"
-                className={`px-4 py-2.5 text-sm font-medium transition-colors hover:text-blue-600 ${
-                  scrolled ? 'text-slate-600 dark:text-zinc-300' : 'text-slate-600 dark:text-zinc-300'
-                }`}
-              >
-                {t({ en: 'Admin', ar: 'الإدارة' })}
+              <Link to="/admin">
+                <Button variant="outline" className="font-medium">
+                  {t({ en: 'Admin', ar: 'الإدارة' })}
+                </Button>
               </Link>
+              
+              <a href="#contact">
+                <Button className="font-medium">
+                  {t(content?.cta?.button || { en: 'Get Started', ar: 'ابدأ الآن' })}
+                </Button>
+              </a>
             </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 text-slate-900 dark:text-white"
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden text-slate-900 dark:text-white"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -154,38 +148,36 @@ export default function Navbar() {
               <hr className="border-slate-200 dark:border-zinc-800 my-2" />
               
               <div className="flex items-center justify-between">
-                <button
+                <Button
+                  variant="ghost"
                   onClick={toggleTheme}
-                  className="flex items-center gap-3 text-slate-600 dark:text-zinc-400"
+                  className="justify-start gap-3 text-slate-600 dark:text-zinc-400 px-0"
                 >
                   {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                   <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
-                </button>
+                </Button>
 
-                <button
+                <Button
+                  variant="ghost"
                   onClick={handleLanguageToggle}
-                  className="flex items-center gap-2 text-slate-600 dark:text-zinc-400"
+                  className="justify-start gap-2 text-slate-600 dark:text-zinc-400 px-0"
                 >
                   <Globe className="w-5 h-5" />
                   <span>{language === 'en' ? 'عربي' : 'English'}</span>
-                </button>
+                </Button>
               </div>
 
               <div className="flex flex-col gap-3 mt-4">
-                <a
-                  href="#contact"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full py-3 bg-blue-600 text-white rounded-xl font-medium text-center"
-                >
-                  {t(content?.cta?.button || { en: 'Get Started', ar: 'ابدأ الآن' })}
-                </a>
-                <Link
-                  to="/admin"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full py-3 bg-slate-100 dark:bg-zinc-900 text-slate-900 dark:text-white rounded-xl font-medium text-center"
-                >
-                  {t({ en: 'Admin Dashboard', ar: 'لوحة التحكم' })}
+                <Link to="/admin" onClick={() => setIsOpen(false)}>
+                  <Button variant="outline" className="w-full font-medium">
+                    {t({ en: 'Admin Dashboard', ar: 'لوحة التحكم' })}
+                  </Button>
                 </Link>
+                <a href="#contact" onClick={() => setIsOpen(false)}>
+                  <Button className="w-full font-medium">
+                    {t(content?.cta?.button || { en: 'Get Started', ar: 'ابدأ الآن' })}
+                  </Button>
+                </a>
               </div>
             </div>
           </motion.div>

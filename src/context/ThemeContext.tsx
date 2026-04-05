@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 
 type Theme = 'light' | 'dark';
 
@@ -24,6 +25,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     return 'dark'; // Admin dashboard targets dark by default
   });
 
+  // Use location pathname strictly inside useEffect since ThemeProvider wraps the Router in App.tsx
+  // We'll attach a mutation observer or rely on context to update the HTML tag safely.
   useEffect(() => {
     const isDashboard = window.location.pathname.startsWith('/admin');
     const currentTheme = isDashboard ? adminTheme : theme;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   LayoutDashboard, 
   Settings, 
@@ -52,33 +52,36 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
   return (
     <>
       {/* Mobile Overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-slate-900/50 dark:bg-zinc-950/80 backdrop-blur-sm z-40 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-slate-900/50 dark:bg-zinc-950/80 backdrop-blur-sm z-40 lg:hidden"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Sidebar */}
-      <motion.aside
-        initial={false}
-        animate={{ 
-          x: isOpen ? 0 : (isRTL ? '100%' : '-100%'),
-          width: '280px'
-        }}
-        className={`fixed lg:sticky top-0 ${isRTL ? 'right-0 border-l' : 'left-0 border-r'} h-screen z-50 flex flex-col bg-white dark:bg-zinc-950 border-slate-200 dark:border-zinc-800 transition-transform duration-300 lg:translate-x-0 overflow-hidden`}
+      <aside
+        className={cn(
+          "fixed lg:sticky top-0 start-0 h-screen z-50 flex flex-col w-64 bg-background border-e transition-transform duration-300 overflow-hidden",
+          isOpen ? "translate-x-0" : (isRTL ? "translate-x-full lg:translate-x-0" : "-translate-x-full lg:translate-x-0")
+        )}
         dir={isRTL ? 'rtl' : 'ltr'}
       >
-        <div className="p-6 flex items-center justify-between border-b border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+        <div className="p-6 flex items-center justify-between border-b bg-background">
           <div className="flex items-center gap-3">
             {content.brand?.logoUrl ? (
               <img src={content.brand.logoUrl} alt="Skooture" className="h-8 w-auto" />
             ) : (
               <>
-                <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">
+                <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-bold text-xl">
                   S
                 </div>
-                <span className="font-bold text-xl text-slate-900 dark:text-white">Skooture</span>
+                <span className="font-bold text-xl text-foreground">Skooture</span>
               </>
             )}
           </div>
@@ -86,13 +89,13 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(false)}
-            className="lg:hidden text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white"
+            className="lg:hidden text-muted-foreground hover:text-foreground"
           >
             {isRTL ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
           </Button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto p-4 space-y-1 bg-white dark:bg-zinc-950">
+        <nav className="flex-1 overflow-y-auto p-4 space-y-1 bg-background">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentSection === item.id;
@@ -108,8 +111,8 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
                 className={cn(
                   "w-full justify-start gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-sm font-medium",
                   isActive 
-                    ? "bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30 shadow-sm" 
-                    : "text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white"
+                    ? "bg-primary/10 text-primary hover:bg-primary/15 shadow-sm" 
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 <Icon className={cn("w-5 h-5 shrink-0", !isActive && "opacity-70")} />
@@ -119,13 +122,13 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
           })}
         </nav>
 
-        <div className="p-6 border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
-          <div className="px-4 py-3 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800">
-            <p className="text-xs font-medium text-slate-500 dark:text-zinc-400 mb-1">Skooture Admin</p>
-            <p className="text-sm font-bold text-slate-900 dark:text-white">v2.0.0</p>
+        <div className="p-6 border-t bg-background">
+          <div className="px-4 py-3 rounded-xl bg-muted/50 border">
+            <p className="text-xs font-medium text-muted-foreground mb-1">Skooture Admin</p>
+            <p className="text-sm font-bold text-foreground">v2.0.0</p>
           </div>
         </div>
-      </motion.aside>
+      </aside>
     </>
   );
 }

@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import { ArrowRight, PlayCircle } from 'lucide-react';
+import { Button } from '../ui/button';
 
 export default function Hero() {
-  const { content, t } = useContent();
+  const { content, t, language } = useContent();
+  const isRTL = language === 'ar';
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -22,18 +24,17 @@ export default function Hero() {
 
   // Video URL handling
   const videoUrl = content.hero?.videoUrl || '';
+  
+  // Strict check for actual video files vs youtube links
   const isYouTube = videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be');
-  const isMp4 = videoUrl.endsWith('.mp4');
+  const isVideoFile = videoUrl.match(/\.(mp4|webm|ogg)$/i);
   
   const embedUrl = isYouTube 
     ? videoUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/') 
-    : videoUrl;
+    : '';
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-white dark:bg-slate-950">
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-      
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-white dark:bg-zinc-950">
       <div className="container mx-auto px-6 relative z-10">
         <motion.div 
           variants={containerVariants}
@@ -74,28 +75,24 @@ export default function Hero() {
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <button 
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors duration-200 shadow-sm"
-            >
+            <Button size="lg" className="w-full sm:w-auto text-base gap-2">
               {t(content.hero?.buttons?.explore)}
-              <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-            </button>
+              <ArrowRight className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
+            </Button>
             
-            <button 
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-white text-slate-900 border border-slate-200 dark:bg-slate-950 dark:text-white dark:border-slate-800 font-medium hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-200"
-            >
+            <Button variant="outline" size="lg" className="w-full sm:w-auto text-base gap-2">
               <PlayCircle className="w-4 h-4 text-slate-500" />
               {t(content.hero?.buttons?.demo)}
-            </button>
+            </Button>
           </motion.div>
 
           {/* Video/Dashboard Preview */}
           <motion.div 
             variants={itemVariants}
-            className="relative mx-auto mt-16 w-full max-w-5xl aspect-[16/9] rounded-2xl overflow-hidden bg-slate-900 shadow-2xl ring-1 ring-slate-200 dark:ring-zinc-800"
+            className="relative mx-auto mt-16 w-full max-w-5xl aspect-[16/9] rounded-2xl overflow-hidden bg-slate-900 shadow-xl ring-1 ring-slate-200 dark:ring-zinc-800"
           >
             {/* Window Controls UI */}
-            <div className="absolute top-0 left-0 right-0 h-10 bg-slate-800 flex items-center px-4 gap-2 z-20">
+            <div className="absolute top-0 left-0 right-0 h-10 bg-slate-800 flex items-center px-4 gap-2 z-20" dir="ltr">
               <div className="w-3 h-3 rounded-full bg-red-500"></div>
               <div className="w-3 h-3 rounded-full bg-amber-500"></div>
               <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
@@ -103,7 +100,7 @@ export default function Hero() {
 
             <div className="absolute top-10 inset-x-0 bottom-0 bg-slate-950 flex items-center justify-center">
               {videoUrl ? (
-                isMp4 ? (
+                isVideoFile ? (
                   <video 
                     src={videoUrl}
                     className="w-full h-full object-cover border-0"
@@ -112,7 +109,7 @@ export default function Hero() {
                     muted
                     playsInline
                   />
-                ) : (
+                ) : embedUrl ? (
                   <iframe 
                     src={embedUrl} 
                     title="Product Video"
@@ -120,6 +117,14 @@ export default function Hero() {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowFullScreen
                   ></iframe>
+                ) : (
+                  <div className="text-center p-8">
+                    <div className="w-20 h-20 rounded-full bg-blue-600/20 text-blue-500 flex items-center justify-center mx-auto mb-6">
+                      <PlayCircle className="w-8 h-8 ml-1" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-2">Platform Preview</h3>
+                    <p className="text-slate-400">Video source is not a direct video file or valid YouTube link.</p>
+                  </div>
                 )
               ) : (
                 <div className="text-center p-8">
@@ -135,7 +140,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-slate-950 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-zinc-950 to-transparent pointer-events-none" />
     </section>
   );
 }

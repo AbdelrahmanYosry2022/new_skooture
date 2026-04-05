@@ -107,7 +107,7 @@ export default function Admin() {
 
   return (
     <div
-      className={`admin-dashboard min-h-screen bg-slate-50 dark:bg-zinc-950 flex transition-colors duration-500 ${isRTL ? 'font-arabic flex-row-reverse' : 'flex-row'}`}
+      className="min-h-screen bg-background flex transition-colors duration-500"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <Sidebar
@@ -118,7 +118,7 @@ export default function Admin() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-zinc-950 relative">
+      <main className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden bg-background relative">
         <AdminHeader
           onMenuClick={() => setIsSidebarOpen(true)}
         />
@@ -126,26 +126,26 @@ export default function Admin() {
         <div className="flex-1 overflow-y-auto w-full p-4 sm:p-6 lg:p-8">
           <div className="max-w-6xl mx-auto space-y-8">
             {/* Quick save actions bar - sticky at top */}
-            <div className="sticky top-0 z-20 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-4 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white capitalize">
+            <div className="sticky top-0 z-20 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-card/80 backdrop-blur-md p-4 rounded-xl border border-border shadow-sm">
+              <h2 className="text-xl font-bold text-foreground capitalize">
                 {activeSection.replace(/([A-Z])/g, ' $1').trim()}
               </h2>
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <button
                   onClick={resetToDefault}
-                  className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-slate-600 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors"
+                  className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground bg-muted hover:bg-muted/80 rounded-lg transition-colors"
                 >
-                  {isRTL ? 'إعادة الضبط' : 'Reset'}
+                  {t('actions.reset')}
                 </button>
                 <button
                   onClick={handleSave}
-                  className={`flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-white rounded-lg transition-all ${
+                  className={`flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-primary-foreground rounded-lg transition-all ${
                     isSaved 
                       ? 'bg-emerald-500 hover:bg-emerald-600' 
-                      : 'bg-blue-600 hover:bg-blue-700 shadow-sm shadow-blue-600/20'
+                      : 'bg-primary hover:bg-primary/90 shadow-sm'
                   }`}
                 >
-                  {isSaved ? (isRTL ? 'تم الحفظ' : 'Saved!') : (isRTL ? 'حفظ التغييرات' : 'Save Changes')}
+                  {isSaved ? t('actions.saved') : t('actions.saveChanges')}
                 </button>
               </div>
             </div>

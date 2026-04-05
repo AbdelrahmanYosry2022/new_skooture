@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ContentProvider } from './context/ContentContext';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Landing from './pages/Landing';
 import Admin from './pages/Admin';
 import Login from './pages/Login';
@@ -8,7 +8,25 @@ import ProtectedRoute from './components/shared/ProtectedRoute';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 
-export default function App() {
+function ThemeUpdater() {
+  const location = useLocation();
+  const { theme, adminTheme } = useTheme();
+
+  useEffect(() => {
+    const isDashboard = location.pathname.startsWith('/admin');
+    const currentTheme = isDashboard ? adminTheme : theme;
+
+    if (currentTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [location.pathname, theme, adminTheme]);
+
+  return null;
+}
+
+function RTLUpdater() {
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -25,10 +43,16 @@ export default function App() {
     }
   }, [i18n.language]);
 
+  return null;
+}
+
+export default function App() {
   return (
     <ThemeProvider>
       <ContentProvider>
         <Router>
+          <ThemeUpdater />
+          <RTLUpdater />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
