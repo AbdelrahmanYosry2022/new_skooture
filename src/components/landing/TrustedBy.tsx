@@ -1,51 +1,44 @@
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import Marquee from 'react-fast-marquee';
 
 export default function TrustedBy() {
   const { content, t } = useContent();
-  const partners = content.partners;
+  const trustedByData = content.trustedBy || { title: { en: 'Trusted By', ar: 'شركاء النجاح' }, logos: [] };
 
-  if (!partners || !partners.logos || partners.logos.length === 0) return null;
+  if (!trustedByData.logos || trustedByData.logos.length === 0) return null;
 
   return (
-    <section id="partners" className="py-20 bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-900 transition-colors duration-300 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
-        <motion.h3
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-xl md:text-2xl font-bold text-zinc-500 dark:text-zinc-400"
-        >
-          {t(partners.title)}
-        </motion.h3>
+    <section className="py-12 border-y border-slate-100 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden">
+      <div className="container mx-auto px-6 mb-8 text-center">
+        <p className="text-sm font-medium text-slate-500 dark:text-zinc-400 uppercase tracking-widest">
+          {t(trustedByData.title)}
+        </p>
       </div>
 
-      <div className="relative">
-        {/* Gradient Masks for smooth fade on edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white dark:from-zinc-950 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-zinc-950 to-transparent z-10 pointer-events-none" />
-
-        <Marquee
-          gradient={false}
-          speed={40}
-          pauseOnHover={true}
-          className="py-4"
-        >
-          {partners.logos.map((logo: string, index: number) => (
-            <div
+      {/* Marquee effect for logos */}
+      <div className="relative flex overflow-x-hidden">
+        <div className="animate-marquee whitespace-nowrap flex items-center gap-16 py-4">
+          {[...trustedByData.logos, ...trustedByData.logos].map((logo: any, index: number) => (
+            <div 
               key={index}
-              className="group mx-12 md:mx-20 flex items-center justify-center p-2 opacity-50 hover:opacity-100 dark:hover:bg-white/90 dark:hover:rounded-xl transition-all duration-300"
+              className="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
             >
-              <img
-                src={logo}
-                alt={`Partner ${index + 1}`}
-                className="h-12 md:h-16 object-contain max-w-[150px] filter grayscale brightness-0 dark:invert group-hover:grayscale-0 group-hover:brightness-100 dark:group-hover:invert-0 transition-all duration-300"
-                referrerPolicy="no-referrer"
-              />
+              {logo.url ? (
+                <img 
+                  src={logo.url} 
+                  alt={logo.name || 'Partner logo'} 
+                  className="h-8 md:h-10 w-auto object-contain"
+                />
+              ) : (
+                <span className="text-xl font-bold text-slate-400 dark:text-zinc-600">{logo.name}</span>
+              )}
             </div>
           ))}
-        </Marquee>
+        </div>
+
+        {/* Gradient fades for smooth edges */}
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white dark:from-zinc-950 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white dark:from-zinc-950 to-transparent pointer-events-none"></div>
       </div>
     </section>
   );

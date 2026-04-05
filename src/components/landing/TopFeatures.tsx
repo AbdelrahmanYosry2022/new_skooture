@@ -1,118 +1,62 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { 
-  GraduationCap, 
-  BookOpen, 
-  LayoutTemplate, 
-  Users, 
-  CalendarDays, 
-  Palmtree, 
-  CalendarClock, 
-  UserCheck, 
-  FileEdit, 
-  BookOpenCheck, 
-  ClipboardList, 
-  Megaphone, 
-  UsersRound, 
-  Receipt, 
-  CalendarOff, 
-  Wallet, 
-  Image as ImageIcon, 
-  IdCard, 
-  Globe, 
-  MessageSquare, 
-  Bus, 
-  UserCog
-} from 'lucide-react';
-
-const icons = [
-  GraduationCap, BookOpen, LayoutTemplate, Users, CalendarDays, Palmtree,
-  CalendarClock, UserCheck, FileEdit, BookOpenCheck, ClipboardList, Megaphone,
-  UsersRound, Receipt, CalendarOff, Wallet, ImageIcon, IdCard,
-  Globe, MessageSquare, Bus, UserCog
-];
+import DynamicIcon from '../shared/DynamicIcon';
 
 export default function TopFeatures() {
   const { content, t } = useContent();
+  const features = content.topFeatures?.items || [];
   const [isExpanded, setIsExpanded] = useState(false);
-  
-  const features = content.topFeatures;
-  if (!features) return null;
 
-  const visibleItems = isExpanded ? features.items : features.items.slice(0, 9);
+  const displayedFeatures = isExpanded ? features : features.slice(0, 6);
 
   return (
-    <section className="py-24 bg-white dark:bg-zinc-950 relative border-t border-zinc-200 dark:border-zinc-900 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="text-center mb-16">
-          <motion.h2
+    <section id="features" className="clean-section bg-slate-50 dark:bg-zinc-950">
+      <div className="container mx-auto px-6">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-white mb-4"
+            className="clean-heading-2"
           >
-            {t(features.title)}
+            {t(content.topFeatures?.title)}
           </motion.h2>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="w-24 h-1 bg-blue-600 mx-auto rounded-full relative"
-          >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-blue-600 rounded-full ring-4 ring-white dark:ring-zinc-950" />
-          </motion.div>
         </div>
 
-        {/* Grid */}
-        <motion.div 
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12"
-        >
-          <AnimatePresence initial={false}>
-            {visibleItems.map((item: any, index: number) => {
-              const Icon = icons[index % icons.length];
-              return (
-                <motion.div
-                  key={index}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.2 }}
-                  className="group flex items-center p-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-white/5 rounded-2xl shadow-sm hover:shadow-card dark:hover:shadow-card-dark transition-all duration-300 relative overflow-hidden"
-                >
-                  {/* Left accent line */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-600 rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                  
-                  <div className="ml-4 mr-4 flex items-center justify-center w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-300 shadow-sm border border-blue-100/50 dark:border-blue-500/10">
-                    <Icon className="w-6 h-6" strokeWidth={1.5} />
-                  </div>
-                  
-                  <span className="font-bold text-zinc-800 dark:text-zinc-200 tracking-tight">
-                    {t(item)}
-                  </span>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {displayedFeatures.map((feature: any, index: number) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: (index % 6) * 0.1 }}
+              className="clean-card p-8 flex flex-col"
+            >
+              <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-6">
+                <DynamicIcon name="CheckCircle" className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
+                {t(feature)}
+              </h3>
+            </motion.div>
+          ))}
+        </div>
 
-        {/* Toggle Button */}
-        <motion.div 
-          layout
-          className="flex justify-center"
-        >
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm uppercase tracking-widest rounded-2xl shadow-xl shadow-blue-500/20 transition-all duration-300 active:scale-95"
+        {features.length > 6 && (
+          <motion.div 
+            layout
+            className="flex justify-center"
           >
-            {isExpanded ? t(features.buttonLess) : t(features.buttonMore)}
-          </button>
-        </motion.div>
-
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="clean-button-secondary"
+            >
+              {isExpanded ? t(content.topFeatures?.buttonLess) : t(content.topFeatures?.buttonMore)}
+            </button>
+          </motion.div>
+        )}
       </div>
     </section>
   );

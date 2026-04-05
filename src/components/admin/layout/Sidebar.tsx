@@ -1,104 +1,116 @@
-import { LucideIcon, LogOut } from 'lucide-react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { 
+  LayoutDashboard, 
+  Settings, 
+  MessageSquare,
+  LayoutTemplate,
+  Star,
+  Users,
+  ShieldCheck,
+  ChevronLeft,
+  ChevronRight,
+  TrendingUp,
+  CreditCard,
+  Target,
+  FileQuestion,
+  HelpCircle
+} from 'lucide-react';
+import type { AdminSection } from '../../../types';
 import { useContent } from '../../../context/ContentContext';
-import { useTranslation } from 'react-i18next';
 
 interface SidebarProps {
-  sections: {
-    id: string;
-    label: string;
-    icon: LucideIcon;
-    badge?: number;
-  }[];
-  activeSection: string;
-  setActiveSection: (id: string) => void;
-  onLogout: () => void;
+  currentSection: AdminSection;
+  onSectionChange: (section: AdminSection) => void;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
-export default function Sidebar({ sections, activeSection, setActiveSection, onLogout }: SidebarProps) {
-  const { adminLanguage, content } = useContent();
-  const { t } = useTranslation('admin');
-  const isRTL = adminLanguage === 'ar';
+export default function Sidebar({ currentSection, onSectionChange, isOpen, setIsOpen }: SidebarProps) {
+  const { language } = useContent();
+  const isRTL = language === 'ar';
+
+  const menuItems: { id: AdminSection; label: { en: string; ar: string }; icon: React.ElementType }[] = [
+    { id: 'overview', label: { en: 'Overview', ar: 'نظرة عامة' }, icon: LayoutDashboard },
+    { id: 'general', label: { en: 'General Settings', ar: 'الإعدادات العامة' }, icon: Settings },
+    { id: 'hero', label: { en: 'Hero Section', ar: 'القسم الرئيسي' }, icon: LayoutTemplate },
+    { id: 'features', label: { en: 'Features', ar: 'المميزات' }, icon: Star },
+    { id: 'topFeatures', label: { en: 'Top Features', ar: 'أهم المميزات' }, icon: Target },
+    { id: 'whyUs', label: { en: 'Why Choose Us', ar: 'لماذا نحن' }, icon: ShieldCheck },
+    { id: 'traction', label: { en: 'Traction', ar: 'الأرقام والإحصائيات' }, icon: TrendingUp },
+    { id: 'pricing', label: { en: 'Pricing', ar: 'الباقات والأسعار' }, icon: CreditCard },
+    { id: 'legacy', label: { en: 'Legacy', ar: 'الإرث' }, icon: Users },
+    { id: 'testimonials', label: { en: 'Testimonials', ar: 'آراء العملاء' }, icon: MessageSquare },
+    { id: 'faq', label: { en: 'FAQ', ar: 'الأسئلة الشائعة' }, icon: HelpCircle },
+    { id: 'messages', label: { en: 'Messages', ar: 'الرسائل' }, icon: FileQuestion },
+  ];
 
   return (
-    <aside className={`w-[20rem] h-screen sticky top-0 flex flex-col p-6 transition-all duration-500 shadow-xl shadow-zinc-200/50 dark:shadow-none z-40 glass ${
-      isRTL ? 'border-l border-zinc-200 dark:border-white/5' : 'border-r border-zinc-200 dark:border-white/5'
-    }`}>
-      {/* Branding */}
-      <div className="mb-10 px-2 mt-4">
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            <div className="absolute inset-0 bg-blue-500 blur-lg opacity-20" />
-            {content.brand?.logoUrl ? (
-              <img 
-                src={content.brand.logoUrl} 
-                alt="Logo" 
-                className="h-12 w-12 object-contain relative z-10 rounded-xl" 
-                referrerPolicy="no-referrer" 
-              />
-            ) : (
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20 relative z-10">
-                <span className="text-white font-black text-2xl">S</span>
-              </div>
-            )}
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-900/50 dark:bg-zinc-950/80 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <motion.aside
+        initial={false}
+        animate={{ 
+          x: isOpen ? 0 : (isRTL ? '100%' : '-100%'),
+          width: '280px'
+        }}
+        className={`fixed lg:sticky top-0 ${isRTL ? 'right-0' : 'left-0'} h-screen z-50 flex flex-col admin-sidebar transition-transform duration-300 lg:translate-x-0`}
+      >
+        <div className="p-6 flex items-center justify-between border-b border-slate-200 dark:border-zinc-800">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 flex items-center justify-center font-bold text-xl">
+              S
+            </div>
+            <span className="font-bold text-xl text-slate-900 dark:text-white">Skooture</span>
           </div>
-          <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest opacity-80">{t('sidebar.brand')}</span>
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="lg:hidden p-2 text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors"
+          >
+            {isRTL ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+          </button>
         </div>
-      </div>
 
-      {/* Navigation */}
-      <nav className={`flex-1 space-y-2.5 overflow-y-auto custom-scrollbar ${isRTL ? 'pl-2 -ml-2' : 'pr-2 -mr-2'}`}>
-        {sections.map((section, index) => {
-          const Icon = section.icon;
-          const isActive = activeSection === section.id;
-          return (
-            <motion.button
-              key={section.id}
-              initial={{ opacity: 0, x: isRTL ? 10 : -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.05 }}
-              onClick={() => setActiveSection(section.id)}
-              className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 relative group cursor-pointer ${
-                isActive
-                  ? 'text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-white/5'
-                  : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-white/5'
-              }`}
-            >
-              {/* Active Indicator Pipe */}
-              {isActive && (
-                <motion.div 
-                  layoutId="active-pipe"
-                  className={`absolute top-1/4 bottom-1/4 w-1.5 bg-blue-600 rounded-full ${isRTL ? '-right-1' : '-left-1'}`}
-                />
-              )}
+        <nav className="flex-1 overflow-y-auto p-4 space-y-1">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = currentSection === item.id;
+            
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  onSectionChange(item.id);
+                  if (window.innerWidth < 1024) setIsOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-sm font-medium ${
+                  isActive 
+                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' 
+                    : 'text-slate-600 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-900 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <Icon className={`w-5 h-5 shrink-0 ${isActive ? '' : 'opacity-70'}`} />
+                <span className="truncate">{item.label[language]}</span>
+              </button>
+            );
+          })}
+        </nav>
 
-              <div className="relative">
-                <Icon size={20} strokeWidth={isActive ? 2.5 : 2} className={`transition-transform duration-300 group-hover:scale-110 ${isActive ? 'text-blue-600 dark:text-blue-400' : ''}`} />
-              </div>
-              <span className={`font-black text-sm tracking-tight flex-1 ${isRTL ? 'text-right' : 'text-left'}`}>
-                {section.label}
-              </span>
-              
-              {section.badge !== undefined && section.badge > 0 && (
-                <span className="bg-blue-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-lg shadow-blue-500/20 animate-pulse">
-                  {section.badge}
-                </span>
-              )}
-            </motion.button>
-          );
-        })}
-      </nav>
-
-      {/* Logout Footer */}
-      <div className="mt-auto pt-6 border-t border-zinc-100 dark:border-white/5">
-        <button
-          onClick={onLogout}
-          className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-zinc-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all font-black text-sm group cursor-pointer uppercase tracking-widest"
-        >
-          <LogOut size={18} className={`transition-transform ${isRTL ? 'group-hover:translate-x-1' : 'group-hover:-translate-x-1'}`} />
-          {t('sidebar.logout')}
-        </button>
-      </div>
-    </aside>
+        <div className="p-6 border-t border-slate-200 dark:border-zinc-800">
+          <div className="px-4 py-3 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800">
+            <p className="text-xs font-medium text-slate-500 dark:text-zinc-400 mb-1">Skooture Admin</p>
+            <p className="text-sm font-bold text-slate-900 dark:text-white">v2.0.0</p>
+          </div>
+        </div>
+      </motion.aside>
+    </>
   );
 }

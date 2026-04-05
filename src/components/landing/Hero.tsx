@@ -1,108 +1,94 @@
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, PlayCircle } from 'lucide-react';
 
 export default function Hero() {
-  const { content, t, language } = useContent();
+  const { content, t } = useContent();
 
   return (
-    <div id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white dark:bg-[#020617] pt-32 pb-24 transition-colors duration-500">
-      {/* Aurora Background Effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-blue-600/20 dark:bg-blue-500/10 rounded-full blur-[120px] animate-blob" />
-        <div className="absolute top-[10%] -right-[10%] w-[40%] h-[40%] bg-purple-600/20 dark:bg-purple-500/10 rounded-full blur-[120px] animate-blob animation-delay-2000" />
-        <div className="absolute -bottom-[10%] left-[20%] w-[50%] h-[50%] bg-indigo-600/20 dark:bg-indigo-500/10 rounded-full blur-[120px] animate-blob animation-delay-4000" />
-      </div>
-
-      {/* Background Video with refined mask */}
-      {content.hero?.videoUrl && (
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-20 dark:opacity-30"
-            src={content.hero.videoUrl}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white dark:from-[#020617] dark:via-transparent dark:to-[#020617]" />
-        </div>
-      )}
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-white dark:bg-slate-950">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" 
-           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23474747' stroke-width='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2v-4h4v-2H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }} 
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center"
-        >
-          {/* Badge */}
-          <motion.div 
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest mb-10 shadow-xl shadow-blue-500/5 animate-float"
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 mb-8"
           >
-            <Sparkles size={14} className="animate-pulse" />
-            {t(content.hero.topBadge)}
+            <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse"></span>
+            <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+              {t(content.hero.topBadge) || "New Version 2.0"}
+            </span>
           </motion.div>
 
-          {/* Heading */}
-          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight text-zinc-900 dark:text-white max-w-5xl mx-auto leading-[1.1] mb-8">
-            <span className="block">{t(content.hero.headline).includes('—') ? t(content.hero.headline).split('—')[0] : t(content.hero.headline)}</span>
-            {t(content.hero.headline).includes('—') && (
-              <span className="text-gradient block mt-2">
-                {t(content.hero.headline).split('—')[1]}
-              </span>
-            )}
-          </h1>
-          
-          {/* Subheading */}
-          <p className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-12 font-medium">
-            {t(content.hero.subheadline)}
-          </p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-8 leading-[1.1]"
+          >
+            {t(content.hero.headline)}
+          </motion.h1>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full max-w-2xl mx-auto">
-            <motion.button
-              whileHover={{ scale: 1.02, translateY: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-blue-600 text-white font-bold text-lg shadow-2xl shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-4 group text-left"
-            >
-              <div className="flex leading-tight">
-                {language === 'en' ? (
-                  <><span>Book a</span><span>Demo</span></>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed"
+          >
+            {t(content.hero.subheadline)}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors duration-200 shadow-sm">
+              {t(content.hero.buttons.explore) || "Get Started"}
+              <ArrowRight className="w-4 h-4" />
+            </button>
+            <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-white text-slate-900 border border-slate-200 dark:bg-slate-950 dark:text-white dark:border-slate-800 font-medium hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-200">
+              <PlayCircle className="w-4 h-4 text-slate-500" />
+              {t(content.hero.buttons.demo) || "Watch Demo"}
+            </button>
+          </motion.div>
+
+          {/* Clean UI Mockup/Illustration */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="mt-20 relative mx-auto max-w-5xl"
+          >
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-2 shadow-2xl">
+              <div className="rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-900 aspect-[16/9] relative flex items-center justify-center border border-slate-100 dark:border-slate-800/50">
+                {content.hero.videoUrl ? (
+                  <iframe 
+                    src={content.hero.videoUrl.replace('watch?v=', 'embed/')} 
+                    className="absolute inset-0 w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
                 ) : (
-                  <><span>احجز عرضاً</span><span>تجريبياً</span></>
+                  <div className="text-center">
+                    <PlayCircle className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-4" />
+                    <p className="text-slate-400 dark:text-slate-500 font-medium">Platform Preview</p>
+                  </div>
                 )}
               </div>
-              <ArrowRight className={`transition-transform group-hover:translate-x-1 ${language === 'ar' ? 'rotate-180 group-hover:-translate-x-1' : ''}`} />
-            </motion.button>
-            
-            <motion.button
-              whileHover={{ scale: 1.02, translateY: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full sm:w-auto px-10 py-5 rounded-2xl glass dark:bg-white/5 border-white/20 text-zinc-900 dark:text-white font-bold text-lg hover:bg-white/90 dark:hover:bg-white/10 transition-all flex items-center justify-center text-left"
-            >
-              <div className="flex leading-tight">
-                {language === 'en' ? (
-                  <><span>Explore</span><span>Platform</span></>
-                ) : (
-                  <><span>استكشف</span><span>المنصة</span></>
-                )}
-              </div>
-            </motion.button>
-          </div>
-        </motion.div>
+            </div>
+          </motion.div>
+
+        </div>
       </div>
 
-      {/* Decorative Blur Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-[#020617] to-transparent pointer-events-none" />
-    </div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-slate-950 to-transparent pointer-events-none" />
+    </section>
   );
 }
