@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import { CheckCircle2, X } from 'lucide-react';
+import DynamicIcon from '../shared/DynamicIcon';
 
 export default function Pricing() {
   const { content, t, language } = useContent();
@@ -27,14 +28,28 @@ export default function Pricing() {
   if (!plans.length) return null;
 
   return (
-    <section id="pricing" className="clean-section bg-slate-50 dark:bg-zinc-950">
-      <div className="container mx-auto px-6">
+    <section id="pricing" className="py-24 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#eb4520]/[0.03] rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-white/[0.05] text-[#eb4520] text-sm font-medium mb-6"
+          >
+            <DynamicIcon name="Tag" className="w-4 h-4" />
+            <span>{t({ en: 'Pricing', ar: 'الأسعار' })}</span>
+          </motion.div>
+          
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="clean-heading-2"
+            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999]"
           >
             {t(pricingData.title)}
           </motion.h2>
@@ -44,7 +59,7 @@ export default function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="clean-paragraph mb-8"
+              className="text-lg text-zinc-400 mb-8"
             >
               {t(pricingData.subtitle)}
             </motion.p>
@@ -57,23 +72,23 @@ export default function Pricing() {
             transition={{ delay: 0.2 }}
             className="flex items-center justify-center gap-4"
           >
-            <span className={`text-sm font-medium ${!isAnnual ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-zinc-400'}`}>
+            <span className={`text-sm font-medium ${!isAnnual ? 'text-white' : 'text-zinc-500'}`}>
               {t({ en: 'Monthly', ar: 'شهري' })}
             </span>
             <button
               onClick={() => setIsAnnual(!isAnnual)}
-              className={`relative inline-flex h-7 w-14 items-center rounded-full transition-colors focus:outline-none ${isAnnual ? 'bg-blue-600' : 'bg-slate-300 dark:bg-zinc-700'}`}
+              className={`relative inline-flex h-7 w-14 items-center rounded-full transition-colors focus:outline-none ${isAnnual ? 'bg-[#eb4520]' : 'bg-[#191919] border border-white/[0.1]'}`}
             >
               <span className="sr-only">Toggle billing period</span>
               <span
-                className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${isAnnual ? 'translate-x-8 rtl:-translate-x-8' : 'translate-x-1 rtl:-translate-x-1'}`}
+                className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform shadow-sm ${isAnnual ? 'translate-x-8 rtl:-translate-x-8' : 'translate-x-1 rtl:-translate-x-1'}`}
               />
             </button>
             <div className="flex items-center gap-2">
-              <span className={`text-sm font-medium ${isAnnual ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-zinc-400'}`}>
+              <span className={`text-sm font-medium ${isAnnual ? 'text-white' : 'text-zinc-500'}`}>
                 {t({ en: 'Annually', ar: 'سنوي' })}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-bold">
+              <span className="px-2.5 py-0.5 rounded-full bg-[#eb4520]/10 text-[#eb4520] text-xs font-bold border border-[#eb4520]/20">
                 {t({ en: 'Save 20%', ar: 'وفر 20%' })}
               </span>
             </div>
@@ -91,26 +106,29 @@ export default function Pricing() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className={`clean-card flex flex-col p-8 ${
+              className={`group relative flex flex-col p-8 rounded-2xl bg-[#191919]/60 backdrop-blur-md transition-all duration-500 ${
                 plan.popular 
-                  ? 'border-blue-500 shadow-xl shadow-blue-500/10 ring-1 ring-blue-500 relative transform md:-translate-y-4' 
-                  : 'border-slate-200 dark:border-zinc-800'
+                  ? 'border-[#eb4520]/50 shadow-[0_0_30px_rgba(235,69,32,0.15)] transform md:-translate-y-4' 
+                  : 'border-white/[0.05] hover:border-[#eb4520]/30'
               }`}
             >
+              {/* Soft Background Glow on Hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#eb4520]/0 to-[#eb4520]/0 group-hover:from-[#eb4520]/[0.02] group-hover:to-transparent transition-colors duration-500 rounded-2xl pointer-events-none" />
+
               {plan.popular && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <span className="bg-blue-600 text-white text-xs font-bold uppercase tracking-wider py-1 px-4 rounded-full shadow-sm">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+                  <span className="bg-gradient-to-r from-[#eb4520] to-[#ff6b4a] text-white text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-full shadow-[0_4px_10px_rgba(235,69,32,0.3)]">
                     {t({ en: 'Most Popular', ar: 'الأكثر طلباً' })}
                   </span>
                 </div>
               )}
 
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t(plan.name)}</h3>
-                <p className="text-slate-500 dark:text-zinc-400 h-12">{t(plan.description)}</p>
+              <div className="mb-8 relative z-10">
+                <h3 className="text-2xl font-bold text-white mb-2">{t(plan.name)}</h3>
+                <p className="text-zinc-400 h-12">{t(plan.description)}</p>
               </div>
 
-              <div className="mb-8">
+              <div className="mb-8 relative z-10">
                 {/* Derive a safe price display if plan.price is missing in content */}
                 {(() => {
                   const priceObj = plan.price || {};
@@ -136,15 +154,15 @@ export default function Pricing() {
                   return (
                     <>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-extrabold text-slate-900 dark:text-white">
+                        <span className="text-4xl font-extrabold text-white">
                           {isAnnual ? annual : monthly}
                         </span>
-                        <span className="text-slate-500 dark:text-zinc-400 font-medium">
+                        <span className="text-zinc-500 font-medium">
                           / {t({ en: 'mo', ar: 'شهر' })}
                         </span>
                       </div>
                       {isAnnual && String(monthly) !== 'Custom' && (
-                        <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-2 font-medium">
+                        <p className="text-sm text-[#eb4520] mt-2 font-medium">
                           {t({ en: 'Billed annually', ar: 'تدفع سنوياً' })}
                         </p>
                       )}
@@ -153,25 +171,25 @@ export default function Pricing() {
                 })()}
               </div>
 
-              <ul className="space-y-4 mb-8 flex-1">
+              <ul className="space-y-4 mb-8 flex-1 relative z-10">
                 {plan.features.map((feature: any, fIndex: number) => (
                   <li key={fIndex} className="flex items-start gap-3">
                     {feature.included !== false ? (
-                      <CheckCircle2 className="w-5 h-5 text-blue-600 dark:text-blue-500 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#eb4520] shrink-0 mt-0.5" />
                     ) : (
-                      <X className="w-5 h-5 text-slate-300 dark:text-zinc-600 shrink-0 mt-0.5" />
+                      <X className="w-5 h-5 text-white/[0.2] shrink-0 mt-0.5" />
                     )}
-                    <span className={`text-slate-700 dark:text-zinc-300 ${feature.included === false ? 'opacity-50 line-through' : ''}`}>
+                    <span className={`text-zinc-300 ${feature.included === false ? 'opacity-50 line-through' : ''}`}>
                       {t(feature.name)}
                     </span>
                   </li>
                 ))}
               </ul>
 
-              <button className={`w-full py-4 rounded-xl font-medium transition-all ${
+              <button className={`w-full py-4 rounded-xl font-medium transition-all relative z-10 ${
                 plan.popular 
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm shadow-blue-600/20' 
-                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-900 dark:text-white'
+                  ? 'bg-[#eb4520] hover:bg-[#ff5a36] text-white shadow-[0_0_20px_rgba(235,69,32,0.3)]' 
+                  : 'bg-[#191919] hover:bg-[#252525] border border-white/[0.1] hover:border-white/[0.2] text-white'
               }`}>
                 {t(plan.cta || { en: 'Get Started', ar: 'ابدأ الآن' })}
               </button>

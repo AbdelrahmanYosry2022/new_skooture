@@ -1,30 +1,22 @@
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
-import { useTheme } from '../../context/ThemeContext';
+import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { useState } from 'react';
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
-const markers = [
-  { markerOffset: -30, name: "London", nameAr: "لندن", coordinates: [-0.1276, 51.5074] as [number, number] },
-  { markerOffset: 15, name: "Egypt", nameAr: "مصر", coordinates: [30.8025, 26.8206] as [number, number] },
-  { markerOffset: 15, name: "UAE", nameAr: "الإمارات", coordinates: [54.2098, 23.4241] as [number, number] }
-];
-
-// Dictionary to show dynamic translation feature
 const countryTranslations: Record<string, string> = {
   "Egypt": "مصر",
   "Saudi Arabia": "السعودية",
   "United Arab Emirates": "الإمارات",
   "United Kingdom": "المملكة المتحدة",
   "United States of America": "الولايات المتحدة",
-  /* Add more dynamically or via backend */
 };
+
+const activeCountries = ["Egypt", "United Arab Emirates", "United Kingdom"];
 
 export default function GlobalPresence() {
   const { content, t } = useContent();
-  const { theme } = useTheme();
 
   const [tooltip, setTooltip] = useState({
     show: false,
@@ -57,97 +49,126 @@ export default function GlobalPresence() {
   };
 
   return (
-    <section id="global" className="py-32 bg-zinc-50 dark:bg-zinc-950 relative border-t border-zinc-200 dark:border-zinc-900 transition-colors duration-300 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100/20 via-transparent to-transparent dark:from-blue-900/10 transition-colors duration-300" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <motion.h2
+    <section id="global" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden border-t border-white/[0.05]">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px]" />
+
+      <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
+        <div className="flex flex-col items-center text-center mb-16 md:mb-24">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-4 transition-colors duration-300"
+            className="mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"
           >
-            {t(content.global.title)}
+            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+            <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+              {t(content.global.title)}
+            </span>
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-[32px] md:text-[48px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1] max-w-2xl mb-12"
+          >
+            {t({ en: 'Connecting Schools Worldwide', ar: 'ربط المدارس في جميع أنحاء العالم' })}
           </motion.h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full" />
+
+          {/* Locations list moved ABOVE the map */}
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 max-w-3xl mx-auto relative z-20">
+            {content.global.locations.map((loc: any, idx: number) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + idx * 0.1 }}
+                className="flex items-center gap-3 px-6 py-3 rounded-full bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.05),0_0_20px_rgba(235,69,32,0.1)] hover:border-white/[0.1] hover:bg-[#222222] transition-all cursor-default group"
+              >
+                <div className="w-2.5 h-2.5 rounded-full bg-[#eb4520] shadow-[0_0_12px_rgba(235,69,32,0.8)] group-hover:scale-110 transition-transform" />
+                <span className="text-white font-medium text-[16px]">{t(loc.name)}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
-        <div className="relative w-full max-w-5xl mx-auto aspect-[2/1] bg-white/80 dark:bg-zinc-900/40 rounded-3xl border border-zinc-200 dark:border-zinc-800/50 backdrop-blur-xl overflow-hidden shadow-xl dark:shadow-none transition-colors duration-300">
+        {/* Seamless Map Background directly on canvas */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative w-full max-w-6xl mx-auto aspect-[2/1] md:aspect-[2.5/1] flex items-center justify-center group"
+        >
           <ComposableMap
             projection="geoMercator"
             projectionConfig={{
-              scale: 140,
-              center: [20, 30]
+              scale: 130,
+              center: [20, 30] // Centers map nicely for EMEA focus
             }}
-            className="w-full h-full"
+            className="w-full h-full relative z-10"
           >
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
                   const enName = geo.properties.name;
                   const arName = countryTranslations[enName] || 'غير محدد';
+                  const isActive = activeCountries.includes(enName);
 
                   return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    onMouseEnter={(e) => handleMouseEnter(enName, arName, e as any)}
-                    onMouseMove={handleMouseMove as any}
-                    onMouseLeave={handleMouseLeave}
-                    fill={theme === 'dark' ? '#2c3340' : '#cbd5e1'}
-                    stroke={theme === 'dark' ? '#1e242d' : '#94a3b8'}
-                    strokeWidth={0.5}
-                    className="transition-all duration-300 cursor-pointer"
-                    style={{
-                      default: { outline: 'none' },
-                      hover: { 
-                        outline: 'none', 
-                        fill: '#3b82f6', 
-                        filter: 'drop-shadow(0px 0px 8px rgba(59, 130, 246, 0.6))',
-                        strokeWidth: 1
-                      },
-                      pressed: { outline: 'none', fill: '#2563eb' },
-                    }}
-                  />
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      onMouseEnter={(e) => handleMouseEnter(enName, arName, e as any)}
+                      onMouseMove={handleMouseMove as any}
+                      onMouseLeave={handleMouseLeave}
+                      fill={isActive ? "rgba(235,69,32,0.6)" : "#111111"}
+                      stroke="#222222"
+                      strokeWidth={0.5}
+                      className="transition-all duration-300 cursor-pointer"
+                      style={{
+                        default: { outline: 'none' },
+                        hover: { 
+                          outline: 'none', 
+                          fill: isActive ? '#eb4520' : '#2a2a2a', 
+                          stroke: isActive ? '#ff5911' : '#eb4520',
+                          strokeWidth: 1,
+                          filter: isActive ? 'drop-shadow(0px 0px 12px rgba(235, 69, 32, 0.8))' : 'drop-shadow(0px 0px 8px rgba(235, 69, 32, 0.4))',
+                        },
+                        pressed: { outline: 'none', fill: '#eb4520' },
+                      }}
+                    />
                   );
                 })
               }
             </Geographies>
-            
-            {markers.map(({ name, nameAr, coordinates, markerOffset }) => (
-              <Marker 
-                key={name} 
-                coordinates={coordinates}
-                onMouseEnter={(e) => handleMouseEnter(name, nameAr, e as any)}
-                onMouseMove={handleMouseMove as any}
-                onMouseLeave={handleMouseLeave}
-              >
-                <g className="group cursor-pointer">
-                  <circle r={4} fill="#3b82f6" className="animate-pulse" />
-                  <circle r={12} fill="#3b82f6" opacity={0.3} className="animate-ping" />
-                </g>
-              </Marker>
-            ))}
           </ComposableMap>
-        </div>
+
+          {/* Map Overlay Glows */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[80%] rounded-full opacity-10 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.5)_0%,transparent_70%)] pointer-events-none blur-[60px]" />
+          
+          {/* Bottom fade for depth */}
+          <div className="absolute bottom-0 left-0 w-full h-1/4 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none" />
+        </motion.div>
       </div>
 
-      {/* Glassmorphism Tooltip Render */}
+      {/* Modern Tooltip */}
       {tooltip.show && (
         <div 
-          className="fixed pointer-events-none z-[9999] px-4 py-2 flex flex-col items-center gap-1 rounded-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-md bg-slate-800/65"
+          className="fixed pointer-events-none z-[9999] px-4 py-2 flex flex-col items-center gap-1 rounded-[12px] border border-white/[0.08] shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] backdrop-blur-md bg-[#191919]/90"
           style={{
             left: `${tooltip.x}px`,
-            top: `${tooltip.y - 15}px`, // Slight offset above the mouse
+            top: `${tooltip.y - 15}px`,
             transform: 'translate(-50%, -100%)',
             transition: 'opacity 0.15s ease'
           }}
         >
-          <span className="font-bold text-slate-50 text-[15px]" style={{ fontFamily: "'Cairo', 'Tajawal', sans-serif" }}>
+          <span className="font-medium text-white text-[14px]">
             {tooltip.ar}
           </span>
-          <span className="text-slate-400 font-medium text-[12px]" style={{ fontFamily: "'Inter', sans-serif" }}>
+          <span className="text-[#999999] text-[12px]">
             {tooltip.en}
           </span>
         </div>
