@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import DynamicIcon from '../shared/DynamicIcon';
 
 export default function Contact() {
   const { t, language } = useContent();
@@ -30,7 +31,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-slate-50 dark:bg-zinc-950">
+    <section id="contact" className="py-24 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[800px] h-[800px] bg-[#eb4520]/[0.03] rounded-full blur-[120px] pointer-events-none" />
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
           
@@ -46,18 +50,19 @@ export default function Contact() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-widest mb-6 inline-block"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-white/[0.05] text-[#eb4520] text-sm font-medium mb-6"
               >
-                {t({ en: 'Contact Us', ar: 'اتصل بنا' })}
+                <DynamicIcon name="MessageSquareHeart" className="w-4 h-4" />
+                <span>{t({ en: 'Contact Us', ar: 'اتصل بنا' })}</span>
               </motion.div>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-tight mb-6">
                 {language === 'en' ? (
-                  <>Let's Build the <span className="text-blue-600">Future</span> Together</>
+                  <>Let's Build the <span className="text-[#eb4520]">Future</span> Together</>
                 ) : (
-                  <>لنبنِ <span className="text-blue-600">المستقبل</span> معاً</>
+                  <>لنبنِ <span className="text-[#eb4520]">المستقبل</span> معاً</>
                 )}
               </h2>
-              <p className="text-lg text-slate-600 dark:text-zinc-400 leading-relaxed max-w-lg">
+              <p className="text-lg text-zinc-400 leading-relaxed max-w-lg">
                 {t({ 
                   en: "Have questions about Skooture? Our team is here to help you transform your educational institution.", 
                   ar: "لديك أسئلة حول سكوتر؟ فريقنا هنا لمساعدتك في تحويل مؤسستك التعليمية." 
@@ -72,12 +77,12 @@ export default function Contact() {
                 { icon: MapPin, label: { en: 'Location', ar: 'الموقع' }, value: t({ en: 'London, UK / Dubai, UAE', ar: 'لندن، المملكة المتحدة / دبي، الإمارات' }) }
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-6 group">
-                  <div className="w-14 h-14 rounded-xl bg-white dark:bg-zinc-900 flex items-center justify-center border border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-300 shadow-sm">
+                  <div className="w-14 h-14 rounded-2xl bg-[#191919] flex items-center justify-center border border-white/[0.05] text-zinc-400 group-hover:bg-[#eb4520]/10 group-hover:text-[#eb4520] group-hover:border-[#eb4520]/30 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                     <item.icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-slate-500 dark:text-zinc-400 mb-1">{t(item.label)}</p>
-                    <p className="text-lg font-semibold text-slate-900 dark:text-white">{item.value}</p>
+                    <p className="text-sm font-medium text-zinc-500 mb-1">{t(item.label)}</p>
+                    <p className="text-lg font-semibold text-white group-hover:text-[#eb4520] transition-colors duration-300">{item.value}</p>
                   </div>
                 </div>
               ))}
@@ -90,20 +95,23 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white dark:bg-zinc-900 p-8 md:p-10 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-lg">
+            <div className="bg-[#191919]/60 backdrop-blur-md p-8 md:p-10 rounded-2xl border border-white/[0.05] shadow-[0_0_40px_rgba(0,0,0,0.3)] relative overflow-hidden group">
+              {/* Subtle Top Border Gradient */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent group-hover:via-[#eb4520]/50 transition-colors duration-500" />
+              
               {isSuccess ? (
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center text-center py-12"
+                  className="flex flex-col items-center text-center py-12 relative z-10"
                 >
-                  <div className="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center mb-6">
-                    <CheckCircle2 className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
+                  <div className="w-16 h-16 rounded-full bg-[#191919] border border-[#eb4520]/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(235,69,32,0.2)]">
+                    <CheckCircle2 className="w-8 h-8 text-[#eb4520]" />
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
+                  <h3 className="text-2xl font-bold text-white mb-3">
                     {t({ en: 'Message Sent!', ar: 'تم إرسال الرسالة!' })}
                   </h3>
-                  <p className="text-slate-600 dark:text-zinc-400">
+                  <p className="text-zinc-400">
                     {t({ 
                       en: 'Thank you for reaching out. We will get back to you shortly.', 
                       ar: 'شكراً لتواصلك معنا. سنقوم بالرد عليك في أقرب وقت ممكن.' 
@@ -111,9 +119,9 @@ export default function Contact() {
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2">
+                    <label className="block text-sm font-medium text-zinc-300 mb-2">
                       {t({ en: 'Full Name', ar: 'الاسم الكامل' })}
                     </label>
                     <input
@@ -122,12 +130,12 @@ export default function Contact() {
                       value={formData.name}
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
                       placeholder={t({ en: 'Enter your name', ar: 'أدخل اسمك' })}
-                      className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:border-blue-600 dark:focus:border-blue-500 focus:ring-1 focus:ring-blue-600 dark:focus:ring-blue-500 transition-colors outline-none text-slate-900 dark:text-white"
+                      className="w-full px-4 py-3 rounded-xl bg-[#000000]/50 border border-white/[0.05] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 transition-all duration-300 outline-none text-white placeholder-zinc-600"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2">
+                    <label className="block text-sm font-medium text-zinc-300 mb-2">
                       {t({ en: 'Email Address', ar: 'البريد الإلكتروني' })}
                     </label>
                     <input
@@ -136,12 +144,12 @@ export default function Contact() {
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
                       placeholder={t({ en: 'Enter your email', ar: 'أدخل بريدك الإلكتروني' })}
-                      className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:border-blue-600 dark:focus:border-blue-500 focus:ring-1 focus:ring-blue-600 dark:focus:ring-blue-500 transition-colors outline-none text-slate-900 dark:text-white"
+                      className="w-full px-4 py-3 rounded-xl bg-[#000000]/50 border border-white/[0.05] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 transition-all duration-300 outline-none text-white placeholder-zinc-600"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 dark:text-zinc-300 mb-2">
+                    <label className="block text-sm font-medium text-zinc-300 mb-2">
                       {t({ en: 'Your Message', ar: 'رسالتك' })}
                     </label>
                     <textarea
@@ -150,13 +158,13 @@ export default function Contact() {
                       value={formData.message}
                       onChange={e => setFormData({ ...formData, message: e.target.value })}
                       placeholder={t({ en: 'Tell us how we can help...', ar: 'أخبرنا كيف يمكننا مساعدتك...' })}
-                      className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 focus:border-blue-600 dark:focus:border-blue-500 focus:ring-1 focus:ring-blue-600 dark:focus:ring-blue-500 transition-colors outline-none text-slate-900 dark:text-white resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-[#000000]/50 border border-white/[0.05] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 transition-all duration-300 outline-none text-white placeholder-zinc-600 resize-none"
                     />
                   </div>
                   
                   <button
                     disabled={isSubmitting}
-                    className="w-full py-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#eb4520] to-[#ff6b4a] hover:from-[#ff5a36] hover:to-[#ff8166] text-white font-medium shadow-[0_0_20px_rgba(235,69,32,0.3)] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
                   >
                     {isSubmitting ? (
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
