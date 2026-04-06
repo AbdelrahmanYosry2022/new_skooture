@@ -22,10 +22,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: '#home', label: { en: 'Home', ar: 'الرئيسية' } },
     { href: '#features', label: { en: 'Features', ar: 'المميزات' } },
     { href: '#pricing', label: { en: 'Pricing', ar: 'الأسعار' } },
-    { href: '#faq', label: { en: 'FAQ', ar: 'الأسئلة الشائعة' } },
+    { href: '#company', label: { en: 'Company', ar: 'الشركة' } },
+    { href: '#contact', label: { en: 'Contact', ar: 'اتصل بنا' } },
   ];
 
   const handleLanguageToggle = () => {
@@ -39,84 +39,70 @@ export default function Navbar() {
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
         scrolled 
-          ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-slate-200 dark:border-zinc-800 shadow-sm py-4" 
-          : "bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm border-b border-transparent py-6"
+          ? "bg-[#1a1a1a]/80 backdrop-blur-md border-b border-white/10 shadow-sm py-4" 
+          : "bg-transparent py-6"
       )}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      <div className="container mx-auto px-6">
+      <div className="container max-w-[1280px] mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3">
+          <a href="#" className="flex items-center gap-3 shrink-0">
             {content?.brand?.logoUrl ? (
               <img src={content.brand.logoUrl} alt="Skooture" className="h-8 w-auto" />
             ) : (
               <>
-                <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">
-                  S
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#ff5722] to-[#fcbda2] flex items-center justify-center text-white font-bold text-sm shadow-[0_0_12px_rgba(255,87,34,0.3)] shrink-0">
+                  <span className="w-3 h-3 bg-white rounded-full"></span>
                 </div>
-                <span className="font-bold text-2xl text-slate-900 dark:text-white">
-                  Skooture
+                <span className="font-bold text-[19px] text-white tracking-tight">
+                  Soft Pro
                 </span>
               </>
             )}
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            <div className="flex items-center gap-6">
+          {/* Desktop Navigation (Centered) */}
+          <div className="hidden lg:flex items-center justify-center flex-1">
+            <div className="flex items-center gap-10">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium transition-colors hover:text-blue-600 text-slate-600 dark:text-zinc-300"
+                  className="text-[15px] font-medium transition-colors hover:text-white text-white/90"
                 >
                   {t(link.label)}
                 </a>
               ))}
             </div>
+          </div>
 
-            <div className="h-6 w-px bg-slate-200 dark:border-zinc-800"></div>
+          {/* Right Side Actions */}
+          <div className="hidden lg:flex items-center justify-end gap-6 shrink-0">
+            <Button
+              variant="ghost"
+              onClick={handleLanguageToggle}
+              className="text-white hover:text-white hover:bg-white/5 font-medium px-2"
+            >
+              <span>{language === 'en' ? 'عربي' : 'English'}</span>
+            </Button>
 
-            <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="text-slate-600 dark:text-zinc-300"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            <Link to="/admin" className="text-[15px] font-medium text-white transition-colors hover:text-[#ff5722]">
+              {t({ en: 'Login', ar: 'تسجيل الدخول' })}
+            </Link>
+            
+            <a href="#contact">
+              <Button className="px-5 py-[10px] rounded-[8px] bg-[#ff5722] text-white font-semibold text-[15px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(255,87,34,0.4)] hover:bg-[#ff5024] border-0 h-auto">
+                {t({ en: 'Get Template', ar: 'احصل على القالب' })}
               </Button>
-
-              <Button
-                variant="ghost"
-                onClick={handleLanguageToggle}
-                className="text-slate-600 dark:text-zinc-300 gap-2"
-              >
-                <Globe className="w-4 h-4" />
-                <span>{language === 'en' ? 'عربي' : 'English'}</span>
-              </Button>
-
-              <Link to="/admin">
-                <Button variant="outline" className="font-medium">
-                  {t({ en: 'Admin', ar: 'الإدارة' })}
-                </Button>
-              </Link>
-              
-              <a href="#contact">
-                <Button className="font-medium">
-                  {t(content?.cta?.button || { en: 'Get Started', ar: 'ابدأ الآن' })}
-                </Button>
-              </a>
-            </div>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden text-slate-900 dark:text-white"
+            className="lg:hidden text-white hover:bg-white/10"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
