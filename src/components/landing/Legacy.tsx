@@ -3,57 +3,113 @@ import { useContent } from '../../context/ContentContext';
 
 export default function Legacy() {
   const { content, t, language } = useContent();
+  const isRTL = language === 'ar';
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
+  };
 
   return (
-    <section id="legacy" className="py-32 bg-zinc-50 dark:bg-zinc-950 relative overflow-hidden transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-6 transition-colors duration-300">
-            {t(content.legacy.title)}
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full" />
+    <section id="legacy" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
+      {/* Background glow behind the timeline */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px]" />
+
+      <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
+        <div className="text-center mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"
+          >
+            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+            <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+              {t(content.legacy.title)}
+            </span>
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-[32px] md:text-[48px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1] max-w-2xl mx-auto"
+          >
+            {t({ en: 'A History of Innovation', ar: 'تاريخ من الابتكار' })}
+          </motion.h2>
         </div>
 
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-zinc-200 dark:bg-zinc-800 transition-colors duration-300" />
+          <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-white/[0.1] to-transparent" />
 
-          <div className="space-y-24">
-            {content.legacy.items.map((item: any, index: number) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className={`flex items-center justify-between w-full ${
-                  index % 2 === 0 ? 'flex-row-reverse' : 'flex-row'
-                }`}
-              >
-                <div className="w-5/12 hidden md:block" />
-                
-                <div className="z-20 flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-zinc-900 border-4 border-zinc-50 dark:border-zinc-950 shadow-[0_0_20px_rgba(79,70,229,0.15)] dark:shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-colors duration-300">
-                  <div className="w-4 h-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
-                </div>
-                
-                <div className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
-                  <div className={`p-6 md:p-8 rounded-[2rem] bg-white/80 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 backdrop-blur-xl hover:border-blue-500/30 transition-all duration-500 shadow-xl group ${
-                    index % 2 === 0 ? 'text-right' : 'text-left'
-                  }`}>
-                    <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold uppercase tracking-widest text-blue-500 bg-blue-500/10 rounded-full border border-blue-500/20">
-                      {item.year}
-                    </span>
-                    <h3 className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white mb-4 transition-colors duration-300">
-                      {t(item.title)}
-                    </h3>
-                    <p className="text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed transition-colors duration-300">
-                      {t(item.description)}
-                    </p>
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="space-y-16"
+          >
+            {content.legacy.items.map((item: any, index: number) => {
+              // On desktop alternate sides. On mobile, always align items to the right of the line.
+              const isEven = index % 2 === 0;
+              
+              // Mobile styles:
+              // Line is at left-6 (24px)
+              // Dot is at left-6 (24px)
+              // Card has pl-16 to avoid dot
+              
+              return (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className={`flex flex-col md:flex-row items-start md:items-center justify-between w-full relative ${
+                    isEven ? 'md:flex-row-reverse' : ''
+                  }`}
+                >
+                  {/* Empty spacer for desktop */}
+                  <div className="w-full md:w-[45%] hidden md:block" />
+                  
+                  {/* Timeline Dot */}
+                  <div className="absolute left-6 md:left-1/2 transform -translate-x-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-[#000000] border border-white/[0.1] shadow-[0_0_15px_rgba(235,69,32,0.15)]">
+                    <div className="w-3 h-3 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#eb4520_100%)] shadow-[0_0_10px_rgba(235,69,32,0.5)]" />
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  
+                  <div className={`w-full md:w-[45%] pl-16 md:pl-0 ${
+                    isEven 
+                      ? (isRTL ? 'md:pl-10 text-right' : 'md:pr-10 md:text-right') 
+                      : (isRTL ? 'md:pr-10 text-right' : 'md:pl-10 md:text-left')
+                  }`}>
+                    <div 
+                      className="p-8 rounded-[24px] bg-[#191919]/60 border border-white/[0.05] hover:border-white/[0.1] transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:bg-[#191919]/80 group" 
+                      dir={isRTL ? 'rtl' : 'ltr'}
+                      style={{ textAlign: isRTL ? 'right' : 'left' }}
+                    >
+                      <span className="inline-block mb-4 text-[14px] font-medium tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+                        {item.year}
+                      </span>
+                      <h3 className="text-[20px] md:text-[24px] font-medium text-white mb-3">
+                        {t(item.title)}
+                      </h3>
+                      <p className="text-[15px] text-[#aeaeae] leading-[1.6]">
+                        {t(item.description)}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
       </div>
     </section>

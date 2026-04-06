@@ -37,21 +37,21 @@ function Counter({ value, label, iconName, delay }: { value: number; label: stri
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ delay, duration: 0.5 }}
       className="relative group h-full"
     >
-      <div className="absolute inset-0 bg-blue-600/5 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-      <div className="glass-card h-full p-10 rounded-[2.5rem] flex flex-col items-center text-center transition-all duration-500 group-hover:-translate-y-3 group-hover:border-blue-500/30">
-        <div className="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500 border border-blue-100/50 dark:border-blue-500/10 shadow-sm">
-          <DynamicIcon name={iconName} className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+      <div className="h-full p-8 rounded-[24px] bg-[#191919]/50 border border-white/[0.08] flex flex-col items-center text-center transition-all duration-300 hover:border-white/[0.15] hover:bg-[#191919]">
+        <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-6 border border-white/[0.05] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#eb4520] group-hover:scale-110 transition-transform duration-500">
+          <DynamicIcon name={iconName} className="w-6 h-6" />
         </div>
-        <div className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-3">
-          {formatNumber(count)}<span className="text-blue-600">.</span>
+        <div className="text-[40px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] mb-2 leading-[1.1]">
+          {formatNumber(count)}
+          <span className="text-[#eb4520] ml-1">+</span>
         </div>
-        <div className="text-[10px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-[0.2em]">
+        <div className="text-[14px] text-[#aeaeae] leading-[1.6]">
           {label}
         </div>
       </div>
@@ -65,31 +65,47 @@ export default function Traction() {
   const traction = Array.isArray(tractionData) ? tractionData : [];
 
   return (
-    <section id="stats" className="py-32 bg-white dark:bg-[#020617] relative overflow-hidden transition-colors duration-500">
-      {/* Background patterns */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-zinc-200 dark:via-zinc-800 to-transparent" />
+    <section id="stats" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
+      {/* Decorative Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-30 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,rgba(235,69,32,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col items-center mb-20">
+      <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
+        <div className="flex flex-col items-center mb-16 text-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="px-4 py-1.5 rounded-full bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-widest mb-6"
+            className="mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"
           >
-            {t({ en: 'Global Impact', ar: 'تأثير عالمي' })}
+            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+            <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+              {t({ en: 'Global Impact', ar: 'تأثير عالمي' })}
+            </span>
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-extrabold text-zinc-900 dark:text-white text-center leading-tight"
+            transition={{ delay: 0.1 }}
+            className="text-[32px] md:text-[48px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1] mb-6 max-w-2xl"
           >
             {t({ en: 'Real Results for Real Schools', ar: 'نتائج حقيقية لمدارس حقيقية' })}
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-[16px] text-[#aeaeae] leading-[1.6] max-w-xl"
+          >
+            {t({ 
+              en: 'Join thousands of institutions already transforming their management with our platform.', 
+              ar: 'انضم لآلاف المؤسسات التي تقوم بالفعل بتحويل إدارتها باستخدام منصتنا.' 
+            })}
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {traction.map((stat: any, index: number) => (
             <Counter 
               key={index}
