@@ -111,19 +111,46 @@ export default function Pricing() {
               </div>
 
               <div className="mb-8">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-extrabold text-slate-900 dark:text-white">
-                    {isAnnual ? plan.price.annual : plan.price.monthly}
-                  </span>
-                  <span className="text-slate-500 dark:text-zinc-400 font-medium">
-                    / {t({ en: 'mo', ar: 'شهر' })}
-                  </span>
-                </div>
-                {isAnnual && plan.price.monthly !== 'Custom' && (
-                  <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-2 font-medium">
-                    {t({ en: 'Billed annually', ar: 'تدفع سنوياً' })}
-                  </p>
-                )}
+                {/* Derive a safe price display if plan.price is missing in content */}
+                {(() => {
+                  const priceObj = plan.price || {};
+
+                  // Try to extract a price string from plan.details if price not provided
+                  const extractFromDetails = (details: any[]) => {
+                    if (!Array.isArray(details)) return undefined;
+                    for (const d of details) {
+                      if (typeof d !== 'string') continue;
+                      // match patterns like "$ 49.00", "$49.00", "$ 0.50"
+                      const m = d.match(/\$\s*([\d.,]+)/);
+                      if (m) return `$${m[1]}`;
+                      // fallback: match numbers
+                      const n = d.match(/([\d]+(?:[.,]\d+)?)/);
+                      if (n) return n[1];
+                    }
+                    return undefined;
+                  };
+
+                  const monthly = priceObj.monthly ?? extractFromDetails(plan.details) ?? t({ en: 'Contact', ar: 'اتصل' });
+                  const annual = priceObj.annual ?? monthly;
+
+                  return (
+                    <>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-extrabold text-slate-900 dark:text-white">
+                          {isAnnual ? annual : monthly}
+                        </span>
+                        <span className="text-slate-500 dark:text-zinc-400 font-medium">
+                          / {t({ en: 'mo', ar: 'شهر' })}
+                        </span>
+                      </div>
+                      {isAnnual && String(monthly) !== 'Custom' && (
+                        <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-2 font-medium">
+                          {t({ en: 'Billed annually', ar: 'تدفع سنوياً' })}
+                        </p>
+                      )}
+                    </>
+                  );
+                })()}
               </div>
 
               <ul className="space-y-4 mb-8 flex-1">
