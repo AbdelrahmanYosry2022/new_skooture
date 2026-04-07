@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Type, Image as ImageIcon, MousePointerClick, AlignLeft } from 'lucide-react';
 import SectionWrapper from '../layout/SectionWrapper';
 import MediaInput from '../shared/MediaInput';
 import TranslatableInput from '../shared/TranslatableInput';
@@ -6,63 +8,42 @@ import { useTranslation } from 'react-i18next';
 
 export default function HeroSection({ localContent, updateNestedContent }: AdminSectionProps) {
   const { t } = useTranslation('admin');
+  const [activeTab, setActiveTab] = useState<'content' | 'media' | 'actions'>('content');
+
+  const tabs = [
+    { id: 'content', label: 'Text & Copywriting', icon: <Type size={16} /> },
+    { id: 'media', label: 'Main Visual (Image)', icon: <ImageIcon size={16} /> },
+    { id: 'actions', label: 'Buttons & Badges', icon: <MousePointerClick size={16} /> },
+  ];
 
   return (
     <SectionWrapper>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="bg-[#000000] border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
         
-        {/* Left Column: Media & Visuals */}
-        <div className="space-y-6">
-          <div className="p-5 bg-[#000000] border border-white/[0.05] rounded-[16px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6">
-            <div className="flex items-center justify-between border-b border-white/[0.05] pb-3">
-              <h4 className="text-sm font-medium text-white">Main Visual</h4>
-            </div>
-            <MediaInput 
-              label="Hero Image URL or Upload" 
-              type="image"
-              value={localContent.hero?.videoUrl || ''} // Re-using videoUrl key as image temporarily to avoid breaking types
-              onChange={(val) => updateNestedContent(['hero', 'videoUrl'], val)}
-            />
-          </div>
-
-          <div className="p-5 bg-[#000000] border border-white/[0.05] rounded-[16px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6">
-            <div className="flex items-center justify-between border-b border-white/[0.05] pb-3">
-              <h4 className="text-sm font-medium text-white">Call to Action Buttons</h4>
-            </div>
-            <div className="space-y-5">
-              <TranslatableInput 
-                label="Primary Button (Explore)"
-                enValue={localContent.hero?.buttons?.explore?.en || ''}
-                arValue={localContent.hero?.buttons?.explore?.ar || ''}
-                onEnChange={(val) => updateNestedContent(['hero', 'buttons', 'explore', 'en'], val)}
-                onArChange={(val) => updateNestedContent(['hero', 'buttons', 'explore', 'ar'], val)}
-              />
-              <TranslatableInput 
-                label="Secondary Button (Demo)"
-                enValue={localContent.hero?.buttons?.demo?.en || ''}
-                arValue={localContent.hero?.buttons?.demo?.ar || ''}
-                onEnChange={(val) => updateNestedContent(['hero', 'buttons', 'demo', 'en'], val)}
-                onArChange={(val) => updateNestedContent(['hero', 'buttons', 'demo', 'ar'], val)}
-              />
-            </div>
-          </div>
+        {/* Smart Tabs Header */}
+        <div className="flex items-center gap-2 p-4 border-b border-white/[0.05] overflow-x-auto custom-scrollbar bg-[#000000]">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`flex items-center gap-2 px-5 py-3 rounded-[12px] text-sm font-medium transition-all duration-300 whitespace-nowrap ${
+                activeTab === tab.id 
+                  ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)]' 
+                  : 'text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'
+              }`}
+            >
+              {tab.icon}
+              {tab.label}
+            </button>
+          ))}
         </div>
 
-        {/* Right Column: Text Content */}
-        <div className="space-y-6">
-          <div className="p-5 bg-[#000000] border border-white/[0.05] rounded-[16px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6 h-full">
-            <div className="flex items-center justify-between border-b border-white/[0.05] pb-3">
-              <h4 className="text-sm font-medium text-white">Copywriting</h4>
-            </div>
-            
-            <div className="space-y-5">
-              <TranslatableInput 
-                label="Top Badge Text"
-                enValue={localContent.hero?.topBadge?.en || ''}
-                arValue={localContent.hero?.topBadge?.ar || ''}
-                onEnChange={(val) => updateNestedContent(['hero', 'topBadge', 'en'], val)}
-                onArChange={(val) => updateNestedContent(['hero', 'topBadge', 'ar'], val)}
-              />
+        {/* Tab Content Areas */}
+        <div className="p-6 md:p-8">
+          
+          {/* Tab 1: Content (Headline & Subheadline) */}
+          {activeTab === 'content' && (
+            <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500">
               <TranslatableInput 
                 label="Hero Headline"
                 multiline
@@ -80,9 +61,51 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
                 onArChange={(val) => updateNestedContent(['hero', 'subheadline', 'ar'], val)}
               />
             </div>
-          </div>
-        </div>
+          )}
 
+          {/* Tab 2: Media (Hero Image) */}
+          {activeTab === 'media' && (
+            <div className="max-w-4xl mx-auto animate-in fade-in duration-500">
+              <MediaInput 
+                label="Hero Image URL or Upload" 
+                type="image"
+                value={localContent.hero?.videoUrl || ''} 
+                onChange={(val) => updateNestedContent(['hero', 'videoUrl'], val)}
+              />
+            </div>
+          )}
+
+          {/* Tab 3: Actions & Badges */}
+          {activeTab === 'actions' && (
+            <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500">
+              <TranslatableInput 
+                label="Badge Text (e.g. New Feature Release)"
+                enValue={localContent.hero?.topBadge?.en || ''}
+                arValue={localContent.hero?.topBadge?.ar || ''}
+                onEnChange={(val) => updateNestedContent(['hero', 'topBadge', 'en'], val)}
+                onArChange={(val) => updateNestedContent(['hero', 'topBadge', 'ar'], val)}
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                <TranslatableInput 
+                  label="Primary Button (Solid Color)"
+                  enValue={localContent.hero?.buttons?.explore?.en || ''}
+                  arValue={localContent.hero?.buttons?.explore?.ar || ''}
+                  onEnChange={(val) => updateNestedContent(['hero', 'buttons', 'explore', 'en'], val)}
+                  onArChange={(val) => updateNestedContent(['hero', 'buttons', 'explore', 'ar'], val)}
+                />
+                <TranslatableInput 
+                  label="Secondary Button (Outline)"
+                  enValue={localContent.hero?.buttons?.demo?.en || ''}
+                  arValue={localContent.hero?.buttons?.demo?.ar || ''}
+                  onEnChange={(val) => updateNestedContent(['hero', 'buttons', 'demo', 'en'], val)}
+                  onArChange={(val) => updateNestedContent(['hero', 'buttons', 'demo', 'ar'], val)}
+                />
+              </div>
+            </div>
+          )}
+
+        </div>
       </div>
     </SectionWrapper>
   );

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import DynamicIcon from '../shared/DynamicIcon';
+import { sendMessage } from '../../api/client';
 
 export default function Contact() {
   const { t, language } = useContent();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,17 +19,22 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormData({ name: '', email: '', message: '' });
-    
-    setTimeout(() => {
-      setIsSuccess(false);
-    }, 5000);
+    try {
+      await sendMessage(formData);
+      setIsSuccess(true);
+      setFormData({ name: '', email: '', message: '' });
+      
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 5000);
+    } catch (err: any) {
+      console.error('Failed to send message:', err);
+      setError(err.message || 'Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -120,6 +127,12 @@ export default function Contact() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+                  {error && (
+                    <div className="flex items-center gap-2 p-4 text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-xl">
+                      <AlertCircle className="w-5 h-5 shrink-0" />
+                      <p>{error}</p>
+                    </div>
+                  )}
                   <div>
                     <label className="block text-sm font-medium text-zinc-300 mb-2">
                       {t({ en: 'Full Name', ar: 'الاسم الكامل' })}

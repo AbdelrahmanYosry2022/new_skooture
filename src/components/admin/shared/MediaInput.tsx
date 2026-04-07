@@ -145,7 +145,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
           <motion.div 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="relative w-full aspect-video rounded-[12px] overflow-hidden border border-white/[0.05] group bg-[#000000]"
+            className="relative w-full aspect-[21/9] rounded-[12px] overflow-hidden border border-white/[0.05] group bg-[#000000]"
           >
             {type === 'image' ? (
               <img src={value} alt="Preview" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
@@ -157,7 +157,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
                 onClick={() => onChange('')}
                 className="px-4 py-2 rounded-[8px] bg-red-500/20 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white transition-all text-sm font-medium flex items-center gap-2"
               >
-                <X size={16} /> Remove Media
+                <X size={16} /> Remove
               </button>
             </div>
           </motion.div>

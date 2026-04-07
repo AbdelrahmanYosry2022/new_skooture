@@ -20,7 +20,7 @@ interface ContentContextType {
   setLanguage: (lang: Language) => void;
   setAdminLanguage: (lang: Language) => void;
   content: typeof defaultContent;
-  setContent: (content: typeof defaultContent) => void;
+  setContent: (content: typeof defaultContent) => Promise<void>;
   resetToDefault: () => void;
   t: (obj: { en: string; ar: string } | string | undefined) => string;
   messages: Message[];
@@ -75,9 +75,14 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     i18n.changeLanguage(lang);
   };
 
-  const setContent = (newContent: typeof defaultContent) => {
+  const setContent = async (newContent: typeof defaultContent) => {
     setContentState(newContent);
     localStorage.setItem('skooture_content', JSON.stringify(newContent));
+    try {
+      await api.updateContent(newContent);
+    } catch (error) {
+      console.error('Failed to save content to server:', error);
+    }
   };
 
   const resetToDefault = async () => {

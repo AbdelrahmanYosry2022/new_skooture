@@ -53,8 +53,8 @@ export default function Admin() {
     }
   }, [isRTL]);
 
-  const handleSave = () => {
-    setContent(localContent as any);
+  const handleSave = async () => {
+    await setContent(localContent as any);
     setIsSaved(true);
     setTimeout(() => setIsSaved(false), 3000);
   };

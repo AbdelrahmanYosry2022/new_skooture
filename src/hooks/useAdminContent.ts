@@ -1,8 +1,12 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { SiteContent } from '../types';
 
 export function useAdminContent(initialContent: SiteContent) {
   const [localContent, setLocalContent] = useState<SiteContent>(initialContent);
+
+  useEffect(() => {
+    setLocalContent(initialContent);
+  }, [initialContent]);
 
   const updateNestedContent = useCallback((path: string[], value: any) => {
     setLocalContent(prev => {
