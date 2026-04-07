@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useContent } from '../../../context/ContentContext';
+
 interface TranslatableInputProps {
   label: string;
   enValue: string;
@@ -15,45 +18,71 @@ export default function TranslatableInput({
   onArChange, 
   multiline = false 
 }: TranslatableInputProps) {
+  const { adminLanguage } = useContent();
+  const [activeLang, setActiveLang] = useState<'en' | 'ar'>(adminLanguage);
 
-  const inputClasses = "w-full h-[40px] px-3 rounded-[10px] bg-[#000000] border border-white/[0.08] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/50";
-  const textareaClasses = "w-full min-h-[80px] p-3 rounded-[10px] bg-[#000000] border border-white/[0.08] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/50 resize-y";
+  const inputClasses = "w-full min-h-[40px] px-4 py-2 rounded-[12px] bg-[#111111] border border-white/[0.05] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 focus:bg-[#151515] outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/30";
+  const textareaClasses = "w-full min-h-[100px] px-4 py-3 rounded-[12px] bg-[#111111] border border-white/[0.05] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 focus:bg-[#151515] outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/30 resize-y";
 
   return (
     <div className="space-y-2">
-      <label className="text-xs font-medium text-[#aeaeae] px-1">
-        {label}
-      </label>
+      <div className="flex items-center justify-between">
+        <label className="text-xs font-medium text-[#aeaeae] px-1">
+          {label}
+        </label>
+        
+        {/* Language Toggle */}
+        <div className="flex items-center bg-[#111111] rounded-[8px] p-0.5 border border-white/[0.05]">
+          <button
+            onClick={() => setActiveLang('en')}
+            className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase transition-all cursor-pointer ${
+              activeLang === 'en' 
+                ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' 
+                : 'text-[#aeaeae] hover:text-white'
+            }`}
+          >
+            EN
+          </button>
+          <button
+            onClick={() => setActiveLang('ar')}
+            className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase transition-all cursor-pointer ${
+              activeLang === 'ar' 
+                ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' 
+                : 'text-[#aeaeae] hover:text-white'
+            }`}
+          >
+            AR
+          </button>
+        </div>
+      </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="relative group">
-          <div className="absolute top-2.5 left-3 text-[10px] font-bold text-[#aeaeae]/40 uppercase select-none pointer-events-none group-focus-within:text-[#eb4520]/60 transition-colors">EN</div>
-          {multiline ? (
+      <div className="relative group">
+        {activeLang === 'en' ? (
+          multiline ? (
             <textarea 
               value={enValue}
               onChange={(e) => onEnChange(e.target.value)}
-              className={`${textareaClasses} pl-10`}
-              placeholder="English text..."
+              className={textareaClasses}
+              placeholder="Enter text in English..."
+              dir="ltr"
             />
           ) : (
             <input 
               type="text"
               value={enValue}
               onChange={(e) => onEnChange(e.target.value)}
-              className={`${inputClasses} pl-10`}
-              placeholder="English text..."
+              className={inputClasses}
+              placeholder="Enter text in English..."
+              dir="ltr"
             />
-          )}
-        </div>
-
-        <div className="relative group" dir="rtl">
-          <div className="absolute top-2.5 right-3 text-[10px] font-bold text-[#aeaeae]/40 uppercase select-none pointer-events-none group-focus-within:text-[#eb4520]/60 transition-colors">AR</div>
-          {multiline ? (
+          )
+        ) : (
+          multiline ? (
             <textarea 
               value={arValue}
               onChange={(e) => onArChange(e.target.value)}
-              className={`${textareaClasses} pr-10 text-right font-arabic`}
-              placeholder="النص بالعربي..."
+              className={`${textareaClasses} font-arabic`}
+              placeholder="أدخل النص باللغة العربية..."
               dir="rtl"
             />
           ) : (
@@ -61,12 +90,12 @@ export default function TranslatableInput({
               type="text"
               value={arValue}
               onChange={(e) => onArChange(e.target.value)}
-              className={`${inputClasses} pr-10 text-right font-arabic`}
-              placeholder="النص بالعربي..."
+              className={`${inputClasses} font-arabic`}
+              placeholder="أدخل النص باللغة العربية..."
               dir="rtl"
             />
-          )}
-        </div>
+          )
+        )}
       </div>
     </div>
   );
