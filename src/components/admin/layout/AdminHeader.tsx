@@ -1,16 +1,19 @@
-import { Menu, LogOut, Sun, Moon, Globe } from 'lucide-react';
+import { Menu, LogOut, Globe } from 'lucide-react';
 import { useAuth } from '../../../hooks/useAuth';
-import { useTheme } from '../../../context/ThemeContext';
 import { useContent } from '../../../context/ContentContext';
 import { useTranslation } from 'react-i18next';
 
 interface AdminHeaderProps {
   onMenuClick: () => void;
+  title?: string;
+  onSave?: () => void;
+  onReset?: () => void;
+  isSaved?: boolean;
+  showActions?: boolean;
 }
 
-export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
+export default function AdminHeader({ onMenuClick, title, onSave, onReset, isSaved, showActions }: AdminHeaderProps) {
   const { logout } = useAuth();
-  const { adminTheme, setAdminTheme } = useTheme();
   const { language, setLanguage } = useContent();
   const { t } = useTranslation('admin');
 
@@ -18,50 +21,59 @@ export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
     setLanguage(language === 'en' ? 'ar' : 'en');
   };
 
-  const handleThemeToggle = () => {
-    setAdminTheme(adminTheme === 'dark' ? 'light' : 'dark');
-  };
-
   return (
-    <header className="bg-white dark:bg-zinc-950 border-b border-slate-200 dark:border-zinc-800 sticky top-0 z-30">
+    <header className="bg-[#000000] border-b border-white/[0.05] sticky top-0 z-30 backdrop-blur-md">
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-4">
           <button
             onClick={onMenuClick}
-            className="p-2 -ml-2 text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors lg:hidden"
+            className="p-2 -ml-2 text-[#aeaeae] hover:text-white rounded-[10px] hover:bg-white/[0.05] transition-colors lg:hidden"
           >
             <Menu className="w-6 h-6" />
           </button>
           
           <div>
-            <h1 className="text-xl font-bold text-slate-900 dark:text-white hidden sm:block">
-              {t('header.dashboard')}
+            <h1 className="text-xl font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] hidden sm:block capitalize">
+              {title || t('header.dashboard')}
             </h1>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
+          {showActions && (
+            <div className="flex items-center gap-3 mr-4">
+              <button
+                onClick={onReset}
+                className="h-[40px] px-[16px] text-sm font-medium text-[#aeaeae] hover:text-[#ffffff] bg-[#191919] hover:bg-[#252525] border border-white/[0.05] rounded-[10px] transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)]"
+              >
+                {t('actions.reset')}
+              </button>
+              <button
+                onClick={onSave}
+                className={`h-[40px] px-[20px] text-sm font-medium text-white rounded-[10px] transition-all duration-200 border-0 flex items-center justify-center gap-2 ${
+                  isSaved 
+                    ? 'bg-emerald-500 shadow-[0_1px_2px_rgba(16,185,129,0.2)]' 
+                    : 'bg-[#eb4520] hover:bg-[#d63d1a] shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(255,80,36,0.4)]'
+                }`}
+              >
+                {isSaved ? t('actions.saved') : t('actions.saveChanges')}
+              </button>
+            </div>
+          )}
+
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white bg-slate-50 hover:bg-slate-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 rounded-lg transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[#aeaeae] hover:text-white bg-[#191919] hover:bg-[#252525] border border-white/[0.05] rounded-[10px] transition-all shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]"
           >
             <Globe className="w-4 h-4" />
             <span className="hidden sm:inline">{language === 'en' ? 'عربي' : 'English'}</span>
           </button>
 
-          <button
-            onClick={handleThemeToggle}
-            className="p-2 text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white bg-slate-50 hover:bg-slate-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 rounded-lg transition-colors"
-            title={adminTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-          >
-            {adminTheme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-          </button>
-
-          <div className="h-8 w-px bg-slate-200 dark:bg-zinc-800 mx-2 hidden sm:block"></div>
+          <div className="h-8 w-px bg-white/[0.05] mx-2 hidden sm:block"></div>
 
           <button
             onClick={logout}
-            className="p-2 text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 rounded-lg transition-colors"
+            className="p-2 text-[#eb4520] hover:text-white bg-[#eb4520]/10 hover:bg-[#eb4520] border border-[#eb4520]/20 hover:border-[#eb4520] rounded-[10px] transition-all"
             title={t('header.logout')}
           >
             <LogOut className="w-5 h-5" />

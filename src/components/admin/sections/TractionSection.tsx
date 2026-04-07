@@ -6,22 +6,23 @@ import type { AdminSectionProps } from '../../../types';
 
 export default function TractionSection({ localContent, updateNestedContent }: AdminSectionProps) {
   return (
-    <SectionWrapper key="traction" title="Impact Numbers" description="Highlight your key achievements and scale. Add as many stats as you need.">
-      <div className="space-y-6">
+    <SectionWrapper key="traction">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {localContent.traction.map((stat: any, index: number) => (
-          <div key={index} className="relative group p-6 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-3xl space-y-4 shadow-sm">
+          <div key={index} className="relative p-5 bg-[#000000] border border-white/[0.05] rounded-[16px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-5 group">
             <button 
               onClick={() => {
                 const newTraction = [...localContent.traction];
                 newTraction.splice(index, 1);
                 updateNestedContent(['traction'], newTraction);
               }}
-              className="absolute -top-2 -right-2 p-1.5 rounded-full bg-red-500 text-white shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute -top-3 -right-3 p-2 rounded-full bg-[#191919] border border-white/[0.05] text-[#eb4520] hover:bg-[#eb4520] hover:text-white transition-all opacity-0 group-hover:opacity-100 z-10 shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+              title="Delete Stat"
             >
               <Trash2 size={14} />
             </button>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col space-y-5">
               <IconPicker 
                 label="Section Icon"
                 value={stat.icon}
@@ -33,7 +34,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
               />
               <div className="space-y-4">
                 <div className="space-y-1.5 px-1">
-                  <label className="text-[10px] uppercase tracking-wider font-bold text-zinc-400">Numerical Value</label>
+                  <label className="text-[10px] uppercase tracking-wider font-bold text-[#aeaeae]">Numerical Value</label>
                   <input 
                     type="number" 
                     value={stat.value}
@@ -42,7 +43,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
                       newTraction[index].value = parseInt(e.target.value);
                       updateNestedContent(['traction'], newTraction);
                     }}
-                    className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-blue-600 font-bold"
+                    className="w-full px-4 py-2.5 rounded-[10px] bg-[#191919] border border-white/[0.05] text-[#eb4520] font-bold shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] focus:ring-1 focus:ring-[#eb4520] focus:border-[#eb4520] outline-none"
                   />
                 </div>
                 <TranslatableInput 
@@ -74,9 +75,12 @@ export default function TractionSection({ localContent, updateNestedContent }: A
             };
             updateNestedContent(['traction'], [...localContent.traction, newItem]);
           }}
-          className="w-full py-4 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl text-zinc-400 hover:text-blue-500 hover:border-blue-500 transition-all flex items-center justify-center gap-2 font-bold bg-white dark:bg-zinc-900/20"
+          className="flex flex-col items-center justify-center gap-3 p-5 rounded-[16px] border-2 border-dashed border-white/[0.05] text-[#aeaeae] hover:text-white hover:border-[#eb4520]/50 hover:bg-[#eb4520]/5 transition-all min-h-[200px]"
         >
-          <Plus size={20} /> Add Another Impact Stat
+          <div className="w-10 h-10 rounded-full bg-[#191919] border border-white/[0.05] flex items-center justify-center shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
+            <Plus size={20} />
+          </div>
+          <span className="text-sm font-medium">Add Another Impact Stat</span>
         </button>
       </div>
     </SectionWrapper>

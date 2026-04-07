@@ -10,22 +10,23 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
   const features = localContent.aiCore?.features || [];
 
   return (
-    <SectionWrapper key="features" title={t('sidebar.features')} description="Highlight the advanced capabilities of your platform.">
-      <div className="space-y-6">
+    <SectionWrapper key="features">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {features.map((feature: any, index: number) => (
-          <div key={index} className="relative p-6 bg-white dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800 rounded-3xl space-y-4 shadow-sm group">
+          <div key={index} className="relative p-5 bg-[#000000] border border-white/[0.05] rounded-[16px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-5 group">
             <button 
               onClick={() => {
                 const newFeatures = [...features];
                 newFeatures.splice(index, 1);
                 updateNestedContent(['aiCore', 'features'], newFeatures);
               }}
-              className="absolute -top-2 -right-2 p-1.5 rounded-full bg-red-500 text-white shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute -top-3 -right-3 p-2 rounded-full bg-[#191919] border border-white/[0.05] text-[#eb4520] hover:bg-[#eb4520] hover:text-white transition-all opacity-0 group-hover:opacity-100 z-10 shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+              title="Delete feature"
             >
               <Trash2 size={14} />
             </button>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col space-y-5">
               <IconPicker 
                 label="Feature Icon"
                 value={feature.icon}
@@ -50,24 +51,23 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
                   updateNestedContent(['aiCore', 'features'], newFeatures);
                 }}
               />
+              <TranslatableInput 
+                label="Feature Description"
+                multiline
+                enValue={feature.description?.en || ''}
+                arValue={feature.description?.ar || ''}
+                onEnChange={(val) => {
+                  const newFeatures = [...features];
+                  newFeatures[index].description.en = val;
+                  updateNestedContent(['aiCore', 'features'], newFeatures);
+                }}
+                onArChange={(val) => {
+                  const newFeatures = [...features];
+                  newFeatures[index].description.ar = val;
+                  updateNestedContent(['aiCore', 'features'], newFeatures);
+                }}
+              />
             </div>
-            
-            <TranslatableInput 
-              label="Feature Description"
-              multiline
-              enValue={feature.description?.en || ''}
-              arValue={feature.description?.ar || ''}
-              onEnChange={(val) => {
-                const newFeatures = [...features];
-                newFeatures[index].description.en = val;
-                updateNestedContent(['aiCore', 'features'], newFeatures);
-              }}
-              onArChange={(val) => {
-                const newFeatures = [...features];
-                newFeatures[index].description.ar = val;
-                updateNestedContent(['aiCore', 'features'], newFeatures);
-              }}
-            />
           </div>
         ))}
         
@@ -80,10 +80,12 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
             }];
             updateNestedContent(['aiCore', 'features'], newFeatures);
           }}
-          className="w-full py-4 rounded-2xl border-2 border-dashed border-slate-200 dark:border-zinc-800 text-slate-500 hover:text-slate-900 hover:border-slate-300 dark:text-zinc-500 dark:hover:text-white dark:hover:border-zinc-700 hover:bg-slate-50 dark:hover:bg-zinc-900/50 transition-all flex items-center justify-center gap-2"
+          className="flex flex-col items-center justify-center gap-3 p-5 rounded-[16px] border-2 border-dashed border-white/[0.05] text-[#aeaeae] hover:text-white hover:border-[#eb4520]/50 hover:bg-[#eb4520]/5 transition-all min-h-[200px]"
         >
-          <Plus size={20} />
-          <span className="font-medium">Add New Feature</span>
+          <div className="w-10 h-10 rounded-full bg-[#191919] border border-white/[0.05] flex items-center justify-center shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
+            <Plus size={20} />
+          </div>
+          <span className="text-sm font-medium">Add New Feature</span>
         </button>
       </div>
     </SectionWrapper>

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Link, Upload, X, Check, Film, Image as ImageIcon } from 'lucide-react';
+import { Link, X, Check, Film, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useContent } from '../../../context/ContentContext';
 
@@ -34,28 +34,28 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
     reader.readAsDataURL(file);
   };
 
-  const inputClasses = "w-full px-5 py-3.5 rounded-2xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/5 focus:border-blue-500/50 dark:focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none font-medium text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400";
+  const inputClasses = "w-full h-[40px] px-3 rounded-[10px] bg-[#000000] border border-white/[0.08] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/50";
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex items-center justify-between px-1">
-        <label className="text-[11px] uppercase tracking-[0.2em] font-black text-zinc-400 dark:text-zinc-500">
+        <label className="text-xs font-medium text-[#aeaeae]">
           {label}
         </label>
         
-        <div className="flex items-center bg-zinc-100 dark:bg-white/5 rounded-xl block p-1 border border-zinc-200/50 dark:border-white/5">
+        <div className="flex items-center bg-[#000000] rounded-[8px] p-1 border border-white/[0.05]">
           <button
             onClick={() => setMode('url')}
-            className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer ${
-              mode === 'url' ? 'bg-white dark:bg-white/10 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-zinc-400 dark:text-zinc-500'
+            className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
+              mode === 'url' ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' : 'text-[#aeaeae] hover:text-white'
             }`}
           >
             URL
           </button>
           <button
             onClick={() => setMode('upload')}
-            className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer ${
-              mode === 'upload' ? 'bg-white dark:bg-white/10 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-zinc-400 dark:text-zinc-500'
+            className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
+              mode === 'upload' ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' : 'text-[#aeaeae] hover:text-white'
             }`}
           >
             Upload
@@ -63,39 +63,41 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         <AnimatePresence mode="wait">
           {mode === 'url' ? (
             <motion.div 
               key="url"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              className="relative"
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.2 }}
+              className="relative group"
             >
-              <Link className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 ${isRTL ? 'right-4' : 'left-4'}`} />
+              <Link className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-[#aeaeae] group-focus-within:text-[#eb4520] transition-colors ${isRTL ? 'right-3' : 'left-3'}`} />
               <input
                 type="text"
                 value={value?.startsWith('data:') ? '' : value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={`Paste ${type} address...`}
-                className={`${inputClasses} ${isRTL ? 'pr-12 text-right' : 'pl-12 text-left'}`}
+                className={`${inputClasses} ${isRTL ? 'pr-10 text-right' : 'pl-10 text-left'}`}
               />
             </motion.div>
           ) : (
             <motion.div 
               key="upload"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.2 }}
               className="space-y-2"
             >
               <div 
                 onClick={() => fileInputRef.current?.click()}
-                className={`w-full group px-6 py-10 rounded-[2rem] border-2 border-dashed flex flex-col items-center justify-center gap-4 cursor-pointer transition-all duration-500 ${
+                className={`w-full group px-6 py-6 rounded-[12px] border flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-300 ${
                   value?.startsWith('data:') 
-                    ? 'border-green-500/30 bg-green-500/5' 
-                    : 'border-zinc-200 dark:border-white/10 hover:border-blue-500/30 hover:bg-blue-500/5 dark:hover:bg-blue-500/5'
+                    ? 'border-emerald-500/30 bg-emerald-500/5' 
+                    : 'border-dashed border-white/[0.1] hover:border-[#eb4520]/50 hover:bg-[#eb4520]/5'
                 }`}
               >
                 <input
@@ -107,37 +109,33 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
                 />
                 
                 {value?.startsWith('data:') ? (
-                  <motion.div 
-                    initial={{ scale: 0.8 }}
-                    animate={{ scale: 1 }}
-                    className="flex flex-col items-center gap-3"
-                  >
-                    <div className="w-14 h-14 rounded-2xl bg-green-500 text-white flex items-center justify-center shadow-xl shadow-green-500/20">
-                      <Check size={24} />
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-10 h-10 rounded-[10px] bg-emerald-500/20 text-emerald-500 flex items-center justify-center border border-emerald-500/30">
+                      <Check size={18} />
                     </div>
                     <div className="text-center">
-                      <p className="text-sm font-bold text-zinc-900 dark:text-white">Media file ready</p>
+                      <p className="text-sm font-medium text-white">Media file ready</p>
                       <button 
                         onClick={(e) => { e.stopPropagation(); onChange(''); }}
-                        className="text-xs font-bold text-red-500 hover:text-red-600 mt-1 transition-colors"
+                        className="text-xs font-medium text-red-400 hover:text-red-300 mt-1 transition-colors"
                       >
                         Remove file
                       </button>
                     </div>
-                  </motion.div>
+                  </div>
                 ) : (
-                  <>
-                    <div className="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-white/5 text-zinc-400 dark:text-zinc-600 flex items-center justify-center group-hover:scale-110 group-hover:text-blue-500 transition-all duration-500">
-                      {type === 'image' ? <ImageIcon size={24} /> : <Film size={24} />}
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-[10px] bg-[#191919] border border-white/[0.05] text-[#aeaeae] flex items-center justify-center group-hover:text-[#eb4520] transition-colors">
+                      {type === 'image' ? <ImageIcon size={20} /> : <Film size={20} />}
                     </div>
-                    <div className="text-center">
-                      <p className="text-sm font-bold text-zinc-900 dark:text-white">Drop your platform {type} here</p>
-                      <p className="text-xs font-medium text-zinc-400 mt-1">Maximum file size: 5MB</p>
+                    <div className="text-left">
+                      <p className="text-sm font-medium text-white">Click to upload {type}</p>
+                      <p className="text-xs text-[#aeaeae]">Maximum file size: 5MB</p>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
-              {error && <p className="text-xs font-bold text-red-500 px-2">{error}</p>}
+              {error && <p className="text-xs font-medium text-red-400 px-1">{error}</p>}
             </motion.div>
           )}
         </AnimatePresence>
@@ -145,21 +143,21 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
         {/* Media Preview */}
         {value && !error && (
           <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="relative w-full aspect-video rounded-[2rem] overflow-hidden glass-card border-zinc-200/50 dark:border-white/5 group shadow-2xl shadow-zinc-200/50 dark:shadow-none"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="relative w-full aspect-video rounded-[12px] overflow-hidden border border-white/[0.05] group bg-[#000000]"
           >
             {type === 'image' ? (
               <img src={value} alt="Preview" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             ) : (
               <video src={value} className="w-full h-full object-cover" controls />
             )}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
               <button
                 onClick={() => onChange('')}
-                className="p-3 rounded-2xl bg-red-500 text-white shadow-xl hover:scale-110 active:scale-95 transition-all font-bold flex items-center gap-2"
+                className="px-4 py-2 rounded-[8px] bg-red-500/20 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white transition-all text-sm font-medium flex items-center gap-2"
               >
-                <X size={18} /> Clear Content
+                <X size={16} /> Remove Media
               </button>
             </div>
           </motion.div>

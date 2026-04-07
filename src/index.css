@@ -18,7 +18,7 @@
   --color-pomegranate: #f44336;
 
   /* Default Palette (Dark by default) */
-  --color-background: #1a1a1a;
+  --color-background: #000000;
   --color-foreground: #ffffff;
   --color-muted: #2a2a2a;
   --color-muted-foreground: #a1a1a1;
@@ -82,14 +82,14 @@
 }
 
 :root {
-  --background: oklch(0.2 0 0); /* roughly #1a1a1a */
+  --background: #000000; /* roughly #1a1a1a */
   --foreground: oklch(1 0 0); /* white */
-  --card: oklch(0.2 0 0);
+  --card: #000000;
   --card-foreground: oklch(1 0 0);
-  --popover: oklch(0.2 0 0);
+  --popover: #000000;
   --popover-foreground: oklch(1 0 0);
   --primary: oklch(1 0 0);
-  --primary-foreground: oklch(0.2 0 0);
+  --primary-foreground: #000000;
   --secondary: oklch(0.25 0 0);
   --secondary-foreground: oklch(1 0 0);
   --muted: oklch(0.25 0 0);
@@ -117,14 +117,14 @@
 }
 
 .dark {
-  --background: oklch(0.2 0 0); /* roughly #1a1a1a */
+  --background: #000000; /* roughly #1a1a1a */
   --foreground: oklch(1 0 0); /* white */
-  --card: oklch(0.2 0 0);
+  --card: #000000;
   --card-foreground: oklch(1 0 0);
-  --popover: oklch(0.2 0 0);
+  --popover: #000000;
   --popover-foreground: oklch(1 0 0);
   --primary: oklch(1 0 0);
-  --primary-foreground: oklch(0.2 0 0);
+  --primary-foreground: #000000;
   --secondary: oklch(0.25 0 0);
   --secondary-foreground: oklch(1 0 0);
   --muted: oklch(0.25 0 0);

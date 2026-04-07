@@ -114,7 +114,9 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     const loadInitialData = async () => {
       try {
         const serverContent = await api.getContent();
-        setContentState(serverContent);
+        if (serverContent && Object.keys(serverContent).length > 0) {
+          setContentState(serverContent);
+        }
       } catch (error) {
         console.error('Failed to load content from server, using local:', error);
       } finally {

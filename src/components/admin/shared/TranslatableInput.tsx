@@ -16,22 +16,23 @@ export default function TranslatableInput({
   multiline = false 
 }: TranslatableInputProps) {
 
-  const inputClasses = "w-full px-5 py-3.5 rounded-2xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/5 focus:border-blue-500/50 dark:focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none font-medium text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400";
+  const inputClasses = "w-full h-[40px] px-3 rounded-[10px] bg-[#000000] border border-white/[0.08] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/50";
+  const textareaClasses = "w-full min-h-[80px] p-3 rounded-[10px] bg-[#000000] border border-white/[0.08] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/50 resize-y";
 
   return (
-    <div className="space-y-4">
-      <label className="text-[11px] uppercase tracking-[0.2em] font-black text-zinc-400 dark:text-zinc-500 px-1">
+    <div className="space-y-2">
+      <label className="text-xs font-medium text-[#aeaeae] px-1">
         {label}
       </label>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-600 uppercase tracking-widest px-1">English Component</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="relative group">
+          <div className="absolute top-2.5 left-3 text-[10px] font-bold text-[#aeaeae]/40 uppercase select-none pointer-events-none group-focus-within:text-[#eb4520]/60 transition-colors">EN</div>
           {multiline ? (
             <textarea 
               value={enValue}
               onChange={(e) => onEnChange(e.target.value)}
-              className={`${inputClasses} min-h-[120px] resize-none`}
+              className={`${textareaClasses} pl-10`}
               placeholder="English text..."
             />
           ) : (
@@ -39,28 +40,30 @@ export default function TranslatableInput({
               type="text"
               value={enValue}
               onChange={(e) => onEnChange(e.target.value)}
-              className={inputClasses}
+              className={`${inputClasses} pl-10`}
               placeholder="English text..."
             />
           )}
         </div>
 
-        <div className="space-y-2" dir="rtl">
-          <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-600 uppercase tracking-widest px-1 block">النص العربي</span>
+        <div className="relative group" dir="rtl">
+          <div className="absolute top-2.5 right-3 text-[10px] font-bold text-[#aeaeae]/40 uppercase select-none pointer-events-none group-focus-within:text-[#eb4520]/60 transition-colors">AR</div>
           {multiline ? (
             <textarea 
               value={arValue}
               onChange={(e) => onArChange(e.target.value)}
-              className={`${inputClasses} min-h-[120px] resize-none text-right font-arabic`}
+              className={`${textareaClasses} pr-10 text-right font-arabic`}
               placeholder="النص بالعربي..."
+              dir="rtl"
             />
           ) : (
             <input 
               type="text"
               value={arValue}
               onChange={(e) => onArChange(e.target.value)}
-              className={`${inputClasses} text-right font-arabic`}
+              className={`${inputClasses} pr-10 text-right font-arabic`}
               placeholder="النص بالعربي..."
+              dir="rtl"
             />
           )}
         </div>

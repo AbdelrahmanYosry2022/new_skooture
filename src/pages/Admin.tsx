@@ -66,6 +66,26 @@ export default function Admin() {
 
   const sectionProps = { localContent, updateNestedContent, isRTL };
 
+  const getTitleKey = (id: string) => {
+    const map: Record<string, string> = {
+      overview: 'sidebar.overview',
+      general: 'sidebar.generalSettings',
+      hero: 'sidebar.heroSection',
+      features: 'sidebar.features',
+      topFeatures: 'sidebar.topFeatures',
+      whyUs: 'sidebar.whyChooseUs',
+      traction: 'sidebar.traction',
+      pricing: 'sidebar.pricing',
+      legacy: 'sidebar.legacy',
+      testimonials: 'sidebar.testimonials',
+      faq: 'sidebar.faq',
+      messages: 'sidebar.messages',
+      settings: 'sidebar.generalSettings'
+    };
+    return map[id] || 'header.dashboard';
+  };
+  const activeSectionTitle = t(getTitleKey(activeSection));
+
   const renderSection = () => {
     switch (activeSection) {
       case 'overview':
@@ -107,7 +127,7 @@ export default function Admin() {
 
   return (
     <div
-      className="min-h-screen bg-background flex transition-colors duration-500"
+      className="min-h-screen bg-[#000000] flex transition-colors duration-500 font-sans"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <Sidebar
@@ -118,41 +138,29 @@ export default function Admin() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden bg-background relative">
+      <main className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden bg-[#000000] relative">
         <AdminHeader
+          title={activeSectionTitle}
           onMenuClick={() => setIsSidebarOpen(true)}
+          onSave={handleSave}
+          onReset={resetToDefault}
+          isSaved={isSaved}
+          showActions={activeSection !== 'overview' && activeSection !== 'messages'}
         />
         
-        <div className="flex-1 overflow-y-auto w-full p-4 sm:p-6 lg:p-8">
-          <div className="max-w-6xl mx-auto space-y-8">
-            {/* Quick save actions bar - sticky at top */}
-            <div className="sticky top-0 z-20 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center bg-card/80 backdrop-blur-md p-4 rounded-xl border border-border shadow-sm">
-              <h2 className="text-xl font-bold text-foreground capitalize">
-                {activeSection.replace(/([A-Z])/g, ' $1').trim()}
-              </h2>
-              <div className="flex items-center gap-3 w-full sm:w-auto">
-                <button
-                  onClick={resetToDefault}
-                  className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground bg-muted hover:bg-muted/80 rounded-lg transition-colors"
-                >
-                  {t('actions.reset')}
-                </button>
-                <button
-                  onClick={handleSave}
-                  className={`flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-primary-foreground rounded-lg transition-all ${
-                    isSaved 
-                      ? 'bg-emerald-500 hover:bg-emerald-600' 
-                      : 'bg-primary hover:bg-primary/90 shadow-sm'
-                  }`}
-                >
-                  {isSaved ? t('actions.saved') : t('actions.saveChanges')}
-                </button>
-              </div>
-            </div>
+        {/* Dynamic App-like Layout - Removed the double container wrapper */}
+        <div className="flex-1 w-full h-full bg-[#000000] overflow-hidden flex flex-col relative">
+          
+          {/* Subtle background glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(ellipse_at_top_right,rgba(235,69,32,0.05)_0%,transparent_70%)] pointer-events-none" />
 
-            <AnimatePresence mode="wait">
-              {renderSection()}
-            </AnimatePresence>
+          {/* Form Content Scrollable Area */}
+          <div className="flex-1 overflow-y-auto custom-scrollbar relative z-10">
+            <div className="w-[90%] mx-auto py-8">
+              <AnimatePresence mode="wait">
+                {renderSection()}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </main>

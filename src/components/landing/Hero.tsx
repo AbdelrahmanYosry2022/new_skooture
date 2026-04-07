@@ -42,7 +42,7 @@ export default function Hero() {
                 <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]">
                   <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] flex-shrink-0 shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"></span>
                   <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
-                    {t({ en: 'We raised $200,000 series A', ar: 'جمعنا 200,000 دولار في السلسلة أ' })}
+                    {t(content.hero.topBadge) || t({ en: 'We raised $200,000 series A', ar: 'جمعنا 200,000 دولار في السلسلة أ' })}
                   </span>
                 </div>
               </motion.div>
@@ -53,7 +53,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-[44px] sm:text-[56px] md:text-[64px] font-medium tracking-tight mb-6 leading-[1.1] bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999]"
             >
-              {t({ en: 'Redefine Real Estate\nTransactions', ar: 'أعد تعريف المعاملات\nالعقارية' }).split('\n').map((line, i) => (
+              {(t(content.hero?.headline) || t({ en: 'Redefine Real Estate\nTransactions', ar: 'أعد تعريف المعاملات\nالعقارية' })).split('\n').map((line: string, i: number) => (
                 <span key={i} className="block">{line}</span>
               ))}
             </motion.h1>
@@ -63,7 +63,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-[16px] text-[#aeaeae] mb-10 leading-[1.6]"
             >
-              {t({ 
+              {t(content.hero?.subheadline) || t({ 
                 en: 'The all-in-one property management and marketplace platform where you can manage, list, sell, or find your perfect property seamlessly.', 
                 ar: 'المنصة الشاملة لإدارة العقارات والسوق حيث يمكنك إدارة أو عرض أو بيع أو العثور على عقارك المثالي بسلاسة.' 
               })}
@@ -72,13 +72,20 @@ export default function Hero() {
             {/* CTA Buttons - EXACT match with reference */}
             <motion.div 
               variants={itemVariants}
-              className="flex items-center justify-start mb-16"
+              className="flex items-center justify-start gap-4 mb-16"
             >
-              <a href="#" className="inline-flex">
-                <Button className="h-[48px] px-[20px] rounded-[10px] bg-[#eb4520] hover:bg-[#d63d1a] text-white font-semibold text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] border-0">
-                  {t({ en: 'Get Early Access', ar: 'احصل على وصول مبكر' })}
-                </Button>
-              </a>
+              {content.hero?.buttons?.explore && (
+                <a href="#" className="inline-flex">
+                  <Button className="h-[48px] px-[20px] rounded-[10px] bg-[#eb4520] hover:bg-[#d63d1a] text-white font-semibold text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(255,80,36,0.4)] border-0">
+                    {t(content.hero.buttons.explore)}
+                  </Button>
+                </a>
+              )}
+              {content.hero?.buttons?.demo && (
+                <a href="#" className="inline-flex items-center justify-center h-[48px] px-[20px] rounded-[10px] bg-transparent text-white font-semibold text-[16px] hover:bg-white/[0.05] transition-colors duration-200 border border-white/[0.1]">
+                  {t(content.hero.buttons.demo)}
+                </a>
+              )}
             </motion.div>
 
             {/* Trusted By / Logos */}
@@ -125,11 +132,19 @@ export default function Hero() {
             className="hidden lg:block absolute left-[50%] top-1/2 -translate-y-1/2 w-[1000px] h-[720px] z-10 pointer-events-none ml-[40px]"
           >
              <div className="relative w-full h-full">
-                <img 
-                  src="/images/dashboard-preview.png" 
-                  alt="Dashboard UI" 
-                  className="w-full h-full object-contain object-center"
-                />
+                {content.hero?.videoUrl ? (
+                  <img 
+                    src={content.hero.videoUrl} 
+                    alt="Hero Visual" 
+                    className="w-full h-full object-contain object-center drop-shadow-2xl"
+                  />
+                ) : (
+                  <img 
+                    src="/images/dashboard-preview.png" 
+                    alt="Dashboard UI" 
+                    className="w-full h-full object-contain object-center drop-shadow-2xl"
+                  />
+                )}
              </div>
           </motion.div>
         </motion.div>

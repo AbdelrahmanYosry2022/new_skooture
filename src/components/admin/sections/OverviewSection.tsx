@@ -15,33 +15,29 @@ export default function OverviewSection() {
       label: t('overview.activeFeatures'),
       value: contentData.topFeatures?.items?.length || 0,
       icon: Activity,
-      color: 'text-blue-600 dark:text-blue-400',
-      bgColor: 'bg-blue-50 dark:bg-blue-900/20',
-      borderColor: 'border-blue-100 dark:border-blue-800'
+      color: 'text-[#eb4520]',
+      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)]'
     },
     {
       label: t('overview.testimonials'),
       value: contentData.testimonials?.items?.length || 0,
       icon: Users,
-      color: 'text-emerald-600 dark:text-emerald-400',
-      bgColor: 'bg-emerald-50 dark:bg-emerald-900/20',
-      borderColor: 'border-emerald-100 dark:border-emerald-800'
+      color: 'text-[#eb4520]',
+      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)]'
     },
     {
       label: t('overview.trustedPartners'),
       value: contentData.trustedBy?.logos?.length || 0,
       icon: Globe,
-      color: 'text-purple-600 dark:text-purple-400',
-      bgColor: 'bg-purple-50 dark:bg-purple-900/20',
-      borderColor: 'border-purple-100 dark:border-purple-800'
+      color: 'text-[#eb4520]',
+      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)]'
     },
     {
       label: t('overview.activeSections'),
       value: '12',
       icon: LayoutTemplate,
-      color: 'text-amber-600 dark:text-amber-400',
-      bgColor: 'bg-amber-50 dark:bg-amber-900/20',
-      borderColor: 'border-amber-100 dark:border-amber-800'
+      color: 'text-[#eb4520]',
+      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)]'
     }
   ];
 
@@ -51,16 +47,17 @@ export default function OverviewSection() {
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div key={index} className="clean-card p-6 border border-slate-200 dark:border-zinc-800">
-              <div className="flex items-center gap-4">
-                <div className={`p-4 rounded-xl ${stat.bgColor} ${stat.color} border ${stat.borderColor}`}>
-                  <Icon className="w-6 h-6" />
+            <div key={index} className="bg-[#050505] p-6 border border-white/[0.05] rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative overflow-hidden group">
+              <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full ${stat.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl`} />
+              <div className="flex items-center gap-5 relative z-10">
+                <div className="p-4 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.05)]">
+                  <Icon className={`w-6 h-6 ${stat.color}`} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-500 dark:text-zinc-400 mb-1">
+                  <p className="text-sm font-medium text-[#aeaeae] mb-1">
                     {stat.label}
                   </p>
-                  <p className="text-2xl font-bold text-slate-900 dark:text-white">
+                  <p className="text-3xl font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999]">
                     {stat.value}
                   </p>
                 </div>
@@ -71,53 +68,53 @@ export default function OverviewSection() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-        <div className="clean-card p-6">
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+        <div className="bg-[#050505] p-8 border border-white/[0.05] rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+          <h3 className="text-xl font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] mb-6">
             {t('overview.systemStatus')}
           </h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800">
-              <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span className="font-medium text-slate-700 dark:text-zinc-300">
+            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
+              <div className="flex items-center gap-4">
+                <div className="w-3 h-3 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#4ade80_0%,#16a34a_100%)] shadow-[0_0_10px_rgba(74,222,128,0.5)] animate-pulse" />
+                <span className="font-medium text-white">
                   {t('overview.database')}
                 </span>
               </div>
-              <span className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
+              <span className="text-sm text-[#aeaeae]">
                 {t('overview.connected')}
               </span>
             </div>
             
-            <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800">
-              <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span className="font-medium text-slate-700 dark:text-zinc-300">
+            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
+              <div className="flex items-center gap-4">
+                <div className="w-3 h-3 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#4ade80_0%,#16a34a_100%)] shadow-[0_0_10px_rgba(74,222,128,0.5)] animate-pulse" />
+                <span className="font-medium text-white">
                   {t('overview.apiService')}
                 </span>
               </div>
-              <span className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
+              <span className="text-sm text-[#aeaeae]">
                 {t('overview.operational')}
               </span>
             </div>
           </div>
         </div>
 
-        <div className="clean-card p-6">
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+        <div className="bg-[#050505] p-8 border border-white/[0.05] rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+          <h3 className="text-xl font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] mb-6">
             {t('overview.quickStats')}
           </h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800">
-              <span className="text-slate-600 dark:text-zinc-400">
+            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
+              <span className="text-[#aeaeae] font-medium">
                 {t('overview.totalMessages')}
               </span>
-              <span className="font-bold text-slate-900 dark:text-white">0</span>
+              <span className="text-xl font-medium tracking-tight text-white">0</span>
             </div>
-            <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-zinc-900/50 border border-slate-200 dark:border-zinc-800">
-              <span className="text-slate-600 dark:text-zinc-400">
+            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
+              <span className="text-[#aeaeae] font-medium">
                 {t('overview.lastContentUpdate')}
               </span>
-              <span className="font-bold text-slate-900 dark:text-white text-sm">
+              <span className="font-medium text-white text-sm bg-white/[0.05] px-3 py-1 rounded-[8px] border border-white/[0.05]">
                 {new Date().toLocaleDateString()}
               </span>
             </div>
