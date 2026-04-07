@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import { CheckCircle2, X } from 'lucide-react';
 import DynamicIcon from '../shared/DynamicIcon';
@@ -24,6 +24,11 @@ export default function Pricing() {
 
   const plans = pricingData.plans || [];
   const isRTL = language === 'ar';
+
+  // Filter plans based on the billing toggle
+  const visiblePlans = isAnnual 
+    ? plans.filter((plan: any) => plan.name?.en === 'Premium (Full Suite)')
+    : plans.filter((plan: any) => plan.name?.en !== 'Premium (Full Suite)');
 
   if (!plans.length) return null;
 
@@ -95,40 +100,58 @@ export default function Pricing() {
           </motion.div>
         </div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
-        >
-          {plans.map((plan: any, index: number) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className={`group relative flex flex-col p-8 rounded-2xl bg-[#191919]/60 backdrop-blur-md transition-all duration-500 ${
-                plan.popular 
-                  ? 'border-[#eb4520]/50 shadow-[0_0_30px_rgba(235,69,32,0.15)] transform md:-translate-y-4' 
-                  : 'border-white/[0.05] hover:border-[#eb4520]/30'
-              }`}
-            >
-              {/* Soft Background Glow on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#eb4520]/0 to-[#eb4520]/0 group-hover:from-[#eb4520]/[0.02] group-hover:to-transparent transition-colors duration-500 rounded-2xl pointer-events-none" />
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={isAnnual ? 'annual' : 'monthly'}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
+            className={`grid gap-4 lg:gap-6 mx-auto ${
+              visiblePlans.length === 1 
+                ? 'max-w-[400px]' // Center a single card beautifully
+                : 'md:grid-cols-2 lg:grid-cols-3 max-w-[1000px]' // Perfect for 3 cards
+            }`}
+          >
+            {visiblePlans.map((plan: any, index: number) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className={`group relative flex flex-col p-5 lg:p-6 rounded-2xl bg-[#191919]/60 backdrop-blur-md transition-all duration-500 ${
+                  plan.popular 
+                    ? 'border-[#eb4520]/50 shadow-[0_0_30px_rgba(235,69,32,0.15)] transform md:-translate-y-2' 
+                    : 'border-white/[0.05] hover:border-[#eb4520]/30'
+                }`}
+              >
+                {/* Soft Background Glow on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#eb4520]/0 to-[#eb4520]/0 group-hover:from-[#eb4520]/[0.02] group-hover:to-transparent transition-colors duration-500 rounded-2xl pointer-events-none" />
 
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
-                  <span className="bg-gradient-to-r from-[#eb4520] to-[#ff6b4a] text-white text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-full shadow-[0_4px_10px_rgba(235,69,32,0.3)]">
-                    {t({ en: 'Most Popular', ar: 'الأكثر طلباً' })}
-                  </span>
+                {plan.badge && (
+                  <div className={`absolute top-0 ${isRTL ? 'left-0 rounded-tl-2xl' : 'right-0 rounded-tr-2xl'} z-20 overflow-hidden`}>
+                    <div className={`px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white rounded-bl-lg ${
+                      plan.badge.en === 'Prepaid' 
+                        ? 'bg-zinc-800 border-b border-l border-zinc-700' 
+                        : 'bg-[#188181] border-b border-l border-[#136666]' // Changed to a teal color similar to Postpaid in the image
+                    } ${isRTL ? 'rounded-bl-none rounded-br-lg border-l-0 border-r' : ''}`}>
+                      {t(plan.badge)}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mb-6 relative z-10 pt-2 border-b border-white/5 pb-6">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">{t(plan.name)}</h3>
+                
+                {/* Details list from the images instead of description */}
+                <div className="flex flex-col gap-2.5 min-h-[90px]">
+                  {plan.details?.map((detail: any, dIndex: number) => (
+                    <p key={dIndex} className="text-[13px] text-zinc-300 font-medium">
+                      {t(detail)}
+                    </p>
+                  ))}
                 </div>
-              )}
-
-              <div className="mb-8 relative z-10">
-                <h3 className="text-2xl font-bold text-white mb-2">{t(plan.name)}</h3>
-                <p className="text-zinc-400 h-12">{t(plan.description)}</p>
               </div>
 
-              <div className="mb-8 relative z-10">
+              <div className="mb-6 relative z-10 hidden">
                 {/* Derive a safe price display if plan.price is missing in content */}
                 {(() => {
                   const priceObj = plan.price || {};
@@ -154,15 +177,15 @@ export default function Pricing() {
                   return (
                     <>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-extrabold text-white">
+                        <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                           {isAnnual ? annual : monthly}
                         </span>
-                        <span className="text-zinc-500 font-medium">
+                        <span className="text-xs sm:text-sm text-zinc-500 font-medium">
                           / {t({ en: 'mo', ar: 'شهر' })}
                         </span>
                       </div>
                       {isAnnual && String(monthly) !== 'Custom' && (
-                        <p className="text-sm text-[#eb4520] mt-2 font-medium">
+                        <p className="text-xs text-[#eb4520] mt-1.5 font-medium">
                           {t({ en: 'Billed annually', ar: 'تدفع سنوياً' })}
                         </p>
                       )}
@@ -171,31 +194,32 @@ export default function Pricing() {
                 })()}
               </div>
 
-              <ul className="space-y-4 mb-8 flex-1 relative z-10">
+              <ul className="space-y-3 mb-6 flex-1 relative z-10">
                 {plan.features.map((feature: any, fIndex: number) => (
-                  <li key={fIndex} className="flex items-start gap-3">
+                  <li key={fIndex} className="flex items-start gap-2.5">
                     {feature.included !== false ? (
-                      <CheckCircle2 className="w-5 h-5 text-[#eb4520] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#eb4520] shrink-0 mt-0.5" />
                     ) : (
-                      <X className="w-5 h-5 text-white/[0.2] shrink-0 mt-0.5" />
+                      <X className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white/[0.2] shrink-0 mt-0.5" />
                     )}
-                    <span className={`text-zinc-300 ${feature.included === false ? 'opacity-50 line-through' : ''}`}>
+                    <span className={`text-xs sm:text-sm text-zinc-300 leading-tight ${feature.included === false ? 'opacity-50 line-through' : ''}`}>
                       {t(feature.name)}
                     </span>
                   </li>
                 ))}
               </ul>
 
-              <button className={`w-full py-4 rounded-xl font-medium transition-all relative z-10 ${
+              <button className={`w-full py-3 sm:py-3.5 rounded-xl text-sm sm:text-base font-medium transition-all relative z-10 mt-auto ${
                 plan.popular 
                   ? 'bg-[#eb4520] hover:bg-[#ff5a36] text-white shadow-[0_0_20px_rgba(235,69,32,0.3)]' 
                   : 'bg-[#191919] hover:bg-[#252525] border border-white/[0.1] hover:border-white/[0.2] text-white'
               }`}>
                 {t(plan.cta || { en: 'Get Started', ar: 'ابدأ الآن' })}
               </button>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

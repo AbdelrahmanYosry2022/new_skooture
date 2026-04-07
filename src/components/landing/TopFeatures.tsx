@@ -1,38 +1,63 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import DynamicIcon from '../shared/DynamicIcon';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
+
+// Mapping features to specific Lucide icons
+const getFeatureIcon = (featureEn: string): string => {
+  const iconMap: Record<string, string> = {
+    "Student Management": "Users",
+    "Academics Management": "BookOpen",
+    "Slider Management": "MonitorPlay",
+    "Teacher Management": "Presentation",
+    "Session Year Management": "CalendarDays",
+    "Holiday Management": "Sun",
+    "Timetable Management": "Clock",
+    "Attendance Management": "UserCheck",
+    "Exam Management": "FileSpreadsheet",
+    "Lesson Management": "BookText",
+    "Assignment Management": "ClipboardEdit",
+    "Announcement Management": "Megaphone",
+    "Staff Management": "Briefcase",
+    "Expense Management": "Receipt",
+    "Staff Leave Management": "CalendarMinus",
+    "Fees Management": "Wallet",
+    "School Gallery Management": "Image",
+    "ID Card - Certificate Generation": "BadgeCheck",
+    "Website Management": "Globe",
+    "Chat Module": "MessageCircle",
+    "Transportation Module": "Bus",
+    "Staff Attendance Management": "UserCog"
+  };
+  return iconMap[featureEn] || "CheckCircle2";
+};
 
 export default function TopFeatures() {
-  const { content, t } = useContent();
+  const { content, t, language } = useContent();
   const topFeaturesData = (content as any).topFeatures || {};
   const features = topFeaturesData.items || [];
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const displayedFeatures = isExpanded ? features : features.slice(0, 6);
+  const isRTL = language === 'ar';
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.05
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    hidden: { opacity: 0, scale: 0.95, y: 15 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
   };
 
   if (!features || features.length === 0) return null;
 
   return (
-    <section id="top-features" className="py-24 relative overflow-hidden">
+    <section id="top-features" className="py-24 relative overflow-hidden bg-[#000000]">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#eb4520]/[0.02] rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#eb4520]/[0.03] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -71,62 +96,33 @@ export default function TopFeatures() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-7xl mx-auto"
         >
-          <AnimatePresence>
-            {displayedFeatures.map((feature: any, index: number) => (
+          {features.map((feature: any, index: number) => {
+            const iconName = getFeatureIcon(feature.en);
+            return (
               <motion.div 
                 key={index} 
-                variants={itemVariants} 
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                layout
-                className="h-full"
+                variants={itemVariants}
+                className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#191919]/40 backdrop-blur-sm border border-white/[0.05] hover:border-[#eb4520]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(235,69,32,0.08)] cursor-default overflow-hidden"
               >
-                <Card className="h-full bg-[#191919]/60 backdrop-blur-md border border-white/[0.05] hover:border-[#eb4520]/30 transition-all duration-500 overflow-hidden group rounded-2xl">
-                  {/* Subtle Top Border Gradient */}
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent group-hover:via-[#eb4520]/50 transition-colors duration-500" />
-                  
-                  {/* Soft Background Glow on Hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#eb4520]/0 to-[#eb4520]/0 group-hover:from-[#eb4520]/[0.02] group-hover:to-transparent transition-colors duration-500" />
-
-                  <CardHeader className="text-center pb-2 relative z-10">
-                    <div className="flex justify-center mb-6">
-                      <motion.div 
-                        className="w-16 h-16 rounded-2xl bg-[#000000] border border-white/[0.05] text-[#eb4520] flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:border-[#eb4520]/30 group-hover:shadow-[0_0_20px_rgba(235,69,32,0.15)]"
-                      >
-                        <DynamicIcon name={feature.icon} className="w-8 h-8" />
-                      </motion.div>
-                    </div>
-                    <CardTitle className="text-xl text-white font-semibold">{t(feature.title)}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center relative z-10">
-                    <CardDescription className="text-zinc-400 text-base leading-relaxed">
-                      {t(feature.description)}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                {/* Soft background glow on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#eb4520]/0 to-[#eb4520]/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                
+                {/* Subtle side highlight line */}
+                <div className={`absolute top-0 bottom-0 w-[2px] bg-[#eb4520] transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center ${isRTL ? 'right-0' : 'left-0'}`} />
+                
+                <div className="w-12 h-12 shrink-0 rounded-xl bg-black/50 border border-white/[0.05] flex items-center justify-center text-zinc-400 group-hover:text-[#eb4520] group-hover:border-[#eb4520]/30 group-hover:bg-[#eb4520]/10 transition-all duration-300 shadow-inner">
+                  <DynamicIcon name={iconName} className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                </div>
+                <span className="text-[14px] leading-tight font-medium text-zinc-300 group-hover:text-white transition-colors duration-300 flex-1">
+                  {t(feature)}
+                </span>
               </motion.div>
-            ))}
-          </AnimatePresence>
+            );
+          })}
         </motion.div>
-
-        {features.length > 6 && (
-          <motion.div 
-            layout
-            className="flex justify-center mt-12"
-          >
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="px-8 py-3 rounded-full bg-[#191919] border border-white/[0.05] text-white font-medium hover:border-[#eb4520]/50 hover:bg-[#eb4520]/5 transition-all duration-300 flex items-center gap-2"
-            >
-              <span>{isExpanded ? t(topFeaturesData.buttonLess || { en: 'Show Less', ar: 'عرض أقل' }) : t(topFeaturesData.buttonMore || { en: 'Show More', ar: 'عرض المزيد' })}</span>
-              <DynamicIcon name={isExpanded ? 'ChevronUp' : 'ChevronDown'} className="w-4 h-4" />
-            </button>
-          </motion.div>
-        )}
       </div>
     </section>
   );

@@ -1,55 +1,165 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { ArrowRight } from 'lucide-react';
-import DynamicIcon from '../shared/DynamicIcon';
+import { ArrowRight, Wifi, ScanFace, ShieldCheck } from 'lucide-react';
 
 export default function CTASection() {
   const { content, t, language } = useContent();
+  const [email, setEmail] = useState('');
   const cta = content.cta;
 
   if (!cta) return null;
 
-  return (
-    <section className="py-32 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-[#000000]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[#eb4520]/[0.05] rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] mix-blend-overlay" />
-      
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="space-y-8 p-12 md:p-20 rounded-[3rem] bg-[#191919]/40 backdrop-blur-xl border border-white/[0.05] shadow-[0_0_50px_rgba(235,69,32,0.05)] relative overflow-hidden group"
-        >
-          {/* Subtle Inner Glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#eb4520]/0 via-[#eb4520]/[0.02] to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#eb4520]/30 to-transparent opacity-50" />
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-[#191919] border border-white/[0.1] text-[#eb4520] mb-6 shadow-[0_0_30px_rgba(235,69,32,0.2)]"
-          >
-            <DynamicIcon name="Rocket" className="w-10 h-10" />
-          </motion.div>
+  const pills = [
+    { icon: Wifi,        label: { en: 'Accessible', ar: 'سهل الوصول' } },
+    { icon: ScanFace,    label: { en: 'Reliable',   ar: 'موثوق'       } },
+    { icon: ShieldCheck, label: { en: 'Protected',  ar: 'محمي'        } },
+  ];
 
-          <h2 className="text-4xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-tight max-w-3xl mx-auto">
-            {t(cta.title)}
-          </h2>
-          
-          <p className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            {t(cta.subtitle)}
-          </p>
-          
-          <div className="pt-8">
-            <button className="group inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#eb4520] to-[#ff6b4a] hover:from-[#ff5a36] hover:to-[#ff8166] text-white rounded-full font-bold text-lg transition-all duration-300 shadow-[0_0_30px_rgba(235,69,32,0.3)] hover:shadow-[0_0_50px_rgba(235,69,32,0.5)] hover:scale-105">
-              {t(cta.button)}
-              <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${language === 'ar' ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} />
-            </button>
+  return (
+    <section className="relative w-full overflow-hidden bg-[#000000] py-16">
+
+      {/* Container card */}
+      <div className="relative mx-auto max-w-[900px] px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="relative overflow-hidden rounded-[24px]"
+          style={{
+            background: 'black',
+          }}
+        >
+          {/* Content column */}
+          <div className="flex flex-col items-center gap-6 px-8 pb-16 pt-14 text-center md:px-20">
+
+            {/* Badge */}
+            <div
+              className="inline-flex items-center gap-2.5 rounded-[21px] px-3.5 py-1.5"
+              style={{ backgroundColor: 'rgb(25,25,25)' }}
+            >
+              <span
+                className="h-2 w-2 shrink-0 rounded-full"
+                style={{
+                  background: 'radial-gradient(100% 100% at 50% 0%, rgb(255,169,132) 0%, rgb(255,89,17) 100%)',
+                  boxShadow: 'rgba(255,255,255,0.12) 0px 1px 16px 0px inset, rgba(255,255,255,0.09) 0px 1px 1px 0px inset',
+                }}
+              />
+              <span
+                className="text-[13px] font-medium"
+                style={{
+                  backgroundImage: 'linear-gradient(90deg, rgb(232,111,58) 0%, rgb(252,189,162) 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                {t({ en: 'Sign up for Skooture.AI today', ar: 'سجّل في Skooture.AI اليوم' })}
+              </span>
+            </div>
+
+            {/* Heading — same size as reference: ~56px on desktop, fluid */}
+            <h2
+              className="w-full text-[36px] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[44px] md:text-[52px]"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, rgb(255,255,255) 0%, rgb(153,153,153) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              {t(cta.title)}
+            </h2>
+
+            {/* Feature pills — single container bg #262626 */}
+            <div
+              className="inline-flex items-center rounded-full px-4 py-2.5"
+              style={{ backgroundColor: 'rgb(38,38,38)' }}
+            >
+              {pills.map(({ icon: Icon, label }, i) => (
+                <div key={i} className="flex items-center gap-1.5 px-3">
+                  <Icon className="h-[14px] w-[14px] text-white" strokeWidth={1.6} />
+                  <span className="text-[13px] font-medium text-white">{t(label)}</span>
+                  {i < pills.length - 1 && (
+                    <span className="ml-3 h-3.5 w-px bg-white/15" />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Subtitle */}
+            <p className="max-w-[440px] text-[15px] leading-[1.65] text-[#aeaeae]">
+              {t(cta.subtitle)}
+            </p>
+
+            {/* Form row */}
+            <form
+              className="flex w-full max-w-[460px] flex-col gap-2.5 sm:flex-row sm:items-center"
+              onSubmit={e => e.preventDefault()}
+            >
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder={t({ en: 'Email Address', ar: 'البريد الإلكتروني' })}
+                className="flex-1 h-[44px] rounded-[8px] border px-3.5 text-[14px] text-white outline-none transition-colors duration-200 focus:border-white/40"
+                style={{
+                  backgroundColor: 'rgba(38,38,38,0.2)',
+                  borderColor: 'rgba(255,255,255,0.2)',
+                }}
+              />
+              <button
+                type="submit"
+                className="group inline-flex h-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-5 text-[14px] font-medium text-white transition-all duration-200 hover:brightness-110"
+                style={{ backgroundColor: 'rgb(234,69,32)' }}
+              >
+                {t(cta.button)}
+                <ArrowRight
+                  className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                    language === 'ar' ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'
+                  }`}
+                />
+              </button>
+            </form>
+
+          </div>{/* /Content */}
+
+          {/* ── Glow block (framer-b3bnzv) ── */}
+          {/* Using pointer-events-none and absolute inset-0 to cover the card without clipping the glow at the top */}
+          <div className="absolute inset-0 h-full w-full pointer-events-none overflow-hidden rounded-[24px]">
+            {/* Ellipse 37 — blurred orange radial */}
+            <div
+              className="absolute left-1/2 -translate-x-1/2"
+              style={{
+                bottom: '-120px',
+                width: '600px',
+                height: '240px',
+                borderRadius: '50%',
+                background:
+                  'radial-gradient(50% 50% at 50% 50%, rgba(255,132,63,0.6) 0%, rgba(241,73,36,0) 100%)',
+                filter: 'blur(40px)',
+              }}
+            />
+            {/* Orange line */}
+            <div
+              className="absolute bottom-0 left-0 right-0 h-[1px]"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(232,111,58,0) 0%, rgb(243,87,50) 50%, rgba(232,111,58,0) 100%)',
+                opacity: 0.9,
+              }}
+            />
+            {/* Grey line */}
+            <div
+              className="absolute left-0 right-0 h-[1px]"
+              style={{
+                bottom: '1px',
+                background:
+                  'linear-gradient(90deg, rgba(16,16,16,0) 0%, rgb(105,105,105) 50%, rgba(16,16,16,0) 100%)',
+                opacity: 0.7,
+              }}
+            />
           </div>
         </motion.div>
       </div>
