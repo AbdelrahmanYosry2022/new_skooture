@@ -1,43 +1,81 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import DynamicIcon from '../shared/DynamicIcon';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
+
+// Mapping features to specific Lucide icons
+const getFeatureIcon = (featureEn: string): string => {
+  const iconMap: Record<string, string> = {
+    "Student Management": "Users",
+    "Academics Management": "BookOpen",
+    "Slider Management": "MonitorPlay",
+    "Teacher Management": "Presentation",
+    "Session Year Management": "CalendarDays",
+    "Holiday Management": "Sun",
+    "Timetable Management": "Clock",
+    "Attendance Management": "UserCheck",
+    "Exam Management": "FileSpreadsheet",
+    "Lesson Management": "BookText",
+    "Assignment Management": "ClipboardEdit",
+    "Announcement Management": "Megaphone",
+    "Staff Management": "Briefcase",
+    "Expense Management": "Receipt",
+    "Staff Leave Management": "CalendarMinus",
+    "Fees Management": "Wallet",
+    "School Gallery Management": "Image",
+    "ID Card - Certificate Generation": "BadgeCheck",
+    "Website Management": "Globe",
+    "Chat Module": "MessageCircle",
+    "Transportation Module": "Bus",
+    "Staff Attendance Management": "UserCog"
+  };
+  return iconMap[featureEn] || "CheckCircle2";
+};
 
 export default function TopFeatures() {
-  const { content, t } = useContent();
+  const { content, t, language } = useContent();
   const topFeaturesData = (content as any).topFeatures || {};
   const features = topFeaturesData.items || [];
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const displayedFeatures = isExpanded ? features : features.slice(0, 6);
+  const isRTL = language === 'ar';
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.05
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    hidden: { opacity: 0, scale: 0.95, y: 15 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
   };
 
   if (!features || features.length === 0) return null;
 
   return (
-    <section id="top-features" className="clean-section bg-slate-50 dark:bg-zinc-950">
-      <div className="container mx-auto px-6">
+    <section id="top-features" className="py-24 relative overflow-hidden bg-[#000000]">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#eb4520]/[0.03] rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-white/[0.05] text-[#eb4520] text-sm font-medium mb-6"
+          >
+            <DynamicIcon name="Sparkles" className="w-4 h-4" />
+            <span>{t({ en: 'Top Features', ar: 'أهم المميزات' })}</span>
+          </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="clean-heading-2"
+            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999]"
           >
             {t(topFeaturesData.title)}
           </motion.h2>
@@ -47,7 +85,7 @@ export default function TopFeatures() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="clean-paragraph mt-4"
+              className="text-lg text-zinc-400"
             >
               {t(topFeaturesData.subtitle)}
             </motion.p>
@@ -58,47 +96,33 @@ export default function TopFeatures() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-7xl mx-auto"
         >
-          {displayedFeatures.map((feature: any, index: number) => (
-            <motion.div key={index} variants={itemVariants} className="h-full">
-              <Card className="h-full group hover:-translate-y-1 transition-all duration-300 hover:shadow-lg dark:hover:shadow-blue-900/5 bg-white dark:bg-zinc-900/50 border-slate-200 dark:border-zinc-800">
-                <CardHeader className="text-center pb-2">
-                  <div className="flex justify-center mb-4">
-                    <motion.div 
-                      className="w-14 h-14 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center transition-colors duration-300 group-hover:bg-blue-600 group-hover:text-white"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <DynamicIcon name={feature.icon} className="w-7 h-7" />
-                    </motion.div>
-                  </div>
-                  <CardTitle className="text-xl text-slate-900 dark:text-white">{t(feature.title)}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <CardDescription className="text-slate-600 dark:text-zinc-400 text-base leading-relaxed">
-                    {t(feature.description)}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+          {features.map((feature: any, index: number) => {
+            const iconName = getFeatureIcon(feature.en);
+            return (
+              <motion.div 
+                key={index} 
+                variants={itemVariants}
+                className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#191919]/40 backdrop-blur-sm border border-white/[0.05] hover:border-[#eb4520]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(235,69,32,0.08)] cursor-default overflow-hidden"
+              >
+                {/* Soft background glow on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#eb4520]/0 to-[#eb4520]/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                
+                {/* Subtle side highlight line */}
+                <div className={`absolute top-0 bottom-0 w-[2px] bg-[#eb4520] transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center ${isRTL ? 'right-0' : 'left-0'}`} />
+                
+                <div className="w-12 h-12 shrink-0 rounded-xl bg-black/50 border border-white/[0.05] flex items-center justify-center text-zinc-400 group-hover:text-[#eb4520] group-hover:border-[#eb4520]/30 group-hover:bg-[#eb4520]/10 transition-all duration-300 shadow-inner">
+                  <DynamicIcon name={iconName} className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                </div>
+                <span className="text-[14px] leading-tight font-medium text-zinc-300 group-hover:text-white transition-colors duration-300 flex-1">
+                  {t(feature)}
+                </span>
+              </motion.div>
+            );
+          })}
         </motion.div>
-
-        {features.length > 6 && (
-          <motion.div 
-            layout
-            className="flex justify-center mt-12"
-          >
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="px-6 py-3 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 font-medium hover:bg-slate-50 dark:hover:bg-zinc-800 transition-colors shadow-sm"
-            >
-              {isExpanded ? t(topFeaturesData.buttonLess || { en: 'Show Less', ar: 'عرض أقل' }) : t(topFeaturesData.buttonMore || { en: 'Show More', ar: 'عرض المزيد' })}
-            </button>
-          </motion.div>
-        )}
       </div>
     </section>
   );

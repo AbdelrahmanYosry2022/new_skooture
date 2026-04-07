@@ -1,78 +1,109 @@
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { Sparkles } from 'lucide-react';
 
 export default function WhySection() {
   const { content, t } = useContent();
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
+  };
+
   return (
-    <section className="py-32 bg-zinc-50 dark:bg-zinc-950 relative overflow-hidden border-t border-zinc-200 dark:border-white/5 transition-colors duration-300">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100/30 via-zinc-50 to-zinc-50 dark:from-blue-900/10 dark:via-zinc-950 dark:to-zinc-950 transition-colors duration-300" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
+      {/* Decorative Glow */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] -translate-y-1/2 translate-x-1/4" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full opacity-15 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] translate-y-1/4 -translate-x-1/4" />
+
+      <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          
+          {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
             className="space-y-8"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/10 border border-blue-600/20 text-blue-600 dark:text-blue-400 text-sm font-black uppercase tracking-widest">
-              <Sparkles className="w-4 h-4" />
-              {t(content.why.title)}
-            </div>
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+              <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+                {t(content.why.title)}
+              </span>
+            </motion.div>
             
-            <h2 className="text-4xl md:text-5xl font-black text-zinc-900 dark:text-white leading-tight">
+            <motion.h2 
+              variants={itemVariants}
+              className="text-[32px] md:text-[48px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1]"
+            >
               {t(content.why.title)}
-            </h2>
+            </motion.h2>
             
-            <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
+            <motion.p 
+              variants={itemVariants}
+              className="text-[16px] text-[#aeaeae] leading-[1.6] max-w-lg"
+            >
               {t(content.why.content)}
-            </p>
+            </motion.p>
           </motion.div>
 
+          {/* Right Visual/Cards */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-blue-600 rounded-3xl blur-3xl opacity-10 animate-pulse" />
-            <div className="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-white/5 rounded-[2.5rem] p-10 overflow-hidden transition-colors duration-300 shadow-card dark:shadow-card-dark">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-blue-600" />
-              <div className="space-y-8">
-                <div className="flex items-center justify-between p-6 rounded-2xl bg-zinc-50 dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 transition-colors duration-300">
-                  <div className="flex items-center gap-5">
-                    <div className="w-12 h-12 rounded-xl bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center transition-colors duration-300 shadow-inner">
-                      <span className="text-zinc-500 font-black text-xs">{content.why.labels?.v1 || 'v1.0'}</span>
+            {/* Main Visual Container */}
+            <div className="relative rounded-[24px] bg-[#191919]/40 border border-white/[0.05] p-8 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-sm">
+              <div className="space-y-6 relative z-10">
+                
+                {/* Legacy System Card */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] bg-[#111111] border border-white/[0.03] transition-all duration-300 opacity-60 grayscale hover:opacity-100 hover:grayscale-0 gap-4 sm:gap-0">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 shrink-0 rounded-[12px] bg-[#222222] flex items-center justify-center border border-white/[0.05] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
+                      <span className="text-[#999999] font-medium text-[13px]">{content.why.labels?.v1 || 'v1.0'}</span>
                     </div>
                     <div>
-                      <h4 className="text-zinc-900 dark:text-zinc-100 font-black tracking-tight transition-colors duration-300 uppercase text-sm">Smart Schools</h4>
-                      <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mt-1">{t(content.why.labels?.legacySystem || 'Legacy System')}</p>
+                      <h4 className="text-white font-medium text-[16px] tracking-tight">Smart Schools</h4>
+                      <p className="text-[#666666] text-[13px] mt-0.5">{t(content.why.labels?.legacySystem || 'Legacy System')}</p>
                     </div>
                   </div>
-                  <div className="text-zinc-400 dark:text-zinc-600 line-through font-black uppercase tracking-[0.2em] text-[10px]">
+                  <div className="text-[#555555] font-medium text-[12px] line-through bg-[#222222]/50 px-3 py-1 rounded-full border border-white/[0.02] whitespace-nowrap">
                     {t(content.why.labels?.monolithic || 'Monolithic')}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-center">
-                  <div className="w-px h-10 bg-gradient-to-b from-zinc-200 dark:from-zinc-800 to-blue-600/50" />
+                {/* Connection Line */}
+                <div className="flex items-center justify-center -my-2 relative z-0">
+                  <div className="w-[1px] h-8 bg-gradient-to-b from-white/[0.05] to-[#eb4520]/50" />
                 </div>
 
-                <div className="flex items-center justify-between p-6 rounded-3xl bg-blue-600 text-white shadow-xl shadow-blue-500/20 border border-blue-500/20">
-                  <div className="flex items-center gap-5">
-                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-lg">
-                      <Sparkles className="w-6 h-6 text-blue-600" />
+                {/* New AI Infrastructure Card */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] bg-gradient-to-r from-[#eb4520]/10 to-transparent border border-[#eb4520]/20 shadow-[0_0_30px_rgba(235,69,32,0.1)] relative overflow-hidden group gap-4 sm:gap-0">
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(235,69,32,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="flex items-center gap-4 relative z-10">
+                    <div className="w-12 h-12 shrink-0 rounded-[12px] bg-[#eb4520] flex items-center justify-center shadow-[0_2px_10px_rgba(235,69,32,0.3)]">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="white"/>
+                      </svg>
                     </div>
                     <div>
-                      <h4 className="font-black text-lg tracking-tight uppercase leading-none">Skooture.AI</h4>
-                      <p className="text-blue-100 text-xs font-bold uppercase tracking-widest mt-1 opacity-80">{t(content.why.labels?.globalAi || 'Global AI Infrastructure')}</p>
+                      <h4 className="text-white font-medium text-[18px] tracking-tight">Skooture.AI</h4>
+                      <p className="text-[#e86f3a] text-[13px] mt-0.5">{t(content.why.labels?.globalAi || 'Global AI Infrastructure')}</p>
                     </div>
                   </div>
-                  <div className="text-blue-600 font-black uppercase tracking-widest text-[10px] bg-white px-4 py-1.5 rounded-full shadow-lg">
+                  <div className="text-[#eb4520] font-medium text-[12px] bg-[#eb4520]/10 border border-[#eb4520]/20 px-3 py-1 rounded-full relative z-10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] whitespace-nowrap">
                     {t(content.why.labels?.scalable || 'Scalable')}
                   </div>
                 </div>

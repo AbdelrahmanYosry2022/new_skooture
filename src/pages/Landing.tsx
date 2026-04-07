@@ -1,6 +1,5 @@
 import Navbar from '../components/landing/Navbar';
 import Hero from '../components/landing/Hero';
-import TrustedBy from '../components/landing/TrustedBy';
 import Traction from '../components/landing/Traction';
 import Legacy from '../components/landing/Legacy';
 import WhySection from '../components/landing/WhySection';
@@ -17,11 +16,10 @@ import Footer from '../components/landing/Footer';
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans selection:bg-blue-500/30 transition-colors duration-300">
+    <div className="min-h-screen bg-[#000000] text-zinc-50 font-sans selection:bg-[#eb4520]/30 transition-colors duration-300">
       <Navbar />
       <main>
         <Hero />
-        <TrustedBy />
         <Traction />
         <Legacy />
         <WhySection />

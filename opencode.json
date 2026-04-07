@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "figma": {
+      "type": "local",
+      "command": [
+        "/opt/homebrew/opt/node@22/bin/node",
+        "/Users/abdelrahman_yosry/.npm/_npx/e05028111420be70/node_modules/figma-developer-mcp/dist/bin.js",
+        "--stdio"
+      ],
+      "environment": {
+        "FIGMA_API_KEY": "{env:FIGMA_API_KEY}"
+      },
+      "enabled": true
+    }
+  }
+}

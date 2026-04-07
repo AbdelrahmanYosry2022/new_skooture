@@ -28,24 +28,27 @@ export default function Footer() {
   const bottomLinks = content.footer?.bottomLinks || [];
 
   return (
-    <footer className="bg-slate-900 dark:bg-zinc-950 pt-20 pb-10 border-t border-slate-800 dark:border-zinc-900">
-      <div className="container mx-auto px-6">
+    <footer className="bg-[#000000] pt-24 pb-12 relative overflow-hidden">
+      {/* Background Glow (kept but subtle) */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#eb4520]/[0.01] rounded-[100%] blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20"
         >
           {/* Brand Column */}
           <motion.div variants={itemVariants} className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#eb4520] to-[#ff6b4a] flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(235,69,32,0.4)]">
                 S
               </div>
-              <span className="font-bold text-2xl text-white">Skooture</span>
+              <span className="font-bold text-2xl text-white tracking-tight">Skooture</span>
             </div>
-            <p className="text-slate-400 mb-8 leading-relaxed max-w-sm">
+            <p className="text-zinc-400 mb-8 leading-relaxed max-w-sm">
               {t(brandSubheadline)}
             </p>
             <div className="flex gap-4">
@@ -53,7 +56,7 @@ export default function Footer() {
                 <a 
                   key={index}
                   href={social.url}
-                  className="w-10 h-10 rounded-full bg-slate-800 hover:bg-blue-600 flex items-center justify-center text-slate-300 hover:text-white transition-colors duration-200"
+                  className="w-10 h-10 rounded-full bg-[#191919] border border-white/[0.05] hover:border-[#eb4520]/50 hover:bg-[#eb4520]/10 flex items-center justify-center text-zinc-400 hover:text-[#eb4520] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                 >
                   <DynamicIcon name={social.icon} className="w-5 h-5" />
                 </a>
@@ -64,7 +67,7 @@ export default function Footer() {
           {/* Links Columns */}
           {footerColumns.map((column: any, index: number) => (
             <motion.div variants={itemVariants} key={index} className="lg:col-span-2">
-              <h4 className="font-semibold text-white mb-6">
+              <h4 className="font-semibold text-white mb-6 tracking-wide">
                 {t(column.title)}
               </h4>
               <ul className="space-y-4">
@@ -72,7 +75,7 @@ export default function Footer() {
                   <li key={linkIndex}>
                     <a 
                       href={link.url}
-                      className="text-slate-400 hover:text-white transition-colors duration-200"
+                      className="text-zinc-400 hover:text-white transition-colors duration-200"
                     >
                       {t(link.label)}
                     </a>
@@ -89,12 +92,12 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4"
+          className="pt-8 border-t border-white/[0.05] flex flex-col md:flex-row items-center justify-between gap-6"
         >
-          <p className="text-slate-400 text-sm">
+          <p className="text-zinc-500 text-sm">
             {t(copyrightText)}
           </p>
-          <div className="flex gap-6 text-sm text-slate-400">
+          <div className="flex gap-6 text-sm text-zinc-500">
             {bottomLinks.map((link: any, index: number) => (
               <a key={index} href={link.url} className="hover:text-white transition-colors">
                 {t(link.label)}

@@ -1,30 +1,24 @@
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
-import { useTheme } from '../../context/ThemeContext';
+import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
-const markers = [
-  { markerOffset: -30, name: "London", nameAr: "لندن", coordinates: [-0.1276, 51.5074] as [number, number] },
-  { markerOffset: 15, name: "Egypt", nameAr: "مصر", coordinates: [30.8025, 26.8206] as [number, number] },
-  { markerOffset: 15, name: "UAE", nameAr: "الإمارات", coordinates: [54.2098, 23.4241] as [number, number] }
-];
-
-// Dictionary to show dynamic translation feature
 const countryTranslations: Record<string, string> = {
   "Egypt": "مصر",
   "Saudi Arabia": "السعودية",
   "United Arab Emirates": "الإمارات",
   "United Kingdom": "المملكة المتحدة",
   "United States of America": "الولايات المتحدة",
-  /* Add more dynamically or via backend */
 };
 
+const activeCountries = ["Egypt", "United Arab Emirates", "United Kingdom"];
+
 export default function GlobalPresence() {
-  const { content, t } = useContent();
-  const { theme } = useTheme();
+  const { content, t, language } = useContent();
+  const isRTL = language === 'ar';
 
   const [tooltip, setTooltip] = useState({
     show: false,
@@ -35,6 +29,7 @@ export default function GlobalPresence() {
   });
 
   const handleMouseEnter = (name: string, nameAr: string, e: React.MouseEvent) => {
+    if (!activeCountries.includes(name)) return;
     setTooltip({
       show: true,
       en: name,
@@ -45,6 +40,7 @@ export default function GlobalPresence() {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (!tooltip.show) return;
     setTooltip(prev => ({
       ...prev,
       x: e.clientX,
@@ -57,97 +53,143 @@ export default function GlobalPresence() {
   };
 
   return (
-    <section id="global" className="py-32 bg-zinc-50 dark:bg-zinc-950 relative border-t border-zinc-200 dark:border-zinc-900 transition-colors duration-300 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100/20 via-transparent to-transparent dark:from-blue-900/10 transition-colors duration-300" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+    <section id="global" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
+
+      <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+          
+          {/* Content Column */}
+          <div className={`flex flex-col items-start text-left ${isRTL ? 'rtl:text-right items-end' : ''}`}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-6 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"
+            >
+              <span className="w-2 h-2 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+              <span className="text-[13px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+                {t(content.global.title)}
+              </span>
+            </motion.div>
+            
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-[36px] md:text-[48px] lg:text-[56px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1] mb-6"
+            >
+              {t({ en: 'Connecting Schools Worldwide', ar: 'ربط المدارس في جميع أنحاء العالم' })}
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-[16px] md:text-[18px] text-[#aeaeae] leading-[1.65] mb-10 max-w-[480px]"
+            >
+              {t({ 
+                en: 'Join a rapidly growing ecosystem of educational institutions worldwide. Skooture provides the global infrastructure needed to scale your school\'s vision beyond borders with localized, powerful AI tools.', 
+                ar: 'انضم إلى نظام بيئي سريع النمو من المؤسسات التعليمية في جميع أنحاء العالم. يوفر Skooture البنية التحتية العالمية اللازمة لتوسيع رؤية مدرستك خارج الحدود بأدوات ذكاء اصطناعي قوية ومخصصة.' 
+              })}
+            </motion.p>
+
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="group inline-flex h-[48px] shrink-0 items-center justify-center gap-2 rounded-[8px] px-6 text-[15px] font-medium text-white transition-all duration-200 hover:brightness-110 shadow-[0_0_20px_rgba(234,69,32,0.2)]"
+              style={{ backgroundColor: 'rgb(234,69,32)' }}
+              onClick={() => {
+                const element = document.getElementById('contact');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              {t({ en: 'Join Our Network', ar: 'انضم لشبكتنا' })}
+              <ArrowRight
+                className={`h-4 w-4 transition-transform duration-200 ${
+                  isRTL ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'
+                }`}
+              />
+            </motion.button>
+          </div>
+
+          {/* Map Column */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-4 transition-colors duration-300"
+            transition={{ duration: 0.8 }}
+            className="relative w-full aspect-[4/3] flex items-center justify-center group"
           >
-            {t(content.global.title)}
-          </motion.h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full" />
-        </div>
+            <ComposableMap
+              projection="geoMercator"
+              projectionConfig={{
+                scale: 160,
+                center: [20, 40] // Centered to frame EMEA region nicely
+              }}
+              className="w-full h-full relative z-10 drop-shadow-2xl"
+            >
+              <Geographies geography={geoUrl}>
+                {({ geographies }) =>
+                  geographies.map((geo) => {
+                    const enName = geo.properties.name;
+                    const arName = countryTranslations[enName] || 'غير محدد';
+                    const isActive = activeCountries.includes(enName);
 
-        <div className="relative w-full max-w-5xl mx-auto aspect-[2/1] bg-white/80 dark:bg-zinc-900/40 rounded-3xl border border-zinc-200 dark:border-zinc-800/50 backdrop-blur-xl overflow-hidden shadow-xl dark:shadow-none transition-colors duration-300">
-          <ComposableMap
-            projection="geoMercator"
-            projectionConfig={{
-              scale: 140,
-              center: [20, 30]
-            }}
-            className="w-full h-full"
-          >
-            <Geographies geography={geoUrl}>
-              {({ geographies }) =>
-                geographies.map((geo) => {
-                  const enName = geo.properties.name;
-                  const arName = countryTranslations[enName] || 'غير محدد';
-
-                  return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    onMouseEnter={(e) => handleMouseEnter(enName, arName, e as any)}
-                    onMouseMove={handleMouseMove as any}
-                    onMouseLeave={handleMouseLeave}
-                    fill={theme === 'dark' ? '#2c3340' : '#cbd5e1'}
-                    stroke={theme === 'dark' ? '#1e242d' : '#94a3b8'}
-                    strokeWidth={0.5}
-                    className="transition-all duration-300 cursor-pointer"
-                    style={{
-                      default: { outline: 'none' },
+                    const styleProps = isActive ? {
+                      default: { outline: 'none', fill: '#eb4520', stroke: '#222222', strokeWidth: 0.5 },
                       hover: { 
                         outline: 'none', 
-                        fill: '#3b82f6', 
-                        filter: 'drop-shadow(0px 0px 8px rgba(59, 130, 246, 0.6))',
-                        strokeWidth: 1
+                        fill: '#ff5911', 
+                        stroke: '#ff843f',
+                        strokeWidth: 1,
+                        filter: 'drop-shadow(0px 0px 16px rgba(235, 69, 32, 0.9))',
                       },
-                      pressed: { outline: 'none', fill: '#2563eb' },
-                    }}
-                  />
-                  );
-                })
-              }
-            </Geographies>
-            
-            {markers.map(({ name, nameAr, coordinates, markerOffset }) => (
-              <Marker 
-                key={name} 
-                coordinates={coordinates}
-                onMouseEnter={(e) => handleMouseEnter(name, nameAr, e as any)}
-                onMouseMove={handleMouseMove as any}
-                onMouseLeave={handleMouseLeave}
-              >
-                <g className="group cursor-pointer">
-                  <circle r={4} fill="#3b82f6" className="animate-pulse" />
-                  <circle r={12} fill="#3b82f6" opacity={0.3} className="animate-ping" />
-                </g>
-              </Marker>
-            ))}
-          </ComposableMap>
+                      pressed: { outline: 'none', fill: '#d93d18' },
+                    } : {
+                      default: { outline: 'none', fill: '#0a0a0a', stroke: '#1a1a1a', strokeWidth: 0.5 },
+                      hover: { outline: 'none', fill: '#0a0a0a', stroke: '#1a1a1a', strokeWidth: 0.5 },
+                      pressed: { outline: 'none', fill: '#0a0a0a', stroke: '#1a1a1a', strokeWidth: 0.5 },
+                    };
+
+                    return (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        onMouseEnter={(e) => handleMouseEnter(enName, arName, e as any)}
+                        onMouseMove={handleMouseMove as any}
+                        onMouseLeave={handleMouseLeave}
+                        className={isActive ? "transition-all duration-300 cursor-pointer" : "outline-none"}
+                        style={styleProps}
+                      />
+                    );
+                  })
+                }
+              </Geographies>
+            </ComposableMap>
+
+          </motion.div>
         </div>
       </div>
 
-      {/* Glassmorphism Tooltip Render */}
+      {/* Modern Tooltip for Active Countries Only */}
       {tooltip.show && (
         <div 
-          className="fixed pointer-events-none z-[9999] px-4 py-2 flex flex-col items-center gap-1 rounded-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-md bg-slate-800/65"
+          className="fixed pointer-events-none z-[9999] px-4 py-2 flex flex-col items-center gap-1 rounded-[12px] border border-[#eb4520]/30 shadow-[0_8px_32px_0_rgba(235,69,32,0.2)] backdrop-blur-md bg-[#191919]/95"
           style={{
             left: `${tooltip.x}px`,
-            top: `${tooltip.y - 15}px`, // Slight offset above the mouse
+            top: `${tooltip.y - 15}px`,
             transform: 'translate(-50%, -100%)',
             transition: 'opacity 0.15s ease'
           }}
         >
-          <span className="font-bold text-slate-50 text-[15px]" style={{ fontFamily: "'Cairo', 'Tajawal', sans-serif" }}>
+          <span className="font-medium text-white text-[14px]">
             {tooltip.ar}
           </span>
-          <span className="text-slate-400 font-medium text-[12px]" style={{ fontFamily: "'Inter', sans-serif" }}>
+          <span className="text-[#eb4520] font-medium text-[12px]">
             {tooltip.en}
           </span>
         </div>
