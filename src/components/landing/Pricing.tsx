@@ -131,7 +131,7 @@ export default function Pricing() {
                     <div className={`px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white rounded-bl-lg ${
                       plan.badge.en === 'Prepaid' 
                         ? 'bg-zinc-800 border-b border-l border-zinc-700' 
-                        : 'bg-[#188181] border-b border-l border-[#136666]' // Changed to a teal color similar to Postpaid in the image
+                        : 'bg-[#188181] border-b border-l border-[#136666]'
                     } ${isRTL ? 'rounded-bl-none rounded-br-lg border-l-0 border-r' : ''}`}>
                       {t(plan.badge)}
                     </div>
