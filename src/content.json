@@ -455,5 +455,23 @@
     "title": { "en": "Ready to Transform Your Institution?", "ar": "هل أنت مستعد لتحويل مؤسستك التعليمية؟" },
     "subtitle": { "en": "Join hundreds of schools already using Skooture.AI to shape the future of education.", "ar": "انضم إلى مئات المدارس التي تستخدم Skooture.AI بالفعل لتشكيل مستقبل التعليم." },
     "button": { "en": "Book a Demo", "ar": "احجز عرضاً تجريبياً" }
+  },
+  "footer": {
+    "social": [
+      { "icon": "Twitter", "url": "#" },
+      { "icon": "Github", "url": "#" }
+    ],
+    "columns": [
+      {
+        "title": { "en": "Company", "ar": "الشركة" },
+        "links": [
+          { "label": { "en": "About Us", "ar": "من نحن" }, "url": "#" }
+        ]
+      }
+    ],
+    "copyright": { "en": "© 2026 Skooture. All rights reserved.", "ar": "© 2026 سكوتشر. جميع الحقوق محفوظة." },
+    "bottomLinks": [
+      { "label": { "en": "Privacy Policy", "ar": "سياسة الخصوصية" }, "url": "#" }
+    ]
   }
 }

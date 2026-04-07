@@ -3,7 +3,7 @@ import { useContent } from '../../context/ContentContext';
 
 export default function TrustedBy() {
   const { content, t } = useContent();
-  const trustedByData = content.trustedBy || { title: { en: 'Trusted By', ar: 'شركاء النجاح' }, logos: [] };
+  const trustedByData = (content as any).partners || { title: { en: 'Trusted By', ar: 'شركاء النجاح' }, logos: [] };
 
   if (!trustedByData.logos || trustedByData.logos.length === 0) return null;
 

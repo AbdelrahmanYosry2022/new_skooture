@@ -1,145 +1,258 @@
-import { Plus, Trash2, X } from 'lucide-react';
+import { Plus, Trash2, CheckCircle2, X } from 'lucide-react';
 import SectionWrapper from '../layout/SectionWrapper';
 import TranslatableInput from '../shared/TranslatableInput';
 import type { AdminSectionProps } from '../../../types';
+import { useTranslation } from 'react-i18next';
 
 export default function PricingSection({ localContent, updateNestedContent }: AdminSectionProps) {
+  const { t } = useTranslation('admin');
+  const plans = localContent.pricing.plans || [];
+
+  // Extract all unique features to form the matrix rows
+  const allFeaturesMap = new Map();
+  plans.forEach((plan: any) => {
+    (plan.features || []).forEach((f: any) => {
+      // Use English name as a unique key for the matrix row
+      const key = f.name.en.trim() || 'Untitled';
+      if (!allFeaturesMap.has(key)) {
+        allFeaturesMap.set(key, { en: f.name.en, ar: f.name.ar });
+      }
+    });
+  });
+  
+  const allFeatures = Array.from(allFeaturesMap.values());
+
+  const handleToggleFeature = (planIndex: number, featureNameEn: string, checked: boolean) => {
+    const newPlans = JSON.parse(JSON.stringify(plans));
+    const plan = newPlans[planIndex];
+    if (!plan.features) plan.features = [];
+    
+    const existingFeatureIndex = plan.features.findIndex((f: any) => f.name.en.trim() === featureNameEn.trim());
+    if (existingFeatureIndex !== -1) {
+      plan.features[existingFeatureIndex].included = checked;
+    } else {
+      // Add the feature if it didn't exist in this plan yet
+      const featureObj = allFeaturesMap.get(featureNameEn);
+      plan.features.push({
+        name: { en: featureObj.en, ar: featureObj.ar },
+        included: checked
+      });
+    }
+    updateNestedContent(['pricing', 'plans'], newPlans);
+  };
+
+  const handleUpdateFeatureName = (oldNameEn: string, newEn: string, newAr: string) => {
+    const newPlans = JSON.parse(JSON.stringify(plans));
+    newPlans.forEach((plan: any) => {
+      if (plan.features) {
+        const feature = plan.features.find((f: any) => f.name.en.trim() === oldNameEn.trim());
+        if (feature) {
+          feature.name.en = newEn;
+          feature.name.ar = newAr;
+        } else {
+          // If a plan didn't have this feature explicitly listed, add it as false so names stay synced
+          plan.features.push({
+            name: { en: newEn, ar: newAr },
+            included: false
+          });
+        }
+      }
+    });
+    updateNestedContent(['pricing', 'plans'], newPlans);
+  };
+
+  const handleDeleteFeatureRow = (featureNameEn: string) => {
+    const newPlans = JSON.parse(JSON.stringify(plans));
+    newPlans.forEach((plan: any) => {
+      if (plan.features) {
+        plan.features = plan.features.filter((f: any) => f.name.en.trim() !== featureNameEn.trim());
+      }
+    });
+    updateNestedContent(['pricing', 'plans'], newPlans);
+  };
+
+  const handleAddFeatureRow = () => {
+    const newPlans = JSON.parse(JSON.stringify(plans));
+    const newNameEn = `New Feature ${allFeatures.length + 1}`;
+    const newNameAr = `ميزة جديدة ${allFeatures.length + 1}`;
+    
+    newPlans.forEach((plan: any) => {
+      if (!plan.features) plan.features = [];
+      plan.features.push({
+        name: { en: newNameEn, ar: newNameAr },
+        included: false
+      });
+    });
+    updateNestedContent(['pricing', 'plans'], newPlans);
+  };
+
   return (
     <SectionWrapper key="pricing">
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        {localContent.pricing.plans.map((plan: any, index: number) => (
-          <div key={index} className="relative p-5 bg-[#000000] border border-white/[0.05] rounded-[16px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6 group">
-            <button 
-              onClick={() => {
-                const newPlans = [...localContent.pricing.plans];
-                newPlans.splice(index, 1);
-                updateNestedContent(['pricing', 'plans'], newPlans);
-              }}
-              className="absolute -top-3 -right-3 p-2 rounded-full bg-[#191919] border border-white/[0.05] text-[#eb4520] hover:bg-[#eb4520] hover:text-white transition-all opacity-0 group-hover:opacity-100 z-10 shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
-            >
-              <Trash2 size={14} />
-            </button>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <TranslatableInput 
-                label="Plan Name"
-                enValue={plan.name.en}
-                arValue={plan.name.ar}
-                onEnChange={(val) => {
-                  const newPlans = [...localContent.pricing.plans];
-                  newPlans[index].name.en = val;
-                  updateNestedContent(['pricing', 'plans'], newPlans);
-                }}
-                onArChange={(val) => {
-                  const newPlans = [...localContent.pricing.plans];
-                  newPlans[index].name.ar = val;
-                  updateNestedContent(['pricing', 'plans'], newPlans);
-                }}
-              />
-              <TranslatableInput 
-                label="Badge/Status"
-                enValue={plan.badge.en}
-                arValue={plan.badge.ar}
-                onEnChange={(val) => {
-                  const newPlans = [...localContent.pricing.plans];
-                  newPlans[index].badge.en = val;
-                  updateNestedContent(['pricing', 'plans'], newPlans);
-                }}
-                onArChange={(val) => {
-                  const newPlans = [...localContent.pricing.plans];
-                  newPlans[index].badge.ar = val;
-                  updateNestedContent(['pricing', 'plans'], newPlans);
-                }}
-              />
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between border-b border-white/[0.05] pb-3">
-                <label className="text-sm font-medium text-white">Features List</label>
-              </div>
-              <div className="space-y-3">
-                {plan.features.map((f: any, fIndex: number) => (
-                  <div key={fIndex} className="flex items-center gap-3 bg-[#191919] border border-white/[0.05] p-3 rounded-[10px]">
-                    <input 
-                      type="checkbox" 
-                      checked={f.included}
-                      onChange={(e) => {
-                        const newPlans = [...localContent.pricing.plans];
-                        newPlans[index].features[fIndex].included = e.target.checked;
-                        updateNestedContent(['pricing', 'plans'], newPlans);
-                      }}
-                      className="w-4 h-4 rounded border-white/[0.1] bg-[#000000] text-[#eb4520] focus:ring-[#eb4520]"
-                    />
-                    <div className="flex-1 grid grid-cols-2 gap-3">
-                      <input 
-                        type="text"
-                        value={f.name.en}
-                        onChange={(e) => {
-                          const newPlans = [...localContent.pricing.plans];
-                          newPlans[index].features[fIndex].name.en = e.target.value;
-                          updateNestedContent(['pricing', 'plans'], newPlans);
-                        }}
-                        className="w-full text-xs text-white bg-transparent border-none focus:ring-0 px-0"
-                        placeholder="EN Feature..."
-                      />
-                      <input 
-                        type="text"
-                        value={f.name.ar}
-                        onChange={(e) => {
-                          const newPlans = [...localContent.pricing.plans];
-                          newPlans[index].features[fIndex].name.ar = e.target.value;
-                          updateNestedContent(['pricing', 'plans'], newPlans);
-                        }}
-                        className="w-full text-xs text-white bg-transparent border-none focus:ring-0 px-0 text-right font-arabic"
-                        placeholder="\u0627\u0644\u0645\u064a\u0632\u0629..."
-                      />
-                    </div>
-                    <button 
-                      onClick={() => {
-                        const newPlans = [...localContent.pricing.plans];
-                        newPlans[index].features.splice(fIndex, 1);
-                        updateNestedContent(['pricing', 'plans'], newPlans);
-                      }}
-                      className="p-1.5 text-[#aeaeae] hover:text-[#eb4520] hover:bg-white/[0.05] rounded-md transition-colors"
-                    >
-                      <X size={14} />
-                    </button>
-                  </div>
-                ))}
-              </div>
+      <div className="space-y-8">
+        
+        {/* Plans Configuration (Top Layer) */}
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4">
+          {plans.map((plan: any, index: number) => (
+            <div key={index} className="relative p-4 bg-[#111111] border border-white/[0.05] rounded-[16px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] flex flex-col gap-4 group">
               <button 
                 onClick={() => {
-                  const newPlans = [...localContent.pricing.plans];
-                  newPlans[index].features.push({
-                    name: { en: "New Feature", ar: "\u0645\u064a\u0632\u0629 \u062c\u062f\u064a\u062f\u0629" },
-                    included: true
-                  });
+                  const newPlans = [...plans];
+                  newPlans.splice(index, 1);
                   updateNestedContent(['pricing', 'plans'], newPlans);
                 }}
-                className="text-xs font-medium text-[#aeaeae] hover:text-white bg-[#191919] hover:bg-[#252525] border border-white/[0.05] rounded-[8px] py-2 px-3 transition-all flex items-center justify-center gap-2 w-full mt-2"
+                className="absolute -top-3 -right-3 p-2 rounded-full bg-[#191919] border border-white/[0.05] text-[#eb4520] hover:bg-[#eb4520] hover:text-white transition-all opacity-0 group-hover:opacity-100 z-10 shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
               >
-                <Plus size={14} /> Add Feature to Plan
+                <Trash2 size={14} />
               </button>
+              
+              <div className="space-y-3">
+                <TranslatableInput 
+                  label="Plan Name"
+                  enValue={plan.name.en}
+                  arValue={plan.name.ar}
+                  onEnChange={(val) => {
+                    const newPlans = [...plans];
+                    newPlans[index].name.en = val;
+                    updateNestedContent(['pricing', 'plans'], newPlans);
+                  }}
+                  onArChange={(val) => {
+                    const newPlans = [...plans];
+                    newPlans[index].name.ar = val;
+                    updateNestedContent(['pricing', 'plans'], newPlans);
+                  }}
+                />
+                <TranslatableInput 
+                  label="Badge (e.g. Popular)"
+                  enValue={plan.badge?.en || ''}
+                  arValue={plan.badge?.ar || ''}
+                  onEnChange={(val) => {
+                    const newPlans = [...plans];
+                    if (!newPlans[index].badge) newPlans[index].badge = {en:'', ar:''};
+                    newPlans[index].badge.en = val;
+                    updateNestedContent(['pricing', 'plans'], newPlans);
+                  }}
+                  onArChange={(val) => {
+                    const newPlans = [...plans];
+                    if (!newPlans[index].badge) newPlans[index].badge = {en:'', ar:''};
+                    newPlans[index].badge.ar = val;
+                    updateNestedContent(['pricing', 'plans'], newPlans);
+                  }}
+                />
+              </div>
             </div>
+          ))}
+
+          <button
+            onClick={() => {
+              const newPlans = [...plans, {
+                name: { en: 'New Plan', ar: 'خطة جديدة' },
+                badge: { en: '', ar: '' },
+                details: [],
+                features: allFeatures.map(f => ({
+                  name: { en: f.en, ar: f.ar },
+                  included: false
+                }))
+              }];
+              updateNestedContent(['pricing', 'plans'], newPlans);
+            }}
+            className="flex flex-col items-center justify-center gap-3 p-5 rounded-[16px] border-2 border-dashed border-white/[0.05] text-[#aeaeae] hover:text-white hover:border-[#eb4520]/50 hover:bg-[#eb4520]/5 transition-all min-h-[150px]"
+          >
+            <div className="w-10 h-10 rounded-full bg-[#191919] border border-white/[0.05] flex items-center justify-center shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
+              <Plus size={20} />
+            </div>
+            <span className="text-sm font-medium">Add Plan</span>
+          </button>
+        </div>
+
+        {/* Features Matrix (Table) */}
+        <div className="bg-[#111111] border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
+          <div className="flex items-center justify-between p-5 border-b border-white/[0.05]">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Features Matrix</h4>
+            <button 
+              onClick={handleAddFeatureRow}
+              className="px-4 py-2 text-xs font-medium text-white bg-[#eb4520] hover:bg-[#d63d1a] rounded-[10px] flex items-center gap-2 transition-all shadow-[0_1px_2px_rgba(82,88,102,0.06)]"
+            >
+              <Plus size={14} /> Add Feature
+            </button>
           </div>
-        ))}
-        
-        <button
-          onClick={() => {
-            const newPlans = [...localContent.pricing.plans, {
-              name: { en: 'New Plan', ar: 'خطة جديدة' },
-              badge: { en: 'Popular', ar: 'الأكثر طلباً' },
-              features: []
-            }];
-            updateNestedContent(['pricing', 'plans'], newPlans);
-          }}
-          className="flex flex-col items-center justify-center gap-3 p-5 rounded-[16px] border-2 border-dashed border-white/[0.05] text-[#aeaeae] hover:text-white hover:border-[#eb4520]/50 hover:bg-[#eb4520]/5 transition-all min-h-[300px]"
-        >
-          <div className="w-10 h-10 rounded-full bg-[#191919] border border-white/[0.05] flex items-center justify-center shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
-            <Plus size={20} />
+          
+          <div className="overflow-x-auto custom-scrollbar">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-[#0a0a0a]">
+                  <th className="p-4 text-xs font-bold text-[#aeaeae] uppercase tracking-wider min-w-[250px] border-b border-white/[0.05]">Feature Name (EN & AR)</th>
+                  {plans.map((plan: any, idx: number) => (
+                    <th key={idx} className="p-4 text-xs font-bold text-[#aeaeae] uppercase tracking-wider text-center border-b border-white/[0.05] min-w-[120px]">
+                      {plan.name?.en || `Plan ${idx+1}`}
+                    </th>
+                  ))}
+                  <th className="p-4 text-xs font-bold text-[#aeaeae] uppercase tracking-wider text-center border-b border-white/[0.05] w-[80px]">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/[0.05]">
+                {allFeatures.map((feature: any, rowIndex: number) => (
+                  <tr key={rowIndex} className="hover:bg-white/[0.02] transition-colors">
+                    <td className="p-4">
+                      <div className="flex flex-col gap-2">
+                        <input 
+                          type="text"
+                          value={feature.en}
+                          onChange={(e) => handleUpdateFeatureName(feature.en, e.target.value, feature.ar)}
+                          className="w-full text-sm text-white bg-transparent border-none focus:ring-1 focus:ring-[#eb4520] rounded px-2 py-1 placeholder-zinc-600"
+                          placeholder="English Name..."
+                        />
+                        <input 
+                          type="text"
+                          value={feature.ar}
+                          onChange={(e) => handleUpdateFeatureName(feature.en, feature.en, e.target.value)}
+                          className="w-full text-sm text-white bg-transparent border-none focus:ring-1 focus:ring-[#eb4520] rounded px-2 py-1 placeholder-zinc-600 text-right font-arabic"
+                          placeholder="الاسم بالعربي..."
+                          dir="rtl"
+                        />
+                      </div>
+                    </td>
+                    {plans.map((plan: any, planIndex: number) => {
+                      const pf = (plan.features || []).find((f: any) => f.name.en.trim() === feature.en.trim());
+                      const isIncluded = pf ? pf.included : false;
+                      
+                      return (
+                        <td key={planIndex} className="p-4 text-center align-middle">
+                          <button
+                            onClick={() => handleToggleFeature(planIndex, feature.en, !isIncluded)}
+                            className="inline-flex items-center justify-center p-2 rounded-full transition-all"
+                          >
+                            {isIncluded ? (
+                              <CheckCircle2 className="w-6 h-6 text-[#eb4520]" />
+                            ) : (
+                              <X className="w-6 h-6 text-zinc-600 hover:text-white" />
+                            )}
+                          </button>
+                        </td>
+                      );
+                    })}
+                    <td className="p-4 text-center align-middle">
+                      <button 
+                        onClick={() => handleDeleteFeatureRow(feature.en)}
+                        className="p-2 text-zinc-500 hover:text-[#eb4520] hover:bg-[#eb4520]/10 rounded-lg transition-colors"
+                        title="Delete Feature"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {allFeatures.length === 0 && (
+                  <tr>
+                    <td colSpan={plans.length + 2} className="p-8 text-center text-[#aeaeae] text-sm">
+                      No features defined. Click "Add Feature" to start.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
-          <span className="text-sm font-medium">Add New Plan</span>
-        </button>
+        </div>
+
       </div>
     </SectionWrapper>
   );

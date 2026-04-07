@@ -53,9 +53,14 @@ export interface PlanFeature {
 export interface PricingPlan {
   name: Translatable;
   badge: Translatable;
-  details: Translatable[];
+  details: (Translatable | string)[];
   features: PlanFeature[];
-  highlighted: boolean;
+  highlighted?: boolean;
+  popular?: boolean;
+  price?: {
+    monthly: string;
+    annual: string;
+  };
 }
 
 export interface FaqItem {
@@ -130,6 +135,15 @@ export interface SiteContent {
     title: Translatable;
     subtitle: Translatable;
     button: Translatable;
+  };
+  footer?: {
+    social?: { icon: string; url: string }[];
+    columns?: {
+      title: Translatable;
+      links: { label: Translatable; url: string }[];
+    }[];
+    copyright?: Translatable;
+    bottomLinks?: { label: Translatable; url: string }[];
   };
 }
 

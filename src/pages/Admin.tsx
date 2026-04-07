@@ -54,7 +54,7 @@ export default function Admin() {
   }, [isRTL]);
 
   const handleSave = () => {
-    setContent(localContent);
+    setContent(localContent as any);
     setIsSaved(true);
     setTimeout(() => setIsSaved(false), 3000);
   };

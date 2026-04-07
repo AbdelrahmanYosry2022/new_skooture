@@ -49,7 +49,7 @@ export default function TopFeatures() {
 
   const itemVariants = {
     hidden: { opacity: 0, scale: 0.95, y: 15 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } as any }
   };
 
   if (!features || features.length === 0) return null;
