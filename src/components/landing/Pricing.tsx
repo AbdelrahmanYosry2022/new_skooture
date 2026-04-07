@@ -113,13 +113,19 @@ export default function Pricing() {
               <div className="mb-8">
                 <div className="flex items-baseline gap-1">
                   <span className="text-4xl font-extrabold text-slate-900 dark:text-white">
-                    {isAnnual ? plan.price.annual : plan.price.monthly}
+                    {plan.price
+                      ? (isAnnual ? plan.price.annual : plan.price.monthly)
+                      : (() => {
+                          const amt = plan.details?.find((d: any) => (d.en || d).toString().includes('$'));
+                          return amt ? t(amt) : 'Custom';
+                        })()
+                    }
                   </span>
                   <span className="text-slate-500 dark:text-zinc-400 font-medium">
                     / {t({ en: 'mo', ar: 'شهر' })}
                   </span>
                 </div>
-                {isAnnual && plan.price.monthly !== 'Custom' && (
+                {plan.price && isAnnual && plan.price.monthly !== 'Custom' && (
                   <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-2 font-medium">
                     {t({ en: 'Billed annually', ar: 'تدفع سنوياً' })}
                   </p>

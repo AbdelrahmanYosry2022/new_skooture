@@ -21,8 +21,8 @@ router.get('/', async (_req, res) => {
 
     res.json(content);
   } catch (error) {
-    console.error('Get content error:', error);
-    res.status(500).json({ error: 'Server error' });
+    console.error('Get content error (falling back to defaults):', error);
+    return res.json(defaultContent);
   }
 });
 
