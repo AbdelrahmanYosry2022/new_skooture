@@ -53,9 +53,7 @@ export default function GlobalPresence() {
   };
 
   return (
-    <section id="global" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden border-t border-white/[0.05]">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 right-0 w-[600px] h-[600px] rounded-full opacity-10 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.2)_0%,transparent_70%)] pointer-events-none blur-[100px]" />
+    <section id="global" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
 
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -173,8 +171,6 @@ export default function GlobalPresence() {
               </Geographies>
             </ComposableMap>
 
-            {/* Map Overlay Glows */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] rounded-full opacity-10 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.4)_0%,transparent_70%)] pointer-events-none blur-[60px]" />
           </motion.div>
         </div>
       </div>

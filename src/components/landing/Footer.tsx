@@ -29,11 +29,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#000000] pt-24 pb-12 relative overflow-hidden">
-      {/* Subtle Top Border */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent" />
-      
-      {/* Background Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#eb4520]/[0.02] rounded-[100%] blur-[120px] pointer-events-none" />
+      {/* Background Glow (kept but subtle) */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#eb4520]/[0.01] rounded-[100%] blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div 

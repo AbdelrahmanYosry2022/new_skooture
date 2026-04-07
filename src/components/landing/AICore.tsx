@@ -19,7 +19,7 @@ export default function AICore() {
   };
 
   return (
-    <section id="features" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden border-t border-white/[0.05]">
+    <section id="features" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
       {/* Decorative Glow */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)] rounded-full blur-[80px]" />
