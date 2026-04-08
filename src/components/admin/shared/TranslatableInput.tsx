@@ -21,8 +21,8 @@ export default function TranslatableInput({
   const { adminLanguage } = useContent();
   const [activeLang, setActiveLang] = useState<'en' | 'ar'>(adminLanguage);
 
-  const inputClasses = "w-full min-h-[40px] px-4 py-2 rounded-[12px] bg-[#111111] border border-white/[0.05] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 focus:bg-[#151515] outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/30";
-  const textareaClasses = "w-full min-h-[100px] px-4 py-3 rounded-[12px] bg-[#111111] border border-white/[0.05] focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/50 focus:bg-[#151515] outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/30 resize-y";
+  const inputClasses = "w-full min-h-[40px] px-4 py-2 rounded-[12px] bg-[#111111] border border-white/[0.05] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 focus:bg-[#151515] outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/30";
+  const textareaClasses = "w-full min-h-[100px] px-4 py-3 rounded-[12px] bg-[#111111] border border-white/[0.05] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 focus:bg-[#151515] outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/30 resize-y";
 
   return (
     <div className="space-y-2">
@@ -37,7 +37,7 @@ export default function TranslatableInput({
             onClick={() => setActiveLang('en')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase transition-all cursor-pointer ${
               activeLang === 'en' 
-                ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' 
+                ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' 
                 : 'text-[#aeaeae] hover:text-white'
             }`}
           >
@@ -47,7 +47,7 @@ export default function TranslatableInput({
             onClick={() => setActiveLang('ar')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase transition-all cursor-pointer ${
               activeLang === 'ar' 
-                ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' 
+                ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' 
                 : 'text-[#aeaeae] hover:text-white'
             }`}
           >

@@ -79,7 +79,7 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
         {/* Header */}
         <div className="p-6 md:p-8 border-b border-white/[0.05] flex items-center justify-between bg-gradient-to-b from-white/[0.02] to-transparent">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-[16px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#eb4520] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
+            <div className="w-12 h-12 rounded-[16px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
               <MessageSquareQuote size={24} />
             </div>
             <div>
@@ -141,7 +141,7 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
                     onDragEnd={handleDragEnd}
                     className={`relative flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border cursor-grab active:cursor-grabbing select-none group ${
                       isActive 
-                        ? 'bg-[#eb4520] border-[#eb4520] text-white shadow-[0_4px_20px_rgba(235,69,32,0.4)] z-10' 
+                        ? 'bg-[#00a86b] border-[#00a86b] text-white shadow-[0_4px_20px_rgba(0,168,107,0.4)] z-10' 
                         : 'bg-[#111111] border-white/[0.05] text-[#aeaeae] hover:bg-white/[0.05] hover:text-white hover:border-white/[0.1] z-0'
                     }`}
                     onClick={() => setActiveItemId(item._id)}
@@ -158,7 +158,7 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
 
             <button 
               onClick={handleAddItem} 
-              className="flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border border-dashed border-white/[0.1] bg-[#111111] text-[#aeaeae] hover:bg-[#eb4520]/10 hover:border-[#eb4520]/50 hover:text-[#eb4520] transition-colors shrink-0"
+              className="flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border border-dashed border-white/[0.1] bg-[#111111] text-[#aeaeae] hover:bg-[#00a86b]/10 hover:border-[#00a86b]/50 hover:text-[#00a86b] transition-colors shrink-0"
               title="Add New Testimonial"
             >
               <Plus size={24} />
@@ -179,7 +179,7 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
                 {/* Card Header */}
                 <div className="p-6 md:px-8 border-b border-white/[0.05] flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/[0.2]">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-[14px] border border-white/[0.05] bg-[#1a1a1a] flex items-center justify-center shrink-0 text-[#eb4520]">
+                    <div className="w-12 h-12 rounded-[14px] border border-white/[0.05] bg-[#1a1a1a] flex items-center justify-center shrink-0 text-[#00a86b]">
                       <MessageSquareQuote className="w-6 h-6" />
                     </div>
 
@@ -195,13 +195,13 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
                     <div className="flex bg-[#000000] p-1 rounded-[12px] border border-white/[0.05]">
                       <button 
                         onClick={() => setCardLang('en')}
-                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'en' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'en' ? 'bg-[#00a86b] text-white shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
                       >
                         EN
                       </button>
                       <button 
                         onClick={() => setCardLang('ar')}
-                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'ar' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'ar' ? 'bg-[#00a86b] text-white shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
                       >
                         AR
                       </button>
@@ -230,7 +230,7 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
                         type="text"
                         value={activeItem.author?.[cardLang] || ''}
                         onChange={(e) => handleUpdateItem('author', e.target.value)}
-                        className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#eb4520]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
+                        className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#00a86b]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
                         dir={cardLang === 'ar' ? 'rtl' : 'ltr'}
                         placeholder={cardLang === 'en' ? 'Type author name...' : 'اكتب اسم المؤلف هنا...'}
                       />
@@ -243,7 +243,7 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
                         type="text"
                         value={activeItem.role?.[cardLang] || ''}
                         onChange={(e) => handleUpdateItem('role', e.target.value)}
-                        className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#eb4520]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
+                        className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#00a86b]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
                         dir={cardLang === 'ar' ? 'rtl' : 'ltr'}
                         placeholder={cardLang === 'en' ? 'Type role...' : 'اكتب المنصب هنا...'}
                       />
@@ -257,7 +257,7 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
                     <textarea
                       value={activeItem.quote?.[cardLang] || ''}
                       onChange={(e) => handleUpdateItem('quote', e.target.value)}
-                      className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#eb4520]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all min-h-[140px] resize-y placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
+                      className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#00a86b]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all min-h-[140px] resize-y placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
                       dir={cardLang === 'ar' ? 'rtl' : 'ltr'}
                       placeholder={cardLang === 'en' ? 'Type quote...' : 'اكتب الاقتباس هنا...'}
                     />

@@ -63,14 +63,14 @@ export default function CTASection() {
               <span
                 className="h-2 w-2 shrink-0 rounded-full"
                 style={{
-                  background: 'radial-gradient(100% 100% at 50% 0%, rgb(255,169,132) 0%, rgb(255,89,17) 100%)',
+                  background: 'radial-gradient(100% 100% at 50% 0%, rgb(82, 255, 184) 0%, rgb(0, 168, 107) 100%)',
                   boxShadow: 'rgba(255,255,255,0.12) 0px 1px 16px 0px inset, rgba(255,255,255,0.09) 0px 1px 1px 0px inset',
                 }}
               />
               <span
                 className="text-[13px] font-medium"
                 style={{
-                  backgroundImage: 'linear-gradient(90deg, rgb(232,111,58) 0%, rgb(252,189,162) 100%)',
+                  backgroundImage: 'linear-gradient(90deg, rgb(0, 212, 136) 0%, rgb(167, 243, 208) 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -138,7 +138,7 @@ export default function CTASection() {
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
                 className="group inline-flex h-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-5 text-[14px] font-medium text-white transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ backgroundColor: 'rgb(234,69,32)' }}
+                style={{ backgroundColor: 'rgb(0,168,107)' }}
               >
                 {status === 'loading' ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -174,7 +174,7 @@ export default function CTASection() {
           {/* ── Glow block (framer-b3bnzv) ── */}
           {/* Using pointer-events-none and absolute inset-0 to cover the card without clipping the glow at the top */}
           <div className="absolute inset-0 h-full w-full pointer-events-none overflow-hidden rounded-[24px]">
-            {/* Ellipse 37 — blurred orange radial */}
+            {/* Ellipse 37 — blurred green radial */}
             <div
               className="absolute left-1/2 -translate-x-1/2"
               style={{
@@ -183,16 +183,16 @@ export default function CTASection() {
                 height: '240px',
                 borderRadius: '50%',
                 background:
-                  'radial-gradient(50% 50% at 50% 50%, rgba(255,132,63,0.6) 0%, rgba(241,73,36,0) 100%)',
+                  'radial-gradient(50% 50% at 50% 50%, rgba(0,168,107,0.55) 0%, rgba(0,168,107,0) 100%)',
                 filter: 'blur(40px)',
               }}
             />
-            {/* Orange line */}
+            {/* Green line */}
             <div
               className="absolute bottom-0 left-0 right-0 h-[1px]"
               style={{
                 background:
-                  'linear-gradient(90deg, rgba(232,111,58,0) 0%, rgb(243,87,50) 50%, rgba(232,111,58,0) 100%)',
+                  'linear-gradient(90deg, rgba(0,168,107,0) 0%, rgb(0,168,107) 50%, rgba(0,168,107,0) 100%)',
                 opacity: 0.9,
               }}
             />

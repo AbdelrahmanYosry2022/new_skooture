@@ -13,9 +13,9 @@
 
   /* SaasPro Design Tokens */
   --color-cod-gray: #1a1a1a;
-  --color-saas-orange: #ff5722;
+  --color-saas-orange: #00a86b;
   --color-silver-chalice: #a1a1a1;
-  --color-pomegranate: #f44336;
+  --color-pomegranate: #008f5b;
 
   /* Default Palette (Dark by default) */
   --color-background: #000000;
@@ -27,16 +27,16 @@
   --color-primary: #ffffff;
   --color-primary-foreground: #1a1a1a;
 
-  --color-accent: #ff5722;
+  --color-accent: #00a86b;
   --color-accent-foreground: #ffffff;
 
   /* Crisp Shadows */
   --shadow-subtle: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
   --shadow-elevated: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
-  --shadow-badge: 0 0 12px rgba(255, 87, 34, 0.2);
-  --shadow-cta: 0 0 20px rgba(255, 87, 34, 0.4);
-  --shadow-cta-hover: 0 0 30px rgba(255, 87, 34, 0.6);
+  --shadow-badge: 0 0 12px rgba(0, 168, 107, 0.2);
+  --shadow-cta: 0 0 20px rgba(0, 168, 107, 0.4);
+  --shadow-cta-hover: 0 0 30px rgba(0, 168, 107, 0.6);
 }
 
 @theme inline {
@@ -94,12 +94,12 @@
   --secondary-foreground: oklch(1 0 0);
   --muted: oklch(0.25 0 0);
   --muted-foreground: oklch(0.7 0 0); /* #a1a1a1 */
-  --accent: oklch(0.6 0.15 30); /* orange approx */
+  --accent: oklch(0.62 0.14 155); /* emerald approx */
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.6 0.2 25);
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 8%);
-  --ring: oklch(0.6 0.15 30 / 50%);
+  --ring: oklch(0.62 0.14 155 / 50%);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -129,12 +129,12 @@
   --secondary-foreground: oklch(1 0 0);
   --muted: oklch(0.25 0 0);
   --muted-foreground: oklch(0.7 0 0); /* #a1a1a1 */
-  --accent: oklch(0.6 0.15 30); /* orange approx */
+  --accent: oklch(0.62 0.14 155); /* emerald approx */
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.6 0.2 25);
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 8%);
-  --ring: oklch(0.6 0.15 30 / 50%);
+  --ring: oklch(0.62 0.14 155 / 50%);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

@@ -53,7 +53,7 @@ export default function AdminHeader({ onMenuClick, title, onSave, onReset, isSav
                 className={`h-[40px] px-[20px] text-sm font-medium text-white rounded-[10px] transition-all duration-200 border-0 flex items-center justify-center gap-2 ${
                   isSaved 
                     ? 'bg-emerald-500 shadow-[0_1px_2px_rgba(16,185,129,0.2)]' 
-                    : 'bg-[#eb4520] hover:bg-[#d63d1a] shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(255,80,36,0.4)]'
+                    : 'bg-[#00a86b] hover:bg-[#008f5b] shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(0,168,107,0.35)]'
                 }`}
               >
                 {isSaved ? t('actions.saved') : t('actions.saveChanges')}
@@ -73,7 +73,7 @@ export default function AdminHeader({ onMenuClick, title, onSave, onReset, isSav
 
           <button
             onClick={logout}
-            className="p-2 text-[#eb4520] hover:text-white bg-[#eb4520]/10 hover:bg-[#eb4520] border border-[#eb4520]/20 hover:border-[#eb4520] rounded-[10px] transition-all"
+            className="p-2 text-[#00a86b] hover:text-white bg-[#00a86b]/10 hover:bg-[#00a86b] border border-[#00a86b]/20 hover:border-[#00a86b] rounded-[10px] transition-all"
             title={t('header.logout')}
           >
             <LogOut className="w-5 h-5" />

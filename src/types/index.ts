@@ -64,6 +64,8 @@ export interface PricingPlan {
   features: PlanFeature[];
   highlighted?: boolean;
   popular?: boolean;
+  billingPeriod?: string;
+  cta?: Translatable;
   price?: {
     monthly: string;
     annual: string;

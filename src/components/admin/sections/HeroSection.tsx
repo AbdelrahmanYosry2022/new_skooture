@@ -28,7 +28,7 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
               onClick={() => setActiveTab(tab.id as any)}
               className={`flex items-center gap-2 px-5 py-3 rounded-[12px] text-sm font-medium transition-all duration-300 whitespace-nowrap ${
                 activeTab === tab.id 
-                  ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)]' 
+                  ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)]' 
                   : 'text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'
               }`}
             >

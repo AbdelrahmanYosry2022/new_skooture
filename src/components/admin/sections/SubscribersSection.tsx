@@ -49,12 +49,12 @@ export default function SubscribersSection({ isRTL }: SubscribersSectionProps) {
               placeholder={isRTL ? "ابحث بالإيميل..." : "Search by email..."}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[#111111] border border-white/[0.05] rounded-xl pl-10 pr-4 py-2 text-sm text-white placeholder-[#666666] focus:outline-none focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/20 transition-all"
+              className="w-full bg-[#111111] border border-white/[0.05] rounded-xl pl-10 pr-4 py-2 text-sm text-white placeholder-[#666666] focus:outline-none focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/20 transition-all"
             />
           </div>
           <div className="flex items-center gap-2 w-full sm:w-auto">
             <div className="px-4 py-2 bg-[#111111] border border-white/[0.05] rounded-xl text-sm font-medium text-white flex items-center gap-2">
-              <Users className="w-4 h-4 text-[#eb4520]" />
+              <Users className="w-4 h-4 text-[#00a86b]" />
               {subscribers.length} {isRTL ? 'مشترك إجمالي' : 'Total Subscribers'}
             </div>
           </div>
@@ -81,14 +81,14 @@ export default function SubscribersSection({ isRTL }: SubscribersSectionProps) {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: idx * 0.05 }}
                   key={sub.id} 
-                  className="group bg-[#111111] border border-white/[0.05] rounded-2xl p-5 hover:border-[#eb4520]/30 transition-all duration-300 shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] flex flex-col gap-4"
+                  className="group bg-[#111111] border border-white/[0.05] rounded-2xl p-5 hover:border-[#00a86b]/30 transition-all duration-300 shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] flex flex-col gap-4"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#eb4520]/20 to-[#fcbda2]/10 border border-[#eb4520]/20 flex items-center justify-center text-[#eb4520] shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00a86b]/20 to-[#b3f0d4]/10 border border-[#00a86b]/20 flex items-center justify-center text-[#00a86b] shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <a href={`mailto:${sub.email}`} className="text-white text-sm font-medium hover:text-[#eb4520] transition-colors truncate block">
+                      <a href={`mailto:${sub.email}`} className="text-white text-sm font-medium hover:text-[#00a86b] transition-colors truncate block">
                         {sub.email}
                       </a>
                     </div>

@@ -12,7 +12,7 @@ export default function BentoFeatures() {
   return (
     <section id="features-bento" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px]" />
 
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="flex flex-col items-center text-center mb-16 md:mb-24">
@@ -22,8 +22,8 @@ export default function BentoFeatures() {
             viewport={{ once: true }}
             className="mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
-            <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+            <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
               {t({ en: 'Features', ar: 'الميزات' })}
             </span>
           </motion.div>
@@ -56,10 +56,10 @@ export default function BentoFeatures() {
                 className={`group relative p-8 rounded-[24px] bg-[#191919]/60 border border-white/[0.05] hover:border-white/[0.1] transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:bg-[#191919]/80 overflow-hidden flex flex-col justify-between ${colSpanClass}`}
               >
                 {/* Subtle hover gradient inside card */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(235,69,32,0.08)_0%,transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,168,107,0.08)_0%,transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 
                 <div className="relative z-10 h-full flex flex-col">
-                  <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-8 border border-white/[0.05] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#eb4520] group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-8 border border-white/[0.05] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#00a86b] group-hover:scale-110 transition-transform duration-500">
                     <DynamicIcon name={feature.icon || 'Star'} className="w-6 h-6" />
                   </div>
                   <div className="mt-auto">

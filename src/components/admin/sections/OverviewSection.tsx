@@ -15,15 +15,15 @@ export default function OverviewSection() {
       label: t('overview.trustedPartners'),
       value: contentData.partners?.logos?.length || 0,
       icon: Globe,
-      color: 'text-[#eb4520]',
-      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)]'
+      color: 'text-[#00a86b]',
+      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)]'
     },
     {
       label: t('overview.activeSections'),
       value: '12',
       icon: LayoutTemplate,
-      color: 'text-[#eb4520]',
-      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)]'
+      color: 'text-[#00a86b]',
+      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)]'
     }
   ];
 
@@ -36,7 +36,7 @@ export default function OverviewSection() {
             <div key={index} className="bg-[#000000] p-6 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] relative overflow-hidden group">
               <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full ${stat.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl`} />
               <div className="flex items-center gap-5 relative z-10">
-                <div className="p-4 rounded-[16px] bg-[#111111] border border-white/[0.05] shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] group-hover:border-[#eb4520]/20 transition-colors">
+                <div className="p-4 rounded-[16px] bg-[#111111] border border-white/[0.05] shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] group-hover:border-[#00a86b]/20 transition-colors">
                   <Icon className={`w-6 h-6 ${stat.color}`} />
                 </div>
                 <div>

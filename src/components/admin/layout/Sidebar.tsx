@@ -79,7 +79,7 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
             ) : (
               <>
                 <div className="w-10 h-10 rounded-[10px] bg-[#191919] border border-white/[0.08] flex items-center justify-center font-bold text-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.09)]">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#eb4520] to-[#fcbda2]">S</span>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00a86b] to-[#b3f0d4]">S</span>
                 </div>
                 <span className="font-bold text-xl text-white">Skooture</span>
               </>
@@ -115,7 +115,7 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
                     : "text-[#aeaeae] hover:text-[#ffffff]"
                 )}
               >
-                <Icon className={cn("w-5 h-5 shrink-0", isActive ? "text-[#eb4520]" : "opacity-70")} />
+                <Icon className={cn("w-5 h-5 shrink-0", isActive ? "text-[#00a86b]" : "opacity-70")} />
                 <span className="truncate">{t(item.labelKey)}</span>
               </Button>
             );

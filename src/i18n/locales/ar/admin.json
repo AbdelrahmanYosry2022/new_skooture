@@ -38,6 +38,11 @@
     "updatePortal": "تحديث المنصة",
     "viewSite": "عرض الموقع"
   },
+  "actions": {
+    "saveChanges": "Save Changes",
+    "saved": "Saved",
+    "reset": "Reset"
+  },
   "settings": {
     "languageTitle": "لغة لوحة التحكم",
     "languageHint": "AR / EN",

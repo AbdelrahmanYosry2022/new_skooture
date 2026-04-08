@@ -20,8 +20,8 @@ export default function WhySection() {
   return (
     <section className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
       {/* Decorative Glow */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] -translate-y-1/2 translate-x-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full opacity-15 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] translate-y-1/4 -translate-x-1/4" />
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] -translate-y-1/2 translate-x-1/4" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full opacity-15 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] translate-y-1/4 -translate-x-1/4" />
 
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -35,8 +35,8 @@ export default function WhySection() {
             className="space-y-8"
           >
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]">
-              <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
-              <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+              <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
                 {t(content.why.title)}
               </span>
             </motion.div>
@@ -86,24 +86,24 @@ export default function WhySection() {
 
                 {/* Connection Line */}
                 <div className="flex items-center justify-center -my-2 relative z-0">
-                  <div className="w-[1px] h-8 bg-gradient-to-b from-white/[0.05] to-[#eb4520]/50" />
+                  <div className="w-[1px] h-8 bg-gradient-to-b from-white/[0.05] to-[#00a86b]/50" />
                 </div>
 
                 {/* New AI Infrastructure Card */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] bg-gradient-to-r from-[#eb4520]/10 to-transparent border border-[#eb4520]/20 shadow-[0_0_30px_rgba(235,69,32,0.1)] relative overflow-hidden group gap-4 sm:gap-0">
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(235,69,32,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] bg-gradient-to-r from-[#00a86b]/10 to-transparent border border-[#00a86b]/20 shadow-[0_0_30px_rgba(0,168,107,0.1)] relative overflow-hidden group gap-4 sm:gap-0">
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(0,168,107,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="flex items-center gap-4 relative z-10">
-                    <div className="w-12 h-12 shrink-0 rounded-[12px] bg-[#eb4520] flex items-center justify-center shadow-[0_2px_10px_rgba(235,69,32,0.3)]">
+                    <div className="w-12 h-12 shrink-0 rounded-[12px] bg-[#00a86b] flex items-center justify-center shadow-[0_2px_10px_rgba(0,168,107,0.3)]">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="white"/>
                       </svg>
                     </div>
                     <div>
                       <h4 className="text-white font-medium text-[18px] tracking-tight">Skooture.AI</h4>
-                      <p className="text-[#e86f3a] text-[13px] mt-0.5">{t(content.why.labels?.globalAi || 'Global AI Infrastructure')}</p>
+                      <p className="text-[#00e695] text-[13px] mt-0.5">{t(content.why.labels?.globalAi || 'Global AI Infrastructure')}</p>
                     </div>
                   </div>
-                  <div className="text-[#eb4520] font-medium text-[12px] bg-[#eb4520]/10 border border-[#eb4520]/20 px-3 py-1 rounded-full relative z-10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] whitespace-nowrap">
+                  <div className="text-[#00a86b] font-medium text-[12px] bg-[#00a86b]/10 border border-[#00a86b]/20 px-3 py-1 rounded-full relative z-10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] whitespace-nowrap">
                     {t(content.why.labels?.scalable || 'Scalable')}
                   </div>
                 </div>

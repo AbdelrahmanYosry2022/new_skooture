@@ -38,6 +38,11 @@
     "updatePortal": "Update Portal",
     "viewSite": "View Site"
   },
+  "actions": {
+    "saveChanges": "Save Changes",
+    "saved": "Saved",
+    "reset": "Reset"
+  },
   "settings": {
     "languageTitle": "Dashboard Language",
     "languageHint": "EN / AR",

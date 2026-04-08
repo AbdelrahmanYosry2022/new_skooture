@@ -110,7 +110,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
         {/* Header */}
         <div className="p-6 md:p-8 border-b border-white/[0.05] flex items-center justify-between bg-gradient-to-b from-white/[0.02] to-transparent">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-[16px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#eb4520] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
+            <div className="w-12 h-12 rounded-[16px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
               <Activity size={24} />
             </div>
             <div>
@@ -167,7 +167,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
                     onDragEnd={handleDragEnd}
                     className={`relative flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border cursor-grab active:cursor-grabbing select-none group ${
                       isActive 
-                        ? 'bg-[#eb4520] border-[#eb4520] text-white shadow-[0_4px_20px_rgba(235,69,32,0.4)] z-10' 
+                        ? 'bg-[#00a86b] border-[#00a86b] text-white shadow-[0_4px_20px_rgba(0,168,107,0.4)] z-10' 
                         : 'bg-[#111111] border-white/[0.05] text-[#aeaeae] hover:bg-white/[0.05] hover:text-white hover:border-white/[0.1] z-0'
                     }`}
                     onClick={() => setActiveStatId(stat._id)}
@@ -184,7 +184,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
 
             <button 
               onClick={handleAddStat} 
-              className="flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border border-dashed border-white/[0.1] bg-[#111111] text-[#aeaeae] hover:bg-[#eb4520]/10 hover:border-[#eb4520]/50 hover:text-[#eb4520] transition-colors shrink-0"
+              className="flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border border-dashed border-white/[0.1] bg-[#111111] text-[#aeaeae] hover:bg-[#00a86b]/10 hover:border-[#00a86b]/50 hover:text-[#00a86b] transition-colors shrink-0"
               title="Add Impact Stat"
             >
               <Plus size={24} />
@@ -208,7 +208,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
                     {/* Interactive Icon Picker */}
                     <div className="relative z-50">
                       <div 
-                        className={`w-12 h-12 rounded-[14px] border flex items-center justify-center shrink-0 transition-colors cursor-pointer group/icon ${isIconPickerOpen ? 'bg-[#eb4520] border-[#eb4520] text-white' : 'bg-[#1a1a1a] border-white/[0.05] hover:border-[#eb4520]/50 hover:bg-[#eb4520]/10 text-[#eb4520]'}`}
+                        className={`w-12 h-12 rounded-[14px] border flex items-center justify-center shrink-0 transition-colors cursor-pointer group/icon ${isIconPickerOpen ? 'bg-[#00a86b] border-[#00a86b] text-white' : 'bg-[#1a1a1a] border-white/[0.05] hover:border-[#00a86b]/50 hover:bg-[#00a86b]/10 text-[#00a86b]'}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           setIsIconPickerOpen(!isIconPickerOpen);
@@ -237,7 +237,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
                                   value={iconSearch}
                                   onChange={(e) => setIconSearch(e.target.value)}
                                   placeholder="Search icons..."
-                                  className="w-full py-2 pl-9 pr-3 bg-white/[0.03] border border-white/[0.05] focus:border-[#eb4520]/50 text-sm font-medium rounded-[10px] text-white outline-none transition-all placeholder:text-white/[0.2]"
+                                  className="w-full py-2 pl-9 pr-3 bg-white/[0.03] border border-white/[0.05] focus:border-[#00a86b]/50 text-sm font-medium rounded-[10px] text-white outline-none transition-all placeholder:text-white/[0.2]"
                                   autoFocus
                                 />
                               </div>
@@ -257,7 +257,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
                                     }}
                                     className={`flex flex-col items-center justify-center p-3 rounded-[12px] transition-all duration-300 ${
                                       isActive 
-                                        ? 'bg-[#eb4520] text-white' 
+                                        ? 'bg-[#00a86b] text-white' 
                                         : 'hover:bg-white/[0.05] text-white/[0.5] hover:text-white'
                                     }`}
                                     title={name}
@@ -284,13 +284,13 @@ export default function TractionSection({ localContent, updateNestedContent }: A
                     <div className="flex bg-[#000000] p-1 rounded-[12px] border border-white/[0.05]">
                       <button 
                         onClick={() => setCardLang('en')}
-                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'en' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'en' ? 'bg-[#00a86b] text-white shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
                       >
                         EN
                       </button>
                       <button 
                         onClick={() => setCardLang('ar')}
-                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'ar' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'ar' ? 'bg-[#00a86b] text-white shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
                       >
                         AR
                       </button>
@@ -319,7 +319,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
                         type="number"
                         value={activeStat.value || ''}
                         onChange={(e) => handleUpdateStat('value', parseInt(e.target.value))}
-                        className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#eb4520]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] text-center`}
+                        className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#00a86b]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] text-center`}
                         placeholder="0"
                       />
                     </div>
@@ -331,7 +331,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
                         type="text"
                         value={activeStat.label?.[cardLang] || ''}
                         onChange={(e) => handleUpdateStat('label', e.target.value)}
-                        className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#eb4520]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
+                        className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#00a86b]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
                         dir={cardLang === 'ar' ? 'rtl' : 'ltr'}
                         placeholder={cardLang === 'en' ? 'Type label here...' : 'اكتب التسمية هنا...'}
                       />

@@ -35,12 +35,12 @@ export default function MessagesSection({ messages, isRTL }: MessagesSectionProp
               placeholder={isRTL ? "ابحث بالاسم، الإيميل، أو المحتوى..." : "Search by name, email, or content..."}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[#111111] border border-white/[0.05] rounded-xl pl-10 pr-4 py-2 text-sm text-white placeholder-[#666666] focus:outline-none focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/20 transition-all"
+              className="w-full bg-[#111111] border border-white/[0.05] rounded-xl pl-10 pr-4 py-2 text-sm text-white placeholder-[#666666] focus:outline-none focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/20 transition-all"
             />
           </div>
           <div className="flex items-center gap-2 w-full sm:w-auto">
             <div className="px-4 py-2 bg-[#111111] border border-white/[0.05] rounded-xl text-sm font-medium text-white flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 text-[#eb4520]" />
+              <MessageSquare className="w-4 h-4 text-[#00a86b]" />
               {messages.length} {isRTL ? 'رسالة إجمالية' : 'Total Messages'}
             </div>
           </div>
@@ -63,19 +63,19 @@ export default function MessagesSection({ messages, isRTL }: MessagesSectionProp
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: idx * 0.05 }}
                   key={msg.id} 
-                  className="group bg-[#111111] border border-white/[0.05] rounded-2xl overflow-hidden hover:border-[#eb4520]/30 transition-all duration-300 shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]"
+                  className="group bg-[#111111] border border-white/[0.05] rounded-2xl overflow-hidden hover:border-[#00a86b]/30 transition-all duration-300 shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]"
                 >
                   {/* Header */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between px-6 py-4 bg-[#191919] border-b border-white/[0.05] gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#eb4520]/20 to-[#fcbda2]/10 border border-[#eb4520]/20 flex items-center justify-center text-[#eb4520] font-bold text-lg shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00a86b]/20 to-[#b3f0d4]/10 border border-[#00a86b]/20 flex items-center justify-center text-[#00a86b] font-bold text-lg shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
                         {msg.name.charAt(0).toUpperCase()}
                       </div>
                       <div>
                         <h4 className="font-bold text-white text-base">{msg.name}</h4>
                         <div className="flex items-center gap-2 mt-1">
                           <Mail className="w-3 h-3 text-[#666666]" />
-                          <a href={`mailto:${msg.email}`} className="text-sm text-[#aeaeae] hover:text-[#eb4520] transition-colors">
+                          <a href={`mailto:${msg.email}`} className="text-sm text-[#aeaeae] hover:text-[#00a86b] transition-colors">
                             {msg.email}
                           </a>
                         </div>

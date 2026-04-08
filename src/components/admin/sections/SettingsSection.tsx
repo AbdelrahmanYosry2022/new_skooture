@@ -63,7 +63,7 @@ export default function SettingsSection({
         <div className="bg-[#000000] p-6 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6 flex flex-col justify-between">
           <div className="flex items-start justify-between">
             <div>
-              <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#eb4520] mb-4">
+              <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#00a86b] mb-4">
                 <Languages size={20} />
               </div>
               <h3 className="text-lg font-bold text-white">{t('settings.languageTitle')}</h3>
@@ -74,13 +74,13 @@ export default function SettingsSection({
           <div className="flex bg-[#111111] border border-white/[0.05] p-1.5 rounded-[12px] gap-2">
             <button 
               onClick={() => setAdminLanguage('ar')}
-              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'ar' ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]' : 'text-[#aeaeae] hover:text-white'}`}
+              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'ar' ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]' : 'text-[#aeaeae] hover:text-white'}`}
             >
               {t('settings.arabic')}
             </button>
             <button 
               onClick={() => setAdminLanguage('en')}
-              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'en' ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]' : 'text-[#aeaeae] hover:text-white'}`}
+              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'en' ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]' : 'text-[#aeaeae] hover:text-white'}`}
             >
               {t('settings.english')}
             </button>
@@ -93,7 +93,7 @@ export default function SettingsSection({
       <div className="bg-[#000000] border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
         <div className="p-6 border-b border-white/[0.05] bg-[#050505]">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#eb4520]">
+            <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#00a86b]">
               <User size={20} />
             </div>
             <div>
@@ -104,9 +104,9 @@ export default function SettingsSection({
         </div>
 
         <div className="p-6 space-y-6">
-          <div className="p-4 rounded-[12px] bg-[#eb4520]/10 border border-[#eb4520]/20 flex items-start gap-3">
-            <ShieldAlert className="text-[#eb4520] shrink-0 w-5 h-5 mt-0.5" />
-            <p className="text-sm text-[#eb4520]/90 leading-relaxed">
+          <div className="p-4 rounded-[12px] bg-[#00a86b]/10 border border-[#00a86b]/20 flex items-start gap-3">
+            <ShieldAlert className="text-[#00a86b] shrink-0 w-5 h-5 mt-0.5" />
+            <p className="text-sm text-[#00a86b]/90 leading-relaxed">
               This is a local environment. Admin credentials cannot be changed from the UI. To update the admin email or password, please edit your backend <code className="bg-black border border-white/[0.1] px-1.5 py-0.5 rounded text-xs mx-1">.env</code> file.
             </p>
           </div>

@@ -267,6 +267,12 @@
           { "en": "$ 49.00 Package Amount", "ar": "قيمة الباقة 49.00 دولار" },
           { "en": "30 Days", "ar": "30 يوم" }
         ],
+        "billingPeriod": "both",
+        "cta": { "en": "Get Started", "ar": "ابدأ الآن" },
+        "price": {
+          "monthly": "$49.00",
+          "annual": "$490.00"
+        },
         "features": [
           { "name": { "en": "Student Management", "ar": "إدارة الطلاب" }, "included": true },
           { "name": { "en": "Academics Management", "ar": "إدارة الشؤون الأكاديمية" }, "included": true },
@@ -287,7 +293,8 @@
           { "name": { "en": "Advanced Analytics", "ar": "تحليلات متقدمة" }, "included": false },
           { "name": { "en": "Data Export", "ar": "تصدير البيانات" }, "included": false }
         ],
-        "highlighted": false
+        "highlighted": false,
+        "popular": false
       },
       {
         "name": { "en": "Standard", "ar": "الخطة القياسية" },
@@ -298,6 +305,12 @@
           { "en": "$ 99.00 Package Amount", "ar": "قيمة الباقة 99.00 دولار" },
           { "en": "30 Days", "ar": "30 يوم" }
         ],
+        "billingPeriod": "both",
+        "cta": { "en": "Choose Standard", "ar": "اختر القياسية" },
+        "price": {
+          "monthly": "$99.00",
+          "annual": "$990.00"
+        },
         "features": [
           { "name": { "en": "Student Management", "ar": "إدارة الطلاب" }, "included": true },
           { "name": { "en": "Academics Management", "ar": "إدارة الشؤون الأكاديمية" }, "included": true },
@@ -318,7 +331,8 @@
           { "name": { "en": "Advanced Analytics", "ar": "تحليلات متقدمة" }, "included": false },
           { "name": { "en": "Data Export", "ar": "تصدير البيانات" }, "included": true }
         ],
-        "highlighted": false
+        "highlighted": false,
+        "popular": false
       },
       {
         "name": { "en": "Pro Plan", "ar": "الخطة الاحترافية" },
@@ -328,6 +342,12 @@
           { "en": "$ 0.00 Per Staff Charges", "ar": "0.00 دولار لكل موظف" },
           { "en": "30 Days", "ar": "30 يوم" }
         ],
+        "billingPeriod": "monthly",
+        "cta": { "en": "Talk to Sales", "ar": "تواصل مع المبيعات" },
+        "price": {
+          "monthly": "$1.00",
+          "annual": "$12.00"
+        },
         "features": [
           { "name": { "en": "Student Management", "ar": "إدارة الطلاب" }, "included": true },
           { "name": { "en": "Academics Management", "ar": "إدارة الشؤون الأكاديمية" }, "included": true },
@@ -348,7 +368,8 @@
           { "name": { "en": "Advanced Analytics", "ar": "تحليلات متقدمة" }, "included": true },
           { "name": { "en": "Data Export", "ar": "تصدير البيانات" }, "included": true }
         ],
-        "highlighted": true
+        "highlighted": true,
+        "popular": true
       },
       {
         "name": { "en": "Premium (Full Suite)", "ar": "الخطة الشاملة (بريميوم)" },
@@ -358,6 +379,12 @@
           { "en": "Dedicated Account Manager", "ar": "مدير حساب مخصص" },
           { "en": "Unlimited Days", "ar": "أيام غير محدودة" }
         ],
+        "billingPeriod": "annual",
+        "cta": { "en": "Book Enterprise Demo", "ar": "احجز عرض المؤسسة" },
+        "price": {
+          "monthly": "$0.50",
+          "annual": "$180.00"
+        },
         "features": [
           { "name": { "en": "Student Management", "ar": "إدارة الطلاب" }, "included": true },
           { "name": { "en": "Academics Management", "ar": "إدارة الشؤون الأكاديمية" }, "included": true },

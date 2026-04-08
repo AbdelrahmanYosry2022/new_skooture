@@ -29,7 +29,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
     const targetIndex = newPlans.findIndex(p => p._id === planId);
     if (targetIndex === -1) return;
     
-    if (field === 'highlighted') {
+    if (field === 'highlighted' || field === 'billingPeriod' || field === 'popular') {
         newPlans[targetIndex][field] = value;
     } else {
         if (!newPlans[targetIndex][field]) newPlans[targetIndex][field] = { en: '', ar: '' };
@@ -173,6 +173,10 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
       name: { en: 'New Plan', ar: 'خطة جديدة' },
       badge: { en: '', ar: '' },
       highlighted: false,
+      popular: false,
+      billingPeriod: 'both',
+      price: { monthly: '', annual: '' },
+      cta: { en: 'Get Started', ar: 'ابدأ الآن' },
       details: [{ en: 'Plan detail', ar: 'تفاصيل الخطة' }],
       features: allFeatures.map(f => ({
         name: { en: f.en, ar: f.ar },
@@ -189,7 +193,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
         {/* Header */}
         <div className="p-6 md:p-8 border-b border-white/[0.05] flex flex-col md:flex-row items-start md:items-center justify-between bg-gradient-to-b from-white/[0.02] to-transparent gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-[16px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#eb4520] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
+            <div className="w-12 h-12 rounded-[16px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
               <CreditCard size={24} />
             </div>
             <div>
@@ -202,13 +206,13 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
             <div className="flex bg-[#111111] p-1 rounded-[12px] border border-white/[0.05] w-full md:w-auto mr-4">
               <button 
                 onClick={() => setMatrixLang('en')}
-                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'en' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'en' ? 'bg-[#00a86b] text-white shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
               >
                 English
               </button>
               <button 
                 onClick={() => setMatrixLang('ar')}
-                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'ar' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'ar' ? 'bg-[#00a86b] text-white shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
               >
                 العربية
               </button>
@@ -276,7 +280,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                     {localPlans.map((plan: any, idx: number) => (
                       <th key={plan._id} className="p-4 align-top border-b border-white/[0.05] min-w-[240px] w-[280px] relative">
                         {/* Smart Plan Header */}
-                        <div className={`p-4 rounded-[16px] border transition-all ${plan.highlighted ? 'bg-[#eb4520]/5 border-[#eb4520]/30 shadow-[inset_0_0_20px_rgba(235,69,32,0.1)]' : 'bg-[#191919] border-white/[0.05]'}`}>
+                        <div className={`p-4 rounded-[16px] border transition-all ${plan.highlighted ? 'bg-[#00a86b]/5 border-[#00a86b]/30 shadow-[inset_0_0_20px_rgba(0,168,107,0.1)]' : 'bg-[#191919] border-white/[0.05]'}`}>
                           
                           {/* Plan Name Editable */}
                           <div className="relative mb-3">
@@ -284,18 +288,18 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               type="text"
                               value={plan.name?.[matrixLang] || ''}
                               onChange={(e) => handleUpdatePlanProperty(plan._id, 'name', matrixLang, e.target.value)}
-                              className="w-full bg-transparent border-b border-dashed border-white/[0.2] hover:border-white/[0.5] focus:border-[#eb4520] focus:bg-[#000000] text-white font-bold text-lg px-2 py-1 outline-none transition-all placeholder:text-white/[0.2]"
+                              className="w-full bg-transparent border-b border-dashed border-white/[0.2] hover:border-white/[0.5] focus:border-[#00a86b] focus:bg-[#000000] text-white font-bold text-lg px-2 py-1 outline-none transition-all placeholder:text-white/[0.2]"
                               dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                               placeholder={matrixLang === 'en' ? 'Plan Name...' : 'اسم الباقة...'}
                             />
                             {plan.highlighted && (
-                              <Star className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-[#eb4520] opacity-50 pointer-events-none" />
+                              <Star className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-[#00a86b] opacity-50 pointer-events-none" />
                             )}
                           </div>
 
                           <button
                             onClick={() => setActiveSettingsPlanId(activeSettingsPlanId === plan._id ? null : plan._id)}
-                            className={`w-full py-2.5 px-3 rounded-[10px] text-xs font-bold uppercase tracking-wider flex items-center justify-between border transition-all ${activeSettingsPlanId === plan._id ? 'bg-[#eb4520] text-white border-[#eb4520] shadow-[0_4px_12px_rgba(235,69,32,0.4)]' : 'bg-[#111111] text-[#aeaeae] border-white/[0.05] hover:border-[#eb4520]/50 hover:text-white'}`}
+                            className={`w-full py-2.5 px-3 rounded-[10px] text-xs font-bold uppercase tracking-wider flex items-center justify-between border transition-all ${activeSettingsPlanId === plan._id ? 'bg-[#00a86b] text-white border-[#00a86b] shadow-[0_4px_12px_rgba(0,168,107,0.4)]' : 'bg-[#111111] text-[#aeaeae] border-white/[0.05] hover:border-[#00a86b]/50 hover:text-white'}`}
                           >
                             <span>{matrixLang === 'en' ? 'Plan Settings' : 'إعدادات الباقة'}</span>
                             <Settings2 className="w-4 h-4" />
@@ -310,10 +314,10 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: -10, scale: 0.95 }}
                               transition={{ duration: 0.15 }}
-                              className="absolute top-full left-4 right-4 mt-2 bg-[#1a1a1a] border border-[#eb4520]/30 shadow-[0_20px_40px_rgba(0,0,0,0.8)] rounded-[16px] z-50 overflow-hidden flex flex-col"
+                              className="absolute top-full left-4 right-4 mt-2 bg-[#1a1a1a] border border-[#00a86b]/30 shadow-[0_20px_40px_rgba(0,0,0,0.8)] rounded-[16px] z-50 overflow-hidden flex flex-col"
                             >
                               <div className="p-4 bg-[#111111] border-b border-white/[0.05] flex items-center justify-between">
-                                <span className="text-xs font-bold text-[#eb4520] uppercase tracking-wider flex items-center gap-2">
+                                <span className="text-xs font-bold text-[#00a86b] uppercase tracking-wider flex items-center gap-2">
                                   <Settings2 className="w-3 h-3" />
                                   {plan.name?.[matrixLang] || 'Settings'}
                                 </span>
@@ -331,7 +335,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                     type="text"
                                     value={plan.badge?.[matrixLang] || ''}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'badge', matrixLang, e.target.value)}
-                                    className="w-full bg-[#0a0a0a] border border-white/[0.1] focus:border-[#eb4520] text-white rounded-[8px] px-3 py-2 text-sm outline-none transition-all placeholder:text-white/[0.1]"
+                                    className="w-full bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white rounded-[8px] px-3 py-2 text-sm outline-none transition-all placeholder:text-white/[0.1]"
                                     dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                                     placeholder={matrixLang === 'en' ? 'Badge text...' : 'نص الشارة...'}
                                   />
@@ -342,19 +346,84 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                     type="checkbox"
                                     checked={plan.highlighted || false}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'highlighted', matrixLang, e.target.checked)}
-                                    className="w-4 h-4 rounded-[4px] border-white/[0.1] text-[#eb4520] focus:ring-[#eb4520] bg-transparent"
+                                    className="w-4 h-4 rounded-[4px] border-white/[0.1] text-[#00a86b] focus:ring-[#00a86b] bg-transparent"
                                   />
                                   <span className="text-xs font-medium text-white leading-tight">
                                     {matrixLang === 'en' ? 'Highlight & Glow (Stand out)' : 'تمييز ساطع (لإبرازها)'}
                                   </span>
                                 </label>
+                                <label className="flex items-center gap-3 cursor-pointer bg-[#0a0a0a] p-3 rounded-[8px] border border-white/[0.05]">
+                                  <input 
+                                    type="checkbox"
+                                    checked={plan.popular || false}
+                                    onChange={(e) => handleUpdatePlanProperty(plan._id, 'popular', matrixLang, e.target.checked)}
+                                    className="w-4 h-4 rounded-[4px] border-white/[0.1] text-[#00a86b] focus:ring-[#00a86b] bg-transparent"
+                                  />
+                                  <span className="text-xs font-medium text-white leading-tight">
+                                    {matrixLang === 'en' ? 'Mark as popular' : 'تمييز كخطة شائعة'}
+                                  </span>
+                                </label>
+                                <div>
+                                  <label className="block text-[10px] font-bold text-[#aeaeae] uppercase tracking-wider mb-2">
+                                    {matrixLang === 'en' ? 'Billing Period' : 'نوع الفوترة'}
+                                  </label>
+                                  <select
+                                    value={plan.billingPeriod || 'both'}
+                                    onChange={(e) => handleUpdatePlanProperty(plan._id, 'billingPeriod', matrixLang, e.target.value)}
+                                    className="w-full bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
+                                  >
+                                    <option value="both">{matrixLang === 'en' ? 'Monthly + Annual' : 'شهري + سنوي'}</option>
+                                    <option value="monthly">{matrixLang === 'en' ? 'Monthly only' : 'شهري فقط'}</option>
+                                    <option value="annual">{matrixLang === 'en' ? 'Annual only' : 'سنوي فقط'}</option>
+                                  </select>
+                                </div>
+                                <div className="grid grid-cols-2 gap-2">
+                                  <div>
+                                    <label className="block text-[10px] font-bold text-[#aeaeae] uppercase tracking-wider mb-2">
+                                      {matrixLang === 'en' ? 'Monthly Price' : 'السعر الشهري'}
+                                    </label>
+                                    <input
+                                      type="text"
+                                      value={plan.price?.monthly || ''}
+                                      onChange={(e) => {
+                                        const newPlans = [...localPlans];
+                                        const nextIndex = newPlans.findIndex((p) => p._id === plan._id);
+                                        if (nextIndex === -1) return;
+                                        newPlans[nextIndex].price = { ...(newPlans[nextIndex].price || {}), monthly: e.target.value };
+                                        setLocalPlans(newPlans);
+                                        updateNestedContent(['pricing', 'plans'], newPlans.map(({ _id, ...rest }) => rest));
+                                      }}
+                                      className="w-full bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
+                                      placeholder="$49"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="block text-[10px] font-bold text-[#aeaeae] uppercase tracking-wider mb-2">
+                                      {matrixLang === 'en' ? 'Annual Price' : 'السعر السنوي'}
+                                    </label>
+                                    <input
+                                      type="text"
+                                      value={plan.price?.annual || ''}
+                                      onChange={(e) => {
+                                        const newPlans = [...localPlans];
+                                        const nextIndex = newPlans.findIndex((p) => p._id === plan._id);
+                                        if (nextIndex === -1) return;
+                                        newPlans[nextIndex].price = { ...(newPlans[nextIndex].price || {}), annual: e.target.value };
+                                        setLocalPlans(newPlans);
+                                        updateNestedContent(['pricing', 'plans'], newPlans.map(({ _id, ...rest }) => rest));
+                                      }}
+                                      className="w-full bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
+                                      placeholder="$490"
+                                    />
+                                  </div>
+                                </div>
                                 {/* Details */}
                                 <div>
                                   <div className="flex items-center justify-between mb-2">
                                     <label className="block text-[10px] font-bold text-[#aeaeae] uppercase tracking-wider">
                                       {matrixLang === 'en' ? 'Pricing & Limits Details' : 'تفاصيل السعر والحدود'}
                                     </label>
-                                    <button onClick={() => handleAddDetail(plan._id)} className="text-[10px] font-bold text-[#eb4520] hover:text-white transition-colors">
+                                    <button onClick={() => handleAddDetail(plan._id)} className="text-[10px] font-bold text-[#00a86b] hover:text-white transition-colors">
                                       + ADD
                                     </button>
                                   </div>
@@ -365,7 +434,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                           type="text"
                                           value={detail[matrixLang] || ''}
                                           onChange={(e) => handleUpdateDetails(plan._id, dIndex, matrixLang, e.target.value)}
-                                          className="flex-1 bg-[#0a0a0a] border border-white/[0.1] focus:border-[#eb4520] text-white text-xs rounded-[8px] px-3 py-2 outline-none transition-all"
+                                          className="flex-1 bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white text-xs rounded-[8px] px-3 py-2 outline-none transition-all"
                                           dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                                         />
                                         <button onClick={() => handleDeleteDetail(plan._id, dIndex)} className="p-2 text-zinc-500 hover:text-red-500 bg-red-500/5 hover:bg-red-500/20 rounded-[8px] transition-colors">
@@ -390,7 +459,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                     <th className="p-4 align-top w-[80px] border-b border-white/[0.05]">
                       <button 
                         onClick={handleAddPlan}
-                        className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 rounded-[16px] border border-dashed border-white/[0.2] text-zinc-500 hover:border-[#eb4520]/50 hover:bg-[#eb4520]/5 hover:text-[#eb4520] transition-colors"
+                        className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 rounded-[16px] border border-dashed border-white/[0.2] text-zinc-500 hover:border-[#00a86b]/50 hover:bg-[#00a86b]/5 hover:text-[#00a86b] transition-colors"
                         title="Add New Plan Column"
                       >
                         <Plus size={24} />
@@ -416,7 +485,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                 type="text"
                                 value={feature.en}
                                 onChange={(e) => handleUpdateFeatureName(feature.en, e.target.value, feature.ar)}
-                                className="w-full text-[13px] font-medium text-white bg-transparent border-b border-transparent focus:border-[#eb4520]/50 px-1 py-1 placeholder-zinc-600 transition-all outline-none"
+                                className="w-full text-[13px] font-medium text-white bg-transparent border-b border-transparent focus:border-[#00a86b]/50 px-1 py-1 placeholder-zinc-600 transition-all outline-none"
                                 placeholder="Type English Feature Name..."
                               />
                             ) : (
@@ -424,7 +493,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                 type="text"
                                 value={feature.ar}
                                 onChange={(e) => handleUpdateFeatureName(feature.en, feature.en, e.target.value)}
-                                className="w-full text-[13px] font-medium text-white bg-transparent border-b border-transparent focus:border-[#eb4520]/50 px-1 py-1 placeholder-zinc-600 text-right font-arabic transition-all outline-none"
+                                className="w-full text-[13px] font-medium text-white bg-transparent border-b border-transparent focus:border-[#00a86b]/50 px-1 py-1 placeholder-zinc-600 text-right font-arabic transition-all outline-none"
                                 placeholder="اكتب اسم الميزة..."
                                 dir="rtl"
                               />
@@ -442,7 +511,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               onClick={() => handleToggleFeature(planIndex, feature.en, !isIncluded)}
                               className={`inline-flex items-center justify-center w-[38px] h-[38px] rounded-[10px] transition-all duration-200 shadow-sm ${
                                 isIncluded 
-                                  ? 'bg-gradient-to-br from-[#eb4520] to-[#d63d1a] text-white shadow-[0_4px_12px_rgba(235,69,32,0.4)]' 
+                                  ? 'bg-gradient-to-br from-[#00a86b] to-[#008f5b] text-white shadow-[0_4px_12px_rgba(0,168,107,0.4)]' 
                                   : 'bg-[#111111] border border-white/[0.05] text-zinc-600 hover:border-white/[0.2] hover:text-white'
                               }`}
                             >

@@ -30,7 +30,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#000000] pt-24 pb-12 relative overflow-hidden">
       {/* Background Glow (kept but subtle) */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#eb4520]/[0.01] rounded-[100%] blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#00a86b]/[0.01] rounded-[100%] blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div 
@@ -43,7 +43,7 @@ export default function Footer() {
           {/* Brand Column */}
           <motion.div variants={itemVariants} className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#eb4520] to-[#ff6b4a] flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(235,69,32,0.4)]">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00a86b] to-[#34d399] flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(0,168,107,0.4)]">
                 S
               </div>
               <span className="font-bold text-2xl text-white tracking-tight">Skooture</span>
@@ -56,7 +56,7 @@ export default function Footer() {
                 <a 
                   key={index}
                   href={social.url}
-                  className="w-10 h-10 rounded-full bg-[#191919] border border-white/[0.05] hover:border-[#eb4520]/50 hover:bg-[#eb4520]/10 flex items-center justify-center text-zinc-400 hover:text-[#eb4520] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                  className="w-10 h-10 rounded-full bg-[#191919] border border-white/[0.05] hover:border-[#00a86b]/50 hover:bg-[#00a86b]/10 flex items-center justify-center text-zinc-400 hover:text-[#00a86b] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                 >
                   <DynamicIcon name={social.icon} className="w-5 h-5" />
                 </a>

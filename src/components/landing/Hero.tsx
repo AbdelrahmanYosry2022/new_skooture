@@ -25,7 +25,7 @@ export default function Hero() {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-[#000000] min-h-screen flex items-center">
       {/* Exact Background Decorative Glow matching Reference */}
-      <div className="absolute top-1/2 left-[45%] -translate-y-1/2 w-[1000px] h-[800px] rounded-full opacity-70 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.25)_0%,rgba(235,69,32,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]" />
+      <div className="absolute top-1/2 left-[45%] -translate-y-1/2 w-[1000px] h-[800px] rounded-full opacity-70 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.25)_0%,rgba(0,168,107,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]" />
       
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10 w-full">
         <motion.div 
@@ -40,8 +40,8 @@ export default function Hero() {
             {content.hero?.topBadge && (
               <motion.div variants={itemVariants} className="mb-6 flex justify-start">
                 <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] flex-shrink-0 shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"></span>
-                  <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] flex-shrink-0 shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"></span>
+                  <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
                     {t(content.hero.topBadge) || t({ en: 'We raised $200,000 series A', ar: 'جمعنا 200,000 دولار في السلسلة أ' })}
                   </span>
                 </div>
@@ -76,7 +76,7 @@ export default function Hero() {
             >
               {content.hero?.buttons?.explore && (
                 <a href="#" className="inline-flex">
-                  <Button className="h-[48px] px-[20px] rounded-[10px] bg-[#eb4520] hover:bg-[#d63d1a] text-white font-semibold text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(255,80,36,0.4)] border-0">
+                  <Button className="h-[48px] px-[20px] rounded-[10px] bg-[#00a86b] hover:bg-[#008f5b] text-white font-semibold text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(51,219,159,0.4)] border-0">
                     {t(content.hero.buttons.explore)}
                   </Button>
                 </a>
@@ -131,7 +131,7 @@ export default function Hero() {
             variants={itemVariants}
             className="hidden lg:block absolute left-[50%] top-1/2 -translate-y-1/2 w-[1000px] h-[720px] z-10 pointer-events-none ml-[40px] pl-[40px]"
           >
-             <div className="relative w-full h-[600px] xl:h-[700px] mt-[10px] rounded-[32px] overflow-hidden border border-white/[0.08] shadow-[0_20px_80px_rgba(235,69,32,0.15)] bg-black/40 backdrop-blur-md">
+             <div className="relative w-full h-[600px] xl:h-[700px] mt-[10px] rounded-[32px] overflow-hidden border border-white/[0.08] shadow-[0_20px_80px_rgba(0,168,107,0.15)] bg-black/40 backdrop-blur-md">
                 {content.hero?.videoUrl ? (
                   <img 
                     src={content.hero.videoUrl} 

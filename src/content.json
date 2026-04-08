@@ -267,9 +267,11 @@
           { "en": "$ 49.00 Package Amount", "ar": "قيمة الباقة 49.00 دولار" },
           { "en": "30 Days", "ar": "30 يوم" }
         ],
+        "billingPeriod": "both",
+        "cta": { "en": "Get Started", "ar": "ابدأ الآن" },
         "price": {
           "monthly": "$49.00",
-          "annual": "$49.00"
+          "annual": "$490.00"
         },
         "features": [
           { "name": { "en": "Student Management", "ar": "إدارة الطلاب" }, "included": true },
@@ -303,9 +305,11 @@
           { "en": "$ 99.00 Package Amount", "ar": "قيمة الباقة 99.00 دولار" },
           { "en": "30 Days", "ar": "30 يوم" }
         ],
+        "billingPeriod": "both",
+        "cta": { "en": "Choose Standard", "ar": "اختر القياسية" },
         "price": {
           "monthly": "$99.00",
-          "annual": "$99.00"
+          "annual": "$990.00"
         },
         "features": [
           { "name": { "en": "Student Management", "ar": "إدارة الطلاب" }, "included": true },
@@ -338,9 +342,11 @@
           { "en": "$ 0.00 Per Staff Charges", "ar": "0.00 دولار لكل موظف" },
           { "en": "30 Days", "ar": "30 يوم" }
         ],
+        "billingPeriod": "monthly",
+        "cta": { "en": "Talk to Sales", "ar": "تواصل مع المبيعات" },
         "price": {
           "monthly": "$1.00",
-          "annual": "$1.00"
+          "annual": "$12.00"
         },
         "features": [
           { "name": { "en": "Student Management", "ar": "إدارة الطلاب" }, "included": true },
@@ -373,9 +379,11 @@
           { "en": "$ 0.00 Per Staff Charges", "ar": "0.00 دولار لكل موظف" },
           { "en": "320 Days", "ar": "320 يوم" }
         ],
+        "billingPeriod": "annual",
+        "cta": { "en": "Book Enterprise Demo", "ar": "احجز عرض المؤسسة" },
         "price": {
           "monthly": "$0.50",
-          "annual": "$0.50"
+          "annual": "$180.00"
         },
         "features": [
           { "name": { "en": "Student Management", "ar": "إدارة الطلاب" }, "included": true },

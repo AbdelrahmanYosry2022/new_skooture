@@ -44,12 +44,12 @@ function Counter({ value, label, iconName, delay }: { value: number; label: stri
       className="relative group h-full"
     >
       <div className="h-full p-8 rounded-[24px] bg-[#191919]/50 border border-white/[0.08] flex flex-col items-center text-center transition-all duration-300 hover:border-white/[0.15] hover:bg-[#191919]">
-        <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-6 border border-white/[0.05] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#eb4520] group-hover:scale-110 transition-transform duration-500">
+        <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-6 border border-white/[0.05] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#00a86b] group-hover:scale-110 transition-transform duration-500">
           <DynamicIcon name={iconName} className="w-6 h-6" />
         </div>
         <div className="text-[40px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] mb-2 leading-[1.1]">
           {formatNumber(count)}
-          <span className="text-[#eb4520] ml-1">+</span>
+          <span className="text-[#00a86b] ml-1">+</span>
         </div>
         <div className="text-[14px] text-[#aeaeae] leading-[1.6]">
           {label}
@@ -67,7 +67,7 @@ export default function Traction() {
   return (
     <section id="stats" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
       {/* Decorative Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-30 bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,rgba(235,69,32,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-30 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,rgba(0,168,107,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]" />
       
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="flex flex-col items-center mb-16 text-center">
@@ -77,8 +77,8 @@ export default function Traction() {
             viewport={{ once: true }}
             className="mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#ffa984_0%,#ff5911_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
-            <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#e86f3a] to-[#fcbda2]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+            <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
               {t({ en: 'Global Impact', ar: 'تأثير عالمي' })}
             </span>
           </motion.div>
