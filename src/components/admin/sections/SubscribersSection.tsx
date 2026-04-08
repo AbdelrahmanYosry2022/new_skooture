@@ -35,8 +35,8 @@ export default function SubscribersSection({ isRTL }: SubscribersSectionProps) {
   return (
     <SectionWrapper 
       key="subscribers" 
-      title={isRTL ? "قائمة المشتركين" : "Subscribers List"} 
-      description={isRTL ? "عرض وإدارة الإيميلات المسجلة من نموذج النشرة البريدية" : "View and manage emails registered from the newsletter form"}
+      title={isRTL ? "المشتركون" : "Subscribers"} 
+      description={isRTL ? "عرض وإدارة الإيميلات المسجلة" : "View and manage registered emails"}
     >
       <div className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
         

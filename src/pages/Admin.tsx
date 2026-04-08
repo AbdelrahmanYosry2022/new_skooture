@@ -13,7 +13,6 @@ import Sidebar from '../components/admin/layout/Sidebar';
 import AdminHeader from '../components/admin/layout/AdminHeader';
 
 import OverviewSection from '../components/admin/sections/OverviewSection';
-import GeneralSection from '../components/admin/sections/GeneralSection';
 import HeroSection from '../components/admin/sections/HeroSection';
 import TractionSection from '../components/admin/sections/TractionSection';
 import LegacySection from '../components/admin/sections/LegacySection';
@@ -70,7 +69,6 @@ export default function Admin() {
   const getTitleKey = (id: string) => {
     const map: Record<string, string> = {
       overview: 'sidebar.overview',
-      general: 'sidebar.generalSettings',
       hero: 'sidebar.heroSection',
       features: 'sidebar.features',
       topFeatures: 'sidebar.topFeatures',
@@ -91,8 +89,6 @@ export default function Admin() {
     switch (activeSection) {
       case 'overview':
         return <OverviewSection />;
-      case 'general':
-        return <GeneralSection {...sectionProps} />;
       case 'hero':
         return <HeroSection {...sectionProps} />;
       case 'traction':
@@ -121,6 +117,8 @@ export default function Admin() {
             adminTheme={adminTheme}
             setAdminLanguage={setAdminLanguage}
             setAdminTheme={setAdminTheme}
+            localContent={localContent}
+            updateNestedContent={updateNestedContent}
           />
         );
       default:

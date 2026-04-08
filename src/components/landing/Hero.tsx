@@ -129,20 +129,20 @@ export default function Hero() {
           {/* Right Column / Large Absolute Image (Matching position strictly) */}
           <motion.div 
             variants={itemVariants}
-            className="hidden lg:block absolute left-[50%] top-1/2 -translate-y-1/2 w-[1000px] h-[720px] z-10 pointer-events-none ml-[40px]"
+            className="hidden lg:block absolute left-[50%] top-1/2 -translate-y-1/2 w-[1000px] h-[720px] z-10 pointer-events-none ml-[40px] pl-[40px]"
           >
-             <div className="relative w-full h-full">
+             <div className="relative w-full h-[600px] xl:h-[700px] mt-[10px] rounded-[32px] overflow-hidden border border-white/[0.08] shadow-[0_20px_80px_rgba(235,69,32,0.15)] bg-black/40 backdrop-blur-md">
                 {content.hero?.videoUrl ? (
                   <img 
                     src={content.hero.videoUrl} 
                     alt="Hero Visual" 
-                    className="w-full h-full object-contain object-center drop-shadow-2xl"
+                    className="w-full h-full object-cover object-left-top"
                   />
                 ) : (
                   <img 
                     src="/images/dashboard-preview.png" 
                     alt="Dashboard UI" 
-                    className="w-full h-full object-contain object-center drop-shadow-2xl"
+                    className="w-full h-full object-cover object-left-top"
                   />
                 )}
              </div>

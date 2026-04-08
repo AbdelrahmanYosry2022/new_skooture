@@ -6,7 +6,7 @@ import TranslatableInput from '../shared/TranslatableInput';
 import type { AdminSectionProps } from '../../../types';
 
 export default function LegacySection({ localContent, updateNestedContent }: AdminSectionProps) {
-  const legacyData = localContent.legacy || {};
+  const legacyData = (localContent.legacy as any) || {};
   const items = legacyData.items || [];
   
   const [activeItemId, setActiveItemId] = useState<string | null>(null);

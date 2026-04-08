@@ -36,7 +36,6 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
 
   const menuItems: { id: string; labelKey: string; icon: React.ElementType }[] = [
     { id: 'overview', labelKey: 'sidebar.overview', icon: LayoutDashboard },
-    { id: 'general', labelKey: 'sidebar.generalSettings', icon: Settings },
     { id: 'hero', labelKey: 'sidebar.heroSection', icon: LayoutTemplate },
     { id: 'features', labelKey: 'sidebar.features', icon: Star },
     { id: 'topFeatures', labelKey: 'sidebar.topFeatures', icon: Target },

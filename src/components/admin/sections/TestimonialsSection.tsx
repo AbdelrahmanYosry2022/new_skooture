@@ -6,7 +6,7 @@ import TranslatableInput from '../shared/TranslatableInput';
 import type { AdminSectionProps } from '../../../types';
 
 export default function TestimonialsSection({ localContent, updateNestedContent }: AdminSectionProps) {
-  const testimonialsData = localContent.testimonials || {};
+  const testimonialsData = (localContent.testimonials as any) || {};
   const items = testimonialsData.items || [];
   
   const [activeItemId, setActiveItemId] = useState<string | null>(null);

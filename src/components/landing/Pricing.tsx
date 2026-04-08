@@ -25,10 +25,9 @@ export default function Pricing() {
   const plans = pricingData.plans || [];
   const isRTL = language === 'ar';
 
-  // Filter plans based on the billing toggle
-  const visiblePlans = isAnnual 
-    ? plans.filter((plan: any) => plan.name?.en === 'Premium (Full Suite)')
-    : plans.filter((plan: any) => plan.name?.en !== 'Premium (Full Suite)');
+  // If there are separate plans intended for annual, they would be marked here.
+  // For now, we will simply display all plans, and the toggle could be wired to price fields.
+  const visiblePlans = plans;
 
   if (!plans.length) return null;
 
@@ -117,29 +116,29 @@ export default function Pricing() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className={`group relative flex flex-col p-5 lg:p-6 rounded-2xl bg-[#191919]/60 backdrop-blur-md transition-all duration-500 ${
-                  plan.popular 
-                    ? 'border-[#eb4520]/50 shadow-[0_0_30px_rgba(235,69,32,0.15)] transform md:-translate-y-2' 
-                    : 'border-white/[0.05] hover:border-[#eb4520]/30'
+                className={`group relative flex flex-col p-5 lg:p-6 rounded-[24px] backdrop-blur-md transition-all duration-500 border ${
+                  (plan.highlighted || plan.popular)
+                    ? 'bg-[#191919] border-[#eb4520]/60 shadow-[0_12px_40px_rgba(235,69,32,0.15)] transform md:-translate-y-3 z-20 scale-[1.02]' 
+                    : 'bg-[#111111]/80 border-white/[0.08] hover:border-white/[0.15] hover:bg-[#191919]'
                 }`}
               >
-                {/* Soft Background Glow on Hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#eb4520]/0 to-[#eb4520]/0 group-hover:from-[#eb4520]/[0.02] group-hover:to-transparent transition-colors duration-500 rounded-2xl pointer-events-none" />
-
-                {plan.badge && (
-                  <div className={`absolute top-0 ${isRTL ? 'left-0 rounded-tl-2xl' : 'right-0 rounded-tr-2xl'} z-20 overflow-hidden`}>
-                    <div className={`px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white rounded-bl-lg ${
-                      plan.badge.en === 'Prepaid' 
-                        ? 'bg-zinc-800 border-b border-l border-zinc-700' 
-                        : 'bg-[#188181] border-b border-l border-[#136666]'
-                    } ${isRTL ? 'rounded-bl-none rounded-br-lg border-l-0 border-r' : ''}`}>
-                      {t(plan.badge)}
-                    </div>
-                  </div>
+                {/* Highlight Glow Effect */}
+                {(plan.highlighted || plan.popular) && (
+                  <div className="absolute -inset-[1px] rounded-[24px] bg-gradient-to-b from-[#eb4520]/40 to-transparent opacity-20 pointer-events-none" />
                 )}
 
                 <div className="mb-6 relative z-10 pt-2 border-b border-white/5 pb-6">
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">{t(plan.name)}</h3>
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white leading-none">{t(plan.name)}</h3>
+                    {plan.badge && (
+                      <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-gradient-to-r from-[#eb4520]/10 to-transparent border border-[#eb4520]/20 shadow-[0_0_12px_rgba(235,69,32,0.15)] relative overflow-hidden group-hover:shadow-[0_0_20px_rgba(235,69,32,0.3)] transition-all duration-300 shrink-0">
+                        <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#eb4520]/20 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+                        <span className="relative text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#eb4520]">
+                          {t(plan.badge)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 
                 {/* Details list from the images instead of description */}
                 <div className="flex flex-col gap-2.5 min-h-[90px]">
@@ -210,7 +209,7 @@ export default function Pricing() {
               </ul>
 
               <button className={`w-full py-3 sm:py-3.5 rounded-xl text-sm sm:text-base font-medium transition-all relative z-10 mt-auto ${
-                plan.popular 
+                (plan.highlighted || plan.popular)
                   ? 'bg-[#eb4520] hover:bg-[#ff5a36] text-white shadow-[0_0_20px_rgba(235,69,32,0.3)]' 
                   : 'bg-[#191919] hover:bg-[#252525] border border-white/[0.1] hover:border-white/[0.2] text-white'
               }`}>

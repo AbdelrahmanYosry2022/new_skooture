@@ -15,7 +15,7 @@ const COMMON_ICONS = [
 ];
 
 export default function TopFeaturesSection({ localContent, updateNestedContent }: AdminSectionProps) {
-  const topFeaturesData = localContent.topFeatures || {};
+  const topFeaturesData = (localContent.topFeatures as any) || {};
   const features = topFeaturesData.items || [];
   
   const [activeFeatureId, setActiveFeatureId] = useState<string | null>(null);

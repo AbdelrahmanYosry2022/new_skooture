@@ -1,7 +1,8 @@
-import { Languages, Moon, User, Mail, ShieldAlert } from 'lucide-react';
+import { Languages, Moon, User, Mail, ShieldAlert, Image as ImageIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
-import type { Language } from '../../../types';
+import type { Language, SiteContent } from '../../../types';
 import { useTranslation } from 'react-i18next';
+import MediaInput from '../shared/MediaInput';
 
 interface SettingsSectionProps {
   isRTL: boolean;
@@ -9,6 +10,8 @@ interface SettingsSectionProps {
   adminTheme: 'light' | 'dark';
   setAdminLanguage: (lang: Language) => void;
   setAdminTheme: (theme: 'light' | 'dark') => void;
+  localContent: SiteContent;
+  updateNestedContent: (path: string[], value: any) => void;
 }
 
 export default function SettingsSection({
@@ -17,6 +20,8 @@ export default function SettingsSection({
   adminTheme,
   setAdminLanguage,
   setAdminTheme,
+  localContent,
+  updateNestedContent
 }: SettingsSectionProps) {
   const { t } = useTranslation('admin');
 
@@ -30,6 +35,30 @@ export default function SettingsSection({
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
+        {/* Brand Assets Card */}
+        <div className="bg-[#000000] p-6 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6 flex flex-col">
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#aeaeae] mb-4">
+                <ImageIcon size={20} />
+              </div>
+              <h3 className="text-lg font-bold text-white">Brand Assets</h3>
+              <p className="text-sm text-[#aeaeae] mt-1">Manage the core visual identity of your platform.</p>
+            </div>
+          </div>
+          
+          <div className="flex-1 flex items-center">
+            <div className="w-full">
+              <MediaInput 
+                label="Brand Logo" 
+                type="image"
+                value={localContent.brand?.logoUrl || ''}
+                onChange={(val) => updateNestedContent(['brand', 'logoUrl'], val)}
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Language Card */}
         <div className="bg-[#000000] p-6 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6 flex flex-col justify-between">
           <div className="flex items-start justify-between">
@@ -54,33 +83,6 @@ export default function SettingsSection({
               className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'en' ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]' : 'text-[#aeaeae] hover:text-white'}`}
             >
               {t('settings.english')}
-            </button>
-          </div>
-        </div>
-
-        {/* Theme Card */}
-        <div className="bg-[#000000] p-6 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6 flex flex-col justify-between">
-          <div className="flex items-start justify-between">
-            <div>
-              <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#aeaeae] mb-4">
-                <Moon size={20} />
-              </div>
-              <h3 className="text-lg font-bold text-white">{t('settings.darkModeTitle')}</h3>
-              <p className="text-sm text-[#aeaeae] mt-1">Toggle the dashboard visual appearance.</p>
-            </div>
-          </div>
-          
-          <div className="flex items-center justify-between p-4 bg-[#111111] border border-white/[0.05] rounded-[16px]">
-            <span className="text-sm font-medium text-white">{adminTheme === 'dark' ? t('settings.dark') : t('settings.light')}</span>
-            <button 
-              onClick={() => setAdminTheme(adminTheme === 'dark' ? 'light' : 'dark')}
-              className={`w-14 h-7 rounded-full p-1 transition-all duration-300 relative cursor-pointer ${adminTheme === 'dark' ? 'bg-[#eb4520]' : 'bg-zinc-700'}`}
-            >
-              <motion.div 
-                layout
-                animate={{ x: adminTheme === 'dark' ? (isRTL ? -28 : 28) : 0 }}
-                className="w-5 h-5 bg-white rounded-full shadow-md"
-              />
             </button>
           </div>
         </div>

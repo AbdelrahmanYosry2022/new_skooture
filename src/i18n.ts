@@ -3,8 +3,8 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 // Translation resources
-import enAdmin from './locales/en/admin.json';
-import arAdmin from './locales/ar/admin.json';
+import enAdmin from './i18n/locales/en/admin.json';
+import arAdmin from './i18n/locales/ar/admin.json';
 
 const resources = {
   en: {

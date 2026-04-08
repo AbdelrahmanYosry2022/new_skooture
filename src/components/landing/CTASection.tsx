@@ -133,18 +133,10 @@ export default function CTASection() {
                   }}
                   required
                 />
-                {status === 'error' && (
-                  <p className="absolute -bottom-6 left-1 text-xs text-red-500">{errorMessage}</p>
-                )}
-                {status === 'success' && (
-                  <p className="absolute -bottom-6 left-1 text-xs text-emerald-500">
-                    {language === 'ar' ? 'تم الاشتراك بنجاح!' : 'Successfully subscribed!'}
-                  </p>
-                )}
               </div>
               <button
                 type="submit"
-                disabled={status === 'loading' || status === 'success' || !email}
+                disabled={status === 'loading' || status === 'success'}
                 className="group inline-flex h-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-5 text-[14px] font-medium text-white transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ backgroundColor: 'rgb(234,69,32)' }}
               >
@@ -164,6 +156,18 @@ export default function CTASection() {
                 )}
               </button>
             </form>
+            
+            {/* Messages */}
+            <div className="h-6 w-full max-w-[460px] text-left px-2">
+              {status === 'error' && (
+                <p className="text-xs text-red-500 font-medium">{errorMessage}</p>
+              )}
+              {status === 'success' && (
+                <p className="text-xs text-emerald-500 font-medium">
+                  {language === 'ar' ? 'تم الاشتراك بنجاح! شكراً لك.' : 'Successfully subscribed! Thank you.'}
+                </p>
+              )}
+            </div>
 
           </div>{/* /Content */}
 
