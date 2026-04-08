@@ -12,22 +12,8 @@ export default function OverviewSection() {
 
   const stats = [
     {
-      label: t('overview.activeFeatures'),
-      value: contentData.topFeatures?.items?.length || 0,
-      icon: Activity,
-      color: 'text-[#eb4520]',
-      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)]'
-    },
-    {
-      label: t('overview.testimonials'),
-      value: contentData.testimonials?.items?.length || 0,
-      icon: Users,
-      color: 'text-[#eb4520]',
-      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)]'
-    },
-    {
       label: t('overview.trustedPartners'),
-      value: contentData.trustedBy?.logos?.length || 0,
+      value: contentData.partners?.logos?.length || 0,
       icon: Globe,
       color: 'text-[#eb4520]',
       bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(235,69,32,0.15)_0%,transparent_70%)]'
@@ -47,10 +33,10 @@ export default function OverviewSection() {
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div key={index} className="bg-[#050505] p-6 border border-white/[0.05] rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative overflow-hidden group">
+            <div key={index} className="bg-[#000000] p-6 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] relative overflow-hidden group">
               <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full ${stat.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl`} />
               <div className="flex items-center gap-5 relative z-10">
-                <div className="p-4 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.05)]">
+                <div className="p-4 rounded-[16px] bg-[#111111] border border-white/[0.05] shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] group-hover:border-[#eb4520]/20 transition-colors">
                   <Icon className={`w-6 h-6 ${stat.color}`} />
                 </div>
                 <div>
@@ -68,49 +54,49 @@ export default function OverviewSection() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-        <div className="bg-[#050505] p-8 border border-white/[0.05] rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-          <h3 className="text-xl font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] mb-6">
+        <div className="bg-[#000000] p-8 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
+          <h3 className="text-xl font-bold tracking-tight text-white mb-6">
             {t('overview.systemStatus')}
           </h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
+            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#111111] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
               <div className="flex items-center gap-4">
                 <div className="w-3 h-3 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#4ade80_0%,#16a34a_100%)] shadow-[0_0_10px_rgba(74,222,128,0.5)] animate-pulse" />
                 <span className="font-medium text-white">
                   {t('overview.database')}
                 </span>
               </div>
-              <span className="text-sm text-[#aeaeae]">
+              <span className="text-sm font-medium text-[#aeaeae]">
                 {t('overview.connected')}
               </span>
             </div>
             
-            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
+            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#111111] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
               <div className="flex items-center gap-4">
                 <div className="w-3 h-3 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#4ade80_0%,#16a34a_100%)] shadow-[0_0_10px_rgba(74,222,128,0.5)] animate-pulse" />
                 <span className="font-medium text-white">
                   {t('overview.apiService')}
                 </span>
               </div>
-              <span className="text-sm text-[#aeaeae]">
+              <span className="text-sm font-medium text-[#aeaeae]">
                 {t('overview.operational')}
               </span>
             </div>
           </div>
         </div>
 
-        <div className="bg-[#050505] p-8 border border-white/[0.05] rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-          <h3 className="text-xl font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] mb-6">
+        <div className="bg-[#000000] p-8 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
+          <h3 className="text-xl font-bold tracking-tight text-white mb-6">
             {t('overview.quickStats')}
           </h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
+            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#111111] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
               <span className="text-[#aeaeae] font-medium">
                 {t('overview.totalMessages')}
               </span>
               <span className="text-xl font-medium tracking-tight text-white">0</span>
             </div>
-            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#191919] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
+            <div className="flex items-center justify-between p-5 rounded-[16px] bg-[#111111] border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] transition-colors hover:bg-white/[0.02]">
               <span className="text-[#aeaeae] font-medium">
                 {t('overview.lastContentUpdate')}
               </span>

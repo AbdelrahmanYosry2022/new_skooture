@@ -23,7 +23,13 @@ export default function TrustedBy() {
               key={index}
               className="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
             >
-              {logo.url ? (
+              {typeof logo === 'string' ? (
+                <img 
+                  src={logo} 
+                  alt="Partner logo" 
+                  className="h-8 md:h-10 w-auto object-contain"
+                />
+              ) : logo.url ? (
                 <img 
                   src={logo.url} 
                   alt={logo.name || 'Partner logo'} 

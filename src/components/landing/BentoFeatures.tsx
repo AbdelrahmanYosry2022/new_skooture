@@ -4,10 +4,8 @@ import DynamicIcon from '../shared/DynamicIcon';
 
 export default function BentoFeatures() {
   const { content, t } = useContent();
-  const featuresData = (content as any).features;
-  // According to content.json, "features" is a direct array under "why" but wait, looking at the previous grep, 
-  // "features" is an array at the root level under something else, let's treat it safely.
-  const features = Array.isArray(featuresData) ? featuresData : (featuresData?.items || featuresData?.list || []);
+  const featuresData = content.bentoFeatures;
+  const features = featuresData?.features || [];
 
   if (features.length === 0) return null;
 
@@ -36,7 +34,7 @@ export default function BentoFeatures() {
             transition={{ delay: 0.1 }}
             className="text-[32px] md:text-[48px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1] max-w-2xl"
           >
-            {t({ en: 'Everything you need to succeed', ar: 'كل ما تحتاجه للنجاح' })}
+            {t(featuresData?.title || { en: 'Everything you need to succeed', ar: 'كل ما تحتاجه للنجاح' })}
           </motion.h2>
         </div>
 

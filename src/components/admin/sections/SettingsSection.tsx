@@ -1,4 +1,4 @@
-import { Languages, Moon, User, Mail } from 'lucide-react';
+import { Languages, Moon, User, Mail, ShieldAlert } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Language } from '../../../types';
 import { useTranslation } from 'react-i18next';
@@ -26,98 +26,116 @@ export default function SettingsSection({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="max-w-3xl mx-auto space-y-8"
+      className="max-w-4xl mx-auto space-y-6"
     >
-      {/* Language Card */}
-      <div className="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] shadow-sm border border-zinc-100 dark:border-white/5 flex items-center justify-between">
-        <div className="flex items-center gap-5">
-          <div className="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-white/5 flex items-center justify-center text-blue-600 font-bold">
-            <Languages size={24} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        {/* Language Card */}
+        <div className="bg-[#000000] p-6 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6 flex flex-col justify-between">
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#eb4520] mb-4">
+                <Languages size={20} />
+              </div>
+              <h3 className="text-lg font-bold text-white">{t('settings.languageTitle')}</h3>
+              <p className="text-sm text-[#aeaeae] mt-1">{t('settings.languageHint')}</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-xl font-black text-zinc-900 dark:text-white">{t('settings.languageTitle')}</h3>
-            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{t('settings.languageHint')}</p>
+          
+          <div className="flex bg-[#111111] border border-white/[0.05] p-1.5 rounded-[12px] gap-2">
+            <button 
+              onClick={() => setAdminLanguage('ar')}
+              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'ar' ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]' : 'text-[#aeaeae] hover:text-white'}`}
+            >
+              {t('settings.arabic')}
+            </button>
+            <button 
+              onClick={() => setAdminLanguage('en')}
+              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'en' ? 'bg-[#191919] text-[#eb4520] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]' : 'text-[#aeaeae] hover:text-white'}`}
+            >
+              {t('settings.english')}
+            </button>
           </div>
         </div>
-        <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1.5 rounded-2xl gap-2">
-          <button 
-            onClick={() => setAdminLanguage('ar')}
-            className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer ${adminLanguage === 'ar' ? 'bg-white dark:bg-zinc-700 text-blue-600 shadow-sm' : 'text-zinc-400'}`}
-          >
-            {t('settings.arabic')}
-          </button>
-          <button 
-            onClick={() => setAdminLanguage('en')}
-            className={`px-6 py-2.5 rounded-xl font-black text-xs transition-all cursor-pointer ${adminLanguage === 'en' ? 'bg-white dark:bg-zinc-700 text-blue-600 shadow-sm' : 'text-zinc-400'}`}
-          >
-            {t('settings.english')}
-          </button>
-        </div>
-      </div>
 
-      {/* Theme Card */}
-      <div className="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] shadow-sm border border-zinc-100 dark:border-white/5 flex items-center justify-between">
-        <div className="flex items-center gap-5">
-          <div className="w-14 h-14 rounded-2xl bg-zinc-50 dark:bg-white/5 flex items-center justify-center text-zinc-400">
-            <Moon size={24} />
+        {/* Theme Card */}
+        <div className="bg-[#000000] p-6 border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] space-y-6 flex flex-col justify-between">
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#aeaeae] mb-4">
+                <Moon size={20} />
+              </div>
+              <h3 className="text-lg font-bold text-white">{t('settings.darkModeTitle')}</h3>
+              <p className="text-sm text-[#aeaeae] mt-1">Toggle the dashboard visual appearance.</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-xl font-black text-zinc-900 dark:text-white">{t('settings.darkModeTitle')}</h3>
-            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{adminTheme === 'dark' ? t('settings.dark') : t('settings.light')}</p>
+          
+          <div className="flex items-center justify-between p-4 bg-[#111111] border border-white/[0.05] rounded-[16px]">
+            <span className="text-sm font-medium text-white">{adminTheme === 'dark' ? t('settings.dark') : t('settings.light')}</span>
+            <button 
+              onClick={() => setAdminTheme(adminTheme === 'dark' ? 'light' : 'dark')}
+              className={`w-14 h-7 rounded-full p-1 transition-all duration-300 relative cursor-pointer ${adminTheme === 'dark' ? 'bg-[#eb4520]' : 'bg-zinc-700'}`}
+            >
+              <motion.div 
+                layout
+                animate={{ x: adminTheme === 'dark' ? (isRTL ? -28 : 28) : 0 }}
+                className="w-5 h-5 bg-white rounded-full shadow-md"
+              />
+            </button>
           </div>
         </div>
-        <button 
-          onClick={() => setAdminTheme(adminTheme === 'dark' ? 'light' : 'dark')}
-          className={`w-16 h-8 rounded-full p-1 transition-all duration-300 relative cursor-pointer ${adminTheme === 'dark' ? 'bg-blue-600' : 'bg-zinc-200'}`}
-        >
-          <motion.div 
-            layout
-            animate={{ x: adminTheme === 'dark' ? (isRTL ? -32 : 32) : 0 }}
-            className="w-6 h-6 bg-white rounded-full shadow-md"
-          />
-        </button>
+
       </div>
 
       {/* Profile Card */}
-      <div className="bg-white dark:bg-zinc-900 p-10 rounded-[2.5rem] shadow-sm border border-zinc-100 dark:border-white/5 space-y-10">
-        <div className="flex items-center gap-5">
-          <div className="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-white/5 flex items-center justify-center text-blue-600">
-            <User size={24} />
-          </div>
-          <div>
-            <h3 className="text-xl font-black text-zinc-900 dark:text-white">{t('settings.profileTitle')}</h3>
-            <p className="text-zinc-400 text-xs font-bold uppercase tracking-widest mt-1">{t('settings.adminAccount')}</p>
+      <div className="bg-[#000000] border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
+        <div className="p-6 border-b border-white/[0.05] bg-[#050505]">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#eb4520]">
+              <User size={20} />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-white">{t('settings.profileTitle')}</h3>
+              <p className="text-sm text-[#aeaeae] mt-0.5">{t('settings.adminAccount')}</p>
+            </div>
           </div>
         </div>
 
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <label className={`text-xs font-black text-zinc-400 uppercase tracking-widest ${isRTL ? 'mr-1' : 'ml-1'}`}>{t('settings.name')}</label>
-            <div className="relative">
-              <User className={`absolute top-1/2 -translate-y-1/2 text-zinc-300 ${isRTL ? 'right-4' : 'left-4'}`} size={18} />
-              <input 
-                type="text" 
-                defaultValue="Admin" 
-                className={`w-full py-4 bg-zinc-50 dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-2xl font-bold text-zinc-900 dark:text-white focus:border-blue-500 outline-none transition-all ${isRTL ? 'pr-12 pl-6 text-right' : 'pl-12 pr-6 text-left'}`}
-              />
-            </div>
+        <div className="p-6 space-y-6">
+          <div className="p-4 rounded-[12px] bg-[#eb4520]/10 border border-[#eb4520]/20 flex items-start gap-3">
+            <ShieldAlert className="text-[#eb4520] shrink-0 w-5 h-5 mt-0.5" />
+            <p className="text-sm text-[#eb4520]/90 leading-relaxed">
+              This is a local environment. Admin credentials cannot be changed from the UI. To update the admin email or password, please edit your backend <code className="bg-black border border-white/[0.1] px-1.5 py-0.5 rounded text-xs mx-1">.env</code> file.
+            </p>
           </div>
 
-          <div className="space-y-2">
-            <label className={`text-xs font-black text-zinc-400 uppercase tracking-widest ${isRTL ? 'mr-1' : 'ml-1'}`}>{t('settings.email')}</label>
-            <div className="relative">
-              <Mail className={`absolute top-1/2 -translate-y-1/2 text-zinc-300 ${isRTL ? 'right-4' : 'left-4'}`} size={18} />
-              <input 
-                type="email" 
-                defaultValue="admin@skooture.ai" 
-                className={`w-full py-4 bg-zinc-50 dark:bg-zinc-950 border border-zinc-100 dark:border-white/5 rounded-2xl font-bold text-zinc-900 dark:text-white focus:border-blue-500 outline-none transition-all ${isRTL ? 'pr-12 pl-6 text-right' : 'pl-12 pr-6 text-left'}`}
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-[#aeaeae] uppercase tracking-wider px-1">{t('settings.name')}</label>
+              <div className="relative">
+                <User className={`absolute top-1/2 -translate-y-1/2 text-zinc-500 ${isRTL ? 'right-4' : 'left-4'}`} size={18} />
+                <input 
+                  type="text" 
+                  defaultValue="Admin"
+                  readOnly
+                  className={`w-full py-3 bg-[#111111] border border-white/[0.05] rounded-[12px] text-sm text-zinc-400 outline-none transition-all cursor-not-allowed ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4 text-left'}`}
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-[#aeaeae] uppercase tracking-wider px-1">{t('settings.email')}</label>
+              <div className="relative">
+                <Mail className={`absolute top-1/2 -translate-y-1/2 text-zinc-500 ${isRTL ? 'right-4' : 'left-4'}`} size={18} />
+                <input 
+                  type="email" 
+                  defaultValue="admin@skooture.ai" 
+                  readOnly
+                  className={`w-full py-3 bg-[#111111] border border-white/[0.05] rounded-[12px] text-sm text-zinc-400 outline-none transition-all cursor-not-allowed ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4 text-left'}`}
+                />
+              </div>
             </div>
           </div>
-
-          <button className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all mt-4 cursor-pointer">
-            {t('settings.saveProfile')}
-          </button>
         </div>
       </div>
     </motion.div>
