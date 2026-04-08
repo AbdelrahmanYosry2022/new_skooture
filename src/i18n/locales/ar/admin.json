@@ -1,5 +1,18 @@
 {
   "sidebar": {
+    "overview": "نظرة عامة",
+    "generalSettings": "الإعدادات العامة",
+    "heroSection": "القسم الرئيسي",
+    "features": "ميزات الذكاء الاصطناعي",
+    "topFeatures": "أهم الميزات",
+    "whyChooseUs": "لماذا نحن",
+    "traction": "الإحصائيات",
+    "pricing": "الأسعار",
+    "legacy": "إرثنا",
+    "testimonials": "آراء العملاء",
+    "faq": "الأسئلة الشائعة",
+    "messages": "الرسائل",
+    "subscribers": "المشتركون",
     "brand": "منصة التحكم",
     "logout": "تسجيل الخروج"
   },

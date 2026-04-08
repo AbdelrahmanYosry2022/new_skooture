@@ -1,5 +1,18 @@
 {
   "sidebar": {
+    "overview": "Overview",
+    "generalSettings": "General Settings",
+    "heroSection": "Hero",
+    "features": "AI Features",
+    "topFeatures": "Top Features",
+    "whyChooseUs": "Why Choose Us",
+    "traction": "Traction",
+    "pricing": "Pricing",
+    "legacy": "Legacy",
+    "testimonials": "Testimonials",
+    "faq": "FAQ",
+    "messages": "Messages",
+    "subscribers": "Subscribers",
     "brand": "Platform Hub",
     "logout": "Logout Hub"
   },
