@@ -14,7 +14,8 @@ import {
   CreditCard,
   Target,
   FileQuestion,
-  HelpCircle
+  HelpCircle,
+  Mail
 } from 'lucide-react';
 import { useContent } from '../../../context/ContentContext';
 import { useTranslation } from 'react-i18next';
@@ -39,13 +40,13 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
     { id: 'hero', labelKey: 'sidebar.heroSection', icon: LayoutTemplate },
     { id: 'features', labelKey: 'sidebar.features', icon: Star },
     { id: 'topFeatures', labelKey: 'sidebar.topFeatures', icon: Target },
-    { id: 'whyUs', labelKey: 'sidebar.whyChooseUs', icon: ShieldCheck },
     { id: 'traction', labelKey: 'sidebar.traction', icon: TrendingUp },
     { id: 'pricing', labelKey: 'sidebar.pricing', icon: CreditCard },
     { id: 'legacy', labelKey: 'sidebar.legacy', icon: Users },
     { id: 'testimonials', labelKey: 'sidebar.testimonials', icon: MessageSquare },
     { id: 'faq', labelKey: 'sidebar.faq', icon: HelpCircle },
     { id: 'messages', labelKey: 'sidebar.messages', icon: FileQuestion },
+    { id: 'subscribers', labelKey: 'sidebar.subscribers', icon: Mail },
     { id: 'settings', labelKey: 'sidebar.generalSettings', icon: Settings },
   ];
 

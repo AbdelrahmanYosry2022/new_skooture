@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { ArrowRight, Wifi, ScanFace, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Wifi, ScanFace, ShieldCheck, Loader2 } from 'lucide-react';
+import { createSubscriber } from '../../api/client';
 
 export default function CTASection() {
   const { content, t, language } = useContent();
   const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   const cta = content.cta;
 
   if (!cta) return null;
@@ -15,6 +18,24 @@ export default function CTASection() {
     { icon: ScanFace,    label: { en: 'Reliable',   ar: 'موثوق'       } },
     { icon: ShieldCheck, label: { en: 'Protected',  ar: 'محمي'        } },
   ];
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus('loading');
+    setErrorMessage('');
+
+    try {
+      await createSubscriber(email);
+      setStatus('success');
+      setEmail('');
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (err: any) {
+      setStatus('error');
+      setErrorMessage(err.message || 'Something went wrong');
+    }
+  };
 
   return (
     <section className="relative w-full overflow-hidden bg-[#000000] py-16">
@@ -95,31 +116,52 @@ export default function CTASection() {
 
             {/* Form row */}
             <form
-              className="flex w-full max-w-[460px] flex-col gap-2.5 sm:flex-row sm:items-center"
-              onSubmit={e => e.preventDefault()}
+              className="flex w-full max-w-[460px] flex-col gap-2.5 sm:flex-row sm:items-start"
+              onSubmit={handleSubmit}
             >
-              <input
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder={t({ en: 'Email Address', ar: 'البريد الإلكتروني' })}
-                className="flex-1 h-[44px] rounded-[8px] border px-3.5 text-[14px] text-white outline-none transition-colors duration-200 focus:border-white/40"
-                style={{
-                  backgroundColor: 'rgba(38,38,38,0.2)',
-                  borderColor: 'rgba(255,255,255,0.2)',
-                }}
-              />
+              <div className="flex-1 w-full relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder={t({ en: 'Email Address', ar: 'البريد الإلكتروني' })}
+                  disabled={status === 'loading' || status === 'success'}
+                  className="w-full h-[44px] rounded-[8px] border px-3.5 text-[14px] text-white outline-none transition-colors duration-200 focus:border-white/40 disabled:opacity-50"
+                  style={{
+                    backgroundColor: 'rgba(38,38,38,0.2)',
+                    borderColor: status === 'error' ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.2)',
+                  }}
+                  required
+                />
+                {status === 'error' && (
+                  <p className="absolute -bottom-6 left-1 text-xs text-red-500">{errorMessage}</p>
+                )}
+                {status === 'success' && (
+                  <p className="absolute -bottom-6 left-1 text-xs text-emerald-500">
+                    {language === 'ar' ? 'تم الاشتراك بنجاح!' : 'Successfully subscribed!'}
+                  </p>
+                )}
+              </div>
               <button
                 type="submit"
-                className="group inline-flex h-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-5 text-[14px] font-medium text-white transition-all duration-200 hover:brightness-110"
+                disabled={status === 'loading' || status === 'success' || !email}
+                className="group inline-flex h-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-5 text-[14px] font-medium text-white transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ backgroundColor: 'rgb(234,69,32)' }}
               >
-                {t(cta.button)}
-                <ArrowRight
-                  className={`h-3.5 w-3.5 transition-transform duration-200 ${
-                    language === 'ar' ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'
-                  }`}
-                />
+                {status === 'loading' ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : status === 'success' ? (
+                  language === 'ar' ? 'تم' : 'Done'
+                ) : (
+                  <>
+                    {t(cta.button)}
+                    <ArrowRight
+                      className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                        language === 'ar' ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'
+                      }`}
+                    />
+                  </>
+                )}
               </button>
             </form>
 

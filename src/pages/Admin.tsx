@@ -23,6 +23,7 @@ import TestimonialsSection from '../components/admin/sections/TestimonialsSectio
 import PricingSection from '../components/admin/sections/PricingSection';
 import FaqSection from '../components/admin/sections/FaqSection';
 import MessagesSection from '../components/admin/sections/MessagesSection';
+import SubscribersSection from '../components/admin/sections/SubscribersSection';
 import SettingsSection from '../components/admin/sections/SettingsSection';
 
 export default function Admin() {
@@ -73,13 +74,13 @@ export default function Admin() {
       hero: 'sidebar.heroSection',
       features: 'sidebar.features',
       topFeatures: 'sidebar.topFeatures',
-      whyUs: 'sidebar.whyChooseUs',
       traction: 'sidebar.traction',
       pricing: 'sidebar.pricing',
       legacy: 'sidebar.legacy',
       testimonials: 'sidebar.testimonials',
       faq: 'sidebar.faq',
       messages: 'sidebar.messages',
+      subscribers: 'sidebar.subscribers',
       settings: 'sidebar.generalSettings'
     };
     return map[id] || 'header.dashboard';
@@ -110,6 +111,8 @@ export default function Admin() {
         return <FaqSection {...sectionProps} />;
       case 'messages':
         return <MessagesSection messages={messages} isRTL={isRTL} />;
+      case 'subscribers':
+        return <SubscribersSection isRTL={isRTL} />;
       case 'settings':
         return (
           <SettingsSection
@@ -145,7 +148,7 @@ export default function Admin() {
           onSave={handleSave}
           onReset={resetToDefault}
           isSaved={isSaved}
-          showActions={activeSection !== 'overview' && activeSection !== 'messages'}
+          showActions={activeSection !== 'overview' && activeSection !== 'messages' && activeSection !== 'subscribers'}
         />
         
         {/* Dynamic App-like Layout - Removed the double container wrapper */}

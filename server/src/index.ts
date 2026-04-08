@@ -8,6 +8,7 @@ dotenv.config();
 import authRoutes from './routes/auth';
 import contentRoutes from './routes/content';
 import messagesRoutes from './routes/messages';
+import subscribersRoutes from './routes/subscribers';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -31,6 +32,7 @@ app.get('/api/health', (_req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/messages', messagesRoutes);
+app.use('/api/subscribers', subscribersRoutes);
 
 // Error handler - محسّن ليظهر تفاصيل الخطأ في Railway logs
 app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

@@ -113,7 +113,48 @@ export async function resetContent() {
   return handleResponse<{ success: boolean; message: string }>(res);
 }
 
+// ─── Subscribers ─────────────────────────────────────────────
+
+export async function getSubscribers() {
+  if (LOCAL_MODE) {
+    const saved = localStorage.getItem('skooture_subscribers');
+    return saved ? JSON.parse(saved) : [];
+  }
+  const res = await fetch(`${API_BASE}/subscribers`, { headers: authHeaders() });
+  return handleResponse<any[]>(res);
+}
+
+export async function createSubscriber(email: string) {
+  if (LOCAL_MODE) {
+    const subs = JSON.parse(localStorage.getItem('skooture_subscribers') || '[]');
+    const newSub = { id: Date.now().toString(), email, createdAt: new Date().toISOString() };
+    subs.push(newSub);
+    localStorage.setItem('skooture_subscribers', JSON.stringify(subs));
+    return newSub;
+  }
+  const res = await fetch(`${API_BASE}/subscribers`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  });
+  return handleResponse<any>(res);
+}
+
+export async function deleteSubscriber(id: string) {
+  if (LOCAL_MODE) {
+    const subs = JSON.parse(localStorage.getItem('skooture_subscribers') || '[]').filter((s: any) => s.id !== id);
+    localStorage.setItem('skooture_subscribers', JSON.stringify(subs));
+    return { success: true };
+  }
+  const res = await fetch(`${API_BASE}/subscribers/${id}`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  });
+  return handleResponse<{ success: boolean }>(res);
+}
+
 // ─── Messages ────────────────────────────────────────────────
+
 
 export async function getMessages() {
   if (LOCAL_MODE) return _localGetMessages();

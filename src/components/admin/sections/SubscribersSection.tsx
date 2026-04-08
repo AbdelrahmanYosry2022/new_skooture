@@ -1,0 +1,124 @@
+import { useState, useEffect } from 'react';
+import { Mail, Calendar, Search, Users } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import SectionWrapper from '../layout/SectionWrapper';
+import type { Subscriber } from '../../../types';
+import { getSubscribers } from '../../../api/client';
+
+interface SubscribersSectionProps {
+  isRTL: boolean;
+}
+
+export default function SubscribersSection({ isRTL }: SubscribersSectionProps) {
+  const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchSubs = async () => {
+      try {
+        const data = await getSubscribers();
+        setSubscribers(data);
+      } catch (err) {
+        console.error('Failed to load subscribers', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchSubs();
+  }, []);
+
+  const filteredSubscribers = subscribers.filter(sub => 
+    sub.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <SectionWrapper 
+      key="subscribers" 
+      title={isRTL ? "قائمة المشتركين" : "Subscribers List"} 
+      description={isRTL ? "عرض وإدارة الإيميلات المسجلة من نموذج النشرة البريدية" : "View and manage emails registered from the newsletter form"}
+    >
+      <div className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
+        
+        {/* Search & Filter Bar */}
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-[#191919] p-4 rounded-2xl border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
+          <div className="relative w-full sm:w-96">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#aeaeae]" />
+            <input 
+              type="text" 
+              placeholder={isRTL ? "ابحث بالإيميل..." : "Search by email..."}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-[#111111] border border-white/[0.05] rounded-xl pl-10 pr-4 py-2 text-sm text-white placeholder-[#666666] focus:outline-none focus:border-[#eb4520]/50 focus:ring-1 focus:ring-[#eb4520]/20 transition-all"
+            />
+          </div>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="px-4 py-2 bg-[#111111] border border-white/[0.05] rounded-xl text-sm font-medium text-white flex items-center gap-2">
+              <Users className="w-4 h-4 text-[#eb4520]" />
+              {subscribers.length} {isRTL ? 'مشترك إجمالي' : 'Total Subscribers'}
+            </div>
+          </div>
+        </div>
+
+        {isLoading ? (
+          <div className="text-center py-20 bg-[#111111] rounded-[24px] border border-white/[0.05]">
+            <p className="text-[#aeaeae] text-sm">{isRTL ? 'جاري التحميل...' : 'Loading...'}</p>
+          </div>
+        ) : subscribers.length === 0 ? (
+          <div className="text-center py-20 bg-[#111111] rounded-[24px] border border-dashed border-white/[0.1]">
+            <Mail className="w-12 h-12 mx-auto text-[#666666] mb-4 opacity-50" />
+            <p className="text-[#aeaeae] font-bold uppercase tracking-widest text-xs">
+              {isRTL ? 'لا يوجد مشتركون بعد' : 'No subscribers yet'}
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence>
+              {filteredSubscribers.map((sub, idx) => (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ delay: idx * 0.05 }}
+                  key={sub.id} 
+                  className="group bg-[#111111] border border-white/[0.05] rounded-2xl p-5 hover:border-[#eb4520]/30 transition-all duration-300 shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] flex flex-col gap-4"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#eb4520]/20 to-[#fcbda2]/10 border border-[#eb4520]/20 flex items-center justify-center text-[#eb4520] shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <a href={`mailto:${sub.email}`} className="text-white text-sm font-medium hover:text-[#eb4520] transition-colors truncate block">
+                        {sub.email}
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 text-xs text-[#666666] pt-4 border-t border-white/[0.05]">
+                    <Calendar className="w-3 h-3" />
+                    {new Date(sub.createdAt).toLocaleDateString(isRTL ? 'ar-EG' : 'en-US', { 
+                      year: 'numeric', 
+                      month: 'short', 
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            
+            {filteredSubscribers.length === 0 && searchTerm && (
+              <div className="col-span-full text-center py-12 bg-[#111111] rounded-[24px] border border-white/[0.05]">
+                <Search className="w-8 h-8 mx-auto text-[#666666] mb-3 opacity-50" />
+                <p className="text-[#aeaeae] text-sm">
+                  {isRTL ? 'لم يتم العثور على نتائج لـ' : 'No results found for'} "{searchTerm}"
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </SectionWrapper>
+  );
+}

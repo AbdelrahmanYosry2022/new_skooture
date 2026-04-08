@@ -13,6 +13,13 @@ export interface Message {
   email: string;
   message: string;
   timestamp: number;
+  createdAt?: string; // from backend
+}
+
+export interface Subscriber {
+  id: string;
+  email: string;
+  createdAt: string;
 }
 
 export interface TractionStat {
