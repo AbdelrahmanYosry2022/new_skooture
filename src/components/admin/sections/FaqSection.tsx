@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp, MessageCircleQuestion } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { Plus, Trash2, ArrowLeftRight, Settings2, MessageCircleQuestion } from 'lucide-react';
+import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import SectionWrapper from '../layout/SectionWrapper';
 import TranslatableInput from '../shared/TranslatableInput';
 import type { AdminSectionProps } from '../../../types';
@@ -10,33 +10,69 @@ export default function FaqSection({ localContent, updateNestedContent }: AdminS
   const { t } = useTranslation('admin');
   const faqData = (localContent as any).faq || {};
   const faqs = faqData.items || [];
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  
+  const [isHeaderExpanded, setIsHeaderExpanded] = useState(false);
+  const [activeFaqId, setActiveFaqId] = useState<string | null>(null);
+  const [cardLang, setCardLang] = useState<'en' | 'ar'>('en');
 
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+  // Local state for smooth drag and drop
+  const [localFaqs, setLocalFaqs] = useState<any[]>([]);
+
+  useEffect(() => {
+    const initializedFaqs = faqs.map((f: any) => ({
+      ...f,
+      _id: f._id || Math.random().toString(36).substring(2, 9)
+    }));
+    setLocalFaqs(initializedFaqs);
+    
+    if (!activeFaqId && initializedFaqs.length > 0) {
+      setActiveFaqId(initializedFaqs[0]._id);
+    }
+  }, [faqs]); // Sync when global faqs update
+
+  const handleReorder = (newOrder: any[]) => {
+    setLocalFaqs(newOrder); // Update local visual state immediately
   };
 
-  const handleUpdateFaq = (index: number, field: 'question' | 'answer', subfield: 'en' | 'ar', value: string) => {
-    const newFaqs = [...faqs];
-    if (!newFaqs[index][field]) newFaqs[index][field] = { en: '', ar: '' };
-    newFaqs[index][field][subfield] = value;
-    updateNestedContent(['faq', 'items'], newFaqs);
+  const handleDragEnd = () => {
+    // Only update global state when dragging finishes
+    updateNestedContent(['faq', 'items'], localFaqs);
   };
 
-  const handleDeleteFaq = (index: number) => {
-    const newFaqs = [...faqs];
-    newFaqs.splice(index, 1);
+  const activeIndex = localFaqs.findIndex((f: any) => f._id === activeFaqId);
+  const activeFaq = localFaqs[activeIndex !== -1 ? activeIndex : 0];
+
+  const handleUpdateFaq = (field: 'question' | 'answer', value: string) => {
+    if (!activeFaq) return;
+    const newFaqs = [...localFaqs];
+    const targetIndex = activeIndex !== -1 ? activeIndex : 0;
+    
+    if (!newFaqs[targetIndex][field]) newFaqs[targetIndex][field] = { en: '', ar: '' };
+    newFaqs[targetIndex][field][cardLang] = value;
+    
+    setLocalFaqs(newFaqs); // Update local
+    updateNestedContent(['faq', 'items'], newFaqs); // Sync global
+  };
+
+  const handleDeleteFaq = (idToDelete: string) => {
+    const newFaqs = localFaqs.filter((f: any) => f._id !== idToDelete);
+    setLocalFaqs(newFaqs);
     updateNestedContent(['faq', 'items'], newFaqs);
-    if (expandedIndex === index) setExpandedIndex(null);
+    if (activeFaqId === idToDelete) {
+      setActiveFaqId(newFaqs.length > 0 ? newFaqs[0]._id : null);
+    }
   };
 
   const handleAddFaq = () => {
-    const newFaqs = [...faqs, {
+    const newId = Math.random().toString(36).substring(2, 9);
+    const newFaqs = [...localFaqs, {
+      _id: newId,
       question: { en: 'New Question', ar: 'سؤال جديد' },
       answer: { en: 'Answer goes here', ar: 'الإجابة هنا' }
     }];
+    setLocalFaqs(newFaqs);
     updateNestedContent(['faq', 'items'], newFaqs);
-    setExpandedIndex(newFaqs.length - 1);
+    setActiveFaqId(newId);
   };
 
   return (
@@ -44,146 +80,197 @@ export default function FaqSection({ localContent, updateNestedContent }: AdminS
       <div className="bg-[#000000] border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
         
         {/* Header Section */}
-        <div className="p-6 md:p-8 border-b border-white/[0.05] bg-gradient-to-b from-white/[0.02] to-transparent flex flex-col md:flex-row md:items-start gap-8">
-          <div className="flex-1 space-y-6">
+        <div className="p-6 md:p-8 border-b border-white/[0.05] bg-gradient-to-b from-white/[0.02] to-transparent">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-[16px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#eb4520] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] shrink-0">
                 <MessageCircleQuestion size={24} />
               </div>
               <div>
                 <h4 className="text-xl font-bold tracking-tight text-white mb-1">Frequently Asked Questions</h4>
-                <p className="text-sm text-[#aeaeae]">Manage the title and items of the FAQ section.</p>
+                <p className="text-sm text-[#aeaeae]">Smart FAQ Manager: Reorder tabs and edit seamlessly.</p>
               </div>
             </div>
             
-            <div className="grid grid-cols-1 gap-6 max-w-2xl">
-              <TranslatableInput 
-                label="Section Title"
-                enValue={faqData.title?.en || ''}
-                arValue={faqData.title?.ar || ''}
-                onEnChange={(val) => updateNestedContent(['faq', 'title', 'en'], val)}
-                onArChange={(val) => updateNestedContent(['faq', 'title', 'ar'], val)}
-              />
-              <TranslatableInput 
-                label="Section Subtitle"
-                multiline
-                enValue={faqData.subtitle?.en || ''}
-                arValue={faqData.subtitle?.ar || ''}
-                onEnChange={(val) => updateNestedContent(['faq', 'subtitle', 'en'], val)}
-                onArChange={(val) => updateNestedContent(['faq', 'subtitle', 'ar'], val)}
-              />
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsHeaderExpanded(!isHeaderExpanded)}
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[12px] border transition-colors w-full md:w-auto justify-center ${isHeaderExpanded ? 'bg-white/[0.05] border-white/[0.1] text-white' : 'bg-transparent border-white/[0.05] text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'}`}
+              >
+                <Settings2 size={16} />
+                Header Settings
+              </button>
             </div>
           </div>
-          
-          <div className="md:pt-2">
-            <button
-              onClick={handleAddFaq}
-              className="flex items-center gap-2 px-4 py-2 bg-[#eb4520] text-white text-sm font-medium rounded-[12px] hover:bg-[#ff5933] transition-colors shadow-[0_4px_12px_rgba(235,69,32,0.3)] w-full md:w-auto justify-center"
-            >
-              <Plus size={16} />
-              Add FAQ
-            </button>
-          </div>
+
+          <AnimatePresence>
+            {isHeaderExpanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                className="overflow-hidden"
+              >
+                <div className="pt-8 grid grid-cols-1 gap-6 max-w-3xl">
+                  <TranslatableInput 
+                    label="Section Title"
+                    enValue={faqData.title?.en || ''}
+                    arValue={faqData.title?.ar || ''}
+                    onEnChange={(val) => updateNestedContent(['faq', 'title', 'en'], val)}
+                    onArChange={(val) => updateNestedContent(['faq', 'title', 'ar'], val)}
+                  />
+                  <TranslatableInput 
+                    label="Section Subtitle"
+                    multiline
+                    enValue={faqData.subtitle?.en || ''}
+                    arValue={faqData.subtitle?.ar || ''}
+                    onEnChange={(val) => updateNestedContent(['faq', 'subtitle', 'en'], val)}
+                    onArChange={(val) => updateNestedContent(['faq', 'subtitle', 'ar'], val)}
+                  />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        {/* FAQ Items List */}
-        <div className="p-6 md:p-8 space-y-4 bg-[#050505]">
-          <AnimatePresence initial={false}>
-            {faqs.map((faq: any, index: number) => {
-              const isExpanded = expandedIndex === index;
-
-              return (
-                <motion.div 
-                  key={index} 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className={`bg-[#111111] border border-white/[0.05] rounded-[16px] overflow-hidden transition-colors ${
-                    isExpanded ? 'border-[#eb4520]/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)]' : 'hover:border-white/[0.1]'
-                  }`}
-                >
-                  {/* Compact Row View */}
-                  <div 
-                    className="flex items-center gap-4 p-4 cursor-pointer group select-none"
-                    onClick={() => toggleExpand(index)}
+        {/* Smart Horizontal Tabs & Editor */}
+        <div className="p-6 md:p-8 bg-[#050505]">
+          
+          {/* Horizontal Draggable Tabs */}
+          <div className="flex items-center gap-3 overflow-x-auto pb-6 mb-2 custom-scrollbar">
+            <Reorder.Group 
+              axis="x" 
+              values={localFaqs} 
+              onReorder={handleReorder} 
+              className="flex items-center gap-3"
+            >
+              {localFaqs.map((faq: any, index: number) => {
+                const isActive = faq._id === activeFaqId;
+                return (
+                  <Reorder.Item 
+                    key={faq._id} 
+                    value={faq}
+                    onDragEnd={handleDragEnd}
+                    className={`relative flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border cursor-grab active:cursor-grabbing select-none group ${
+                      isActive 
+                        ? 'bg-[#eb4520] border-[#eb4520] text-white shadow-[0_4px_20px_rgba(235,69,32,0.4)] z-10' 
+                        : 'bg-[#111111] border-white/[0.05] text-[#aeaeae] hover:bg-white/[0.05] hover:text-white hover:border-white/[0.1] z-0'
+                    }`}
+                    onClick={() => setActiveFaqId(faq._id)}
                   >
-                    <div className="text-white/[0.1] group-hover:text-white/[0.3] transition-colors cursor-grab active:cursor-grabbing shrink-0">
-                      <GripVertical size={20} />
+                    <span className="font-bold text-sm transition-opacity group-hover:opacity-0">{index + 1}</span>
+                    
+                    {/* Drag hint icon that appears on hover */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-[#aeaeae]">
+                      <ArrowLeftRight size={20} />
                     </div>
+                  </Reorder.Item>
+                );
+              })}
+            </Reorder.Group>
 
-                    <div className="w-8 h-8 rounded-full bg-[#1a1a1a] border border-white/[0.05] flex items-center justify-center text-[#eb4520] shrink-0 font-medium text-xs">
-                      {index + 1}
+            <button 
+              onClick={handleAddFaq} 
+              className="flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border border-dashed border-white/[0.1] bg-[#111111] text-[#aeaeae] hover:bg-[#eb4520]/10 hover:border-[#eb4520]/50 hover:text-[#eb4520] transition-colors shrink-0"
+              title="Add New FAQ"
+            >
+              <Plus size={24} />
+            </button>
+          </div>
+
+          {/* Active FAQ Editor Card */}
+          <AnimatePresence mode="wait">
+            {activeFaq ? (
+              <motion.div
+                key={activeFaq._id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="bg-[#111111] border border-white/[0.05] shadow-[0_10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
+              >
+                {/* Card Header + Master Toggle */}
+                <div className="p-6 md:px-8 border-b border-white/[0.05] flex items-center justify-between bg-black/[0.2]">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/[0.05] flex items-center justify-center text-white font-bold text-sm">
+                      Q{activeIndex + 1}
                     </div>
-
-                    <div className="flex-1 min-w-0 pr-4">
-                      <h5 className="text-white font-medium truncate">
-                        {faq.question?.en || 'Untitled Question'}
+                    <div>
+                      <h5 className="text-white font-medium truncate max-w-[200px] md:max-w-[400px]">
+                        {activeFaq.question?.[cardLang] || 'New Question'}
                       </h5>
-                      <p className="text-xs text-[#aeaeae] truncate mt-0.5 max-w-full">
-                        {faq.answer?.en || 'No answer provided'}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity mr-2 shrink-0">
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteFaq(index);
-                        }}
-                        className="p-2 rounded-[8px] text-red-400 hover:text-white hover:bg-red-500/20 transition-colors"
-                        title="Delete FAQ"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-
-                    <div className={`w-8 h-8 rounded-full shrink-0 flex items-center justify-center transition-colors ${isExpanded ? 'bg-[#eb4520]/10 text-[#eb4520]' : 'bg-[#1a1a1a] text-[#aeaeae]'}`}>
-                      {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      <p className="text-xs text-[#aeaeae]">Currently editing {cardLang === 'en' ? 'English' : 'Arabic'} translation</p>
                     </div>
                   </div>
 
-                  {/* Expanded Edit Form */}
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  <div className="flex items-center gap-4">
+                    {/* EN / AR Card Level Toggle */}
+                    <div className="flex bg-[#000000] p-1 rounded-[12px] border border-white/[0.05]">
+                      <button 
+                        onClick={() => setCardLang('en')}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'en' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
                       >
-                        <div className="p-6 pt-2 border-t border-white/[0.05] bg-[#0a0a0a]/50">
-                          <div className="space-y-6 max-w-3xl">
-                            <TranslatableInput 
-                              label="Question"
-                              enValue={faq.question?.en || ''}
-                              arValue={faq.question?.ar || ''}
-                              onEnChange={(val) => handleUpdateFaq(index, 'question', 'en', val)}
-                              onArChange={(val) => handleUpdateFaq(index, 'question', 'ar', val)}
-                            />
-                            <TranslatableInput 
-                              label="Answer"
-                              multiline
-                              enValue={faq.answer?.en || ''}
-                              arValue={faq.answer?.ar || ''}
-                              onEnChange={(val) => handleUpdateFaq(index, 'answer', 'en', val)}
-                              onArChange={(val) => handleUpdateFaq(index, 'answer', 'ar', val)}
-                            />
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                        EN
+                      </button>
+                      <button 
+                        onClick={() => setCardLang('ar')}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'ar' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                      >
+                        AR
+                      </button>
+                    </div>
 
-          {faqs.length === 0 && (
-             <div className="text-center py-12 border border-dashed border-white/[0.1] rounded-[16px] bg-[#111111]/50">
-               <MessageCircleQuestion className="w-12 h-12 text-white/[0.1] mx-auto mb-3" />
-               <p className="text-[#aeaeae] font-medium">No FAQs added yet.</p>
-             </div>
-          )}
+                    <div className="w-[1px] h-8 bg-white/[0.05]"></div>
+
+                    <button 
+                      onClick={() => handleDeleteFaq(activeFaq._id)}
+                      className="p-2.5 rounded-[10px] text-red-400 hover:text-white hover:bg-red-500/20 transition-colors"
+                      title="Delete FAQ"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Form Inputs based on cardLang */}
+                <div className="p-6 md:p-8 space-y-6">
+                  <div>
+                    <label className="block text-xs font-bold text-[#aeaeae] uppercase tracking-wider mb-3">
+                      {cardLang === 'en' ? 'Question Text (English)' : 'نص السؤال (بالعربية)'}
+                    </label>
+                    <input
+                      type="text"
+                      value={activeFaq.question?.[cardLang] || ''}
+                      onChange={(e) => handleUpdateFaq('question', e.target.value)}
+                      className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#eb4520]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
+                      dir={cardLang === 'ar' ? 'rtl' : 'ltr'}
+                      placeholder={cardLang === 'en' ? 'Type the question here...' : 'اكتب السؤال هنا...'}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#aeaeae] uppercase tracking-wider mb-3">
+                      {cardLang === 'en' ? 'Answer Text (English)' : 'نص الإجابة (بالعربية)'}
+                    </label>
+                    <textarea
+                      value={activeFaq.answer?.[cardLang] || ''}
+                      onChange={(e) => handleUpdateFaq('answer', e.target.value)}
+                      className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#eb4520]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all min-h-[140px] resize-y placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
+                      dir={cardLang === 'ar' ? 'rtl' : 'ltr'}
+                      placeholder={cardLang === 'en' ? 'Type the answer here...' : 'اكتب الإجابة هنا...'}
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              <div className="text-center py-20 border border-dashed border-white/[0.1] rounded-[24px] bg-[#111111]/50">
+                <MessageCircleQuestion className="w-16 h-16 text-white/[0.05] mx-auto mb-4" />
+                <p className="text-white font-medium text-lg mb-2">No Questions Available</p>
+                <p className="text-[#aeaeae] text-sm">Click the + button above to add your first FAQ.</p>
+              </div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </SectionWrapper>

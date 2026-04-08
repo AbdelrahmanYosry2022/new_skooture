@@ -1,45 +1,107 @@
-import { useState } from 'react';
-import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp, LayoutGrid } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { Plus, Trash2, ArrowLeftRight, Settings2, LayoutGrid, Search } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
+import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import SectionWrapper from '../layout/SectionWrapper';
 import TranslatableInput from '../shared/TranslatableInput';
-import IconPicker from '../shared/IconPicker';
 import DynamicIcon from '../../shared/DynamicIcon';
 import type { AdminSectionProps } from '../../../types';
 
+const COMMON_ICONS = [
+  'Brain', 'Zap', 'Settings', 'MessageSquare', 'School', 'Users', 'GraduationCap', 
+  'Globe', 'Shield', 'BarChart3', 'History', 'CheckCircle', 'ArrowRight', 
+  'Bell', 'Calendar', 'Briefcase', 'Star', 'Heart', 'Layout', 'Sparkles', 
+  'Database', 'Cloud', 'Cpu', 'Rocket', 'Activity'
+];
+
 export default function FeaturesSection({ localContent, updateNestedContent }: AdminSectionProps) {
   const features = localContent.aiCore?.features || [];
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  
+  const [activeFeatureId, setActiveFeatureId] = useState<string | null>(null);
+  const [cardLang, setCardLang] = useState<'en' | 'ar'>('en');
+  const [isHeaderExpanded, setIsHeaderExpanded] = useState(false);
+  
+  // Icon picker state
+  const [isIconPickerOpen, setIsIconPickerOpen] = useState(false);
+  const [iconSearch, setIconSearch] = useState('');
+  const iconDropdownRef = useRef<HTMLDivElement>(null);
 
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
+  // Local state for smooth drag and drop
+  const [localFeatures, setLocalFeatures] = useState<any[]>([]);
 
-  const handleUpdateFeature = (index: number, field: string, subfield: 'en' | 'ar' | null, value: any) => {
-    const newFeatures = [...features];
-    if (subfield) {
-      newFeatures[index][field][subfield] = value;
-    } else {
-      newFeatures[index][field] = value;
+  useEffect(() => {
+    const initializedFeatures = features.map((f: any) => ({
+      ...f,
+      _id: f._id || Math.random().toString(36).substring(2, 9)
+    }));
+    setLocalFeatures(initializedFeatures);
+    
+    if (!activeFeatureId && initializedFeatures.length > 0) {
+      setActiveFeatureId(initializedFeatures[0]._id);
     }
+  }, [features]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (iconDropdownRef.current && !iconDropdownRef.current.contains(e.target as Node)) {
+        setIsIconPickerOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const filteredIcons = COMMON_ICONS.filter(name => 
+    name.toLowerCase().includes(iconSearch.toLowerCase())
+  );
+
+  const handleReorder = (newOrder: any[]) => {
+    setLocalFeatures(newOrder); // visual only
+  };
+
+  const handleDragEnd = () => {
+    updateNestedContent(['aiCore', 'features'], localFeatures); // actual save
+  };
+
+  const activeIndex = localFeatures.findIndex((f: any) => f._id === activeFeatureId);
+  const activeFeature = localFeatures[activeIndex !== -1 ? activeIndex : 0];
+
+  const handleUpdateFeature = (field: 'title' | 'description' | 'icon', value: any) => {
+    if (!activeFeature) return;
+    const newFeatures = [...localFeatures];
+    const targetIndex = activeIndex !== -1 ? activeIndex : 0;
+    
+    if (field === 'icon') {
+      newFeatures[targetIndex][field] = value;
+    } else {
+      if (!newFeatures[targetIndex][field]) newFeatures[targetIndex][field] = { en: '', ar: '' };
+      newFeatures[targetIndex][field][cardLang] = value;
+    }
+    
+    setLocalFeatures(newFeatures);
     updateNestedContent(['aiCore', 'features'], newFeatures);
   };
 
-  const handleDeleteFeature = (index: number) => {
-    const newFeatures = [...features];
-    newFeatures.splice(index, 1);
+  const handleDeleteFeature = (idToDelete: string) => {
+    const newFeatures = localFeatures.filter((f: any) => f._id !== idToDelete);
+    setLocalFeatures(newFeatures);
     updateNestedContent(['aiCore', 'features'], newFeatures);
-    if (expandedIndex === index) setExpandedIndex(null);
+    if (activeFeatureId === idToDelete) {
+      setActiveFeatureId(newFeatures.length > 0 ? newFeatures[0]._id : null);
+    }
   };
 
   const handleAddFeature = () => {
-    const newFeatures = [...features, {
+    const newId = Math.random().toString(36).substring(2, 9);
+    const newFeatures = [...localFeatures, {
+      _id: newId,
       icon: 'Star',
       title: { en: 'New Feature', ar: 'ميزة جديدة' },
       description: { en: 'Feature description here', ar: 'وصف الميزة هنا' }
     }];
+    setLocalFeatures(newFeatures);
     updateNestedContent(['aiCore', 'features'], newFeatures);
-    setExpandedIndex(newFeatures.length - 1);
+    setActiveFeatureId(newId);
   };
 
   return (
@@ -53,126 +115,242 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
             </div>
             <div>
               <h4 className="text-xl font-bold tracking-tight text-white mb-1">AI Core Features</h4>
-              <p className="text-sm text-[#aeaeae]">Manage your main AI capabilities compactly and smartly.</p>
+              <p className="text-sm text-[#aeaeae]">Smart Features Manager: Reorder tabs and edit seamlessly.</p>
             </div>
           </div>
-          <button
-            onClick={handleAddFeature}
-            className="hidden md:flex items-center gap-2 px-4 py-2 bg-[#eb4520] text-white text-sm font-medium rounded-[12px] hover:bg-[#ff5933] transition-colors shadow-[0_4px_12px_rgba(235,69,32,0.3)]"
-          >
-            <Plus size={16} />
-            Add Feature
-          </button>
+          
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsHeaderExpanded(!isHeaderExpanded)}
+              className={`hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[12px] border transition-colors w-full md:w-auto justify-center ${isHeaderExpanded ? 'bg-white/[0.05] border-white/[0.1] text-white' : 'bg-transparent border-white/[0.05] text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'}`}
+            >
+              <Settings2 size={16} />
+              Header Settings
+            </button>
+          </div>
         </div>
 
+        <AnimatePresence>
+          {isHeaderExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="overflow-hidden bg-[#0a0a0a] border-b border-white/[0.05]"
+            >
+              <div className="p-6 md:p-8 grid grid-cols-1 gap-6 max-w-3xl">
+                <TranslatableInput 
+                  label="Section Title"
+                  enValue={localContent.aiCore?.title?.en || ''}
+                  arValue={localContent.aiCore?.title?.ar || ''}
+                  onEnChange={(val) => updateNestedContent(['aiCore', 'title', 'en'], val)}
+                  onArChange={(val) => updateNestedContent(['aiCore', 'title', 'ar'], val)}
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Content */}
-        <div className="p-6 md:p-8 space-y-4">
-          <AnimatePresence initial={false}>
-            {features.map((feature: any, index: number) => {
-              const isExpanded = expandedIndex === index;
-
-              return (
-                <motion.div 
-                  key={index} 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className={`bg-[#111111] border border-white/[0.05] rounded-[16px] overflow-hidden transition-colors ${
-                    isExpanded ? 'border-[#eb4520]/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)]' : 'hover:border-white/[0.1]'
-                  }`}
-                >
-                  {/* Compact Row View */}
-                  <div 
-                    className="flex items-center gap-4 p-4 cursor-pointer group select-none"
-                    onClick={() => toggleExpand(index)}
+        <div className="p-6 md:p-8 bg-[#050505]">
+          
+          {/* Horizontal Draggable Tabs */}
+          <div className="flex items-center gap-3 overflow-x-auto pb-6 mb-2 custom-scrollbar">
+            <Reorder.Group 
+              axis="x" 
+              values={localFeatures} 
+              onReorder={handleReorder} 
+              className="flex items-center gap-3"
+            >
+              {localFeatures.map((feature: any, index: number) => {
+                const isActive = feature._id === activeFeatureId;
+                return (
+                  <Reorder.Item 
+                    key={feature._id} 
+                    value={feature}
+                    onDragEnd={handleDragEnd}
+                    className={`relative flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border cursor-grab active:cursor-grabbing select-none group ${
+                      isActive 
+                        ? 'bg-[#eb4520] border-[#eb4520] text-white shadow-[0_4px_20px_rgba(235,69,32,0.4)] z-10' 
+                        : 'bg-[#111111] border-white/[0.05] text-[#aeaeae] hover:bg-white/[0.05] hover:text-white hover:border-white/[0.1] z-0'
+                    }`}
+                    onClick={() => setActiveFeatureId(feature._id)}
                   >
-                    <div className="text-white/[0.1] group-hover:text-white/[0.3] transition-colors cursor-grab active:cursor-grabbing">
-                      <GripVertical size={20} />
+                    <span className="font-bold text-sm transition-opacity group-hover:opacity-0">F{index + 1}</span>
+                    
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-[#aeaeae]">
+                      <ArrowLeftRight size={20} />
                     </div>
+                  </Reorder.Item>
+                );
+              })}
+            </Reorder.Group>
 
-                    <div className="w-10 h-10 rounded-[12px] bg-[#1a1a1a] border border-white/[0.05] flex items-center justify-center text-[#eb4520] shrink-0">
-                      <DynamicIcon name={feature.icon || 'Star'} className="w-5 h-5" />
-                    </div>
+            <button 
+              onClick={handleAddFeature} 
+              className="flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border border-dashed border-white/[0.1] bg-[#111111] text-[#aeaeae] hover:bg-[#eb4520]/10 hover:border-[#eb4520]/50 hover:text-[#eb4520] transition-colors shrink-0"
+              title="Add New Feature"
+            >
+              <Plus size={24} />
+            </button>
+          </div>
 
-                    <div className="flex-1 min-w-0">
-                      <h5 className="text-white font-medium truncate">
-                        {feature.title?.en || 'Untitled Feature'}
-                      </h5>
-                      <p className="text-xs text-[#aeaeae] truncate mt-0.5">
-                        {feature.description?.en || 'No description provided'}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity mr-2">
-                      <button 
+          {/* Active Feature Editor Card */}
+          <AnimatePresence mode="wait">
+            {activeFeature ? (
+              <motion.div
+                key={activeFeature._id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="bg-[#111111] border border-white/[0.05] shadow-[0_10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
+              >
+                {/* Card Header */}
+                <div className="p-6 md:px-8 border-b border-white/[0.05] flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/[0.2]">
+                  <div className="flex items-center gap-4">
+                    {/* Interactive Icon Picker */}
+                    <div className="relative z-50">
+                      <div 
+                        className={`w-12 h-12 rounded-[14px] border flex items-center justify-center shrink-0 transition-colors cursor-pointer group/icon ${isIconPickerOpen ? 'bg-[#eb4520] border-[#eb4520] text-white' : 'bg-[#1a1a1a] border-white/[0.05] hover:border-[#eb4520]/50 hover:bg-[#eb4520]/10 text-[#eb4520]'}`}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDeleteFeature(index);
+                          setIsIconPickerOpen(!isIconPickerOpen);
+                          if (!isIconPickerOpen) setIconSearch('');
                         }}
-                        className="p-2 rounded-[8px] text-red-400 hover:text-white hover:bg-red-500/20 transition-colors"
-                        title="Delete feature"
                       >
-                        <Trash2 size={16} />
-                      </button>
+                        <DynamicIcon name={activeFeature.icon || 'Star'} className="w-6 h-6" />
+                      </div>
+
+                      {/* Floating Icon Picker */}
+                      <AnimatePresence>
+                        {isIconPickerOpen && (
+                          <motion.div 
+                            ref={iconDropdownRef}
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="absolute top-full left-0 mt-3 w-[280px] bg-[#111111] border border-white/[0.1] rounded-[20px] shadow-[0_20px_40px_rgba(0,0,0,0.8)] overflow-hidden z-[100]"
+                          >
+                            <div className="p-3 border-b border-white/[0.05]">
+                              <div className="relative">
+                                <Search className="absolute top-1/2 left-3 -translate-y-1/2 text-white/[0.3]" size={14} />
+                                <input
+                                  type="text"
+                                  value={iconSearch}
+                                  onChange={(e) => setIconSearch(e.target.value)}
+                                  placeholder="Search icons..."
+                                  className="w-full py-2 pl-9 pr-3 bg-white/[0.03] border border-white/[0.05] focus:border-[#eb4520]/50 text-sm font-medium rounded-[10px] text-white outline-none transition-all placeholder:text-white/[0.2]"
+                                  autoFocus
+                                />
+                              </div>
+                            </div>
+                            
+                            <div className="max-h-[200px] overflow-y-auto p-3 grid grid-cols-4 gap-2">
+                              {filteredIcons.map((name) => {
+                                const Icon = (LucideIcons as any)[name];
+                                const isActive = activeFeature.icon === name;
+                                return (
+                                  <button
+                                    key={name}
+                                    type="button"
+                                    onClick={() => {
+                                      handleUpdateFeature('icon', name);
+                                      setIsIconPickerOpen(false);
+                                    }}
+                                    className={`flex flex-col items-center justify-center p-3 rounded-[12px] transition-all duration-300 ${
+                                      isActive 
+                                        ? 'bg-[#eb4520] text-white' 
+                                        : 'hover:bg-white/[0.05] text-white/[0.5] hover:text-white'
+                                    }`}
+                                    title={name}
+                                  >
+                                    <Icon size={20} />
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
 
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isExpanded ? 'bg-[#eb4520]/10 text-[#eb4520]' : 'bg-[#1a1a1a] text-[#aeaeae]'}`}>
-                      {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                    <div>
+                      <h5 className="text-white font-medium truncate max-w-[200px] md:max-w-[400px]">
+                        {activeFeature.title?.[cardLang] || 'New Feature'}
+                      </h5>
+                      <p className="text-xs text-[#aeaeae]">Currently editing {cardLang === 'en' ? 'English' : 'Arabic'} translation</p>
                     </div>
                   </div>
 
-                  {/* Expanded Edit Form */}
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  <div className="flex items-center gap-4">
+                    <div className="flex bg-[#000000] p-1 rounded-[12px] border border-white/[0.05]">
+                      <button 
+                        onClick={() => setCardLang('en')}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'en' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
                       >
-                        <div className="p-6 pt-2 border-t border-white/[0.05] bg-[#0a0a0a]/50 grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6">
-                          <div className="space-y-4">
-                            <label className="block text-xs font-medium text-[#aeaeae] uppercase tracking-wider">Icon Selection</label>
-                            <IconPicker 
-                              label=""
-                              value={feature.icon}
-                              onChange={(val) => handleUpdateFeature(index, 'icon', null, val)}
-                            />
-                          </div>
-                          
-                          <div className="space-y-6">
-                            <TranslatableInput 
-                              label="Feature Title"
-                              enValue={feature.title?.en || ''}
-                              arValue={feature.title?.ar || ''}
-                              onEnChange={(val) => handleUpdateFeature(index, 'title', 'en', val)}
-                              onArChange={(val) => handleUpdateFeature(index, 'title', 'ar', val)}
-                            />
-                            <TranslatableInput 
-                              label="Feature Description"
-                              multiline
-                              enValue={feature.description?.en || ''}
-                              arValue={feature.description?.ar || ''}
-                              onEnChange={(val) => handleUpdateFeature(index, 'description', 'en', val)}
-                              onArChange={(val) => handleUpdateFeature(index, 'description', 'ar', val)}
-                            />
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                        EN
+                      </button>
+                      <button 
+                        onClick={() => setCardLang('ar')}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'ar' ? 'bg-[#eb4520] text-white shadow-[0_2px_8px_rgba(235,69,32,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                      >
+                        AR
+                      </button>
+                    </div>
 
-          <button
-            onClick={handleAddFeature}
-            className="w-full py-4 flex items-center justify-center gap-2 rounded-[16px] border border-dashed border-white/[0.1] text-[#aeaeae] hover:text-white hover:border-[#eb4520]/50 hover:bg-[#eb4520]/5 transition-all md:hidden"
-          >
-            <Plus size={18} />
-            <span className="text-sm font-medium">Add New Feature</span>
-          </button>
+                    <div className="w-[1px] h-8 bg-white/[0.05]"></div>
+
+                    <button 
+                      onClick={() => handleDeleteFeature(activeFeature._id)}
+                      className="p-2.5 rounded-[10px] text-red-400 hover:text-white hover:bg-red-500/20 transition-colors"
+                      title="Delete Feature"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Form Inputs */}
+                <div className="p-6 md:p-8 space-y-6">
+                  <div>
+                    <label className="block text-xs font-bold text-[#aeaeae] uppercase tracking-wider mb-3">
+                      {cardLang === 'en' ? 'Feature Title (English)' : 'اسم الميزة (بالعربية)'}
+                    </label>
+                    <input
+                      type="text"
+                      value={activeFeature.title?.[cardLang] || ''}
+                      onChange={(e) => handleUpdateFeature('title', e.target.value)}
+                      className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#eb4520]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
+                      dir={cardLang === 'ar' ? 'rtl' : 'ltr'}
+                      placeholder={cardLang === 'en' ? 'Type feature title...' : 'اكتب اسم الميزة هنا...'}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#aeaeae] uppercase tracking-wider mb-3">
+                      {cardLang === 'en' ? 'Description (English)' : 'الوصف (بالعربية)'}
+                    </label>
+                    <textarea
+                      value={activeFeature.description?.[cardLang] || ''}
+                      onChange={(e) => handleUpdateFeature('description', e.target.value)}
+                      className={`w-full bg-[#0a0a0a] border border-white/[0.05] focus:border-[#eb4520]/50 focus:bg-[#111] text-white rounded-[16px] px-5 py-4 outline-none transition-all min-h-[140px] resize-y placeholder:text-white/[0.1] ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
+                      dir={cardLang === 'ar' ? 'rtl' : 'ltr'}
+                      placeholder={cardLang === 'en' ? 'Type description...' : 'اكتب الوصف هنا...'}
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              <div className="text-center py-20 border border-dashed border-white/[0.1] rounded-[24px] bg-[#111111]/50">
+                <LayoutGrid className="w-16 h-16 text-white/[0.05] mx-auto mb-4" />
+                <p className="text-white font-medium text-lg mb-2">No Features Available</p>
+                <p className="text-[#aeaeae] text-sm">Click the + button above to add your first feature.</p>
+              </div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </SectionWrapper>
