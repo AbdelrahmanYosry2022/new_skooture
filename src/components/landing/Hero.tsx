@@ -25,7 +25,7 @@ export default function Hero() {
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-[#000000] min-h-screen flex items-center">
       {/* Exact Background Decorative Glow matching Reference */}
-      <div className="absolute top-1/2 left-[45%] -translate-y-1/2 w-[1000px] h-[800px] rounded-full opacity-70 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.25)_0%,rgba(0,168,107,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]" />
+      <div className={`absolute top-1/2 ${isRTL ? 'right-[45%]' : 'left-[45%]'} -translate-y-1/2 w-[1000px] h-[800px] rounded-full opacity-70 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.25)_0%,rgba(0,168,107,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]`} />
       
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10 w-full">
         <motion.div 
@@ -35,7 +35,7 @@ export default function Hero() {
           className="flex flex-col lg:flex-row items-center relative"
         >
           {/* Left Column (Constrained text content) */}
-          <div className="text-left w-full lg:w-[504px] flex-shrink-0 z-20 relative">
+          <div className="w-full lg:w-[504px] flex-shrink-0 z-20 relative text-left rtl:text-right">
             {/* Top Badge */}
             {content.hero?.topBadge && (
               <motion.div variants={itemVariants} className="mb-6 flex justify-start">
@@ -72,7 +72,7 @@ export default function Hero() {
             {/* CTA Buttons - EXACT match with reference */}
             <motion.div 
               variants={itemVariants}
-              className="flex items-center justify-start gap-4 mb-16"
+              className="flex items-center gap-4 mb-16 justify-start"
             >
               {content.hero?.buttons?.explore && (
                 <a href="#" className="inline-flex">
@@ -129,20 +129,20 @@ export default function Hero() {
           {/* Right Column / Large Absolute Image (Matching position strictly) */}
           <motion.div 
             variants={itemVariants}
-            className="hidden lg:block absolute left-[50%] top-1/2 -translate-y-1/2 w-[1000px] h-[720px] z-10 pointer-events-none ml-[40px] pl-[40px]"
+            className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-[1000px] h-[720px] z-10 pointer-events-none ${isRTL ? 'right-[50%] mr-[40px] pr-[40px]' : 'left-[50%] ml-[40px] pl-[40px]'}`}
           >
              <div className="relative w-full h-[600px] xl:h-[700px] mt-[10px] rounded-[32px] overflow-hidden border border-white/[0.08] shadow-[0_20px_80px_rgba(0,168,107,0.15)] bg-black/40 backdrop-blur-md">
                 {content.hero?.videoUrl ? (
                   <img 
                     src={content.hero.videoUrl} 
                     alt="Hero Visual" 
-                    className="w-full h-full object-cover object-left-top"
+                    className={`w-full h-full object-cover ${isRTL ? 'object-right-top' : 'object-left-top'}`}
                   />
                 ) : (
                   <img 
-                    src="/images/dashboard-preview.png" 
+                    src="/images/hero-fallback-dashboard.jpg" 
                     alt="Dashboard UI" 
-                    className="w-full h-full object-cover object-left-top"
+                    className={`w-full h-full object-cover ${isRTL ? 'object-right-top' : 'object-left-top'}`}
                   />
                 )}
              </div>

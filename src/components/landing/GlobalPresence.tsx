@@ -59,7 +59,7 @@ export default function GlobalPresence() {
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* Content Column */}
-          <div className={`flex flex-col items-start text-left ${isRTL ? 'rtl:text-right items-end' : ''}`}>
+          <div className="flex flex-col items-start text-left rtl:text-right">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
