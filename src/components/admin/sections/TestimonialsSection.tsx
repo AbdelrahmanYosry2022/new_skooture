@@ -86,8 +86,8 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
               <MessageSquareQuote size={24} />
             </div>
             <div>
-              <h4 className="text-xl font-bold tracking-tight text-white mb-1">Testimonials</h4>
-              <p className="text-sm text-[#aeaeae]">Manage customer reviews and feedback.</p>
+              <h4 className="text-xl font-bold tracking-tight text-white mb-1">{t("sectionHeaders.testimonialsTitle", "Testimonials")}</h4>
+              <p className="text-sm text-[#aeaeae]">{t("sectionHeaders.testimonialsDesc", "Manage customer reviews and feedback.")}</p>
             </div>
           </div>
           

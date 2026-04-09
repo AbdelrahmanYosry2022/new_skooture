@@ -200,8 +200,8 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
               <CreditCard size={24} />
             </div>
             <div>
-              <h4 className="text-xl font-bold tracking-tight text-white mb-1">Pricing & Matrix</h4>
-              <p className="text-sm text-[#aeaeae]">Manage plans, badges, details, and features from a single smart matrix.</p>
+              <h4 className="text-xl font-bold tracking-tight text-white mb-1">{t("sectionHeaders.pricingTitle", "Pricing & Matrix")}</h4>
+              <p className="text-sm text-[#aeaeae]">{t("sectionHeaders.pricingDesc", "Manage plans, badges, details, and features from a single smart matrix.")}</p>
             </div>
           </div>
           

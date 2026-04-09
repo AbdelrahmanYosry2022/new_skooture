@@ -42,8 +42,8 @@ export default function SettingsSection({
               <div className="w-10 h-10 rounded-[12px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#aeaeae] mb-4">
                 <ImageIcon size={20} />
               </div>
-              <h3 className="text-lg font-bold text-white">Brand Assets</h3>
-              <p className="text-sm text-[#aeaeae] mt-1">Manage the core visual identity of your platform.</p>
+              <h3 className="text-lg font-bold text-white">{t("sectionHeaders.brandTitle", "Brand Assets")}</h3>
+              <p className="text-sm text-[#aeaeae] mt-1">{t("sectionHeaders.brandDesc", "Manage the core visual identity of your platform.")}</p>
             </div>
           </div>
           

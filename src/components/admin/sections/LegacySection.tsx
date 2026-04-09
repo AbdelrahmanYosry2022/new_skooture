@@ -90,8 +90,8 @@ export default function LegacySection({ localContent, updateNestedContent }: Adm
               <History size={24} />
             </div>
             <div>
-              <h4 className="text-xl font-bold tracking-tight text-white mb-1">Legacy Timeline</h4>
-              <p className="text-sm text-[#aeaeae]">Manage the historical milestones of your platform.</p>
+              <h4 className="text-xl font-bold tracking-tight text-white mb-1">{t("sectionHeaders.legacyTitle", "Legacy Timeline")}</h4>
+              <p className="text-sm text-[#aeaeae]">{t("sectionHeaders.legacyDesc", "Manage the historical milestones of your platform.")}</p>
             </div>
           </div>
           

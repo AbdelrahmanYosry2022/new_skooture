@@ -117,8 +117,8 @@ export default function TractionSection({ localContent, updateNestedContent }: A
               <Activity size={24} />
             </div>
             <div>
-              <h4 className="text-xl font-bold tracking-tight text-white mb-1">Traction & Stats</h4>
-              <p className="text-sm text-[#aeaeae]">Manage the core numbers that represent your impact.</p>
+              <h4 className="text-xl font-bold tracking-tight text-white mb-1">{t("sectionHeaders.tractionTitle", "Traction & Stats")}</h4>
+              <p className="text-sm text-[#aeaeae]">{t("sectionHeaders.tractionDesc", "Manage the core numbers that represent your impact.")}</p>
             </div>
           </div>
           

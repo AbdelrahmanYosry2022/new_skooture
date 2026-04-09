@@ -88,7 +88,7 @@ export default function FaqSection({ localContent, updateNestedContent }: AdminS
               </div>
               <div>
                 <h4 className="text-xl font-bold tracking-tight text-white mb-1">{t("sectionHeaders.faqTitle", "Frequently Asked Questions")}</h4>
-                <p className="text-sm text-[#aeaeae]">Smart FAQ Manager: Reorder tabs and edit seamlessly.</p>
+                <p className="text-sm text-[#aeaeae]">{t("sectionHeaders.faqDesc", "Smart FAQ Manager: Reorder tabs and edit seamlessly.")}</p>
               </div>
             </div>
             
