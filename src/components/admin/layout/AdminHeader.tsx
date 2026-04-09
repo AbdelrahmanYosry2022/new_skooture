@@ -14,11 +14,11 @@ interface AdminHeaderProps {
 
 export default function AdminHeader({ onMenuClick, title, onSave, onReset, isSaved, showActions }: AdminHeaderProps) {
   const { logout } = useAuth();
-  const { language, setLanguage } = useContent();
+  const { adminLanguage, setAdminLanguage } = useContent();
   const { t } = useTranslation('admin');
 
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'ar' : 'en');
+    setAdminLanguage(adminLanguage === 'en' ? 'ar' : 'en');
   };
 
   return (
@@ -66,7 +66,7 @@ export default function AdminHeader({ onMenuClick, title, onSave, onReset, isSav
             className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[#aeaeae] hover:text-white bg-[#191919] hover:bg-[#252525] border border-white/[0.05] rounded-[10px] transition-all shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]"
           >
             <Globe className="w-4 h-4" />
-            <span className="hidden sm:inline">{language === 'en' ? 'عربي' : 'English'}</span>
+            <span className="hidden sm:inline">{adminLanguage === 'en' ? 'عربي' : 'English'}</span>
           </button>
 
           <div className="h-8 w-px bg-white/[0.05] mx-2 hidden sm:block"></div>

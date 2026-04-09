@@ -3,8 +3,8 @@
     "overview": "نظرة عامة",
     "generalSettings": "الإعدادات العامة",
     "heroSection": "القسم الرئيسي",
-    "features": "ميزات الذكاء الاصطناعي",
-    "topFeatures": "أهم الميزات",
+    "features": "مميزات الذكاء الاصطناعي",
+    "topFeatures": "أهم المميزات",
     "whyChooseUs": "لماذا نحن",
     "traction": "الإحصائيات",
     "pricing": "الأسعار",
@@ -22,8 +22,8 @@
     "hero": "قسم البطل",
     "traction": "الإحصائيات والأداء",
     "legacy": "إرثنا",
-    "features": "ميزات الذكاء الاصطناعي",
-    "topFeatures": "أهم الميزات",
+    "features": "مميزات الذكاء الاصطناعي",
+    "topFeatures": "أهم المميزات",
     "testimonials": "آراء العملاء",
     "pricing": "خطط الأسعار",
     "faq": "الأسئلة الشائعة",
@@ -31,7 +31,9 @@
     "settings": "إعدادات المنصة"
   },
   "header": {
+    "dashboard": "لوحة التحكم",
     "title": "نظام سكوتشر الذكي",
+    "logout": "تسجيل الخروج",
     "resetConfirm": "هل تريد إعادة جميع التعديلات إلى الوضع الافتراضي؟",
     "resetTitle": "إعادة ضبط الكل",
     "saved": "تم الحفظ",
@@ -39,9 +41,21 @@
     "viewSite": "عرض الموقع"
   },
   "actions": {
-    "saveChanges": "Save Changes",
-    "saved": "Saved",
-    "reset": "Reset"
+    "saveChanges": "حفظ التغييرات",
+    "saved": "تم الحفظ",
+    "reset": "إعادة الضبط"
+  },
+  "overview": {
+    "trustedPartners": "شركاء موثوقون",
+    "activeSections": "أقسام نشطة",
+    "systemStatus": "حالة النظام",
+    "database": "قاعدة البيانات",
+    "connected": "متصل",
+    "apiService": "خدمة الـ API",
+    "operational": "تعمل بشكل كامل",
+    "quickStats": "إحصائيات سريعة",
+    "totalMessages": "إجمالي الرسائل",
+    "lastContentUpdate": "آخر تحديث"
   },
   "settings": {
     "languageTitle": "لغة لوحة التحكم",

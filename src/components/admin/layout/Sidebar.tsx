@@ -30,9 +30,9 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ currentSection, onSectionChange, isOpen, setIsOpen }: SidebarProps) {
-  const { language, content } = useContent();
+  const { adminLanguage, content } = useContent();
   const { t } = useTranslation('admin');
-  const isRTL = language === 'ar';
+  const isRTL = adminLanguage === 'ar';
 
   const menuItems: { id: string; labelKey: string; icon: React.ElementType }[] = [
     { id: 'overview', labelKey: 'sidebar.overview', icon: LayoutDashboard },

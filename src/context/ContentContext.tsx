@@ -132,10 +132,11 @@ export function ContentProvider({ children }: { children: ReactNode }) {
     refreshMessages();
   }, [refreshMessages]);
 
+  // Sync i18n language whenever adminLanguage or language changes based on current route
   useEffect(() => {
     const isDashboard = window.location.pathname.startsWith('/admin');
     i18n.changeLanguage(isDashboard ? adminLanguage : language);
-  }, []);
+  }, [adminLanguage, language]);
 
   const t = (obj: { en: string; ar: string } | string | undefined) => {
     if (!obj) return '';

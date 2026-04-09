@@ -14,7 +14,7 @@
     "messages": "Messages",
     "subscribers": "Subscribers",
     "brand": "Platform Hub",
-    "logout": "Logout Hub"
+    "logout": "Logout"
   },
   "sections": {
     "overview": "Dashboard Overview",
@@ -31,7 +31,9 @@
     "settings": "Portal Settings"
   },
   "header": {
+    "dashboard": "Dashboard",
     "title": "Skooture Hub",
+    "logout": "Logout",
     "resetConfirm": "Reset all changes to default?",
     "resetTitle": "Reset Everything",
     "saved": "Saved",
@@ -42,6 +44,18 @@
     "saveChanges": "Save Changes",
     "saved": "Saved",
     "reset": "Reset"
+  },
+  "overview": {
+    "trustedPartners": "Trusted Partners",
+    "activeSections": "Active Sections",
+    "systemStatus": "System Status",
+    "database": "Database",
+    "connected": "Connected",
+    "apiService": "API Service",
+    "operational": "Operational",
+    "quickStats": "Quick Stats",
+    "totalMessages": "Total Messages",
+    "lastContentUpdate": "Last Content Update"
   },
   "settings": {
     "languageTitle": "Dashboard Language",
