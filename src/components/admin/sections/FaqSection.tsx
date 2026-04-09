@@ -87,7 +87,7 @@ export default function FaqSection({ localContent, updateNestedContent }: AdminS
                 <MessageCircleQuestion size={24} />
               </div>
               <div>
-                <h4 className="text-xl font-bold tracking-tight text-white mb-1">Frequently Asked Questions</h4>
+                <h4 className="text-xl font-bold tracking-tight text-white mb-1">{t("sectionHeaders.faqTitle", "Frequently Asked Questions")}</h4>
                 <p className="text-sm text-[#aeaeae]">Smart FAQ Manager: Reorder tabs and edit seamlessly.</p>
               </div>
             </div>
@@ -266,8 +266,8 @@ export default function FaqSection({ localContent, updateNestedContent }: AdminS
             ) : (
               <div className="text-center py-20 border border-dashed border-white/[0.1] rounded-[24px] bg-[#111111]/50">
                 <MessageCircleQuestion className="w-16 h-16 text-white/[0.05] mx-auto mb-4" />
-                <p className="text-white font-medium text-lg mb-2">No Questions Available</p>
-                <p className="text-[#aeaeae] text-sm">Click the + button above to add your first FAQ.</p>
+                <p className="text-white font-medium text-lg mb-2">{t("sectionHeaders.noItems", "No Items Available")}</p>
+                <p className="text-[#aeaeae] text-sm">{t("sectionHeaders.clickToAdd", "Click the + button above to add your first item.")}</p>
               </div>
             )}
           </AnimatePresence>

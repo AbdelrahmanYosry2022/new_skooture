@@ -90,5 +90,39 @@
     "imageUrl": "Image URL",
     "buttonText": "Button Text",
     "brandLogo": "Brand Logo"
+  },
+  "tabs": {
+    "text_copywriting": "Text & Copywriting",
+    "main_visual": "Main Visual (Image)",
+    "buttons_badges": "Buttons & Badges",
+    "sectionTitles": "Section Titles",
+    "featureItems": "Feature Items",
+    "timelineEvents": "Timeline Events",
+    "impactStats": "Impact Stats",
+    "testimonials": "Testimonials",
+    "pricingPlans": "Pricing Plans",
+    "matrixFeatures": "Matrix Features",
+    "content": "Content",
+    "media": "Media"
+  },
+  "sectionHeaders": {
+    "heroTitle": "Hero Section",
+    "heroDesc": "Manage and preview the main hero section of the landing page.",
+    "featuresTitle": "AI Core Features",
+    "featuresDesc": "Smart Features Manager: Reorder tabs and edit seamlessly.",
+    "topFeaturesTitle": "Top Features",
+    "topFeaturesDesc": "Manage the list of top features displayed on the landing page.",
+    "legacyTitle": "Our Legacy",
+    "legacyDesc": "Manage company milestones, timeline, and history seamlessly.",
+    "tractionTitle": "Traction & Impact",
+    "tractionDesc": "Manage key performance metrics and statistics.",
+    "testimonialsTitle": "Client Testimonials",
+    "testimonialsDesc": "Manage client reviews and success stories.",
+    "pricingTitle": "Pricing Plans",
+    "pricingDesc": "Manage subscription tiers and pricing options.",
+    "faqTitle": "Frequently Asked Questions",
+    "faqDesc": "Smart FAQ Manager: Reorder tabs and edit seamlessly.",
+    "noItems": "No Items Available",
+    "clickToAdd": "Click the + button above to add your first item."
   }
 }

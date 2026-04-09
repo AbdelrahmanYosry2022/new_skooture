@@ -99,8 +99,8 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
               <LayoutGrid size={24} />
             </div>
             <div>
-              <h4 className="text-xl font-bold tracking-tight text-white mb-1">Top Features</h4>
-              <p className="text-sm text-[#aeaeae]">Manage the list of top features displayed on the landing page.</p>
+              <h4 className="text-xl font-bold tracking-tight text-white mb-1">{t("sectionHeaders.topFeaturesTitle", "Top Features")}</h4>
+              <p className="text-sm text-[#aeaeae]">{t("sectionHeaders.topFeaturesDesc", "Manage the list of top features displayed on the landing page.")}</p>
             </div>
           </div>
           
@@ -271,8 +271,8 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
             ) : (
               <div className="text-center py-20 border border-dashed border-white/[0.1] rounded-[24px] bg-[#111111]/50">
                 <LayoutGrid className="w-16 h-16 text-white/[0.05] mx-auto mb-4" />
-                <p className="text-white font-medium text-lg mb-2">No Features Available</p>
-                <p className="text-[#aeaeae] text-sm">Click the + button above to add your first feature.</p>
+                <p className="text-white font-medium text-lg mb-2">{t("sectionHeaders.noItems", "No Items Available")}</p>
+                <p className="text-[#aeaeae] text-sm">{t("sectionHeaders.clickToAdd", "Click the + button above to add your first item.")}</p>
               </div>
             )}
           </AnimatePresence>

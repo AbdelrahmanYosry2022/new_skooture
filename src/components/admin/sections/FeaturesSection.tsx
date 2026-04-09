@@ -117,8 +117,8 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
               <LayoutGrid size={24} />
             </div>
             <div>
-              <h4 className="text-xl font-bold tracking-tight text-white mb-1">AI Core Features</h4>
-              <p className="text-sm text-[#aeaeae]">Smart Features Manager: Reorder tabs and edit seamlessly.</p>
+              <h4 className="text-xl font-bold tracking-tight text-white mb-1">{t("sectionHeaders.featuresTitle", "AI Core Features")}</h4>
+              <p className="text-sm text-[#aeaeae]">{t("sectionHeaders.featuresDesc", "Smart Features Manager: Reorder tabs and edit seamlessly.")}</p>
             </div>
           </div>
           
@@ -349,8 +349,8 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
             ) : (
               <div className="text-center py-20 border border-dashed border-white/[0.1] rounded-[24px] bg-[#111111]/50">
                 <LayoutGrid className="w-16 h-16 text-white/[0.05] mx-auto mb-4" />
-                <p className="text-white font-medium text-lg mb-2">No Features Available</p>
-                <p className="text-[#aeaeae] text-sm">Click the + button above to add your first feature.</p>
+                <p className="text-white font-medium text-lg mb-2">{t("sectionHeaders.noItems", "No Items Available")}</p>
+                <p className="text-[#aeaeae] text-sm">{t("sectionHeaders.clickToAdd", "Click the + button above to add your first item.")}</p>
               </div>
             )}
           </AnimatePresence>

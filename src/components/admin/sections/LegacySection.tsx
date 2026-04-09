@@ -274,7 +274,7 @@ export default function LegacySection({ localContent, updateNestedContent }: Adm
               <div className="text-center py-20 border border-dashed border-white/[0.1] rounded-[24px] bg-[#111111]/50">
                 <History className="w-16 h-16 text-white/[0.05] mx-auto mb-4" />
                 <p className="text-white font-medium text-lg mb-2">No Legacy Events</p>
-                <p className="text-[#aeaeae] text-sm">Click the + button above to add your first milestone.</p>
+                <p className="text-[#aeaeae] text-sm">{t("sectionHeaders.clickToAdd", "Click the + button above to add your first item.")}</p>
               </div>
             )}
           </AnimatePresence>

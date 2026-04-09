@@ -11,9 +11,9 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
   const [activeTab, setActiveTab] = useState<'content' | 'media' | 'actions'>('content');
 
   const tabs = [
-    { id: 'content', label: 'Text & Copywriting', icon: <Type size={16} /> },
-    { id: 'media', label: 'Main Visual (Image)', icon: <ImageIcon size={16} /> },
-    { id: 'actions', label: 'Buttons & Badges', icon: <MousePointerClick size={16} /> },
+    { id: 'content', label: t('tabs.text_copywriting', 'Text & Copywriting'), icon: <Type size={16} /> },
+    { id: 'media', label: t('tabs.main_visual', 'Main Visual (Image)'), icon: <ImageIcon size={16} /> },
+    { id: 'actions', label: t('tabs.buttons_badges', 'Buttons & Badges'), icon: <MousePointerClick size={16} /> },
   ];
 
   return (

@@ -270,8 +270,8 @@ export default function TestimonialsSection({ localContent, updateNestedContent 
             ) : (
               <div className="text-center py-20 border border-dashed border-white/[0.1] rounded-[24px] bg-[#111111]/50">
                 <MessageSquareQuote className="w-16 h-16 text-white/[0.05] mx-auto mb-4" />
-                <p className="text-white font-medium text-lg mb-2">No Testimonials Available</p>
-                <p className="text-[#aeaeae] text-sm">Click the + button above to add your first testimonial.</p>
+                <p className="text-white font-medium text-lg mb-2">{t("sectionHeaders.noItems", "No Items Available")}</p>
+                <p className="text-[#aeaeae] text-sm">{t("sectionHeaders.clickToAdd", "Click the + button above to add your first item.")}</p>
               </div>
             )}
           </AnimatePresence>
