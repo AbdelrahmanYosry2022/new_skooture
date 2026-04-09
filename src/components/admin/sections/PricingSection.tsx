@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, ArrowLeftRight, Settings2, CreditCard, CheckCircle2, X, Star, Link, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
@@ -6,6 +7,8 @@ import TranslatableInput from '../shared/TranslatableInput';
 import type { AdminSectionProps } from '../../../types';
 
 export default function PricingSection({ localContent, updateNestedContent }: AdminSectionProps) {
+  const { t } = useTranslation('admin');
+
   const pricingData = (localContent.pricing as any) || {};
   const plans = pricingData.plans || [];
   
@@ -238,14 +241,14 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
             >
               <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
                 <TranslatableInput 
-                  label="Section Title"
+                  label={t('fields.sectionTitle', 'Section Title')}
                   enValue={pricingData.title?.en || ''}
                   arValue={pricingData.title?.ar || ''}
                   onEnChange={(val) => updateNestedContent(['pricing', 'title', 'en'], val)}
                   onArChange={(val) => updateNestedContent(['pricing', 'title', 'ar'], val)}
                 />
                 <TranslatableInput 
-                  label="Button Text"
+                  label={t('fields.buttonText', 'Button Text')}
                   enValue={pricingData.button?.en || ''}
                   arValue={pricingData.button?.ar || ''}
                   onEnChange={(val) => updateNestedContent(['pricing', 'button', 'en'], val)}

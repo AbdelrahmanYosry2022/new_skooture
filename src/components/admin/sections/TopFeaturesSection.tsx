@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2, ArrowLeftRight, Settings2, LayoutGrid, Search } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
@@ -15,6 +16,8 @@ const COMMON_ICONS = [
 ];
 
 export default function TopFeaturesSection({ localContent, updateNestedContent }: AdminSectionProps) {
+  const { t } = useTranslation('admin');
+
   const topFeaturesData = (localContent.topFeatures as any) || {};
   const features = topFeaturesData.items || [];
   
@@ -107,7 +110,7 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
               className={`hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[12px] border transition-colors w-full md:w-auto justify-center ${isHeaderExpanded ? 'bg-white/[0.05] border-white/[0.1] text-white' : 'bg-transparent border-white/[0.05] text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'}`}
             >
               <Settings2 size={16} />
-              Header Settings
+              {t('fields.headerSettings', 'Header Settings')}
             </button>
           </div>
         </div>
@@ -123,7 +126,7 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
             >
               <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
                 <TranslatableInput 
-                  label="Section Title"
+                  label={t('fields.sectionTitle', 'Section Title')}
                   enValue={topFeaturesData.title?.en || ''}
                   arValue={topFeaturesData.title?.ar || ''}
                   onEnChange={(val) => updateNestedContent(['topFeatures', 'title', 'en'], val)}
@@ -131,14 +134,14 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
                 />
                 <div className="space-y-4">
                   <TranslatableInput 
-                    label="View More Button"
+                    label={t('fields.viewMoreButton', 'View More Button')}
                     enValue={topFeaturesData.buttonMore?.en || ''}
                     arValue={topFeaturesData.buttonMore?.ar || ''}
                     onEnChange={(val) => updateNestedContent(['topFeatures', 'buttonMore', 'en'], val)}
                     onArChange={(val) => updateNestedContent(['topFeatures', 'buttonMore', 'ar'], val)}
                   />
                   <TranslatableInput 
-                    label="View Less Button"
+                    label={t('fields.viewLessButton', 'View Less Button')}
                     enValue={topFeaturesData.buttonLess?.en || ''}
                     arValue={topFeaturesData.buttonLess?.ar || ''}
                     onEnChange={(val) => updateNestedContent(['topFeatures', 'buttonLess', 'en'], val)}

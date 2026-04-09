@@ -70,5 +70,25 @@
     "name": "الاسم",
     "email": "البريد الإلكتروني",
     "saveProfile": "حفظ التغييرات"
+  },
+  "fields": {
+    "sectionTitle": "عنوان القسم",
+    "sectionSubtitle": "العنوان الفرعي",
+    "viewMoreButton": "زر عرض المزيد",
+    "viewLessButton": "زر عرض أقل",
+    "headerSettings": "إعدادات الهيدر",
+    "currentlyEditingEn": "تعديل النسخة الإنجليزية",
+    "currentlyEditingAr": "تعديل النسخة العربية",
+    "addNew": "إضافة جديد",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "primaryButton": "الزر الأساسي (الخلفية ملونة)",
+    "secondaryButton": "الزر الثانوي (الخلفية شفافة)",
+    "badgeText": "نص الشارة (Badge)",
+    "heroHeadline": "العنوان الرئيسي",
+    "heroSubheadline": "العنوان الفرعي",
+    "imageUrl": "رابط الصورة",
+    "buttonText": "نص الزر",
+    "brandLogo": "شعار العلامة التجارية"
   }
 }

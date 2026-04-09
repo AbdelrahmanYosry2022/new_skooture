@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2, ArrowLeftRight, Settings2, Activity, Search } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
@@ -15,6 +16,8 @@ const COMMON_ICONS = [
 ];
 
 export default function TractionSection({ localContent, updateNestedContent }: AdminSectionProps) {
+  const { t } = useTranslation('admin');
+
   const tractionData = localContent.traction || [];
   
   const [activeStatId, setActiveStatId] = useState<string | null>(null);
@@ -126,7 +129,7 @@ export default function TractionSection({ localContent, updateNestedContent }: A
               className={`hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[12px] border transition-colors w-full md:w-auto justify-center ${isHeaderExpanded ? 'bg-white/[0.05] border-white/[0.1] text-white' : 'bg-transparent border-white/[0.05] text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'}`}
             >
               <Settings2 size={16} />
-              Header Settings
+              {t('fields.headerSettings', 'Header Settings')}
             </button>
           </div>
         </div>

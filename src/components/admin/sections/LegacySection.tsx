@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, ArrowLeftRight, Settings2, History } from 'lucide-react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
@@ -6,6 +7,8 @@ import TranslatableInput from '../shared/TranslatableInput';
 import type { AdminSectionProps } from '../../../types';
 
 export default function LegacySection({ localContent, updateNestedContent }: AdminSectionProps) {
+  const { t } = useTranslation('admin');
+
   const legacyData = (localContent.legacy as any) || {};
   const items = legacyData.items || [];
   
@@ -98,7 +101,7 @@ export default function LegacySection({ localContent, updateNestedContent }: Adm
               className={`hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[12px] border transition-colors w-full md:w-auto justify-center ${isHeaderExpanded ? 'bg-white/[0.05] border-white/[0.1] text-white' : 'bg-transparent border-white/[0.05] text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'}`}
             >
               <Settings2 size={16} />
-              Header Settings
+              {t('fields.headerSettings', 'Header Settings')}
             </button>
           </div>
         </div>
@@ -114,7 +117,7 @@ export default function LegacySection({ localContent, updateNestedContent }: Adm
             >
               <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
                 <TranslatableInput 
-                  label="Section Title"
+                  label={t('fields.sectionTitle', 'Section Title')}
                   enValue={legacyData.title?.en || ''}
                   arValue={legacyData.title?.ar || ''}
                   onEnChange={(val) => updateNestedContent(['legacy', 'title', 'en'], val)}

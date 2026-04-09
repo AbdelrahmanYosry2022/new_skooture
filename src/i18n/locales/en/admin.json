@@ -70,5 +70,25 @@
     "name": "Name",
     "email": "Email Address",
     "saveProfile": "Save Profile"
+  },
+  "fields": {
+    "sectionTitle": "Section Title",
+    "sectionSubtitle": "Section Subtitle",
+    "viewMoreButton": "View More Button",
+    "viewLessButton": "View Less Button",
+    "headerSettings": "Header Settings",
+    "currentlyEditingEn": "Currently editing English",
+    "currentlyEditingAr": "Currently editing Arabic",
+    "addNew": "Add New",
+    "delete": "Delete",
+    "edit": "Edit",
+    "primaryButton": "Primary Button",
+    "secondaryButton": "Secondary Button",
+    "badgeText": "Badge Text",
+    "heroHeadline": "Hero Headline",
+    "heroSubheadline": "Hero Subheadline",
+    "imageUrl": "Image URL",
+    "buttonText": "Button Text",
+    "brandLogo": "Brand Logo"
   }
 }

@@ -50,7 +50,7 @@ export default function SettingsSection({
           <div className="flex-1 flex items-center">
             <div className="w-full">
               <MediaInput 
-                label="Brand Logo" 
+                label={t('fields.brandLogo', 'Brand Logo')} 
                 type="image"
                 value={localContent.brand?.logoUrl || ''}
                 onChange={(val) => updateNestedContent(['brand', 'logoUrl'], val)}

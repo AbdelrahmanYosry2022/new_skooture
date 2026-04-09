@@ -98,7 +98,7 @@ export default function FaqSection({ localContent, updateNestedContent }: AdminS
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[12px] border transition-colors w-full md:w-auto justify-center ${isHeaderExpanded ? 'bg-white/[0.05] border-white/[0.1] text-white' : 'bg-transparent border-white/[0.05] text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'}`}
               >
                 <Settings2 size={16} />
-                Header Settings
+                {t('fields.headerSettings', 'Header Settings')}
               </button>
             </div>
           </div>
@@ -114,14 +114,14 @@ export default function FaqSection({ localContent, updateNestedContent }: AdminS
               >
                 <div className="pt-8 grid grid-cols-1 gap-6 max-w-3xl">
                   <TranslatableInput 
-                    label="Section Title"
+                    label={t('fields.sectionTitle', 'Section Title')}
                     enValue={faqData.title?.en || ''}
                     arValue={faqData.title?.ar || ''}
                     onEnChange={(val) => updateNestedContent(['faq', 'title', 'en'], val)}
                     onArChange={(val) => updateNestedContent(['faq', 'title', 'ar'], val)}
                   />
                   <TranslatableInput 
-                    label="Section Subtitle"
+                    label={t('fields.sectionSubtitle', 'Section Subtitle')}
                     multiline
                     enValue={faqData.subtitle?.en || ''}
                     arValue={faqData.subtitle?.ar || ''}

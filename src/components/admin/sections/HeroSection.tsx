@@ -45,7 +45,7 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
           {activeTab === 'content' && (
             <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500">
               <TranslatableInput 
-                label="Hero Headline"
+                label={t('fields.heroHeadline', 'Hero Headline')}
                 multiline
                 enValue={localContent.hero?.headline?.en || ''}
                 arValue={localContent.hero?.headline?.ar || ''}
@@ -53,7 +53,7 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
                 onArChange={(val) => updateNestedContent(['hero', 'headline', 'ar'], val)}
               />
               <TranslatableInput 
-                label="Hero Subheadline"
+                label={t('fields.heroSubheadline', 'Hero Subheadline')}
                 multiline
                 enValue={localContent.hero?.subheadline?.en || ''}
                 arValue={localContent.hero?.subheadline?.ar || ''}
@@ -67,7 +67,7 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
           {activeTab === 'media' && (
             <div className="max-w-4xl mx-auto animate-in fade-in duration-500">
               <MediaInput 
-                label="Hero Image URL or Upload" 
+                label={t('fields.imageUrl', 'Hero Image URL or Upload')} 
                 type="image"
                 value={localContent.hero?.videoUrl || ''} 
                 onChange={(val) => updateNestedContent(['hero', 'videoUrl'], val)}
@@ -79,7 +79,7 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
           {activeTab === 'actions' && (
             <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500">
               <TranslatableInput 
-                label="Badge Text (e.g. New Feature Release)"
+                label={t('fields.badgeText', 'Badge Text (e.g. New Feature Release)')}
                 enValue={localContent.hero?.topBadge?.en || ''}
                 arValue={localContent.hero?.topBadge?.ar || ''}
                 onEnChange={(val) => updateNestedContent(['hero', 'topBadge', 'en'], val)}
@@ -88,14 +88,14 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                 <TranslatableInput 
-                  label="Primary Button (Solid Color)"
+                  label={t('fields.primaryButton', 'Primary Button (Solid Color)')}
                   enValue={localContent.hero?.buttons?.explore?.en || ''}
                   arValue={localContent.hero?.buttons?.explore?.ar || ''}
                   onEnChange={(val) => updateNestedContent(['hero', 'buttons', 'explore', 'en'], val)}
                   onArChange={(val) => updateNestedContent(['hero', 'buttons', 'explore', 'ar'], val)}
                 />
                 <TranslatableInput 
-                  label="Secondary Button (Outline)"
+                  label={t('fields.secondaryButton', 'Secondary Button (Outline)')}
                   enValue={localContent.hero?.buttons?.demo?.en || ''}
                   arValue={localContent.hero?.buttons?.demo?.ar || ''}
                   onEnChange={(val) => updateNestedContent(['hero', 'buttons', 'demo', 'en'], val)}
