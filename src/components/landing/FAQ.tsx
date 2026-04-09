@@ -21,7 +21,7 @@ export default function FAQ() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-white/[0.05] text-[#00a86b] text-sm font-medium mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-border text-[#00a86b] text-sm font-medium mb-6"
           >
             <DynamicIcon name="MessageCircleQuestion" className="w-4 h-4" />
             <span>{t({ en: 'FAQ', ar: 'الأسئلة الشائعة' })}</span>
@@ -51,17 +51,17 @@ export default function FAQ() {
                 className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                   isOpen 
                     ? 'bg-[#191919]/80 border-[#00a86b]/30 shadow-[0_0_20px_rgba(0,168,107,0.1)]' 
-                    : 'bg-[#191919]/40 border-white/[0.05] hover:border-white/[0.1] hover:bg-[#191919]/60'
+                    : 'bg-[#191919]/40 border-border hover:border-border hover:bg-[#191919]/60'
                 }`}
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none group"
                 >
-                  <span className={`font-semibold text-lg pr-8 transition-colors duration-300 ${isOpen ? 'text-[#00a86b]' : 'text-zinc-200 group-hover:text-white'}`}>
+                  <span className={`font-semibold text-lg pr-8 transition-colors duration-300 ${isOpen ? 'text-[#00a86b]' : 'text-zinc-200 group-hover:text-foreground'}`}>
                     {t(faq.question)}
                   </span>
-                  <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${isOpen ? 'bg-[#00a86b]/20 text-[#00a86b]' : 'bg-white/[0.05] text-zinc-400 group-hover:bg-white/[0.1] group-hover:text-white'}`}>
+                  <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${isOpen ? 'bg-[#00a86b]/20 text-[#00a86b]' : 'bg-foreground/5 text-zinc-400 group-hover:bg-foreground/10 group-hover:text-foreground'}`}>
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
                 </button>
@@ -74,7 +74,7 @@ export default function FAQ() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <div className="px-6 pb-6 pt-2 text-zinc-400 leading-relaxed border-t border-white/[0.05]">
+                      <div className="px-6 pb-6 pt-2 text-zinc-400 leading-relaxed border-t border-border">
                         {t(faq.answer)}
                       </div>
                     </motion.div>

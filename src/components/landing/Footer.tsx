@@ -28,7 +28,7 @@ export default function Footer() {
   const bottomLinks = content.footer?.bottomLinks || [];
 
   return (
-    <footer className="bg-[#000000] pt-24 pb-12 relative overflow-hidden">
+    <footer className="bg-background pt-24 pb-12 relative overflow-hidden">
       {/* Background Glow (kept but subtle) */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#00a86b]/[0.01] rounded-[100%] blur-[120px] pointer-events-none" />
 
@@ -43,10 +43,10 @@ export default function Footer() {
           {/* Brand Column */}
           <motion.div variants={itemVariants} className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00a86b] to-[#34d399] flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(0,168,107,0.4)]">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00a86b] to-[#34d399] flex items-center justify-center text-foreground font-bold text-xl shadow-[0_0_15px_rgba(0,168,107,0.4)]">
                 S
               </div>
-              <span className="font-bold text-2xl text-white tracking-tight">Skooture</span>
+              <span className="font-bold text-2xl text-foreground tracking-tight">Skooture</span>
             </div>
             <p className="text-zinc-400 mb-8 leading-relaxed max-w-sm">
               {t(brandSubheadline)}
@@ -56,7 +56,7 @@ export default function Footer() {
                 <a 
                   key={index}
                   href={social.url}
-                  className="w-10 h-10 rounded-full bg-[#191919] border border-white/[0.05] hover:border-[#00a86b]/50 hover:bg-[#00a86b]/10 flex items-center justify-center text-zinc-400 hover:text-[#00a86b] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                  className="w-10 h-10 rounded-full bg-[#191919] border border-border hover:border-[#00a86b]/50 hover:bg-[#00a86b]/10 flex items-center justify-center text-zinc-400 hover:text-[#00a86b] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                 >
                   <DynamicIcon name={social.icon} className="w-5 h-5" />
                 </a>
@@ -67,7 +67,7 @@ export default function Footer() {
           {/* Links Columns */}
           {footerColumns.map((column: any, index: number) => (
             <motion.div variants={itemVariants} key={index} className="lg:col-span-2">
-              <h4 className="font-semibold text-white mb-6 tracking-wide">
+              <h4 className="font-semibold text-foreground mb-6 tracking-wide">
                 {t(column.title)}
               </h4>
               <ul className="space-y-4">
@@ -75,7 +75,7 @@ export default function Footer() {
                   <li key={linkIndex}>
                     <a 
                       href={link.url}
-                      className="text-zinc-400 hover:text-white transition-colors duration-200"
+                      className="text-zinc-400 hover:text-foreground transition-colors duration-200"
                     >
                       {t(link.label)}
                     </a>
@@ -92,14 +92,14 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="pt-8 border-t border-white/[0.05] flex flex-col md:flex-row items-center justify-between gap-6"
+          className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6"
         >
           <p className="text-zinc-500 text-sm">
             {t(copyrightText)}
           </p>
           <div className="flex gap-6 text-sm text-zinc-500">
             {bottomLinks.map((link: any, index: number) => (
-              <a key={index} href={link.url} className="hover:text-white transition-colors">
+              <a key={index} href={link.url} className="hover:text-foreground transition-colors">
                 {t(link.label)}
               </a>
             ))}

@@ -44,14 +44,14 @@ function Counter({ value, label, iconName, delay }: { value: number; label: stri
       className="relative group h-full"
     >
       <div className="h-full p-8 rounded-[24px] bg-[#191919]/50 border border-white/[0.08] flex flex-col items-center text-center transition-all duration-300 hover:border-white/[0.15] hover:bg-[#191919]">
-        <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-6 border border-white/[0.05] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#00a86b] group-hover:scale-110 transition-transform duration-500">
+        <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-6 border border-border shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#00a86b] group-hover:scale-110 transition-transform duration-500">
           <DynamicIcon name={iconName} className="w-6 h-6" />
         </div>
         <div className="text-[40px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] mb-2 leading-[1.1]">
           {formatNumber(count)}
           <span className="text-[#00a86b] ml-1">+</span>
         </div>
-        <div className="text-[14px] text-[#aeaeae] leading-[1.6]">
+        <div className="text-[14px] text-muted-foreground leading-[1.6]">
           {label}
         </div>
       </div>
@@ -65,7 +65,7 @@ export default function Traction() {
   const traction = Array.isArray(tractionData) ? tractionData : [];
 
   return (
-    <section id="stats" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
+    <section id="stats" className="py-24 md:py-32 bg-background relative overflow-hidden">
       {/* Decorative Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-30 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,rgba(0,168,107,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]" />
       
@@ -96,7 +96,7 @@ export default function Traction() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-[16px] text-[#aeaeae] leading-[1.6] max-w-xl"
+            className="text-[16px] text-muted-foreground leading-[1.6] max-w-xl"
           >
             {t({ 
               en: 'Join thousands of institutions already transforming their management with our platform.', 

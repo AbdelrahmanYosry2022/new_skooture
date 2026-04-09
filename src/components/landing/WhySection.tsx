@@ -18,7 +18,7 @@ export default function WhySection() {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-background relative overflow-hidden">
       {/* Decorative Glow */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] -translate-y-1/2 translate-x-1/4" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full opacity-15 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] translate-y-1/4 -translate-x-1/4" />
@@ -50,7 +50,7 @@ export default function WhySection() {
             
             <motion.p 
               variants={itemVariants}
-              className="text-[16px] text-[#aeaeae] leading-[1.6] max-w-lg"
+              className="text-[16px] text-muted-foreground leading-[1.6] max-w-lg"
             >
               {t(content.why.content)}
             </motion.p>
@@ -65,17 +65,17 @@ export default function WhySection() {
             className="relative"
           >
             {/* Main Visual Container */}
-            <div className="relative rounded-[24px] bg-[#191919]/40 border border-white/[0.05] p-8 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-sm">
+            <div className="relative rounded-[24px] bg-[#191919]/40 border border-border p-8 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-sm">
               <div className="space-y-6 relative z-10">
                 
                 {/* Legacy System Card */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] bg-[#111111] border border-white/[0.03] transition-all duration-300 opacity-60 grayscale hover:opacity-100 hover:grayscale-0 gap-4 sm:gap-0">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] bg-muted border border-white/[0.03] transition-all duration-300 opacity-60 grayscale hover:opacity-100 hover:grayscale-0 gap-4 sm:gap-0">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 shrink-0 rounded-[12px] bg-[#222222] flex items-center justify-center border border-white/[0.05] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
+                    <div className="w-12 h-12 shrink-0 rounded-[12px] bg-[#222222] flex items-center justify-center border border-border shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
                       <span className="text-[#999999] font-medium text-[13px]">{content.why.labels?.v1 || 'v1.0'}</span>
                     </div>
                     <div>
-                      <h4 className="text-white font-medium text-[16px] tracking-tight">Smart Schools</h4>
+                      <h4 className="text-foreground font-medium text-[16px] tracking-tight">Smart Schools</h4>
                       <p className="text-[#666666] text-[13px] mt-0.5">{t(content.why.labels?.legacySystem || 'Legacy System')}</p>
                     </div>
                   </div>
@@ -99,7 +99,7 @@ export default function WhySection() {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="text-white font-medium text-[18px] tracking-tight">Skooture.AI</h4>
+                      <h4 className="text-foreground font-medium text-[18px] tracking-tight">Skooture.AI</h4>
                       <p className="text-[#00e695] text-[13px] mt-0.5">{t(content.why.labels?.globalAi || 'Global AI Infrastructure')}</p>
                     </div>
                   </div>

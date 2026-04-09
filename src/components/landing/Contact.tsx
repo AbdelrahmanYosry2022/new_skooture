@@ -57,7 +57,7 @@ export default function Contact() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-white/[0.05] text-[#00a86b] text-sm font-medium mb-6"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-border text-[#00a86b] text-sm font-medium mb-6"
               >
                 <DynamicIcon name="MessageSquareHeart" className="w-4 h-4" />
                 <span>{t({ en: 'Contact Us', ar: 'اتصل بنا' })}</span>
@@ -84,12 +84,12 @@ export default function Contact() {
                 { icon: MapPin, label: { en: 'Location', ar: 'الموقع' }, value: t({ en: 'London, UK / Dubai, UAE', ar: 'لندن، المملكة المتحدة / دبي، الإمارات' }) }
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-6 group">
-                  <div className="w-14 h-14 rounded-2xl bg-[#191919] flex items-center justify-center border border-white/[0.05] text-zinc-400 group-hover:bg-[#00a86b]/10 group-hover:text-[#00a86b] group-hover:border-[#00a86b]/30 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                  <div className="w-14 h-14 rounded-2xl bg-[#191919] flex items-center justify-center border border-border text-zinc-400 group-hover:bg-[#00a86b]/10 group-hover:text-[#00a86b] group-hover:border-[#00a86b]/30 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                     <item.icon className="w-6 h-6" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-zinc-500 mb-1">{t(item.label)}</p>
-                    <p className="text-lg font-semibold text-white group-hover:text-[#00a86b] transition-colors duration-300">{item.value}</p>
+                    <p className="text-lg font-semibold text-foreground group-hover:text-[#00a86b] transition-colors duration-300">{item.value}</p>
                   </div>
                 </div>
               ))}
@@ -102,7 +102,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="bg-[#191919]/60 backdrop-blur-md p-8 md:p-10 rounded-2xl border border-white/[0.05] shadow-[0_0_40px_rgba(0,0,0,0.3)] relative overflow-hidden group">
+            <div className="bg-[#191919]/60 backdrop-blur-md p-8 md:p-10 rounded-2xl border border-border shadow-[0_0_40px_rgba(0,0,0,0.3)] relative overflow-hidden group">
               {/* Subtle Top Border Gradient */}
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent group-hover:via-[#00a86b]/50 transition-colors duration-500" />
               
@@ -115,7 +115,7 @@ export default function Contact() {
                   <div className="w-16 h-16 rounded-full bg-[#191919] border border-[#00a86b]/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(0,168,107,0.2)]">
                     <CheckCircle2 className="w-8 h-8 text-[#00a86b]" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">
+                  <h3 className="text-2xl font-bold text-foreground mb-3">
                     {t({ en: 'Message Sent!', ar: 'تم إرسال الرسالة!' })}
                   </h3>
                   <p className="text-zinc-400">
@@ -143,7 +143,7 @@ export default function Contact() {
                       value={formData.name}
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
                       placeholder={t({ en: 'Enter your name', ar: 'أدخل اسمك' })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#000000]/50 border border-white/[0.05] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 transition-all duration-300 outline-none text-white placeholder-zinc-600"
+                      className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 transition-all duration-300 outline-none text-foreground placeholder-zinc-600"
                     />
                   </div>
                   
@@ -157,7 +157,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
                       placeholder={t({ en: 'Enter your email', ar: 'أدخل بريدك الإلكتروني' })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#000000]/50 border border-white/[0.05] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 transition-all duration-300 outline-none text-white placeholder-zinc-600"
+                      className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 transition-all duration-300 outline-none text-foreground placeholder-zinc-600"
                     />
                   </div>
                   
@@ -171,13 +171,13 @@ export default function Contact() {
                       value={formData.message}
                       onChange={e => setFormData({ ...formData, message: e.target.value })}
                       placeholder={t({ en: 'Tell us how we can help...', ar: 'أخبرنا كيف يمكننا مساعدتك...' })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#000000]/50 border border-white/[0.05] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 transition-all duration-300 outline-none text-white placeholder-zinc-600 resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 transition-all duration-300 outline-none text-foreground placeholder-zinc-600 resize-none"
                     />
                   </div>
                   
                   <button
                     disabled={isSubmitting}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#00a86b] to-[#1bc98e] hover:from-[#008f5b] hover:to-[#12b67e] text-white font-medium shadow-[0_0_20px_rgba(0,168,107,0.3)] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#00a86b] to-[#1bc98e] hover:from-[#008f5b] hover:to-[#12b67e] text-foreground font-medium shadow-[0_0_20px_rgba(0,168,107,0.3)] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
                   >
                     {isSubmitting ? (
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

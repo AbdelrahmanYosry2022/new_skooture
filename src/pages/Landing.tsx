@@ -16,7 +16,7 @@ import Footer from '../components/landing/Footer';
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-[#000000] text-zinc-50 font-sans selection:bg-[#00a86b]/30 transition-colors duration-300">
+    <div className="min-h-screen bg-background text-zinc-50 font-sans selection:bg-[#00a86b]/30 transition-colors duration-300">
       <Navbar />
       <main>
         <div id="home">

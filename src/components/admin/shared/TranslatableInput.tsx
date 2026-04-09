@@ -21,24 +21,24 @@ export default function TranslatableInput({
   const { adminLanguage } = useContent();
   const [activeLang, setActiveLang] = useState<'en' | 'ar'>(adminLanguage);
 
-  const inputClasses = "w-full min-h-[40px] px-4 py-2 rounded-[12px] bg-[#111111] border border-white/[0.05] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 focus:bg-[#151515] outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/30";
-  const textareaClasses = "w-full min-h-[100px] px-4 py-3 rounded-[12px] bg-[#111111] border border-white/[0.05] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 focus:bg-[#151515] outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/30 resize-y";
+  const inputClasses = "w-full min-h-[40px] px-4 py-2 rounded-[12px] bg-muted border border-border focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 focus:bg-[#151515] outline-none transition-all text-sm text-foreground placeholder:text-muted-foreground/30";
+  const textareaClasses = "w-full min-h-[100px] px-4 py-3 rounded-[12px] bg-muted border border-border focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 focus:bg-[#151515] outline-none transition-all text-sm text-foreground placeholder:text-muted-foreground/30 resize-y";
 
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <label className="text-xs font-medium text-[#aeaeae] px-1">
+        <label className="text-xs font-medium text-muted-foreground px-1">
           {label}
         </label>
         
         {/* Language Toggle */}
-        <div className="flex items-center bg-[#111111] rounded-[8px] p-0.5 border border-white/[0.05]">
+        <div className="flex items-center bg-muted rounded-[8px] p-0.5 border border-border">
           <button
             onClick={() => setActiveLang('en')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase transition-all cursor-pointer ${
               activeLang === 'en' 
                 ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' 
-                : 'text-[#aeaeae] hover:text-white'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             EN
@@ -48,7 +48,7 @@ export default function TranslatableInput({
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase transition-all cursor-pointer ${
               activeLang === 'ar' 
                 ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' 
-                : 'text-[#aeaeae] hover:text-white'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             AR

@@ -192,37 +192,37 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
 
   return (
     <SectionWrapper key="pricing">
-      <div className="bg-[#000000] border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
+      <div className="bg-background border border-border rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
         {/* Header */}
-        <div className="p-6 md:p-8 border-b border-white/[0.05] flex flex-col md:flex-row items-start md:items-center justify-between bg-gradient-to-b from-white/[0.02] to-transparent gap-6">
+        <div className="p-6 md:p-8 border-b border-border flex flex-col md:flex-row items-start md:items-center justify-between bg-gradient-to-b from-white/[0.02] to-transparent gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-[16px] bg-[#111111] border border-white/[0.05] flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
+            <div className="w-12 h-12 rounded-[16px] bg-muted border border-border flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
               <CreditCard size={24} />
             </div>
             <div>
-              <h4 className="text-xl font-bold tracking-tight text-white mb-1">{t("sectionHeaders.pricingTitle", "Pricing & Matrix")}</h4>
-              <p className="text-sm text-[#aeaeae]">{t("sectionHeaders.pricingDesc", "Manage plans, badges, details, and features from a single smart matrix.")}</p>
+              <h4 className="text-xl font-bold tracking-tight text-foreground mb-1">{t("sectionHeaders.pricingTitle", "Pricing & Matrix")}</h4>
+              <p className="text-sm text-muted-foreground">{t("sectionHeaders.pricingDesc", "Manage plans, badges, details, and features from a single smart matrix.")}</p>
             </div>
           </div>
           
           <div className="flex items-center gap-3 w-full md:w-auto">
-            <div className="flex bg-[#111111] p-1 rounded-[12px] border border-white/[0.05] w-full md:w-auto mr-4">
+            <div className="flex bg-muted p-1 rounded-[12px] border border-border w-full md:w-auto mr-4">
               <button 
                 onClick={() => setMatrixLang('en')}
-                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'en' ? 'bg-[#00a86b] text-white shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'en' ? 'bg-[#00a86b] text-foreground shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-muted-foreground hover:text-foreground'}`}
               >
                 English
               </button>
               <button 
                 onClick={() => setMatrixLang('ar')}
-                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'ar' ? 'bg-[#00a86b] text-white shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-[#aeaeae] hover:text-white'}`}
+                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'ar' ? 'bg-[#00a86b] text-foreground shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-muted-foreground hover:text-foreground'}`}
               >
                 العربية
               </button>
             </div>
             <button
               onClick={() => setIsHeaderExpanded(!isHeaderExpanded)}
-              className={`hidden lg:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[12px] border transition-colors justify-center ${isHeaderExpanded ? 'bg-white/[0.05] border-white/[0.1] text-white' : 'bg-transparent border-white/[0.05] text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'}`}
+              className={`hidden lg:flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[12px] border transition-colors justify-center ${isHeaderExpanded ? 'bg-foreground/5 border-border text-foreground' : 'bg-transparent border-border text-muted-foreground hover:text-foreground hover:bg-foreground/2'}`}
             >
               <Settings2 size={16} />
               Header Labels
@@ -237,7 +237,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="overflow-hidden bg-[#0a0a0a] border-b border-white/[0.05]"
+              className="overflow-hidden bg-card border-b border-border"
             >
               <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
                 <TranslatableInput 
@@ -260,30 +260,30 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
         </AnimatePresence>
 
         {/* Content - Smart Matrix */}
-        <div className="p-6 md:p-8 bg-[#050505]">
+        <div className="p-6 md:p-8 bg-muted">
           
-          <div className="bg-[#111111] border border-white/[0.05] rounded-[16px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden mt-2 pb-10">
+          <div className="bg-muted border border-border rounded-[16px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden mt-2 pb-10">
             <div className="overflow-x-auto custom-scrollbar">
               <table className="w-full text-left border-collapse table-fixed relative">
                 <thead>
-                  <tr className="bg-[#050505]">
-                    <th className="p-4 align-bottom min-w-[250px] w-[300px] border-b border-white/[0.05] relative z-10">
+                  <tr className="bg-muted">
+                    <th className="p-4 align-bottom min-w-[250px] w-[300px] border-b border-border relative z-10">
                       <div className="flex flex-col gap-3">
-                        <span className="text-xs font-bold text-[#aeaeae] uppercase tracking-wider pl-2">
+                        <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider pl-2">
                           {matrixLang === 'en' ? 'Feature Name' : 'اسم الميزة'}
                         </span>
                         <button 
                           onClick={handleAddFeatureRow}
-                          className="px-5 py-2.5 text-xs font-medium text-white bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.05] rounded-[10px] flex items-center justify-center gap-2 transition-all w-full"
+                          className="px-5 py-2.5 text-xs font-medium text-foreground bg-foreground/5 hover:bg-foreground/10 border border-border rounded-[10px] flex items-center justify-center gap-2 transition-all w-full"
                         >
                           <Plus size={16} /> {matrixLang === 'en' ? 'Add Feature Row' : 'إضافة صف ميزة'}
                         </button>
                       </div>
                     </th>
                     {localPlans.map((plan: any, idx: number) => (
-                      <th key={plan._id} className="p-4 align-top border-b border-white/[0.05] min-w-[240px] w-[280px] relative">
+                      <th key={plan._id} className="p-4 align-top border-b border-border min-w-[240px] w-[280px] relative">
                         {/* Smart Plan Header */}
-                        <div className={`p-4 rounded-[16px] border transition-all ${plan.highlighted ? 'bg-[#00a86b]/5 border-[#00a86b]/30 shadow-[inset_0_0_20px_rgba(0,168,107,0.1)]' : 'bg-[#191919] border-white/[0.05]'}`}>
+                        <div className={`p-4 rounded-[16px] border transition-all ${plan.highlighted ? 'bg-[#00a86b]/5 border-[#00a86b]/30 shadow-[inset_0_0_20px_rgba(0,168,107,0.1)]' : 'bg-[#191919] border-border'}`}>
                           
                           {/* Plan Name Editable */}
                           <div className="relative mb-3">
@@ -291,7 +291,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               type="text"
                               value={plan.name?.[matrixLang] || ''}
                               onChange={(e) => handleUpdatePlanProperty(plan._id, 'name', matrixLang, e.target.value)}
-                              className="w-full bg-transparent border-b border-dashed border-white/[0.2] hover:border-white/[0.5] focus:border-[#00a86b] focus:bg-[#000000] text-white font-bold text-lg px-2 py-1 outline-none transition-all placeholder:text-white/[0.2]"
+                              className="w-full bg-transparent border-b border-dashed border-white/[0.2] hover:border-white/[0.5] focus:border-[#00a86b] focus:bg-background text-foreground font-bold text-lg px-2 py-1 outline-none transition-all placeholder:text-white/[0.2]"
                               dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                               placeholder={matrixLang === 'en' ? 'Plan Name...' : 'اسم الباقة...'}
                             />
@@ -302,7 +302,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
 
                           <button
                             onClick={() => setActiveSettingsPlanId(activeSettingsPlanId === plan._id ? null : plan._id)}
-                            className={`w-full py-2.5 px-3 rounded-[10px] text-xs font-bold uppercase tracking-wider flex items-center justify-between border transition-all ${activeSettingsPlanId === plan._id ? 'bg-[#00a86b] text-white border-[#00a86b] shadow-[0_4px_12px_rgba(0,168,107,0.4)]' : 'bg-[#111111] text-[#aeaeae] border-white/[0.05] hover:border-[#00a86b]/50 hover:text-white'}`}
+                            className={`w-full py-2.5 px-3 rounded-[10px] text-xs font-bold uppercase tracking-wider flex items-center justify-between border transition-all ${activeSettingsPlanId === plan._id ? 'bg-[#00a86b] text-foreground border-[#00a86b] shadow-[0_4px_12px_rgba(0,168,107,0.4)]' : 'bg-muted text-muted-foreground border-border hover:border-[#00a86b]/50 hover:text-foreground'}`}
                           >
                             <span>{matrixLang === 'en' ? 'Plan Settings' : 'إعدادات الباقة'}</span>
                             <Settings2 className="w-4 h-4" />
@@ -317,63 +317,63 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: -10, scale: 0.95 }}
                               transition={{ duration: 0.15 }}
-                              className="absolute top-full left-4 right-4 mt-2 bg-[#1a1a1a] border border-[#00a86b]/30 shadow-[0_20px_40px_rgba(0,0,0,0.8)] rounded-[16px] z-50 overflow-hidden flex flex-col"
+                              className="absolute top-full left-4 right-4 mt-2 bg-muted border border-[#00a86b]/30 shadow-[0_20px_40px_rgba(0,0,0,0.8)] rounded-[16px] z-50 overflow-hidden flex flex-col"
                             >
-                              <div className="p-4 bg-[#111111] border-b border-white/[0.05] flex items-center justify-between">
+                              <div className="p-4 bg-muted border-b border-border flex items-center justify-between">
                                 <span className="text-xs font-bold text-[#00a86b] uppercase tracking-wider flex items-center gap-2">
                                   <Settings2 className="w-3 h-3" />
                                   {plan.name?.[matrixLang] || 'Settings'}
                                 </span>
-                                <button onClick={() => setActiveSettingsPlanId(null)} className="text-zinc-500 hover:text-white transition-colors">
+                                <button onClick={() => setActiveSettingsPlanId(null)} className="text-zinc-500 hover:text-foreground transition-colors">
                                   <X className="w-4 h-4" />
                                 </button>
                               </div>
                               <div className="p-4 space-y-4 max-h-[400px] overflow-y-auto custom-scrollbar">
                                 {/* Badge */}
                                 <div>
-                                  <label className="block text-[10px] font-bold text-[#aeaeae] uppercase tracking-wider mb-2">
+                                  <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">
                                     {matrixLang === 'en' ? 'Badge (e.g. Popular, Prepaid)' : 'شارة (مثال: الدفع مسبقاً)'}
                                   </label>
                                   <input
                                     type="text"
                                     value={plan.badge?.[matrixLang] || ''}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'badge', matrixLang, e.target.value)}
-                                    className="w-full bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white rounded-[8px] px-3 py-2 text-sm outline-none transition-all placeholder:text-white/[0.1]"
+                                    className="w-full bg-card border border-border focus:border-[#00a86b] text-foreground rounded-[8px] px-3 py-2 text-sm outline-none transition-all placeholder:text-foreground/10"
                                     dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                                     placeholder={matrixLang === 'en' ? 'Badge text...' : 'نص الشارة...'}
                                   />
                                 </div>
                                 {/* Highlight */}
-                                <label className="flex items-center gap-3 cursor-pointer bg-[#0a0a0a] p-3 rounded-[8px] border border-white/[0.05]">
+                                <label className="flex items-center gap-3 cursor-pointer bg-card p-3 rounded-[8px] border border-border">
                                   <input 
                                     type="checkbox"
                                     checked={plan.highlighted || false}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'highlighted', matrixLang, e.target.checked)}
-                                    className="w-4 h-4 rounded-[4px] border-white/[0.1] text-[#00a86b] focus:ring-[#00a86b] bg-transparent"
+                                    className="w-4 h-4 rounded-[4px] border-border text-[#00a86b] focus:ring-[#00a86b] bg-transparent"
                                   />
-                                  <span className="text-xs font-medium text-white leading-tight">
+                                  <span className="text-xs font-medium text-foreground leading-tight">
                                     {matrixLang === 'en' ? 'Highlight & Glow (Stand out)' : 'تمييز ساطع (لإبرازها)'}
                                   </span>
                                 </label>
-                                <label className="flex items-center gap-3 cursor-pointer bg-[#0a0a0a] p-3 rounded-[8px] border border-white/[0.05]">
+                                <label className="flex items-center gap-3 cursor-pointer bg-card p-3 rounded-[8px] border border-border">
                                   <input 
                                     type="checkbox"
                                     checked={plan.popular || false}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'popular', matrixLang, e.target.checked)}
-                                    className="w-4 h-4 rounded-[4px] border-white/[0.1] text-[#00a86b] focus:ring-[#00a86b] bg-transparent"
+                                    className="w-4 h-4 rounded-[4px] border-border text-[#00a86b] focus:ring-[#00a86b] bg-transparent"
                                   />
-                                  <span className="text-xs font-medium text-white leading-tight">
+                                  <span className="text-xs font-medium text-foreground leading-tight">
                                     {matrixLang === 'en' ? 'Mark as popular' : 'تمييز كخطة شائعة'}
                                   </span>
                                 </label>
                                 <div>
-                                  <label className="block text-[10px] font-bold text-[#aeaeae] uppercase tracking-wider mb-2">
+                                  <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">
                                     {matrixLang === 'en' ? 'Billing Period' : 'نوع الفوترة'}
                                   </label>
                                   <select
                                     value={plan.billingPeriod || 'both'}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'billingPeriod', matrixLang, e.target.value)}
-                                    className="w-full bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
+                                    className="w-full bg-card border border-border focus:border-[#00a86b] text-foreground rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
                                   >
                                     <option value="both">{matrixLang === 'en' ? 'Monthly + Annual' : 'شهري + سنوي'}</option>
                                     <option value="monthly">{matrixLang === 'en' ? 'Monthly only' : 'شهري فقط'}</option>
@@ -382,7 +382,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                 </div>
                                 <div className="grid grid-cols-2 gap-2">
                                   <div>
-                                    <label className="block text-[10px] font-bold text-[#aeaeae] uppercase tracking-wider mb-2">
+                                    <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">
                                       {matrixLang === 'en' ? 'Monthly Price' : 'السعر الشهري'}
                                     </label>
                                     <input
@@ -396,12 +396,12 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                         setLocalPlans(newPlans);
                                         updateNestedContent(['pricing', 'plans'], newPlans.map(({ _id, ...rest }) => rest));
                                       }}
-                                      className="w-full bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
+                                      className="w-full bg-card border border-border focus:border-[#00a86b] text-foreground rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
                                       placeholder="$49"
                                     />
                                   </div>
                                   <div>
-                                    <label className="block text-[10px] font-bold text-[#aeaeae] uppercase tracking-wider mb-2">
+                                    <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-2">
                                       {matrixLang === 'en' ? 'Annual Price' : 'السعر السنوي'}
                                     </label>
                                     <input
@@ -415,7 +415,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                         setLocalPlans(newPlans);
                                         updateNestedContent(['pricing', 'plans'], newPlans.map(({ _id, ...rest }) => rest));
                                       }}
-                                      className="w-full bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
+                                      className="w-full bg-card border border-border focus:border-[#00a86b] text-foreground rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
                                       placeholder="$490"
                                     />
                                   </div>
@@ -423,10 +423,10 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                 {/* Details */}
                                 <div>
                                   <div className="flex items-center justify-between mb-2">
-                                    <label className="block text-[10px] font-bold text-[#aeaeae] uppercase tracking-wider">
+                                    <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                                       {matrixLang === 'en' ? 'Pricing & Limits Details' : 'تفاصيل السعر والحدود'}
                                     </label>
-                                    <button onClick={() => handleAddDetail(plan._id)} className="text-[10px] font-bold text-[#00a86b] hover:text-white transition-colors">
+                                    <button onClick={() => handleAddDetail(plan._id)} className="text-[10px] font-bold text-[#00a86b] hover:text-foreground transition-colors">
                                       + ADD
                                     </button>
                                   </div>
@@ -437,7 +437,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                           type="text"
                                           value={detail[matrixLang] || ''}
                                           onChange={(e) => handleUpdateDetails(plan._id, dIndex, matrixLang, e.target.value)}
-                                          className="flex-1 bg-[#0a0a0a] border border-white/[0.1] focus:border-[#00a86b] text-white text-xs rounded-[8px] px-3 py-2 outline-none transition-all"
+                                          className="flex-1 bg-card border border-border focus:border-[#00a86b] text-foreground text-xs rounded-[8px] px-3 py-2 outline-none transition-all"
                                           dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                                         />
                                         <button onClick={() => handleDeleteDetail(plan._id, dIndex)} className="p-2 text-zinc-500 hover:text-red-500 bg-red-500/5 hover:bg-red-500/20 rounded-[8px] transition-colors">
@@ -447,7 +447,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                     ))}
                                   </div>
                                 </div>
-                                <div className="pt-2 border-t border-white/[0.05]">
+                                <div className="pt-2 border-t border-border">
                                   <button onClick={() => handleDeletePlan(plan._id)} className="w-full py-2 flex items-center justify-center gap-2 text-xs font-bold text-red-500 hover:bg-red-500/10 rounded-[8px] transition-colors">
                                     <Trash2 size={14} /> {matrixLang === 'en' ? 'Delete Plan entirely' : 'حذف الباقة بالكامل'}
                                   </button>
@@ -459,7 +459,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
 
                       </th>
                     ))}
-                    <th className="p-4 align-top w-[80px] border-b border-white/[0.05]">
+                    <th className="p-4 align-top w-[80px] border-b border-border">
                       <button 
                         onClick={handleAddPlan}
                         className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 rounded-[16px] border border-dashed border-white/[0.2] text-zinc-500 hover:border-[#00a86b]/50 hover:bg-[#00a86b]/5 hover:text-[#00a86b] transition-colors"
@@ -472,7 +472,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                 </thead>
                 <tbody className="divide-y divide-white/[0.02]">
                   {allFeatures.map((feature: any, rowIndex: number) => (
-                    <tr key={rowIndex} className="hover:bg-white/[0.02] transition-colors group">
+                    <tr key={rowIndex} className="hover:bg-foreground/2 transition-colors group">
                       <td className="p-4 align-top">
                         <div className="flex items-center gap-3">
                           <button 
@@ -488,7 +488,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                 type="text"
                                 value={feature.en}
                                 onChange={(e) => handleUpdateFeatureName(feature.en, e.target.value, feature.ar)}
-                                className="w-full text-[13px] font-medium text-white bg-transparent border-b border-transparent focus:border-[#00a86b]/50 px-1 py-1 placeholder-zinc-600 transition-all outline-none"
+                                className="w-full text-[13px] font-medium text-foreground bg-transparent border-b border-transparent focus:border-[#00a86b]/50 px-1 py-1 placeholder-zinc-600 transition-all outline-none"
                                 placeholder="Type English Feature Name..."
                               />
                             ) : (
@@ -496,7 +496,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                 type="text"
                                 value={feature.ar}
                                 onChange={(e) => handleUpdateFeatureName(feature.en, feature.en, e.target.value)}
-                                className="w-full text-[13px] font-medium text-white bg-transparent border-b border-transparent focus:border-[#00a86b]/50 px-1 py-1 placeholder-zinc-600 text-right font-arabic transition-all outline-none"
+                                className="w-full text-[13px] font-medium text-foreground bg-transparent border-b border-transparent focus:border-[#00a86b]/50 px-1 py-1 placeholder-zinc-600 text-right font-arabic transition-all outline-none"
                                 placeholder="اكتب اسم الميزة..."
                                 dir="rtl"
                               />
@@ -514,8 +514,8 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               onClick={() => handleToggleFeature(planIndex, feature.en, !isIncluded)}
                               className={`inline-flex items-center justify-center w-[38px] h-[38px] rounded-[10px] transition-all duration-200 shadow-sm ${
                                 isIncluded 
-                                  ? 'bg-gradient-to-br from-[#00a86b] to-[#008f5b] text-white shadow-[0_4px_12px_rgba(0,168,107,0.4)]' 
-                                  : 'bg-[#111111] border border-white/[0.05] text-zinc-600 hover:border-white/[0.2] hover:text-white'
+                                  ? 'bg-gradient-to-br from-[#00a86b] to-[#008f5b] text-foreground shadow-[0_4px_12px_rgba(0,168,107,0.4)]' 
+                                  : 'bg-muted border border-border text-zinc-600 hover:border-white/[0.2] hover:text-foreground'
                               }`}
                             >
                               {isIncluded ? (
@@ -532,7 +532,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                   ))}
                   {allFeatures.length === 0 && (
                     <tr>
-                      <td colSpan={localPlans.length + 2} className="p-12 text-center text-[#aeaeae] text-sm border-dashed border-t border-white/[0.05]">
+                      <td colSpan={localPlans.length + 2} className="p-12 text-center text-muted-foreground text-sm border-dashed border-t border-border">
                         <div className="flex flex-col items-center justify-center gap-3">
                           <Link className="w-8 h-8 text-zinc-600" />
                           <p>No features defined. Click "Add Feature Row" to start building your matrix.</p>

@@ -18,10 +18,10 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
 
   return (
     <SectionWrapper>
-      <div className="bg-[#000000] border border-white/[0.05] rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
+      <div className="bg-background border border-border rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
         
         {/* Smart Tabs Header */}
-        <div className="flex items-center gap-2 p-4 border-b border-white/[0.05] overflow-x-auto custom-scrollbar bg-[#000000]">
+        <div className="flex items-center gap-2 p-4 border-b border-border overflow-x-auto custom-scrollbar bg-background">
           {tabs.map(tab => (
             <button
               key={tab.id}
@@ -29,7 +29,7 @@ export default function HeroSection({ localContent, updateNestedContent }: Admin
               className={`flex items-center gap-2 px-5 py-3 rounded-[12px] text-sm font-medium transition-all duration-300 whitespace-nowrap ${
                 activeTab === tab.id 
                   ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)]' 
-                  : 'text-[#aeaeae] hover:text-white hover:bg-white/[0.02]'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-foreground/2'
               }`}
             >
               {tab.icon}

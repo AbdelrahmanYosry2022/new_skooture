@@ -30,7 +30,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#000000] flex items-center justify-center p-4 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 font-sans relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[800px] rounded-full opacity-70 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.25)_0%,rgba(0,168,107,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]" />
 
@@ -40,7 +40,7 @@ export default function Login() {
         transition={{ duration: 0.5 }}
         className="relative w-full max-w-md z-10"
       >
-        <div className="bg-[#0a0a0a] border border-white/[0.05] rounded-[24px] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-md overflow-hidden relative">
+        <div className="bg-card border border-border rounded-[24px] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-md overflow-hidden relative">
           
           <div className="flex flex-col items-center text-center mb-8 relative z-10">
             <div className="mb-6 flex justify-center">
@@ -48,17 +48,17 @@ export default function Login() {
                 <img src={content.brand.logoUrl} alt="Skooture" className="h-12 w-auto" />
               ) : (
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-[12px] bg-[#191919] border border-white/[0.05] flex items-center justify-center font-bold text-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.09)]">
+                  <div className="w-12 h-12 rounded-[12px] bg-[#191919] border border-border flex items-center justify-center font-bold text-2xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.09)]">
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00a86b] to-[#b3f0d4]">S</span>
                   </div>
-                  <span className="font-bold text-2xl tracking-tight text-white">Skooture</span>
+                  <span className="font-bold text-2xl tracking-tight text-foreground">Skooture</span>
                 </div>
               )}
             </div>
             <h1 className="text-[28px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.15] mb-3">
               Admin Portal
             </h1>
-            <p className="text-[#aeaeae] leading-[1.6]">
+            <p className="text-muted-foreground leading-[1.6]">
               Sign in with your admin credentials
             </p>
           </div>
@@ -66,13 +66,13 @@ export default function Login() {
           <form onSubmit={handleLogin} className="space-y-5 relative z-10">
             <div className="space-y-2">
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#aeaeae] group-focus-within:text-[#00a86b] transition-colors" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-[#00a86b] transition-colors" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
-                  className="w-full pl-12 pr-4 h-[52px] rounded-[12px] bg-[#000000] border border-white/[0.08] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-white placeholder:text-[#aeaeae]/50"
+                  className="w-full pl-12 pr-4 h-[52px] rounded-[12px] bg-background border border-white/[0.08] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-foreground placeholder:text-muted-foreground/50"
                   autoFocus
                   required
                 />
@@ -81,13 +81,13 @@ export default function Login() {
 
             <div className="space-y-2">
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#aeaeae] group-focus-within:text-[#00a86b] transition-colors" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-[#00a86b] transition-colors" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
-                  className={`w-full pl-12 pr-4 h-[52px] rounded-[12px] bg-[#000000] border outline-none transition-all text-white placeholder:text-[#aeaeae]/50 ${
+                  className={`w-full pl-12 pr-4 h-[52px] rounded-[12px] bg-background border outline-none transition-all text-foreground placeholder:text-muted-foreground/50 ${
                     error ? 'border-red-500/50 ring-1 ring-red-500/50' : 'border-white/[0.08] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50'
                   }`}
                   required
@@ -107,7 +107,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-6 h-[48px] px-[20px] rounded-[10px] bg-[#00a86b] hover:bg-[#008f5b] text-white font-medium text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(51,219,159,0.4)] border-0 flex items-center justify-center gap-2 disabled:opacity-60 disabled:hover:shadow-none"
+              className="w-full mt-6 h-[48px] px-[20px] rounded-[10px] bg-[#00a86b] hover:bg-[#008f5b] text-foreground font-medium text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(51,219,159,0.4)] border-0 flex items-center justify-center gap-2 disabled:opacity-60 disabled:hover:shadow-none"
             >
               {isLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -123,7 +123,7 @@ export default function Login() {
           <div className="mt-8 pt-6 border-t border-white/[0.08] text-center relative z-10">
             <button
               onClick={() => navigate('/')}
-              className="text-sm font-medium text-[#aeaeae] hover:text-[#00a86b] transition-colors"
+              className="text-sm font-medium text-muted-foreground hover:text-[#00a86b] transition-colors"
             >
               Back to Website
             </button>

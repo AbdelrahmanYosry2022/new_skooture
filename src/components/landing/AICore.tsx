@@ -19,7 +19,7 @@ export default function AICore() {
   };
 
   return (
-    <section id="features" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
+    <section id="features" className="py-24 md:py-32 bg-background relative overflow-hidden">
       {/* Decorative Glow */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] rounded-full blur-[80px]" />
@@ -66,25 +66,25 @@ export default function AICore() {
               {/* Internal subtle glow on hover */}
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,168,107,0.1)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[24px] pointer-events-none" />
               
-              <div className="relative h-full p-8 md:p-10 rounded-[24px] bg-[#191919]/60 border border-white/[0.05] hover:border-white/[0.1] transition-all duration-500 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:bg-[#191919]/80 flex flex-col items-start overflow-hidden">
-                <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-8 border border-white/[0.05] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#00a86b] group-hover:scale-110 transition-transform duration-500 relative z-10">
+              <div className="relative h-full p-8 md:p-10 rounded-[24px] bg-[#191919]/60 border border-border hover:border-border transition-all duration-500 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:bg-[#191919]/80 flex flex-col items-start overflow-hidden">
+                <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-8 border border-border shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#00a86b] group-hover:scale-110 transition-transform duration-500 relative z-10">
                   <DynamicIcon name={feature.icon} className="w-6 h-6" />
                 </div>
                 
-                <h3 className="text-[24px] font-medium text-white mb-4 relative z-10">
+                <h3 className="text-[24px] font-medium text-foreground mb-4 relative z-10">
                   {t(feature.title)}
                 </h3>
                 
-                <p className="text-[16px] text-[#aeaeae] leading-[1.6] relative z-10">
+                <p className="text-[16px] text-muted-foreground leading-[1.6] relative z-10">
                   {t(feature.description)}
                 </p>
 
                 <div className="mt-auto pt-8 w-full flex items-center justify-between group/link cursor-pointer relative z-10">
-                  <div className="h-[1px] w-full bg-white/[0.05] absolute top-0 left-0" />
+                  <div className="h-[1px] w-full bg-foreground/5 absolute top-0 left-0" />
                   <span className="text-[14px] font-medium text-[#00a86b] transition-colors mt-6">
                     {t({ en: 'Learn More', ar: 'تعرف على المزيد' })}
                   </span>
-                  <div className="w-8 h-8 mt-6 rounded-full bg-[#111111] border border-white/[0.05] flex items-center justify-center transform group-hover/link:translate-x-1 group-hover/link:bg-[#00a86b]/10 group-hover/link:border-[#00a86b]/30 transition-all duration-300">
+                  <div className="w-8 h-8 mt-6 rounded-full bg-muted border border-border flex items-center justify-center transform group-hover/link:translate-x-1 group-hover/link:bg-[#00a86b]/10 group-hover/link:border-[#00a86b]/30 transition-all duration-300">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#00a86b] rtl:rotate-180">
                       <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>

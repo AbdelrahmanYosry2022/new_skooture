@@ -23,7 +23,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-[#000000] min-h-screen flex items-center">
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background min-h-screen flex items-center">
       {/* Exact Background Decorative Glow matching Reference */}
       <div className={`absolute top-1/2 ${isRTL ? 'right-[45%]' : 'left-[45%]'} -translate-y-1/2 w-[1000px] h-[800px] rounded-full opacity-70 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.25)_0%,rgba(0,168,107,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]`} />
       
@@ -61,7 +61,7 @@ export default function Hero() {
             {/* Subheadline */}
             <motion.p 
               variants={itemVariants}
-              className="text-[16px] text-[#aeaeae] mb-10 leading-[1.6]"
+              className="text-[16px] text-muted-foreground mb-10 leading-[1.6]"
             >
               {t(content.hero?.subheadline) || t({ 
                 en: 'The all-in-one property management and marketplace platform where you can manage, list, sell, or find your perfect property seamlessly.', 
@@ -76,13 +76,13 @@ export default function Hero() {
             >
               {content.hero?.buttons?.explore && (
                 <a href="#" className="inline-flex">
-                  <Button className="h-[48px] px-[20px] rounded-[10px] bg-[#00a86b] hover:bg-[#008f5b] text-white font-semibold text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(51,219,159,0.4)] border-0">
+                  <Button className="h-[48px] px-[20px] rounded-[10px] bg-[#00a86b] hover:bg-[#008f5b] text-foreground font-semibold text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(51,219,159,0.4)] border-0">
                     {t(content.hero.buttons.explore)}
                   </Button>
                 </a>
               )}
               {content.hero?.buttons?.demo && (
-                <a href="#" className="inline-flex items-center justify-center h-[48px] px-[20px] rounded-[10px] bg-transparent text-white font-semibold text-[16px] hover:bg-white/[0.05] transition-colors duration-200 border border-white/[0.1]">
+                <a href="#" className="inline-flex items-center justify-center h-[48px] px-[20px] rounded-[10px] bg-transparent text-foreground font-semibold text-[16px] hover:bg-foreground/5 transition-colors duration-200 border border-border">
                   {t(content.hero.buttons.demo)}
                 </a>
               )}
@@ -90,7 +90,7 @@ export default function Hero() {
 
             {/* Trusted By / Logos */}
             <motion.div variants={itemVariants} className="flex flex-col gap-6 w-full overflow-hidden">
-              <p className="text-[16px] text-[#aeaeae]">
+              <p className="text-[16px] text-muted-foreground">
                 {t({ en: 'Join 4,000+ companies already growing', ar: 'انضم لأكثر من 4,000 شركة تنمو معنا' })}
               </p>
               {/* Scrolling Logos Container */}

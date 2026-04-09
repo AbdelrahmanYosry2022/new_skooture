@@ -72,7 +72,7 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              className="absolute z-50 top-full mt-3 w-full glass-card bg-white dark:bg-[#0f172a] border-zinc-200/50 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden"
+              className="absolute z-50 top-full mt-3 w-full glass-card bg-white dark:bg-[#0f172a] border-zinc-200/50 dark:border-border rounded-3xl shadow-2xl overflow-hidden"
             >
               <div className="p-4 border-b border-zinc-100 dark:border-white/5">
                 <div className="relative">
@@ -82,7 +82,7 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search all icons..."
-                    className={`w-full py-3 bg-zinc-50 dark:bg-black/20 border-none focus:ring-2 focus:ring-blue-500/20 text-sm font-bold rounded-xl dark:text-white outline-none ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4 text-left'}`}
+                    className={`w-full py-3 bg-zinc-50 dark:bg-black/20 border-none focus:ring-2 focus:ring-blue-500/20 text-sm font-bold rounded-xl dark:text-foreground outline-none ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4 text-left'}`}
                     autoFocus
                   />
                 </div>
@@ -103,7 +103,7 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
                       }}
                       className={`flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-300 group cursor-pointer ${
                         isActive 
-                          ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20' 
+                          ? 'bg-blue-600 text-foreground shadow-xl shadow-blue-600/20' 
                           : 'hover:bg-blue-50 dark:hover:bg-blue-600/10 text-zinc-500 dark:text-zinc-500 hover:text-blue-600 dark:hover:text-blue-400'
                       }`}
                       title={name}

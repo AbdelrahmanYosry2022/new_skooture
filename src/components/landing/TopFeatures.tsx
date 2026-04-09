@@ -55,7 +55,7 @@ export default function TopFeatures() {
   if (!features || features.length === 0) return null;
 
   return (
-    <section id="top-features" className="py-24 relative overflow-hidden bg-[#000000]">
+    <section id="top-features" className="py-24 relative overflow-hidden bg-background">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00a86b]/[0.03] rounded-full blur-[120px] pointer-events-none" />
 
@@ -66,7 +66,7 @@ export default function TopFeatures() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-white/[0.05] text-[#00a86b] text-sm font-medium mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-border text-[#00a86b] text-sm font-medium mb-6"
           >
             <DynamicIcon name="Sparkles" className="w-4 h-4" />
             <span>{t({ en: 'Top Features', ar: 'أهم المميزات' })}</span>
@@ -105,7 +105,7 @@ export default function TopFeatures() {
               <motion.div 
                 key={index} 
                 variants={itemVariants}
-                className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#191919]/40 backdrop-blur-sm border border-white/[0.05] hover:border-[#00a86b]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(0,168,107,0.08)] cursor-default overflow-hidden"
+                className="group relative flex items-center gap-4 p-4 rounded-2xl bg-[#191919]/40 backdrop-blur-sm border border-border hover:border-[#00a86b]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(0,168,107,0.08)] cursor-default overflow-hidden"
               >
                 {/* Soft background glow on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00a86b]/0 to-[#00a86b]/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -113,10 +113,10 @@ export default function TopFeatures() {
                 {/* Subtle side highlight line */}
                 <div className={`absolute top-0 bottom-0 w-[2px] bg-[#00a86b] transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center ${isRTL ? 'right-0' : 'left-0'}`} />
                 
-                <div className="w-12 h-12 shrink-0 rounded-xl bg-black/50 border border-white/[0.05] flex items-center justify-center text-zinc-400 group-hover:text-[#00a86b] group-hover:border-[#00a86b]/30 group-hover:bg-[#00a86b]/10 transition-all duration-300 shadow-inner">
+                <div className="w-12 h-12 shrink-0 rounded-xl bg-black/50 border border-border flex items-center justify-center text-zinc-400 group-hover:text-[#00a86b] group-hover:border-[#00a86b]/30 group-hover:bg-[#00a86b]/10 transition-all duration-300 shadow-inner">
                   <DynamicIcon name={iconName} className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                 </div>
-                <span className="text-[14px] leading-tight font-medium text-zinc-300 group-hover:text-white transition-colors duration-300 flex-1">
+                <span className="text-[14px] leading-tight font-medium text-zinc-300 group-hover:text-foreground transition-colors duration-300 flex-1">
                   {t(feature)}
                 </span>
               </motion.div>

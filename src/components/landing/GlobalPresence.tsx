@@ -53,7 +53,7 @@ export default function GlobalPresence() {
   };
 
   return (
-    <section id="global" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
+    <section id="global" className="py-24 md:py-32 bg-background relative overflow-hidden">
 
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -87,7 +87,7 @@ export default function GlobalPresence() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-[16px] md:text-[18px] text-[#aeaeae] leading-[1.65] mb-10 max-w-[480px]"
+              className="text-[16px] md:text-[18px] text-muted-foreground leading-[1.65] mb-10 max-w-[480px]"
             >
               {t({ 
                 en: 'Join a rapidly growing ecosystem of educational institutions worldwide. Skooture provides the global infrastructure needed to scale your school\'s vision beyond borders with localized, powerful AI tools.', 
@@ -100,7 +100,7 @@ export default function GlobalPresence() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="group inline-flex h-[48px] shrink-0 items-center justify-center gap-2 rounded-[8px] px-6 text-[15px] font-medium text-white transition-all duration-200 hover:brightness-110 shadow-[0_0_20px_rgba(0,168,107,0.2)]"
+              className="group inline-flex h-[48px] shrink-0 items-center justify-center gap-2 rounded-[8px] px-6 text-[15px] font-medium text-foreground transition-all duration-200 hover:brightness-110 shadow-[0_0_20px_rgba(0,168,107,0.2)]"
               style={{ backgroundColor: 'rgb(0,168,107)' }}
               onClick={() => {
                 const element = document.getElementById('contact');
@@ -186,7 +186,7 @@ export default function GlobalPresence() {
             transition: 'opacity 0.15s ease'
           }}
         >
-          <span className="font-medium text-white text-[14px]">
+          <span className="font-medium text-foreground text-[14px]">
             {tooltip.ar}
           </span>
           <span className="text-[#00a86b] font-medium text-[12px]">

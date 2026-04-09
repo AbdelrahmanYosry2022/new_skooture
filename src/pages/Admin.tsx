@@ -128,7 +128,7 @@ export default function Admin() {
 
   return (
     <div
-      className="min-h-screen bg-[#000000] flex transition-colors duration-500 font-sans"
+      className="min-h-screen bg-background flex transition-colors duration-500 font-sans"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <Sidebar
@@ -139,7 +139,7 @@ export default function Admin() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden bg-[#000000] relative">
+      <main className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden bg-background relative">
         <AdminHeader
           title={activeSectionTitle}
           onMenuClick={() => setIsSidebarOpen(true)}
@@ -150,7 +150,7 @@ export default function Admin() {
         />
         
         {/* Dynamic App-like Layout - Removed the double container wrapper */}
-        <div className="flex-1 w-full h-full bg-[#000000] overflow-hidden flex flex-col relative">
+        <div className="flex-1 w-full h-full bg-background overflow-hidden flex flex-col relative">
           
           {/* Subtle background glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(ellipse_at_top_right,rgba(0,168,107,0.05)_0%,transparent_70%)] pointer-events-none" />

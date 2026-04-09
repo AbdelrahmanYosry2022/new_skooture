@@ -76,7 +76,7 @@ export default function Navbar() {
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
         scrolled 
-          ? "bg-[#1a1a1a]/80 backdrop-blur-md border-b border-white/10 shadow-sm py-4" 
+          ? "bg-muted/80 backdrop-blur-md border-b border-border shadow-sm py-4" 
           : "bg-transparent py-6"
       )}
       dir={isRTL ? 'rtl' : 'ltr'}
@@ -89,10 +89,10 @@ export default function Navbar() {
               <img src={content.brand.logoUrl} alt="Skooture" className="h-8 w-auto" />
             ) : (
               <>
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#00a86b] to-[#b3f0d4] flex items-center justify-center text-white font-bold text-sm shadow-[0_0_12px_rgba(0,168,107,0.3)] shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#00a86b] to-[#b3f0d4] flex items-center justify-center text-foreground font-bold text-sm shadow-[0_0_12px_rgba(0,168,107,0.3)] shrink-0">
                   <span className="w-3 h-3 bg-white rounded-full"></span>
                 </div>
-                <span className="font-bold text-[19px] text-white tracking-tight">
+                <span className="font-bold text-[19px] text-foreground tracking-tight">
                   Soft Pro
                 </span>
               </>
@@ -107,7 +107,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-[15px] font-medium transition-colors hover:text-white text-white/90"
+                  className="text-[15px] font-medium transition-colors hover:text-foreground text-white/90"
                 >
                   {t(link.label)}
                 </a>
@@ -120,17 +120,17 @@ export default function Navbar() {
             <Button
               variant="ghost"
               onClick={handleLanguageToggle}
-              className="text-white hover:text-white hover:bg-white/5 font-medium px-2"
+              className="text-foreground hover:text-foreground hover:bg-white/5 font-medium px-2"
             >
               <span>{language === 'en' ? 'عربي' : 'English'}</span>
             </Button>
 
-            <Link to="/admin" className="text-[15px] font-medium text-white transition-colors hover:text-[#00a86b]">
+            <Link to="/admin" className="text-[15px] font-medium text-foreground transition-colors hover:text-[#00a86b]">
               {t({ en: 'Login', ar: 'تسجيل الدخول' })}
             </Link>
             
              <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>
-               <Button className="px-5 py-[10px] rounded-[8px] bg-[#00a86b] text-white font-semibold text-[15px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(0,168,107,0.4)] hover:bg-[#008f5b] border-0 h-auto">
+               <Button className="px-5 py-[10px] rounded-[8px] bg-[#00a86b] text-foreground font-semibold text-[15px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(0,168,107,0.4)] hover:bg-[#008f5b] border-0 h-auto">
                  {t({ en: 'Get Template', ar: 'احصل على القالب' })}
                </Button>
              </a>
@@ -140,7 +140,7 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden text-white hover:bg-white/10"
+            className="lg:hidden text-foreground hover:bg-white/10"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -163,7 +163,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-lg font-medium text-slate-900 dark:text-white"
+                  className="text-lg font-medium text-slate-900 dark:text-foreground"
                 >
                   {t(link.label)}
                 </a>

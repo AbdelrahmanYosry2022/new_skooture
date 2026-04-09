@@ -44,7 +44,7 @@ export default function Pricing() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-white/[0.05] text-[#00a86b] text-sm font-medium mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#191919] border border-border text-[#00a86b] text-sm font-medium mb-6"
           >
             <DynamicIcon name="Tag" className="w-4 h-4" />
             <span>{t({ en: 'Pricing', ar: 'الأسعار' })}</span>
@@ -77,12 +77,12 @@ export default function Pricing() {
             transition={{ delay: 0.2 }}
             className="flex items-center justify-center gap-4"
           >
-            <span className={`text-sm font-medium ${!isAnnual ? 'text-white' : 'text-zinc-500'}`}>
+            <span className={`text-sm font-medium ${!isAnnual ? 'text-foreground' : 'text-zinc-500'}`}>
               {t({ en: 'Monthly', ar: 'شهري' })}
             </span>
             <button
               onClick={() => setIsAnnual(!isAnnual)}
-               className={`relative inline-flex h-7 w-14 items-center rounded-full transition-colors focus:outline-none ${isAnnual ? 'bg-[#00a86b]' : 'bg-[#191919] border border-white/[0.1]'}`}
+               className={`relative inline-flex h-7 w-14 items-center rounded-full transition-colors focus:outline-none ${isAnnual ? 'bg-[#00a86b]' : 'bg-[#191919] border border-border'}`}
             >
               <span className="sr-only">Toggle billing period</span>
               <span
@@ -90,7 +90,7 @@ export default function Pricing() {
               />
             </button>
             <div className="flex items-center gap-2">
-              <span className={`text-sm font-medium ${isAnnual ? 'text-white' : 'text-zinc-500'}`}>
+              <span className={`text-sm font-medium ${isAnnual ? 'text-foreground' : 'text-zinc-500'}`}>
                 {t({ en: 'Annually', ar: 'سنوي' })}
               </span>
                <span className="px-2.5 py-0.5 rounded-full bg-[#00a86b]/10 text-[#00a86b] text-xs font-bold border border-[#00a86b]/20">
@@ -120,7 +120,7 @@ export default function Pricing() {
                 className={`group relative flex flex-col p-5 lg:p-6 rounded-[24px] backdrop-blur-md transition-all duration-500 border ${
                   (plan.highlighted || plan.popular)
                     ? 'bg-[#191919] border-[#00a86b]/60 shadow-[0_12px_40px_rgba(0,168,107,0.15)] transform md:-translate-y-3 z-20 scale-[1.02]' 
-                    : 'bg-[#111111]/80 border-white/[0.08] hover:border-white/[0.15] hover:bg-[#191919]'
+                    : 'bg-muted/80 border-white/[0.08] hover:border-white/[0.15] hover:bg-[#191919]'
                 }`}
               >
                 {/* Highlight Glow Effect */}
@@ -130,7 +130,7 @@ export default function Pricing() {
 
                 <div className="mb-6 relative z-10 pt-2 border-b border-white/5 pb-6">
                   <div className="flex items-center justify-between gap-3 mb-4">
-                    <h3 className="text-xl sm:text-2xl font-bold text-white leading-none">{t(plan.name)}</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold text-foreground leading-none">{t(plan.name)}</h3>
                     {plan.badge && (
                       <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-gradient-to-r from-[#00a86b]/10 to-transparent border border-[#00a86b]/20 shadow-[0_0_12px_rgba(0,168,107,0.15)] relative overflow-hidden group-hover:shadow-[0_0_20px_rgba(0,168,107,0.3)] transition-all duration-300 shrink-0">
                         <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#00a86b]/20 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
@@ -161,7 +161,7 @@ export default function Pricing() {
                   return (
                     <>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                        <span className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
                           {isAnnual ? annual : monthly}
                         </span>
                         <span className="text-xs sm:text-sm text-zinc-500 font-medium">
@@ -195,8 +195,8 @@ export default function Pricing() {
 
               <button className={`w-full py-3 sm:py-3.5 rounded-xl text-sm sm:text-base font-medium transition-all relative z-10 mt-auto ${
                 (plan.highlighted || plan.popular)
-                   ? 'bg-[#00a86b] hover:bg-[#008f5b] text-white shadow-[0_0_20px_rgba(0,168,107,0.3)]' 
-                   : 'bg-[#191919] hover:bg-[#252525] border border-white/[0.1] hover:border-white/[0.2] text-white'
+                   ? 'bg-[#00a86b] hover:bg-[#008f5b] text-foreground shadow-[0_0_20px_rgba(0,168,107,0.3)]' 
+                   : 'bg-[#191919] hover:bg-[#252525] border border-border hover:border-white/[0.2] text-foreground'
                }`}>
                 {t(plan.cta || { en: 'Get Started', ar: 'ابدأ الآن' })}
               </button>

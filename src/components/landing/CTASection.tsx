@@ -38,7 +38,7 @@ export default function CTASection() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#000000] py-16">
+    <section className="relative w-full overflow-hidden bg-background py-16">
 
       {/* Container card */}
       <div className="relative mx-auto max-w-[900px] px-6">
@@ -100,8 +100,8 @@ export default function CTASection() {
             >
               {pills.map(({ icon: Icon, label }, i) => (
                 <div key={i} className="flex items-center gap-1.5 px-3">
-                  <Icon className="h-[14px] w-[14px] text-white" strokeWidth={1.6} />
-                  <span className="text-[13px] font-medium text-white">{t(label)}</span>
+                  <Icon className="h-[14px] w-[14px] text-foreground" strokeWidth={1.6} />
+                  <span className="text-[13px] font-medium text-foreground">{t(label)}</span>
                   {i < pills.length - 1 && (
                     <span className="ml-3 h-3.5 w-px bg-white/15" />
                   )}
@@ -110,7 +110,7 @@ export default function CTASection() {
             </div>
 
             {/* Subtitle */}
-            <p className="max-w-[440px] text-[15px] leading-[1.65] text-[#aeaeae]">
+            <p className="max-w-[440px] text-[15px] leading-[1.65] text-muted-foreground">
               {t(cta.subtitle)}
             </p>
 
@@ -126,7 +126,7 @@ export default function CTASection() {
                   onChange={e => setEmail(e.target.value)}
                   placeholder={t({ en: 'Email Address', ar: 'البريد الإلكتروني' })}
                   disabled={status === 'loading' || status === 'success'}
-                  className="w-full h-[44px] rounded-[8px] border px-3.5 text-[14px] text-white outline-none transition-colors duration-200 focus:border-white/40 disabled:opacity-50"
+                  className="w-full h-[44px] rounded-[8px] border px-3.5 text-[14px] text-foreground outline-none transition-colors duration-200 focus:border-white/40 disabled:opacity-50"
                   style={{
                     backgroundColor: 'rgba(38,38,38,0.2)',
                     borderColor: status === 'error' ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.2)',
@@ -137,7 +137,7 @@ export default function CTASection() {
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="group inline-flex h-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-5 text-[14px] font-medium text-white transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group inline-flex h-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-5 text-[14px] font-medium text-foreground transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ backgroundColor: 'rgb(0,168,107)' }}
               >
                 {status === 'loading' ? (

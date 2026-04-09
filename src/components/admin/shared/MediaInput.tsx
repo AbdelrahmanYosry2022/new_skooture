@@ -34,20 +34,20 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
     reader.readAsDataURL(file);
   };
 
-  const inputClasses = "w-full h-[40px] px-3 rounded-[10px] bg-[#000000] border border-white/[0.08] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-sm text-white placeholder:text-[#aeaeae]/50";
+  const inputClasses = "w-full h-[40px] px-3 rounded-[10px] bg-background border border-white/[0.08] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-sm text-foreground placeholder:text-muted-foreground/50";
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between px-1">
-        <label className="text-xs font-medium text-[#aeaeae]">
+        <label className="text-xs font-medium text-muted-foreground">
           {label}
         </label>
         
-        <div className="flex items-center bg-[#000000] rounded-[8px] p-1 border border-white/[0.05]">
+        <div className="flex items-center bg-background rounded-[8px] p-1 border border-border">
           <button
             onClick={() => setMode('url')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
-              mode === 'url' ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' : 'text-[#aeaeae] hover:text-white'
+              mode === 'url' ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             URL
@@ -55,7 +55,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
           <button
             onClick={() => setMode('upload')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
-              mode === 'upload' ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' : 'text-[#aeaeae] hover:text-white'
+              mode === 'upload' ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             Upload
@@ -74,7 +74,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
               transition={{ duration: 0.2 }}
               className="relative group"
             >
-              <Link className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-[#aeaeae] group-focus-within:text-[#00a86b] transition-colors ${isRTL ? 'right-3' : 'left-3'}`} />
+              <Link className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-[#00a86b] transition-colors ${isRTL ? 'right-3' : 'left-3'}`} />
               <input
                 type="text"
                 value={value?.startsWith('data:') ? '' : value}
@@ -97,7 +97,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
                 className={`w-full group px-6 py-6 rounded-[12px] border flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-300 ${
                   value?.startsWith('data:') 
                     ? 'border-emerald-500/30 bg-emerald-500/5' 
-                    : 'border-dashed border-white/[0.1] hover:border-[#00a86b]/50 hover:bg-[#00a86b]/5'
+                    : 'border-dashed border-border hover:border-[#00a86b]/50 hover:bg-[#00a86b]/5'
                 }`}
               >
                 <input
@@ -114,7 +114,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
                       <Check size={18} />
                     </div>
                     <div className="text-center">
-                      <p className="text-sm font-medium text-white">Media file ready</p>
+                      <p className="text-sm font-medium text-foreground">Media file ready</p>
                       <button 
                         onClick={(e) => { e.stopPropagation(); onChange(''); }}
                         className="text-xs font-medium text-red-400 hover:text-red-300 mt-1 transition-colors"
@@ -125,12 +125,12 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
                   </div>
                 ) : (
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-[10px] bg-[#191919] border border-white/[0.05] text-[#aeaeae] flex items-center justify-center group-hover:text-[#00a86b] transition-colors">
+                    <div className="w-10 h-10 rounded-[10px] bg-[#191919] border border-border text-muted-foreground flex items-center justify-center group-hover:text-[#00a86b] transition-colors">
                       {type === 'image' ? <ImageIcon size={20} /> : <Film size={20} />}
                     </div>
                     <div className="text-left">
-                      <p className="text-sm font-medium text-white">Click to upload {type}</p>
-                      <p className="text-xs text-[#aeaeae]">Maximum file size: 5MB</p>
+                      <p className="text-sm font-medium text-foreground">Click to upload {type}</p>
+                      <p className="text-xs text-muted-foreground">Maximum file size: 5MB</p>
                     </div>
                   </div>
                 )}
@@ -145,7 +145,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
           <motion.div 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="relative w-full aspect-[21/9] rounded-[12px] overflow-hidden border border-white/[0.05] group bg-[#000000]"
+            className="relative w-full aspect-[21/9] rounded-[12px] overflow-hidden border border-border group bg-background"
           >
             {type === 'image' ? (
               <img src={value} alt="Preview" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
@@ -155,7 +155,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
               <button
                 onClick={() => onChange('')}
-                className="px-4 py-2 rounded-[8px] bg-red-500/20 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white transition-all text-sm font-medium flex items-center gap-2"
+                className="px-4 py-2 rounded-[8px] bg-red-500/20 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-foreground transition-all text-sm font-medium flex items-center gap-2"
               >
                 <X size={16} /> Remove
               </button>

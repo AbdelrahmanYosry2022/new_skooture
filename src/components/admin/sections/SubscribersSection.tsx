@@ -41,19 +41,19 @@ export default function SubscribersSection({ isRTL }: SubscribersSectionProps) {
       <div className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
         
         {/* Search & Filter Bar */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-[#191919] p-4 rounded-2xl border border-white/[0.05] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-[#191919] p-4 rounded-2xl border border-border shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
           <div className="relative w-full sm:w-96">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#aeaeae]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input 
               type="text" 
               placeholder={isRTL ? "ابحث بالإيميل..." : "Search by email..."}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[#111111] border border-white/[0.05] rounded-xl pl-10 pr-4 py-2 text-sm text-white placeholder-[#666666] focus:outline-none focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/20 transition-all"
+              className="w-full bg-muted border border-border rounded-xl pl-10 pr-4 py-2 text-sm text-foreground placeholder-[#666666] focus:outline-none focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/20 transition-all"
             />
           </div>
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <div className="px-4 py-2 bg-[#111111] border border-white/[0.05] rounded-xl text-sm font-medium text-white flex items-center gap-2">
+            <div className="px-4 py-2 bg-muted border border-border rounded-xl text-sm font-medium text-foreground flex items-center gap-2">
               <Users className="w-4 h-4 text-[#00a86b]" />
               {subscribers.length} {isRTL ? 'مشترك إجمالي' : 'Total Subscribers'}
             </div>
@@ -61,13 +61,13 @@ export default function SubscribersSection({ isRTL }: SubscribersSectionProps) {
         </div>
 
         {isLoading ? (
-          <div className="text-center py-20 bg-[#111111] rounded-[24px] border border-white/[0.05]">
-            <p className="text-[#aeaeae] text-sm">{isRTL ? 'جاري التحميل...' : 'Loading...'}</p>
+          <div className="text-center py-20 bg-muted rounded-[24px] border border-border">
+            <p className="text-muted-foreground text-sm">{isRTL ? 'جاري التحميل...' : 'Loading...'}</p>
           </div>
         ) : subscribers.length === 0 ? (
-          <div className="text-center py-20 bg-[#111111] rounded-[24px] border border-dashed border-white/[0.1]">
+          <div className="text-center py-20 bg-muted rounded-[24px] border border-dashed border-border">
             <Mail className="w-12 h-12 mx-auto text-[#666666] mb-4 opacity-50" />
-            <p className="text-[#aeaeae] font-bold uppercase tracking-widest text-xs">
+            <p className="text-muted-foreground font-bold uppercase tracking-widest text-xs">
               {isRTL ? 'لا يوجد مشتركون بعد' : 'No subscribers yet'}
             </p>
           </div>
@@ -81,20 +81,20 @@ export default function SubscribersSection({ isRTL }: SubscribersSectionProps) {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: idx * 0.05 }}
                   key={sub.id} 
-                  className="group bg-[#111111] border border-white/[0.05] rounded-2xl p-5 hover:border-[#00a86b]/30 transition-all duration-300 shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] flex flex-col gap-4"
+                  className="group bg-muted border border-border rounded-2xl p-5 hover:border-[#00a86b]/30 transition-all duration-300 shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] flex flex-col gap-4"
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00a86b]/20 to-[#b3f0d4]/10 border border-[#00a86b]/20 flex items-center justify-center text-[#00a86b] shrink-0 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <a href={`mailto:${sub.email}`} className="text-white text-sm font-medium hover:text-[#00a86b] transition-colors truncate block">
+                      <a href={`mailto:${sub.email}`} className="text-foreground text-sm font-medium hover:text-[#00a86b] transition-colors truncate block">
                         {sub.email}
                       </a>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-2 text-xs text-[#666666] pt-4 border-t border-white/[0.05]">
+                  <div className="flex items-center gap-2 text-xs text-[#666666] pt-4 border-t border-border">
                     <Calendar className="w-3 h-3" />
                     {new Date(sub.createdAt).toLocaleDateString(isRTL ? 'ar-EG' : 'en-US', { 
                       year: 'numeric', 
@@ -109,9 +109,9 @@ export default function SubscribersSection({ isRTL }: SubscribersSectionProps) {
             </AnimatePresence>
             
             {filteredSubscribers.length === 0 && searchTerm && (
-              <div className="col-span-full text-center py-12 bg-[#111111] rounded-[24px] border border-white/[0.05]">
+              <div className="col-span-full text-center py-12 bg-muted rounded-[24px] border border-border">
                 <Search className="w-8 h-8 mx-auto text-[#666666] mb-3 opacity-50" />
-                <p className="text-[#aeaeae] text-sm">
+                <p className="text-muted-foreground text-sm">
                   {isRTL ? 'لم يتم العثور على نتائج لـ' : 'No results found for'} "{searchTerm}"
                 </p>
               </div>

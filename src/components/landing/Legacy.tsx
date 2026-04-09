@@ -21,7 +21,7 @@ export default function Legacy() {
   };
 
   return (
-    <section id="legacy" className="py-24 md:py-32 bg-[#000000] relative overflow-hidden">
+    <section id="legacy" className="py-24 md:py-32 bg-background relative overflow-hidden">
       {/* Background glow behind the timeline */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px]" />
 
@@ -81,7 +81,7 @@ export default function Legacy() {
                   <div className="w-full md:w-[45%] hidden md:block" />
                   
                   {/* Timeline Dot */}
-                  <div className="absolute left-6 md:left-1/2 transform -translate-x-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-[#000000] border border-white/[0.1] shadow-[0_0_15px_rgba(0,168,107,0.15)]">
+                  <div className="absolute left-6 md:left-1/2 transform -translate-x-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-background border border-border shadow-[0_0_15px_rgba(0,168,107,0.15)]">
                     <div className="w-3 h-3 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[0_0_10px_rgba(0,168,107,0.5)]" />
                   </div>
                   
@@ -91,17 +91,17 @@ export default function Legacy() {
                       : (isRTL ? 'md:pr-10 text-right' : 'md:pl-10 md:text-left')
                   }`}>
                     <div 
-                      className="p-8 rounded-[24px] bg-[#191919]/60 border border-white/[0.05] hover:border-white/[0.1] transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:bg-[#191919]/80 group" 
+                      className="p-8 rounded-[24px] bg-[#191919]/60 border border-border hover:border-border transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:bg-[#191919]/80 group" 
                       dir={isRTL ? 'rtl' : 'ltr'}
                       style={{ textAlign: isRTL ? 'right' : 'left' }}
                     >
                       <span className="inline-block mb-4 text-[14px] font-medium tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
                         {item.year}
                       </span>
-                      <h3 className="text-[20px] md:text-[24px] font-medium text-white mb-3">
+                      <h3 className="text-[20px] md:text-[24px] font-medium text-foreground mb-3">
                         {t(item.title)}
                       </h3>
-                      <p className="text-[15px] text-[#aeaeae] leading-[1.6]">
+                      <p className="text-[15px] text-muted-foreground leading-[1.6]">
                         {t(item.description)}
                       </p>
                     </div>
