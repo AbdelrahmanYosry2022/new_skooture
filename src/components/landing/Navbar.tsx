@@ -22,9 +22,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: '#features', label: { en: 'Features', ar: 'المميزات' } },
-    { href: '#pricing', label: { en: 'Pricing', ar: 'الأسعار' } },
+    { href: '#home', label: { en: 'Home', ar: 'الرئيسية' } },
     { href: '#company', label: { en: 'Company', ar: 'الشركة' } },
+    { href: '#features', label: { en: 'Features', ar: 'المميزات' } },
+    { href: '#testimonials', label: { en: 'Testimonials', ar: 'آراء العملاء' } },
+    { href: '#pricing', label: { en: 'Pricing', ar: 'الأسعار' } },
+    { href: '#faq', label: { en: 'FAQ', ar: 'الأسئلة الشائعة' } },
     { href: '#contact', label: { en: 'Contact', ar: 'اتصل بنا' } },
   ];
 
@@ -33,6 +36,40 @@ export default function Navbar() {
   };
 
   const isRTL = language === 'ar';
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (!target) {
+      if (href === '#home') window.scrollTo({ top: 0, behavior: 'smooth' }); // Fallback
+      return;
+    }
+
+    const navHeight = 90; // Offset for navbar
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    
+    let startTime: number | null = null;
+    const duration = 1000; // Calm 1-second animation
+
+    const ease = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+
+    const animation = (currentTime: number) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      
+      window.scrollTo(0, startPosition + distance * ease(progress));
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    };
+
+    requestAnimationFrame(animation);
+    setIsOpen(false);
+  };
 
   return (
     <nav 
@@ -64,11 +101,12 @@ export default function Navbar() {
 
           {/* Desktop Navigation (Centered) */}
           <div className="hidden lg:flex items-center justify-center flex-1">
-            <div className="flex items-center gap-10">
+            <div className="flex items-center gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="text-[15px] font-medium transition-colors hover:text-white text-white/90"
                 >
                   {t(link.label)}
@@ -91,7 +129,7 @@ export default function Navbar() {
               {t({ en: 'Login', ar: 'تسجيل الدخول' })}
             </Link>
             
-             <a href="#contact">
+             <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>
                <Button className="px-5 py-[10px] rounded-[8px] bg-[#00a86b] text-white font-semibold text-[15px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(0,168,107,0.4)] hover:bg-[#008f5b] border-0 h-auto">
                  {t({ en: 'Get Template', ar: 'احصل على القالب' })}
                </Button>
@@ -124,7 +162,7 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="text-lg font-medium text-slate-900 dark:text-white"
                 >
                   {t(link.label)}
@@ -159,7 +197,7 @@ export default function Navbar() {
                     {t({ en: 'Admin Dashboard', ar: 'لوحة التحكم' })}
                   </Button>
                 </Link>
-                <a href="#contact" onClick={() => setIsOpen(false)}>
+                <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>
                   <Button className="w-full font-medium">
                     {t(content?.cta?.button || { en: 'Get Started', ar: 'ابدأ الآن' })}
                   </Button>

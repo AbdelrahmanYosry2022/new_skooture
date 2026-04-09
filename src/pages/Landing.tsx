@@ -19,18 +19,32 @@ export default function Landing() {
     <div className="min-h-screen bg-[#000000] text-zinc-50 font-sans selection:bg-[#00a86b]/30 transition-colors duration-300">
       <Navbar />
       <main>
-        <Hero />
+        <div id="home">
+          <Hero />
+        </div>
         <Traction />
-        <Legacy />
-        <WhySection />
-        <BentoFeatures />
-        <GlobalPresence />
-        <AICore />
-        <TopFeatures />
-        <Testimonials />
-        <Pricing />
-        <FAQ />
-        <Contact />
+        <div id="company">
+          <Legacy />
+          <WhySection />
+        </div>
+        <div id="features">
+          <BentoFeatures />
+          <GlobalPresence />
+          <AICore />
+          <TopFeatures />
+        </div>
+        <div id="testimonials">
+          <Testimonials />
+        </div>
+        <div id="pricing">
+          <Pricing />
+        </div>
+        <div id="faq">
+          <FAQ />
+        </div>
+        <div id="contact">
+          <Contact />
+        </div>
         <CTASection />
       </main>
       <Footer />
