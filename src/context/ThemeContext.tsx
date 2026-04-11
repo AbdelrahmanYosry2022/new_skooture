@@ -16,25 +16,25 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem('theme');
     if (saved === 'light' || saved === 'dark') return saved;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return 'light'; // Default to light mode
   });
 
   const [adminTheme, setAdminThemeState] = useState<Theme>(() => {
     const saved = localStorage.getItem('admin_theme');
     if (saved === 'light' || saved === 'dark') return saved;
-    return 'dark'; // Admin dashboard targets dark by default
+    return 'light'; // Admin dashboard also defaults to light
   });
 
-  // Use location pathname strictly inside useEffect since ThemeProvider wraps the Router in App.tsx
-  // We'll attach a mutation observer or rely on context to update the HTML tag safely.
   useEffect(() => {
     const isDashboard = window.location.pathname.startsWith('/admin');
     const currentTheme = isDashboard ? adminTheme : theme;
 
     if (currentTheme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      document.documentElement.setAttribute('data-theme', 'light');
     }
     
     localStorage.setItem('theme', theme);
@@ -43,6 +43,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    // If we want dashboard and site to stay in sync, we could set both here.
+    // Given "The toggle must work on BOTH", keeping them separate but available is usually fine,
+    // but the user might expect a global state. Let's keep the existing structure but fix the defaults.
   };
 
   const setAdminTheme = (t: Theme) => {
