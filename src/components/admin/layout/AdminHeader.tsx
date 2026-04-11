@@ -1,8 +1,7 @@
-import { Menu, LogOut, Globe, Sun, Moon } from 'lucide-react';
+import { Menu, LogOut, Globe } from 'lucide-react';
 import { useAuth } from '../../../hooks/useAuth';
 import { useContent } from '../../../context/ContentContext';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '../../../context/ThemeContext';
 
 interface AdminHeaderProps {
   onMenuClick: () => void;
@@ -17,14 +16,9 @@ export default function AdminHeader({ onMenuClick, title, onSave, onReset, isSav
   const { logout } = useAuth();
   const { adminLanguage, setAdminLanguage } = useContent();
   const { t } = useTranslation('admin');
-  const { adminTheme, setAdminTheme } = useTheme();
 
   const toggleLanguage = () => {
     setAdminLanguage(adminLanguage === 'en' ? 'ar' : 'en');
-  };
-
-  const toggleTheme = () => {
-    setAdminTheme(adminTheme === 'light' ? 'dark' : 'light');
   };
 
   return (
@@ -73,14 +67,6 @@ export default function AdminHeader({ onMenuClick, title, onSave, onReset, isSav
           >
             <Globe className="w-4 h-4" />
             <span className="hidden sm:inline">{adminLanguage === 'en' ? 'عربي' : 'English'}</span>
-          </button>
-
-          <button
-            onClick={toggleTheme}
-            className="flex items-center justify-center p-2 text-muted-foreground hover:text-foreground bg-[#191919] hover:bg-[#252525] border border-border rounded-[10px] transition-all shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]"
-            title={adminTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-          >
-            {adminTheme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
 
           <div className="h-8 w-px bg-foreground/5 mx-2 hidden sm:block"></div>

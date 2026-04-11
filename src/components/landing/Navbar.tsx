@@ -119,16 +119,6 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center justify-end gap-6 shrink-0">
             <Button
               variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="text-foreground hover:bg-white/10"
-              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            >
-              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
-
-            <Button
-              variant="ghost"
               onClick={handleLanguageToggle}
               className="text-foreground hover:text-foreground hover:bg-white/5 font-medium px-2"
             >
