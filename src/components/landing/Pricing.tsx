@@ -34,9 +34,6 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="py-24 relative overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00a86b]/[0.03] rounded-full blur-[120px] pointer-events-none" />
-
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div

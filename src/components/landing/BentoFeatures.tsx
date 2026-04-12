@@ -11,9 +11,6 @@ export default function BentoFeatures() {
 
   return (
     <section id="features-bento" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px]" />
-
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="flex flex-col items-center text-center mb-16 md:mb-24">
           <motion.div
@@ -47,16 +44,15 @@ export default function BentoFeatures() {
             const colSpanClass = index === 0 || index === 3 ? 'lg:col-span-2' : 'lg:col-span-1';
             
             return (
-              <motion.div
-                key={index}
+              <motion.div 
+                key={feature.id} 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className={`theme-panel group relative p-8 rounded-[24px] overflow-hidden flex flex-col justify-between ${colSpanClass}`}
               >
-                {/* Subtle hover gradient inside card */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,168,107,0.08)_0%,transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="theme-accent-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 
                 <div className="relative z-10 h-full flex flex-col">
                   <div className="theme-icon-shell w-14 h-14 rounded-[16px] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">

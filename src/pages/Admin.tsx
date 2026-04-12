@@ -145,15 +145,13 @@ export default function Admin() {
           onMenuClick={() => setIsSidebarOpen(true)}
           onSave={handleSave}
           onReset={resetToDefault}
+          onLogout={handleLogout}
           isSaved={isSaved}
           showActions={activeSection !== 'overview' && activeSection !== 'messages' && activeSection !== 'subscribers'}
         />
         
         {/* Dynamic App-like Layout - Removed the double container wrapper */}
         <div className="flex-1 w-full h-full bg-background overflow-hidden flex flex-col relative">
-          
-          {/* Subtle background glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(ellipse_at_top_right,rgba(0,168,107,0.05)_0%,transparent_70%)] pointer-events-none" />
 
           {/* Form Content Scrollable Area */}
           <div className="flex-1 overflow-y-auto custom-scrollbar relative z-10">

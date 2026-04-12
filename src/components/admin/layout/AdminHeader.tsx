@@ -1,5 +1,4 @@
 import { Menu, LogOut, Globe } from 'lucide-react';
-import { useAuth } from '../../../hooks/useAuth';
 import { useContent } from '../../../context/ContentContext';
 import { useTranslation } from 'react-i18next';
 
@@ -8,12 +7,12 @@ interface AdminHeaderProps {
   title?: string;
   onSave?: () => void;
   onReset?: () => void;
+  onLogout?: () => void;
   isSaved?: boolean;
   showActions?: boolean;
 }
 
-export default function AdminHeader({ onMenuClick, title, onSave, onReset, isSaved, showActions }: AdminHeaderProps) {
-  const { logout } = useAuth();
+export default function AdminHeader({ onMenuClick, title, onSave, onReset, onLogout, isSaved, showActions }: AdminHeaderProps) {
   const { adminLanguage, setAdminLanguage } = useContent();
   const { t } = useTranslation('admin');
 
@@ -72,8 +71,8 @@ export default function AdminHeader({ onMenuClick, title, onSave, onReset, isSav
           <div className="h-8 w-px bg-foreground/5 mx-2 hidden sm:block"></div>
 
           <button
-            onClick={logout}
-            className="p-2 text-[#00a86b] hover:text-foreground bg-[#00a86b]/10 hover:bg-[#00a86b] border border-[#00a86b]/20 hover:border-[#00a86b] rounded-[10px] transition-all"
+            onClick={onLogout}
+            className="theme-accent-soft p-2 hover:text-[color:var(--accent-foreground)] hover:bg-[color:var(--accent)] hover:border-[color:var(--accent)] rounded-[10px] transition-all"
             title={t('header.logout')}
           >
             <LogOut className="w-5 h-5" />

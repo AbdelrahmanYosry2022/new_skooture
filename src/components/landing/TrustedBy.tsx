@@ -43,8 +43,8 @@ export default function TrustedBy() {
         </div>
 
         {/* Gradient fades for smooth edges */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white dark:from-zinc-950 to-transparent pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white dark:from-zinc-950 to-transparent pointer-events-none"></div>
+        <div className="theme-edge-fade-left absolute inset-y-0 left-0 w-32 pointer-events-none"></div>
+        <div className="theme-edge-fade-right absolute inset-y-0 right-0 w-32 pointer-events-none"></div>
       </div>
     </section>
   );

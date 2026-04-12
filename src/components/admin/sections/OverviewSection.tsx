@@ -16,14 +16,14 @@ export default function OverviewSection() {
       value: contentData.partners?.logos?.length || 0,
       icon: Globe,
       color: 'text-[#00a86b]',
-      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)]'
+      bgColor: 'bg-foreground/5'
     },
     {
       label: t('overview.activeSections'),
       value: '12',
       icon: LayoutTemplate,
       color: 'text-[#00a86b]',
-      bgColor: 'bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)]'
+      bgColor: 'bg-foreground/5'
     }
   ];
 

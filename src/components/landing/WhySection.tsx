@@ -19,10 +19,6 @@ export default function WhySection() {
 
   return (
     <section className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Decorative Glow */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] -translate-y-1/2 translate-x-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full opacity-15 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px] translate-y-1/4 -translate-x-1/4" />
-
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           

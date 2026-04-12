@@ -11,10 +11,6 @@ export default function Testimonials() {
 
   return (
     <section id="testimonials" className="py-24 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#00a86b]/[0.03] rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#00a86b]/[0.02] rounded-full blur-[100px] pointer-events-none" />
-
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
@@ -22,7 +18,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="theme-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[#00a86b] text-sm font-medium mb-6"
+            className="theme-badge theme-accent-text inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium mb-6"
           >
             <DynamicIcon name="MessageSquareQuote" className="w-4 h-4" />
             <span>{t({ en: 'Testimonials', ar: 'آراء العملاء' })}</span>
@@ -49,9 +45,9 @@ export default function Testimonials() {
               className="theme-panel group relative p-8 rounded-2xl hover:border-[#00a86b]/30 transition-all duration-500 flex flex-col h-full overflow-hidden"
             >
               {/* Subtle Glow on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#00a86b]/0 to-[#00a86b]/0 group-hover:from-[#00a86b]/[0.02] group-hover:to-transparent transition-colors duration-500 pointer-events-none" />
+              <div className="theme-accent-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               
-              <Quote className="w-10 h-10 text-foreground/5 group-hover:text-[#00a86b]/20 transition-colors duration-500 mb-6" />
+              <Quote className="w-10 h-10 text-foreground/5 group-hover:text-[color:var(--accent-border)] transition-colors duration-500 mb-6" />
               
               <p className="text-[color:var(--text-soft)] text-lg leading-relaxed mb-8 flex-grow">
                 "{t(testimonial.quote)}"
@@ -65,7 +61,7 @@ export default function Testimonials() {
                     className="w-12 h-12 rounded-full object-cover border border-border shadow-lg"
                   />
                 ) : (
-                  <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-[#00a86b] font-bold text-lg shadow-lg">
+                  <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center theme-accent-text font-bold text-lg shadow-lg">
                     {t(testimonial.author).charAt(0).toUpperCase()}
                   </div>
                 )}

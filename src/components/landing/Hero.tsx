@@ -24,9 +24,6 @@ export default function Hero() {
 
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background min-h-screen flex items-center">
-      {/* Exact Background Decorative Glow matching Reference */}
-      <div className={`absolute top-1/2 ${isRTL ? 'right-[45%]' : 'left-[45%]'} -translate-y-1/2 w-[1000px] h-[800px] rounded-full opacity-70 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.25)_0%,rgba(0,168,107,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]`} />
-      
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10 w-full">
         <motion.div 
           variants={containerVariants}

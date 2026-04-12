@@ -22,9 +22,6 @@ export default function Legacy() {
 
   return (
     <section id="legacy" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Background glow behind the timeline */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[800px] rounded-full opacity-20 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] pointer-events-none blur-[80px]" />
-
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="text-center mb-24">
           <motion.div

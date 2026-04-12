@@ -20,12 +20,6 @@ export default function AICore() {
 
   return (
     <section id="features" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Decorative Glow */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] rounded-full blur-[80px]" />
-        <div className="absolute bottom-1/4 -left-1/4 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,transparent_70%)] rounded-full blur-[80px]" />
-      </div>
-
       <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="flex flex-col items-center mb-16 md:mb-24 text-center">
           <motion.div
@@ -63,8 +57,7 @@ export default function AICore() {
               variants={itemVariants}
               className="group relative h-full"
             >
-              {/* Internal subtle glow on hover */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,168,107,0.1)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[24px] pointer-events-none" />
+              <div className="theme-accent-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[24px] pointer-events-none" />
               
               <div className="theme-panel relative h-full p-8 md:p-10 rounded-[24px] flex flex-col items-start overflow-hidden">
                 <div className="theme-icon-shell w-14 h-14 rounded-[16px] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 relative z-10">

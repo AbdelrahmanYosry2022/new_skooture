@@ -39,9 +39,6 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[800px] h-[800px] bg-[#00a86b]/[0.03] rounded-full blur-[120px] pointer-events-none" />
-
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
           
@@ -57,16 +54,16 @@ export default function Contact() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="theme-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[#00a86b] text-sm font-medium mb-6"
+                className="theme-badge theme-accent-text inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium mb-6"
               >
                 <DynamicIcon name="MessageSquareHeart" className="w-4 h-4" />
                 <span>{t({ en: 'Contact Us', ar: 'اتصل بنا' })}</span>
               </motion.div>
               <h2 className="theme-headline text-4xl md:text-5xl font-bold leading-tight mb-6">
                 {language === 'en' ? (
-                  <>Let's Build the <span className="text-[#00a86b]">Future</span> Together</>
+                  <>Let's Build the <span className="theme-accent-text">Future</span> Together</>
                 ) : (
-                  <>لنبنِ <span className="text-[#00a86b]">المستقبل</span> معاً</>
+                  <>لنبنِ <span className="theme-accent-text">المستقبل</span> معاً</>
                 )}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
@@ -84,12 +81,12 @@ export default function Contact() {
                 { icon: MapPin, label: { en: 'Location', ar: 'الموقع' }, value: t({ en: 'London, UK / Dubai, UAE', ar: 'لندن، المملكة المتحدة / دبي، الإمارات' }) }
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-6 group">
-                  <div className="theme-icon-shell w-14 h-14 rounded-2xl flex items-center justify-center text-[color:var(--text-soft)] group-hover:bg-[#00a86b]/10 group-hover:text-[#00a86b] group-hover:border-[#00a86b]/30 transition-all duration-300">
+                  <div className="theme-icon-shell w-14 h-14 rounded-2xl flex items-center justify-center text-[color:var(--text-soft)] group-hover:bg-[color:var(--accent-soft)] group-hover:text-[color:var(--accent)] group-hover:border-[color:var(--accent-border)] transition-all duration-300">
                     <item.icon className="w-6 h-6" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-[color:var(--text-dim)] mb-1">{t(item.label)}</p>
-                    <p className="text-lg font-semibold text-foreground group-hover:text-[#00a86b] transition-colors duration-300">{item.value}</p>
+                    <p className="text-lg font-semibold text-foreground group-hover:text-[color:var(--accent)] transition-colors duration-300">{item.value}</p>
                   </div>
                 </div>
               ))}
@@ -104,7 +101,7 @@ export default function Contact() {
           >
             <div className="theme-panel p-8 md:p-10 rounded-2xl relative overflow-hidden group">
               {/* Subtle Top Border Gradient */}
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent group-hover:via-[#00a86b]/50 transition-colors duration-500" />
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent group-hover:via-[color:var(--accent-border)] transition-colors duration-500" />
               
               {isSuccess ? (
                 <motion.div 
@@ -112,8 +109,8 @@ export default function Contact() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center text-center py-12 relative z-10"
                 >
-                  <div className="theme-panel-strong w-16 h-16 rounded-full border border-[#00a86b]/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(0,168,107,0.2)]">
-                    <CheckCircle2 className="w-8 h-8 text-[#00a86b]" />
+                  <div className="theme-panel-strong theme-accent-ring w-16 h-16 rounded-full border flex items-center justify-center mb-6">
+                    <CheckCircle2 className="theme-accent-text w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-bold text-foreground mb-3">
                     {t({ en: 'Message Sent!', ar: 'تم إرسال الرسالة!' })}
@@ -177,7 +174,7 @@ export default function Contact() {
                   
                   <button
                     disabled={isSubmitting}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#00a86b] to-[#1bc98e] hover:from-[#008f5b] hover:to-[#12b67e] text-white font-medium shadow-[0_0_20px_rgba(0,168,107,0.3)] transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                    className="theme-button-primary w-full py-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
                   >
                     {isSubmitting ? (
                       <div className="w-5 h-5 border-2 border-current/30 border-t-current rounded-full animate-spin" />

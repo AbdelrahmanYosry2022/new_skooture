@@ -11,9 +11,6 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="py-24 relative overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#00a86b]/[0.02] rounded-full blur-[100px] pointer-events-none" />
-
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
@@ -21,7 +18,7 @@ export default function FAQ() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="theme-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[#00a86b] text-sm font-medium mb-6"
+            className="theme-badge theme-accent-text inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium mb-6"
           >
             <DynamicIcon name="MessageCircleQuestion" className="w-4 h-4" />
             <span>{t({ en: 'FAQ', ar: 'الأسئلة الشائعة' })}</span>
@@ -50,7 +47,7 @@ export default function FAQ() {
                 transition={{ delay: index * 0.1 }}
                 className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                   isOpen 
-                    ? 'theme-panel-strong border-[#00a86b]/30 shadow-[0_0_20px_rgba(0,168,107,0.1)]' 
+                    ? 'theme-panel-strong theme-accent-ring' 
                     : 'theme-panel border-border hover:border-border'
                 }`}
               >
@@ -58,10 +55,10 @@ export default function FAQ() {
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none group"
                 >
-                  <span className={`font-semibold text-lg pr-8 transition-colors duration-300 ${isOpen ? 'text-[#00a86b]' : 'text-[color:var(--text-soft)] group-hover:text-foreground'}`}>
+                  <span className={`font-semibold text-lg pr-8 transition-colors duration-300 ${isOpen ? 'theme-accent-text' : 'text-[color:var(--text-soft)] group-hover:text-foreground'}`}>
                     {t(faq.question)}
                   </span>
-                  <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${isOpen ? 'bg-[#00a86b]/20 text-[#00a86b]' : 'bg-foreground/5 text-[color:var(--text-dim)] group-hover:bg-foreground/10 group-hover:text-foreground'}`}>
+                  <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${isOpen ? 'theme-accent-soft' : 'bg-foreground/5 text-[color:var(--text-dim)] group-hover:bg-foreground/10 group-hover:text-foreground'}`}>
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
                 </button>

@@ -66,9 +66,6 @@ export default function Traction() {
 
   return (
     <section id="stats" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Decorative Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-30 bg-[radial-gradient(ellipse_at_center,rgba(0,168,107,0.15)_0%,rgba(0,168,107,0.05)_40%,transparent_70%)] pointer-events-none blur-[60px]" />
-      
       <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="flex flex-col items-center mb-16 text-center">
           <motion.div
