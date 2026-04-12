@@ -20,9 +20,9 @@ export default function BentoFeatures() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"
+            className="theme-badge mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px]"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[0_0_12px_rgba(0,168,107,0.35)] shrink-0"></span>
             <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
               {t({ en: 'Features', ar: 'الميزات' })}
             </span>
@@ -32,7 +32,7 @@ export default function BentoFeatures() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-[32px] md:text-[48px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1] max-w-2xl"
+            className="theme-headline text-[32px] md:text-[48px] font-medium tracking-tight leading-[1.1] max-w-2xl"
           >
             {t(featuresData?.title || { en: 'Everything you need to succeed', ar: 'كل ما تحتاجه للنجاح' })}
           </motion.h2>
@@ -53,13 +53,13 @@ export default function BentoFeatures() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`group relative p-8 rounded-[24px] bg-[#191919]/60 border border-border hover:border-border transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:bg-[#191919]/80 overflow-hidden flex flex-col justify-between ${colSpanClass}`}
+                className={`theme-panel group relative p-8 rounded-[24px] overflow-hidden flex flex-col justify-between ${colSpanClass}`}
               >
                 {/* Subtle hover gradient inside card */}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,168,107,0.08)_0%,transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 
                 <div className="relative z-10 h-full flex flex-col">
-                  <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-8 border border-border shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#00a86b] group-hover:scale-110 transition-transform duration-500">
+                  <div className="theme-icon-shell w-14 h-14 rounded-[16px] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
                     <DynamicIcon name={feature.icon || 'Star'} className="w-6 h-6" />
                   </div>
                   <div className="mt-auto">

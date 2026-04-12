@@ -47,19 +47,13 @@ export default function CTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-[24px]"
-          style={{
-            background: 'black',
-          }}
+          className="theme-panel-strong relative overflow-hidden rounded-[24px]"
         >
           {/* Content column */}
           <div className="flex flex-col items-center gap-6 px-8 pb-16 pt-14 text-center md:px-20">
 
             {/* Badge */}
-            <div
-              className="inline-flex items-center gap-2.5 rounded-[21px] px-3.5 py-1.5"
-              style={{ backgroundColor: 'rgb(25,25,25)' }}
-            >
+            <div className="theme-badge inline-flex items-center gap-2.5 rounded-[21px] px-3.5 py-1.5">
               <span
                 className="h-2 w-2 shrink-0 rounded-full"
                 style={{
@@ -82,28 +76,19 @@ export default function CTASection() {
 
             {/* Heading — same size as reference: ~56px on desktop, fluid */}
             <h2
-              className="w-full text-[36px] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[44px] md:text-[52px]"
-              style={{
-                backgroundImage: 'linear-gradient(90deg, rgb(255,255,255) 0%, rgb(153,153,153) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
+              className="theme-headline w-full text-[36px] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[44px] md:text-[52px]"
             >
               {t(cta.title)}
             </h2>
 
             {/* Feature pills — single container bg #262626 */}
-            <div
-              className="inline-flex items-center rounded-full px-4 py-2.5"
-              style={{ backgroundColor: 'rgb(38,38,38)' }}
-            >
+            <div className="theme-soft-surface inline-flex items-center rounded-full px-4 py-2.5">
               {pills.map(({ icon: Icon, label }, i) => (
                 <div key={i} className="flex items-center gap-1.5 px-3">
                   <Icon className="h-[14px] w-[14px] text-foreground" strokeWidth={1.6} />
                   <span className="text-[13px] font-medium text-foreground">{t(label)}</span>
                   {i < pills.length - 1 && (
-                    <span className="ml-3 h-3.5 w-px bg-white/15" />
+                    <span className="ml-3 h-3.5 w-px bg-border" />
                   )}
                 </div>
               ))}
@@ -126,10 +111,9 @@ export default function CTASection() {
                   onChange={e => setEmail(e.target.value)}
                   placeholder={t({ en: 'Email Address', ar: 'البريد الإلكتروني' })}
                   disabled={status === 'loading' || status === 'success'}
-                  className="w-full h-[44px] rounded-[8px] border px-3.5 text-[14px] text-foreground outline-none transition-colors duration-200 focus:border-white/40 disabled:opacity-50"
+                  className="theme-input w-full h-[44px] rounded-[8px] border px-3.5 text-[14px] text-foreground outline-none transition-colors duration-200 focus:border-[#00a86b]/40 disabled:opacity-50"
                   style={{
-                    backgroundColor: 'rgba(38,38,38,0.2)',
-                    borderColor: status === 'error' ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.2)',
+                    borderColor: status === 'error' ? 'rgba(239,68,68,0.5)' : undefined,
                   }}
                   required
                 />
@@ -137,7 +121,7 @@ export default function CTASection() {
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="group inline-flex h-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-5 text-[14px] font-medium text-foreground transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group inline-flex h-[44px] shrink-0 items-center justify-center gap-1.5 rounded-[8px] px-5 text-[14px] font-medium text-white transition-all duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ backgroundColor: 'rgb(0,168,107)' }}
               >
                 {status === 'loading' ? (
@@ -202,7 +186,7 @@ export default function CTASection() {
               style={{
                 bottom: '1px',
                 background:
-                  'linear-gradient(90deg, rgba(16,16,16,0) 0%, rgb(105,105,105) 50%, rgba(16,16,16,0) 100%)',
+                  'linear-gradient(90deg, rgba(16,32,25,0) 0%, color-mix(in srgb, var(--foreground) 30%, transparent) 50%, rgba(16,32,25,0) 100%)',
                 opacity: 0.7,
               }}
             />

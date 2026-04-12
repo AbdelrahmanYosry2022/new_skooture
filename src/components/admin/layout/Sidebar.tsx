@@ -58,7 +58,7 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden"
+            className="fixed inset-0 bg-foreground/60 backdrop-blur-sm z-40 lg:hidden"
             onClick={() => setIsOpen(false)}
           />
         )}
@@ -78,7 +78,7 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
               <img src={content.brand.logoUrl} alt="Skooture" className="h-8 w-auto" />
             ) : (
               <>
-                <div className="w-10 h-10 rounded-[10px] bg-[#191919] border border-white/[0.08] flex items-center justify-center font-bold text-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.09)]">
+                <div className="theme-icon-shell w-10 h-10 rounded-[10px] flex items-center justify-center font-bold text-xl">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00a86b] to-[#b3f0d4]">S</span>
                 </div>
                 <span className="font-bold text-xl text-foreground">Skooture</span>
@@ -111,8 +111,8 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
                 className={cn(
                   "w-full justify-start gap-3 px-4 py-3 rounded-[12px] transition-all duration-200 text-sm font-medium border-0 hover:bg-foreground/5",
                   isActive 
-                    ? "bg-[#191919] text-[#ffffff] shadow-[inset_0_1px_16px_rgba(255,255,255,0.05),inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]" 
-                    : "text-muted-foreground hover:text-[#ffffff]"
+                    ? "theme-panel-strong text-foreground border border-border" 
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 <Icon className={cn("w-5 h-5 shrink-0", isActive ? "text-[#00a86b]" : "opacity-70")} />
@@ -123,9 +123,9 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
         </nav>
 
         <div className="p-6 border-t border-border bg-background">
-          <div className="px-4 py-3 rounded-[12px] bg-[#191919] border border-border shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
+          <div className="theme-panel-strong px-4 py-3 rounded-[12px]">
             <p className="text-xs font-medium text-muted-foreground mb-1">Skooture Admin</p>
-            <p className="text-sm font-bold text-foreground bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999]">v2.0.0</p>
+            <p className="theme-headline text-sm font-bold">v2.0.0</p>
           </div>
         </div>
       </aside>

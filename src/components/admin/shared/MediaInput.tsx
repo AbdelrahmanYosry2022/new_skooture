@@ -34,7 +34,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
     reader.readAsDataURL(file);
   };
 
-  const inputClasses = "w-full h-[40px] px-3 rounded-[10px] bg-background border border-white/[0.08] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-sm text-foreground placeholder:text-muted-foreground/50";
+  const inputClasses = "theme-input w-full h-[40px] px-3 rounded-[10px] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-sm text-foreground placeholder:text-muted-foreground/50";
 
   return (
     <div className="space-y-3">
@@ -43,11 +43,11 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
           {label}
         </label>
         
-        <div className="flex items-center bg-background rounded-[8px] p-1 border border-border">
+        <div className="theme-soft-surface flex items-center rounded-[8px] p-1">
           <button
             onClick={() => setMode('url')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
-              mode === 'url' ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' : 'text-muted-foreground hover:text-foreground'
+              mode === 'url' ? 'theme-panel-strong text-[#00a86b]' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             URL
@@ -55,7 +55,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
           <button
             onClick={() => setMode('upload')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
-              mode === 'upload' ? 'bg-[#191919] text-[#00a86b] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/[0.02]' : 'text-muted-foreground hover:text-foreground'
+              mode === 'upload' ? 'theme-panel-strong text-[#00a86b]' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             Upload
@@ -125,7 +125,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
                   </div>
                 ) : (
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-[10px] bg-[#191919] border border-border text-muted-foreground flex items-center justify-center group-hover:text-[#00a86b] transition-colors">
+                    <div className="theme-icon-shell w-10 h-10 rounded-[10px] text-muted-foreground flex items-center justify-center group-hover:text-[#00a86b] transition-colors">
                       {type === 'image' ? <ImageIcon size={20} /> : <Film size={20} />}
                     </div>
                     <div className="text-left">
@@ -145,14 +145,14 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
           <motion.div 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="relative w-full aspect-[21/9] rounded-[12px] overflow-hidden border border-border group bg-background"
+            className="theme-panel relative w-full aspect-[21/9] rounded-[12px] overflow-hidden group"
           >
             {type === 'image' ? (
               <img src={value} alt="Preview" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             ) : (
               <video src={value} className="w-full h-full object-cover" controls />
             )}
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+            <div className="absolute inset-0 bg-foreground/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
               <button
                 onClick={() => onChange('')}
                 className="px-4 py-2 rounded-[8px] bg-red-500/20 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-foreground transition-all text-sm font-medium flex items-center gap-2"

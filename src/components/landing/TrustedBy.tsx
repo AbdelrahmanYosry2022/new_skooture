@@ -8,9 +8,9 @@ export default function TrustedBy() {
   if (!trustedByData.logos || trustedByData.logos.length === 0) return null;
 
   return (
-    <section className="py-12 border-y border-slate-100 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden">
+    <section className="py-12 border-y border-border bg-background overflow-hidden">
       <div className="container mx-auto px-6 mb-8 text-center">
-        <p className="text-sm font-medium text-slate-500 dark:text-zinc-400 uppercase tracking-widest">
+        <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
           {t(trustedByData.title)}
         </p>
       </div>
@@ -36,7 +36,7 @@ export default function TrustedBy() {
                   className="h-8 md:h-10 w-auto object-contain"
                 />
               ) : (
-                <span className="text-xl font-bold text-slate-400 dark:text-zinc-600">{logo.name}</span>
+                <span className="text-xl font-bold text-[color:var(--text-dim)]">{logo.name}</span>
               )}
             </div>
           ))}

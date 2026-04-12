@@ -109,9 +109,9 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
 
   return (
     <SectionWrapper key="features">
-      <div className="bg-background border border-border rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
+      <div className="theme-panel rounded-[24px] overflow-hidden">
         {/* Header */}
-        <div className="p-6 md:p-8 border-b border-border flex items-center justify-between bg-gradient-to-b from-white/[0.02] to-transparent">
+        <div className="p-6 md:p-8 border-b border-border flex items-center justify-between bg-muted/40">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-[16px] bg-muted border border-border flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
               <LayoutGrid size={24} />
@@ -208,10 +208,10 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="bg-muted border border-border shadow-[0_10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
+                className="theme-panel rounded-[24px] overflow-hidden"
               >
                 {/* Card Header */}
-                <div className="p-6 md:px-8 border-b border-border flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/[0.2]">
+                <div className="p-6 md:px-8 border-b border-border flex flex-col md:flex-row md:items-center justify-between gap-6 bg-muted/40">
                   <div className="flex items-center gap-4">
                     {/* Interactive Icon Picker */}
                     <div className="relative z-50">
@@ -239,13 +239,13 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
                           >
                             <div className="p-3 border-b border-border">
                               <div className="relative">
-                                <Search className="absolute top-1/2 left-3 -translate-y-1/2 text-white/[0.3]" size={14} />
+                                <Search className="absolute top-1/2 left-3 -translate-y-1/2 text-[color:var(--text-dim)]" size={14} />
                                 <input
                                   type="text"
                                   value={iconSearch}
                                   onChange={(e) => setIconSearch(e.target.value)}
                                   placeholder="Search icons..."
-                                  className="w-full py-2 pl-9 pr-3 bg-white/[0.03] border border-border focus:border-[#00a86b]/50 text-sm font-medium rounded-[10px] text-foreground outline-none transition-all placeholder:text-white/[0.2]"
+                                  className="theme-input w-full py-2 pl-9 pr-3 border border-border focus:border-[#00a86b]/50 text-sm font-medium rounded-[10px] text-foreground outline-none transition-all placeholder:text-muted-foreground/40"
                                   autoFocus
                                 />
                               </div>
@@ -266,7 +266,7 @@ export default function FeaturesSection({ localContent, updateNestedContent }: A
                                     className={`flex flex-col items-center justify-center p-3 rounded-[12px] transition-all duration-300 ${
                                       isActive 
                                         ? 'bg-[#00a86b] text-foreground' 
-                                        : 'hover:bg-foreground/5 text-white/[0.5] hover:text-foreground'
+                                        : 'hover:bg-foreground/5 text-[color:var(--text-dim)] hover:text-foreground'
                                     }`}
                                     title={name}
                                   >

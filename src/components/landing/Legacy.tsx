@@ -31,9 +31,9 @@ export default function Legacy() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"
+            className="theme-badge mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px]"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[0_0_12px_rgba(0,168,107,0.35)] shrink-0"></span>
             <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
               {t(content.legacy.title)}
             </span>
@@ -43,7 +43,7 @@ export default function Legacy() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-[32px] md:text-[48px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1] max-w-2xl mx-auto"
+            className="theme-headline text-[32px] md:text-[48px] font-medium tracking-tight leading-[1.1] max-w-2xl mx-auto"
           >
             {t({ en: 'A History of Innovation', ar: 'تاريخ من الابتكار' })}
           </motion.h2>
@@ -51,7 +51,7 @@ export default function Legacy() {
 
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-white/[0.1] to-transparent" />
+          <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-border to-transparent" />
 
           <motion.div 
             variants={containerVariants}
@@ -81,7 +81,7 @@ export default function Legacy() {
                   <div className="w-full md:w-[45%] hidden md:block" />
                   
                   {/* Timeline Dot */}
-                  <div className="absolute left-6 md:left-1/2 transform -translate-x-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-background border border-border shadow-[0_0_15px_rgba(0,168,107,0.15)]">
+                  <div className="absolute left-6 md:left-1/2 transform -translate-x-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full theme-panel-strong shadow-[0_0_15px_rgba(0,168,107,0.15)]">
                     <div className="w-3 h-3 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[0_0_10px_rgba(0,168,107,0.5)]" />
                   </div>
                   
@@ -91,7 +91,7 @@ export default function Legacy() {
                       : (isRTL ? 'md:pr-10 text-right' : 'md:pl-10 md:text-left')
                   }`}>
                     <div 
-                      className="p-8 rounded-[24px] bg-[#191919]/60 border border-border hover:border-border transition-all duration-300 shadow-[0_10px_40px_rgba(0,0,0,0.3)] hover:bg-[#191919]/80 group" 
+                      className="theme-panel p-8 rounded-[24px] group" 
                       dir={isRTL ? 'rtl' : 'ltr'}
                       style={{ textAlign: isRTL ? 'right' : 'left' }}
                     >

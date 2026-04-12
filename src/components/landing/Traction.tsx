@@ -43,11 +43,11 @@ function Counter({ value, label, iconName, delay }: { value: number; label: stri
       transition={{ delay, duration: 0.5 }}
       className="relative group h-full"
     >
-      <div className="h-full p-8 rounded-[24px] bg-[#191919]/50 border border-white/[0.08] flex flex-col items-center text-center transition-all duration-300 hover:border-white/[0.15] hover:bg-[#191919]">
-        <div className="w-14 h-14 rounded-[16px] bg-[#2a2a2a] flex items-center justify-center mb-6 border border-border shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] text-[#00a86b] group-hover:scale-110 transition-transform duration-500">
+      <div className="theme-panel h-full p-8 rounded-[24px] flex flex-col items-center text-center">
+        <div className="theme-icon-shell w-14 h-14 rounded-[16px] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
           <DynamicIcon name={iconName} className="w-6 h-6" />
         </div>
-        <div className="text-[40px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] mb-2 leading-[1.1]">
+        <div className="theme-headline text-[40px] font-medium tracking-tight mb-2 leading-[1.1]">
           {formatNumber(count)}
           <span className="text-[#00a86b] ml-1">+</span>
         </div>
@@ -75,9 +75,9 @@ export default function Traction() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"
+            className="theme-badge mb-6 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px]"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[0_0_12px_rgba(0,168,107,0.35)] shrink-0"></span>
             <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
               {t({ en: 'Global Impact', ar: 'تأثير عالمي' })}
             </span>
@@ -87,7 +87,7 @@ export default function Traction() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-[32px] md:text-[48px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1] mb-6 max-w-2xl"
+            className="theme-headline text-[32px] md:text-[48px] font-medium tracking-tight leading-[1.1] mb-6 max-w-2xl"
           >
             {t({ en: 'Real Results for Real Schools', ar: 'نتائج حقيقية لمدارس حقيقية' })}
           </motion.h2>

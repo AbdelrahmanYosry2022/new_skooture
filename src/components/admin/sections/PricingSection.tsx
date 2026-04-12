@@ -192,9 +192,9 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
 
   return (
     <SectionWrapper key="pricing">
-      <div className="bg-background border border-border rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
+      <div className="theme-panel rounded-[24px] overflow-hidden">
         {/* Header */}
-        <div className="p-6 md:p-8 border-b border-border flex flex-col md:flex-row items-start md:items-center justify-between bg-gradient-to-b from-white/[0.02] to-transparent gap-6">
+        <div className="p-6 md:p-8 border-b border-border flex flex-col md:flex-row items-start md:items-center justify-between bg-muted/40 gap-6">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-[16px] bg-muted border border-border flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
               <CreditCard size={24} />
@@ -283,7 +283,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                     {localPlans.map((plan: any, idx: number) => (
                       <th key={plan._id} className="p-4 align-top border-b border-border min-w-[240px] w-[280px] relative">
                         {/* Smart Plan Header */}
-                        <div className={`p-4 rounded-[16px] border transition-all ${plan.highlighted ? 'bg-[#00a86b]/5 border-[#00a86b]/30 shadow-[inset_0_0_20px_rgba(0,168,107,0.1)]' : 'bg-[#191919] border-border'}`}>
+                        <div className={`p-4 rounded-[16px] border transition-all ${plan.highlighted ? 'bg-[#00a86b]/5 border-[#00a86b]/30 shadow-[inset_0_0_20px_rgba(0,168,107,0.1)]' : 'theme-panel-strong border-border'}`}>
                           
                           {/* Plan Name Editable */}
                           <div className="relative mb-3">
@@ -291,7 +291,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               type="text"
                               value={plan.name?.[matrixLang] || ''}
                               onChange={(e) => handleUpdatePlanProperty(plan._id, 'name', matrixLang, e.target.value)}
-                              className="w-full bg-transparent border-b border-dashed border-white/[0.2] hover:border-white/[0.5] focus:border-[#00a86b] focus:bg-background text-foreground font-bold text-lg px-2 py-1 outline-none transition-all placeholder:text-white/[0.2]"
+                              className="w-full bg-transparent border-b border-dashed border-border hover:border-foreground/40 focus:border-[#00a86b] focus:bg-background text-foreground font-bold text-lg px-2 py-1 outline-none transition-all placeholder:text-muted-foreground/40"
                               dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                               placeholder={matrixLang === 'en' ? 'Plan Name...' : 'اسم الباقة...'}
                             />
@@ -324,7 +324,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                   <Settings2 className="w-3 h-3" />
                                   {plan.name?.[matrixLang] || 'Settings'}
                                 </span>
-                                <button onClick={() => setActiveSettingsPlanId(null)} className="text-zinc-500 hover:text-foreground transition-colors">
+                                <button onClick={() => setActiveSettingsPlanId(null)} className="text-[color:var(--text-dim)] hover:text-foreground transition-colors">
                                   <X className="w-4 h-4" />
                                 </button>
                               </div>
@@ -440,7 +440,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                           className="flex-1 bg-card border border-border focus:border-[#00a86b] text-foreground text-xs rounded-[8px] px-3 py-2 outline-none transition-all"
                                           dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                                         />
-                                        <button onClick={() => handleDeleteDetail(plan._id, dIndex)} className="p-2 text-zinc-500 hover:text-red-500 bg-red-500/5 hover:bg-red-500/20 rounded-[8px] transition-colors">
+                                        <button onClick={() => handleDeleteDetail(plan._id, dIndex)} className="p-2 text-[color:var(--text-dim)] hover:text-red-500 bg-red-500/5 hover:bg-red-500/20 rounded-[8px] transition-colors">
                                           <Trash2 size={14} />
                                         </button>
                                       </div>
@@ -462,7 +462,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                     <th className="p-4 align-top w-[80px] border-b border-border">
                       <button 
                         onClick={handleAddPlan}
-                        className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 rounded-[16px] border border-dashed border-white/[0.2] text-zinc-500 hover:border-[#00a86b]/50 hover:bg-[#00a86b]/5 hover:text-[#00a86b] transition-colors"
+                        className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 rounded-[16px] border border-dashed border-border text-[color:var(--text-dim)] hover:border-[#00a86b]/50 hover:bg-[#00a86b]/5 hover:text-[#00a86b] transition-colors"
                         title="Add New Plan Column"
                       >
                         <Plus size={24} />
@@ -470,14 +470,14 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/[0.02]">
+                <tbody className="divide-y divide-border/40">
                   {allFeatures.map((feature: any, rowIndex: number) => (
                     <tr key={rowIndex} className="hover:bg-foreground/2 transition-colors group">
                       <td className="p-4 align-top">
                         <div className="flex items-center gap-3">
                           <button 
                             onClick={() => handleDeleteFeatureRow(feature.en)}
-                            className="p-1.5 text-zinc-600 hover:text-red-500 hover:bg-red-500/10 rounded-[6px] transition-colors opacity-0 group-hover:opacity-100 shrink-0"
+                            className="p-1.5 text-[color:var(--text-dim)] hover:text-red-500 hover:bg-red-500/10 rounded-[6px] transition-colors opacity-0 group-hover:opacity-100 shrink-0"
                             title="Delete Feature Row"
                           >
                             <Trash2 size={14} />
@@ -515,7 +515,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               className={`inline-flex items-center justify-center w-[38px] h-[38px] rounded-[10px] transition-all duration-200 shadow-sm ${
                                 isIncluded 
                                   ? 'bg-gradient-to-br from-[#00a86b] to-[#008f5b] text-foreground shadow-[0_4px_12px_rgba(0,168,107,0.4)]' 
-                                  : 'bg-muted border border-border text-zinc-600 hover:border-white/[0.2] hover:text-foreground'
+                                  : 'bg-muted border border-border text-[color:var(--text-dim)] hover:border-foreground/20 hover:text-foreground'
                               }`}
                             >
                               {isIncluded ? (
@@ -534,7 +534,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                     <tr>
                       <td colSpan={localPlans.length + 2} className="p-12 text-center text-muted-foreground text-sm border-dashed border-t border-border">
                         <div className="flex flex-col items-center justify-center gap-3">
-                          <Link className="w-8 h-8 text-zinc-600" />
+                          <Link className="w-8 h-8 text-[color:var(--text-dim)]" />
                           <p>No features defined. Click "Add Feature Row" to start building your matrix.</p>
                         </div>
                       </td>

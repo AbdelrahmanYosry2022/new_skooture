@@ -39,8 +39,8 @@ export default function Hero() {
             {/* Top Badge */}
             {content.hero?.topBadge && (
               <motion.div variants={itemVariants} className="mb-6 flex justify-start">
-                <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] flex-shrink-0 shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]"></span>
+                <div className="theme-badge inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] flex-shrink-0 shadow-[0_0_12px_rgba(0,168,107,0.35)]"></span>
                   <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
                     {t(content.hero.topBadge) || t({ en: 'We raised $200,000 series A', ar: 'جمعنا 200,000 دولار في السلسلة أ' })}
                   </span>
@@ -51,7 +51,7 @@ export default function Hero() {
             {/* Main Headline */}
             <motion.h1 
               variants={itemVariants}
-              className="text-[44px] sm:text-[56px] md:text-[64px] font-medium tracking-tight mb-6 leading-[1.1] bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999]"
+              className="theme-headline text-[44px] sm:text-[56px] md:text-[64px] font-medium tracking-tight mb-6 leading-[1.1]"
             >
               {(t(content.hero?.headline) || t({ en: 'Redefine Real Estate\nTransactions', ar: 'أعد تعريف المعاملات\nالعقارية' })).split('\n').map((line: string, i: number) => (
                 <span key={i} className="block">{line}</span>
@@ -76,13 +76,13 @@ export default function Hero() {
             >
               {content.hero?.buttons?.explore && (
                 <a href="#" className="inline-flex">
-                  <Button className="h-[48px] px-[20px] rounded-[10px] bg-[#00a86b] hover:bg-[#008f5b] text-foreground font-semibold text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(51,219,159,0.4)] border-0">
+                  <Button className="h-[48px] px-[20px] rounded-[10px] bg-[#00a86b] hover:bg-[#008f5b] text-white font-semibold text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(51,219,159,0.4)] border-0">
                     {t(content.hero.buttons.explore)}
                   </Button>
                 </a>
               )}
               {content.hero?.buttons?.demo && (
-                <a href="#" className="inline-flex items-center justify-center h-[48px] px-[20px] rounded-[10px] bg-transparent text-foreground font-semibold text-[16px] hover:bg-foreground/5 transition-colors duration-200 border border-border">
+                <a href="#" className="theme-soft-surface inline-flex items-center justify-center h-[48px] px-[20px] rounded-[10px] text-foreground font-semibold text-[16px] hover:bg-foreground/5 transition-colors duration-200">
                   {t(content.hero.buttons.demo)}
                 </a>
               )}
@@ -107,17 +107,17 @@ export default function Hero() {
                   {[...Array(2)].map((_, i) => (
                     <div key={i} className="flex items-center gap-12 grayscale hover:grayscale-0 transition-all duration-500">
                       {/* Placeholder logos mimicking Penta, Homey, Network, Visa style */}
-                      <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-white/90">
-                        <div className="w-5 h-5 rounded-sm bg-white/90" /> Penta
+                      <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-foreground/80">
+                        <div className="w-5 h-5 rounded-sm bg-foreground/80" /> Penta
                       </div>
-                      <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-white/90">
-                        <div className="w-5 h-5 rounded-full border-[3px] border-white/90" /> Homey
+                      <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-foreground/80">
+                        <div className="w-5 h-5 rounded-full border-[3px] border-foreground/80" /> Homey
                       </div>
-                      <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-white/90">
-                        <div className="w-5 h-5 bg-white/90 rotate-45" /> Network
+                      <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-foreground/80">
+                        <div className="w-5 h-5 bg-foreground/80 rotate-45" /> Network
                       </div>
-                      <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-white/90">
-                        <div className="w-5 h-5 rounded-full bg-white/90" /> vis
+                      <div className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-foreground/80">
+                        <div className="w-5 h-5 rounded-full bg-foreground/80" /> vis
                       </div>
                     </div>
                   ))}
@@ -131,7 +131,7 @@ export default function Hero() {
             variants={itemVariants}
             className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-[1000px] h-[720px] z-10 pointer-events-none ${isRTL ? 'right-[50%] mr-[40px] pr-[40px]' : 'left-[50%] ml-[40px] pl-[40px]'}`}
           >
-             <div className="relative w-full h-[600px] xl:h-[700px] mt-[10px] rounded-[32px] overflow-hidden border border-white/[0.08] shadow-[0_20px_80px_rgba(0,168,107,0.15)] bg-black/40 backdrop-blur-md">
+             <div className="theme-panel relative w-full h-[600px] xl:h-[700px] mt-[10px] rounded-[32px] overflow-hidden shadow-[0_20px_80px_rgba(0,168,107,0.15)]">
                 {content.hero?.videoUrl ? (
                   <img 
                     src={content.hero.videoUrl} 
@@ -145,6 +145,7 @@ export default function Hero() {
                     className={`w-full h-full object-cover ${isRTL ? 'object-right-top' : 'object-left-top'}`}
                   />
                 )}
+                <div className="absolute inset-0 bg-[color:var(--hero-media)] mix-blend-multiply pointer-events-none" />
              </div>
           </motion.div>
         </motion.div>

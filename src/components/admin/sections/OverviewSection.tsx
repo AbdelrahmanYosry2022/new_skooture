@@ -43,7 +43,7 @@ export default function OverviewSection() {
                   <p className="text-sm font-medium text-muted-foreground mb-1">
                     {stat.label}
                   </p>
-                  <p className="text-3xl font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999]">
+                  <p className="theme-headline text-3xl font-medium tracking-tight">
                     {stat.value}
                   </p>
                 </div>

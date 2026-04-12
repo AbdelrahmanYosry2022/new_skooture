@@ -27,7 +27,7 @@ export default function MessagesSection({ messages, isRTL }: MessagesSectionProp
       <div className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
         
         {/* Search & Filter Bar */}
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-[#191919] p-4 rounded-2xl border border-border shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]">
+        <div className="theme-panel flex flex-col sm:flex-row gap-4 items-center justify-between p-4 rounded-2xl">
           <div className="relative w-full sm:w-96">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input 
@@ -35,11 +35,11 @@ export default function MessagesSection({ messages, isRTL }: MessagesSectionProp
               placeholder={isRTL ? "ابحث بالاسم، الإيميل، أو المحتوى..." : "Search by name, email, or content..."}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-muted border border-border rounded-xl pl-10 pr-4 py-2 text-sm text-foreground placeholder-[#666666] focus:outline-none focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/20 transition-all"
+              className="theme-input w-full rounded-xl pl-10 pr-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/20 transition-all"
             />
           </div>
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <div className="px-4 py-2 bg-muted border border-border rounded-xl text-sm font-medium text-foreground flex items-center gap-2">
+            <div className="theme-soft-surface px-4 py-2 rounded-xl text-sm font-medium text-foreground flex items-center gap-2">
               <MessageSquare className="w-4 h-4 text-[#00a86b]" />
               {messages.length} {isRTL ? 'رسالة إجمالية' : 'Total Messages'}
             </div>
@@ -63,10 +63,10 @@ export default function MessagesSection({ messages, isRTL }: MessagesSectionProp
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: idx * 0.05 }}
                   key={msg.id} 
-                  className="group bg-muted border border-border rounded-2xl overflow-hidden hover:border-[#00a86b]/30 transition-all duration-300 shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)]"
+                  className="theme-panel group rounded-2xl overflow-hidden hover:border-[#00a86b]/30 transition-all duration-300"
                 >
                   {/* Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between px-6 py-4 bg-[#191919] border-b border-border gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between px-6 py-4 theme-soft-surface border-b border-border gap-4">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00a86b]/20 to-[#b3f0d4]/10 border border-[#00a86b]/20 flex items-center justify-center text-[#00a86b] font-bold text-lg shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
                         {msg.name.charAt(0).toUpperCase()}
@@ -74,7 +74,7 @@ export default function MessagesSection({ messages, isRTL }: MessagesSectionProp
                       <div>
                         <h4 className="font-bold text-foreground text-base">{msg.name}</h4>
                         <div className="flex items-center gap-2 mt-1">
-                          <Mail className="w-3 h-3 text-[#666666]" />
+                          <Mail className="w-3 h-3 text-[color:var(--text-dim)]" />
                           <a href={`mailto:${msg.email}`} className="text-sm text-muted-foreground hover:text-[#00a86b] transition-colors">
                             {msg.email}
                           </a>
@@ -82,7 +82,7 @@ export default function MessagesSection({ messages, isRTL }: MessagesSectionProp
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-2 text-xs text-[#666666] bg-background px-3 py-1.5 rounded-lg border border-white/[0.02]">
+                    <div className="theme-panel-strong flex items-center gap-2 text-xs text-[color:var(--text-dim)] px-3 py-1.5 rounded-lg">
                       <Calendar className="w-3 h-3" />
                       {new Date(msg.timestamp || msg.createdAt).toLocaleDateString(isRTL ? 'ar-EG' : 'en-US', { 
                         year: 'numeric', 
@@ -106,7 +106,7 @@ export default function MessagesSection({ messages, isRTL }: MessagesSectionProp
             
             {filteredMessages.length === 0 && searchTerm && (
               <div className="text-center py-12 bg-muted rounded-[24px] border border-border">
-                <Search className="w-8 h-8 mx-auto text-[#666666] mb-3 opacity-50" />
+                <Search className="w-8 h-8 mx-auto text-[color:var(--text-dim)] mb-3 opacity-50" />
                 <p className="text-muted-foreground text-sm">
                   {isRTL ? 'لم يتم العثور على نتائج لـ' : 'No results found for'} "{searchTerm}"
                 </p>

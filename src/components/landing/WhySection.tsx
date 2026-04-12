@@ -34,8 +34,8 @@ export default function WhySection() {
             viewport={{ once: true, margin: "-50px" }}
             className="space-y-8"
           >
-            <motion.div variants={itemVariants} className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px] bg-[#191919] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)]">
-              <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[inset_0_1px_16px_rgba(255,255,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.09)] shrink-0"></span>
+            <motion.div variants={itemVariants} className="theme-badge inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[0_0_12px_rgba(0,168,107,0.35)] shrink-0"></span>
               <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
                 {t(content.why.title)}
               </span>
@@ -43,7 +43,7 @@ export default function WhySection() {
             
             <motion.h2 
               variants={itemVariants}
-              className="text-[32px] md:text-[48px] font-medium tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#ffffff] to-[#999999] leading-[1.1]"
+              className="theme-headline text-[32px] md:text-[48px] font-medium tracking-tight leading-[1.1]"
             >
               {t(content.why.title)}
             </motion.h2>
@@ -65,28 +65,28 @@ export default function WhySection() {
             className="relative"
           >
             {/* Main Visual Container */}
-            <div className="relative rounded-[24px] bg-[#191919]/40 border border-border p-8 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-sm">
+            <div className="theme-panel relative rounded-[24px] p-8 overflow-hidden">
               <div className="space-y-6 relative z-10">
                 
                 {/* Legacy System Card */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] bg-muted border border-white/[0.03] transition-all duration-300 opacity-60 grayscale hover:opacity-100 hover:grayscale-0 gap-4 sm:gap-0">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] theme-soft-surface transition-all duration-300 opacity-70 grayscale hover:opacity-100 hover:grayscale-0 gap-4 sm:gap-0">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 shrink-0 rounded-[12px] bg-[#222222] flex items-center justify-center border border-border shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
-                      <span className="text-[#999999] font-medium text-[13px]">{content.why.labels?.v1 || 'v1.0'}</span>
+                    <div className="theme-icon-shell w-12 h-12 shrink-0 rounded-[12px] flex items-center justify-center">
+                      <span className="text-muted-foreground font-medium text-[13px]">{content.why.labels?.v1 || 'v1.0'}</span>
                     </div>
                     <div>
                       <h4 className="text-foreground font-medium text-[16px] tracking-tight">Smart Schools</h4>
-                      <p className="text-[#666666] text-[13px] mt-0.5">{t(content.why.labels?.legacySystem || 'Legacy System')}</p>
+                      <p className="text-muted-foreground text-[13px] mt-0.5">{t(content.why.labels?.legacySystem || 'Legacy System')}</p>
                     </div>
                   </div>
-                  <div className="text-[#555555] font-medium text-[12px] line-through bg-[#222222]/50 px-3 py-1 rounded-full border border-white/[0.02] whitespace-nowrap">
+                  <div className="text-[color:var(--text-dim)] font-medium text-[12px] line-through theme-soft-surface px-3 py-1 rounded-full whitespace-nowrap">
                     {t(content.why.labels?.monolithic || 'Monolithic')}
                   </div>
                 </div>
 
                 {/* Connection Line */}
                 <div className="flex items-center justify-center -my-2 relative z-0">
-                  <div className="w-[1px] h-8 bg-gradient-to-b from-white/[0.05] to-[#00a86b]/50" />
+                  <div className="w-[1px] h-8 bg-gradient-to-b from-border to-[#00a86b]/50" />
                 </div>
 
                 {/* New AI Infrastructure Card */}

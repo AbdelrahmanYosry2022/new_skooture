@@ -40,12 +40,12 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const inputClasses = "w-full px-5 py-3.5 rounded-2xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/5 focus:border-blue-500/50 dark:focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none font-medium text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400";
+  const inputClasses = "theme-input w-full px-5 py-3.5 rounded-2xl focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none font-medium text-foreground placeholder:text-muted-foreground";
 
   return (
     <div className="space-y-4">
       {label && (
-        <label className={`text-[11px] uppercase tracking-[0.2em] font-black text-zinc-400 dark:text-zinc-500 px-1 flex items-center gap-2 ${isRTL ? 'justify-end' : ''}`}>
+        <label className={`text-[11px] uppercase tracking-[0.2em] font-black text-[color:var(--text-dim)] px-1 flex items-center gap-2 ${isRTL ? 'justify-end' : ''}`}>
           <Sparkles size={12} className="text-blue-500" />
           {label}
         </label>
@@ -63,7 +63,7 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
             </div>
             <span className="font-bold tracking-tight">{value || 'Select Platform Icon'}</span>
           </div>
-          <ChevronDown size={20} className={`text-zinc-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''} ${isRTL ? 'scale-x-[-1]' : ''}`} />
+          <ChevronDown size={20} className={`text-[color:var(--text-dim)] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''} ${isRTL ? 'scale-x-[-1]' : ''}`} />
         </button>
 
         <AnimatePresence>
@@ -72,17 +72,17 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              className="absolute z-50 top-full mt-3 w-full glass-card bg-white dark:bg-[#0f172a] border-zinc-200/50 dark:border-border rounded-3xl shadow-2xl overflow-hidden"
+              className="theme-panel-strong absolute z-50 top-full mt-3 w-full rounded-3xl shadow-2xl overflow-hidden"
             >
-              <div className="p-4 border-b border-zinc-100 dark:border-white/5">
+              <div className="p-4 border-b border-border">
                 <div className="relative">
-                  <Search className={`absolute top-1/2 -translate-y-1/2 text-zinc-400 ${isRTL ? 'right-4' : 'left-4'}`} size={16} />
+                  <Search className={`absolute top-1/2 -translate-y-1/2 text-[color:var(--text-dim)] ${isRTL ? 'right-4' : 'left-4'}`} size={16} />
                   <input
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search all icons..."
-                    className={`w-full py-3 bg-zinc-50 dark:bg-black/20 border-none focus:ring-2 focus:ring-blue-500/20 text-sm font-bold rounded-xl dark:text-foreground outline-none ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4 text-left'}`}
+                    className={`theme-input w-full py-3 border-none focus:ring-2 focus:ring-blue-500/20 text-sm font-bold rounded-xl outline-none ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4 text-left'}`}
                     autoFocus
                   />
                 </div>
@@ -103,8 +103,8 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
                       }}
                       className={`flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-300 group cursor-pointer ${
                         isActive 
-                          ? 'bg-blue-600 text-foreground shadow-xl shadow-blue-600/20' 
-                          : 'hover:bg-blue-50 dark:hover:bg-blue-600/10 text-zinc-500 dark:text-zinc-500 hover:text-blue-600 dark:hover:text-blue-400'
+                          ? 'bg-blue-600 text-white shadow-xl shadow-blue-600/20' 
+                          : 'hover:bg-blue-50/60 dark:hover:bg-blue-600/10 text-[color:var(--text-dim)] hover:text-blue-600 dark:hover:text-blue-400'
                       }`}
                       title={name}
                     >
@@ -115,7 +115,7 @@ export default function IconPicker({ value, onChange, label }: IconPickerProps) 
               </div>
               
               {filteredIcons.length === 0 && (
-                <div className="p-8 text-center text-zinc-400 text-sm font-bold italic">
+                <div className="p-8 text-center text-[color:var(--text-dim)] text-sm font-bold italic">
                   Explore other keywords...
                 </div>
               )}

@@ -48,7 +48,7 @@ export default function Footer() {
               </div>
               <span className="font-bold text-2xl text-foreground tracking-tight">Skooture</span>
             </div>
-            <p className="text-zinc-400 mb-8 leading-relaxed max-w-sm">
+            <p className="text-muted-foreground mb-8 leading-relaxed max-w-sm">
               {t(brandSubheadline)}
             </p>
             <div className="flex gap-4">
@@ -56,7 +56,7 @@ export default function Footer() {
                 <a 
                   key={index}
                   href={social.url}
-                  className="w-10 h-10 rounded-full bg-[#191919] border border-border hover:border-[#00a86b]/50 hover:bg-[#00a86b]/10 flex items-center justify-center text-zinc-400 hover:text-[#00a86b] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                  className="theme-icon-shell w-10 h-10 rounded-full hover:border-[#00a86b]/50 hover:bg-[#00a86b]/10 flex items-center justify-center text-[color:var(--text-soft)] hover:text-[#00a86b] transition-all duration-300"
                 >
                   <DynamicIcon name={social.icon} className="w-5 h-5" />
                 </a>
@@ -75,7 +75,7 @@ export default function Footer() {
                   <li key={linkIndex}>
                     <a 
                       href={link.url}
-                      className="text-zinc-400 hover:text-foreground transition-colors duration-200"
+                      className="text-muted-foreground hover:text-foreground transition-colors duration-200"
                     >
                       {t(link.label)}
                     </a>
@@ -94,10 +94,10 @@ export default function Footer() {
           viewport={{ once: true }}
           className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6"
         >
-          <p className="text-zinc-500 text-sm">
+          <p className="text-[color:var(--text-dim)] text-sm">
             {t(copyrightText)}
           </p>
-          <div className="flex gap-6 text-sm text-zinc-500">
+          <div className="flex gap-6 text-sm text-[color:var(--text-dim)]">
             {bottomLinks.map((link: any, index: number) => (
               <a key={index} href={link.url} className="hover:text-foreground transition-colors">
                 {t(link.label)}

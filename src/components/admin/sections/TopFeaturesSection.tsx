@@ -91,9 +91,9 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
 
   return (
     <SectionWrapper key="topFeatures">
-      <div className="bg-background border border-border rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
+      <div className="theme-panel rounded-[24px] overflow-hidden">
         {/* Header */}
-        <div className="p-6 md:p-8 border-b border-border flex items-center justify-between bg-gradient-to-b from-white/[0.02] to-transparent">
+        <div className="p-6 md:p-8 border-b border-border flex items-center justify-between bg-muted/40">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-[16px] bg-muted border border-border flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
               <LayoutGrid size={24} />
@@ -206,10 +206,10 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="bg-muted border border-border shadow-[0_10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
+                className="theme-panel rounded-[24px] overflow-hidden"
               >
                 {/* Card Header */}
-                <div className="p-6 md:px-8 border-b border-border flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/[0.2]">
+                <div className="p-6 md:px-8 border-b border-border flex flex-col md:flex-row md:items-center justify-between gap-6 bg-muted/40">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-[14px] border border-border bg-muted flex items-center justify-center shrink-0 text-[#00a86b]">
                       <LayoutGrid className="w-6 h-6" />

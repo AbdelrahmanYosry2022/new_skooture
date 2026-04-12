@@ -76,7 +76,7 @@ export default function Navbar() {
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
         scrolled 
-          ? "bg-muted/80 backdrop-blur-md border-b border-border shadow-sm py-4" 
+          ? "theme-nav border-b shadow-sm py-4" 
           : "bg-transparent py-6"
       )}
       dir={isRTL ? 'rtl' : 'ltr'}
@@ -107,7 +107,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-[15px] font-medium transition-colors hover:text-foreground text-white/90"
+                  className="text-[15px] font-medium transition-colors hover:text-foreground text-muted-foreground"
                 >
                   {t(link.label)}
                 </a>
@@ -119,8 +119,17 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center justify-end gap-6 shrink-0">
             <Button
               variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="theme-soft-surface text-muted-foreground hover:text-foreground hover:bg-foreground/5 rounded-xl"
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </Button>
+
+            <Button
+              variant="ghost"
               onClick={handleLanguageToggle}
-              className="text-foreground hover:text-foreground hover:bg-white/5 font-medium px-2"
+              className="text-foreground hover:text-foreground hover:bg-foreground/5 font-medium px-2"
             >
               <span>{language === 'en' ? 'عربي' : 'English'}</span>
             </Button>
@@ -130,7 +139,7 @@ export default function Navbar() {
             </Link>
             
              <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')}>
-               <Button className="px-5 py-[10px] rounded-[8px] bg-[#00a86b] text-foreground font-semibold text-[15px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(0,168,107,0.4)] hover:bg-[#008f5b] border-0 h-auto">
+               <Button className="px-5 py-[10px] rounded-[8px] bg-[#00a86b] text-white font-semibold text-[15px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(0,168,107,0.4)] hover:bg-[#008f5b] border-0 h-auto">
                  {t({ en: 'Get Template', ar: 'احصل على القالب' })}
                </Button>
              </a>
@@ -140,7 +149,7 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden text-foreground hover:bg-white/10"
+            className="lg:hidden text-foreground hover:bg-foreground/10"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -155,7 +164,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white dark:bg-zinc-950 border-b border-slate-200 dark:border-zinc-800"
+            className="lg:hidden theme-panel-strong border-b border-border"
           >
             <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -163,19 +172,19 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-lg font-medium text-slate-900 dark:text-foreground"
+                  className="text-lg font-medium text-foreground"
                 >
                   {t(link.label)}
                 </a>
               ))}
               
-              <hr className="border-slate-200 dark:border-zinc-800 my-2" />
+              <hr className="border-border my-2" />
               
               <div className="flex items-center justify-between">
                 <Button
                   variant="ghost"
                   onClick={toggleTheme}
-                  className="justify-start gap-3 text-slate-600 dark:text-zinc-400 px-0"
+                  className="justify-start gap-3 text-muted-foreground hover:text-foreground px-0"
                 >
                   {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                   <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
@@ -184,7 +193,7 @@ export default function Navbar() {
                 <Button
                   variant="ghost"
                   onClick={handleLanguageToggle}
-                  className="justify-start gap-2 text-slate-600 dark:text-zinc-400 px-0"
+                  className="justify-start gap-2 text-muted-foreground hover:text-foreground px-0"
                 >
                   <Globe className="w-5 h-5" />
                   <span>{language === 'en' ? 'عربي' : 'English'}</span>

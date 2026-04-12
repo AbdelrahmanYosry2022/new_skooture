@@ -77,10 +77,10 @@ export default function FaqSection({ localContent, updateNestedContent }: AdminS
 
   return (
     <SectionWrapper key="faq">
-      <div className="bg-background border border-border rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] overflow-hidden">
+      <div className="theme-panel rounded-[24px] overflow-hidden">
         
         {/* Header Section */}
-        <div className="p-6 md:p-8 border-b border-border bg-gradient-to-b from-white/[0.02] to-transparent">
+        <div className="p-6 md:p-8 border-b border-border bg-muted/40">
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-[16px] bg-muted border border-border flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] shrink-0">
@@ -188,10 +188,10 @@ export default function FaqSection({ localContent, updateNestedContent }: AdminS
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="bg-muted border border-border shadow-[0_10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
+                className="theme-panel rounded-[24px] overflow-hidden"
               >
                 {/* Card Header + Master Toggle */}
-                <div className="p-6 md:px-8 border-b border-border flex items-center justify-between bg-black/[0.2]">
+                <div className="p-6 md:px-8 border-b border-border flex items-center justify-between bg-muted/40">
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-full bg-muted border border-border flex items-center justify-center text-foreground font-bold text-sm">
                       Q{activeIndex + 1}
