@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '../ui/button';
 
 export default function Hero() {
@@ -37,7 +37,7 @@ export default function Hero() {
             {content.hero?.topBadge && (
               <motion.div variants={itemVariants} className="mb-6 flex justify-start">
                 <div className="theme-badge theme-section-badge">
-                  <span className="theme-section-badge-dot"></span>
+                  <Sparkles className="theme-section-badge-icon" />
                   <span>
                     {t(content.hero.topBadge) || t({ en: 'We raised $200,000 series A', ar: 'جمعنا 200,000 دولار في السلسلة أ' })}
                   </span>
@@ -73,7 +73,7 @@ export default function Hero() {
             >
               {content.hero?.buttons?.explore && (
                 <a href="#" className="inline-flex">
-                  <Button className="h-[48px] px-[20px] rounded-[10px] bg-[#00a86b] hover:bg-[#008f5b] text-white font-semibold text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(51,219,159,0.4)] border-0">
+                  <Button className="theme-button-primary h-[48px] px-[20px] rounded-[10px] font-semibold text-[16px] transition-all duration-200 border-0">
                     {t(content.hero.buttons.explore)}
                   </Button>
                 </a>
@@ -128,7 +128,7 @@ export default function Hero() {
             variants={itemVariants}
             className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-[1000px] h-[720px] z-10 pointer-events-none ${isRTL ? 'right-[50%] mr-[40px] pr-[40px]' : 'left-[50%] ml-[40px] pl-[40px]'}`}
           >
-             <div className="theme-panel relative w-full h-[600px] xl:h-[700px] mt-[10px] rounded-[32px] overflow-hidden shadow-[0_20px_80px_rgba(0,168,107,0.15)]">
+             <div className="theme-panel relative w-full h-[600px] xl:h-[700px] mt-[10px] rounded-[32px] overflow-hidden shadow-[var(--card-shadow-hover)]">
                 {content.hero?.videoUrl ? (
                   <img 
                     src={content.hero.videoUrl} 
@@ -143,6 +143,17 @@ export default function Hero() {
                   />
                 )}
                 <div className="absolute inset-0 bg-[color:var(--hero-media)] mix-blend-multiply pointer-events-none" />
+                <div className={`absolute bottom-8 ${isRTL ? 'left-8' : 'right-8'} w-[300px] rounded-[24px] theme-panel-strong border border-border overflow-hidden shadow-[var(--card-shadow)]`}>
+                  <div className="theme-accent-soft flex items-center gap-2 px-4 py-2 text-xs font-medium border-b border-[color:var(--accent-border)]">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>{t({ en: 'Live dashboard preview', ar: 'معاينة مباشرة للوحة التحكم' })}</span>
+                  </div>
+                  <img
+                    src="/images/dashboard-preview.png"
+                    alt="Dashboard preview"
+                    className="w-full h-[180px] object-cover object-top"
+                  />
+                </div>
              </div>
           </motion.div>
         </motion.div>

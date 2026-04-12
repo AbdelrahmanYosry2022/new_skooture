@@ -19,7 +19,7 @@ export default function BentoFeatures() {
             viewport={{ once: true }}
             className="theme-badge theme-section-badge mb-6"
           >
-            <span className="theme-section-badge-dot"></span>
+            <DynamicIcon name="LayoutGrid" className="theme-section-badge-icon" />
             <span>
               {t({ en: 'Features', ar: 'الميزات' })}
             </span>

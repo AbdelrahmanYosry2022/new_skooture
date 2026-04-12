@@ -63,7 +63,7 @@ export default function SettingsSection({
         <div className="theme-panel p-6 rounded-[24px] space-y-6 flex flex-col justify-between">
           <div className="flex items-start justify-between">
             <div>
-              <div className="theme-icon-shell w-10 h-10 rounded-[12px] flex items-center justify-center text-[#00a86b] mb-4">
+              <div className="theme-icon-shell theme-accent-text w-10 h-10 rounded-[12px] flex items-center justify-center mb-4">
                 <Languages size={20} />
               </div>
               <h3 className="text-lg font-bold text-foreground">{t('settings.languageTitle')}</h3>
@@ -74,13 +74,13 @@ export default function SettingsSection({
           <div className="theme-soft-surface flex p-1.5 rounded-[12px] gap-2">
             <button 
               onClick={() => setAdminLanguage('ar')}
-              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'ar' ? 'theme-panel-strong text-[#00a86b]' : 'text-muted-foreground hover:text-foreground'}`}
+              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'ar' ? 'theme-panel-strong theme-accent-text' : 'text-muted-foreground hover:text-foreground'}`}
             >
               {t('settings.arabic')}
             </button>
             <button 
               onClick={() => setAdminLanguage('en')}
-              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'en' ? 'theme-panel-strong text-[#00a86b]' : 'text-muted-foreground hover:text-foreground'}`}
+              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminLanguage === 'en' ? 'theme-panel-strong theme-accent-text' : 'text-muted-foreground hover:text-foreground'}`}
             >
               {t('settings.english')}
             </button>
@@ -91,7 +91,7 @@ export default function SettingsSection({
         <div className="theme-panel p-6 rounded-[24px] space-y-6 flex flex-col justify-between">
           <div className="flex items-start justify-between">
             <div>
-              <div className="theme-icon-shell w-10 h-10 rounded-[12px] flex items-center justify-center text-[#00a86b] mb-4">
+              <div className="theme-icon-shell theme-accent-text w-10 h-10 rounded-[12px] flex items-center justify-center mb-4">
                 <Moon size={20} />
               </div>
               <h3 className="text-lg font-bold text-foreground">{t('settings.themeTitle', 'Dashboard Theme')}</h3>
@@ -102,13 +102,13 @@ export default function SettingsSection({
           <div className="theme-soft-surface flex p-1.5 rounded-[12px] gap-2">
             <button 
               onClick={() => setAdminTheme('light')}
-              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminTheme === 'light' ? 'theme-panel-strong text-[#00a86b]' : 'text-muted-foreground hover:text-foreground'}`}
+              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminTheme === 'light' ? 'theme-panel-strong theme-accent-text' : 'text-muted-foreground hover:text-foreground'}`}
             >
               {t('settings.lightMode', 'Light')}
             </button>
             <button 
               onClick={() => setAdminTheme('dark')}
-              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminTheme === 'dark' ? 'theme-panel-strong text-[#00a86b]' : 'text-muted-foreground hover:text-foreground'}`}
+              className={`flex-1 py-2 rounded-[8px] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${adminTheme === 'dark' ? 'theme-panel-strong theme-accent-text' : 'text-muted-foreground hover:text-foreground'}`}
             >
               {t('settings.darkMode', 'Dark')}
             </button>
@@ -121,7 +121,7 @@ export default function SettingsSection({
       <div className="theme-panel rounded-[24px] overflow-hidden">
         <div className="p-6 border-b border-border bg-muted/80">
           <div className="flex items-center gap-4">
-            <div className="theme-icon-shell w-10 h-10 rounded-[12px] flex items-center justify-center text-[#00a86b]">
+            <div className="theme-icon-shell theme-accent-text w-10 h-10 rounded-[12px] flex items-center justify-center">
               <User size={20} />
             </div>
             <div>
@@ -132,9 +132,9 @@ export default function SettingsSection({
         </div>
 
         <div className="p-6 space-y-6">
-          <div className="p-4 rounded-[12px] bg-[#00a86b]/10 border border-[#00a86b]/20 flex items-start gap-3">
-            <ShieldAlert className="text-[#00a86b] shrink-0 w-5 h-5 mt-0.5" />
-            <p className="text-sm text-[#00a86b]/90 leading-relaxed">
+          <div className="theme-accent-soft p-4 rounded-[12px] flex items-start gap-3">
+            <ShieldAlert className="theme-accent-text shrink-0 w-5 h-5 mt-0.5" />
+            <p className="theme-accent-text text-sm leading-relaxed">
               This is a local environment. Admin credentials cannot be changed from the UI. To update the admin email or password, please edit your backend <code className="theme-soft-surface px-1.5 py-0.5 rounded text-xs mx-1">.env</code> file.
             </p>
           </div>

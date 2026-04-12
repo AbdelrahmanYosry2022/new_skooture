@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { CheckCircle2, X } from 'lucide-react';
+import { CheckCircle2, X, WalletCards } from 'lucide-react';
 import DynamicIcon from '../shared/DynamicIcon';
 
 export default function Pricing() {
@@ -43,7 +43,7 @@ export default function Pricing() {
             transition={{ duration: 0.5 }}
             className="theme-badge theme-section-badge mb-6"
           >
-            <DynamicIcon name="Tag" className="w-4 h-4" />
+            <WalletCards className="theme-section-badge-icon" />
             <span>{t({ en: 'Pricing', ar: 'الأسعار' })}</span>
           </motion.div>
           
@@ -79,7 +79,7 @@ export default function Pricing() {
             </span>
             <button
               onClick={() => setIsAnnual(!isAnnual)}
-               className={`relative inline-flex h-7 w-14 items-center rounded-full transition-colors focus:outline-none ${isAnnual ? 'bg-[#00a86b]' : 'theme-soft-surface'}`}
+               className={`relative inline-flex h-7 w-14 items-center rounded-full transition-colors focus:outline-none ${isAnnual ? 'bg-[color:var(--accent)]' : 'theme-soft-surface'}`}
             >
               <span className="sr-only">Toggle billing period</span>
               <span
@@ -90,7 +90,7 @@ export default function Pricing() {
               <span className={`text-sm font-medium ${isAnnual ? 'text-foreground' : 'text-[color:var(--text-dim)]'}`}>
                 {t({ en: 'Annually', ar: 'سنوي' })}
               </span>
-               <span className="px-2.5 py-0.5 rounded-full bg-[#00a86b]/10 text-[#00a86b] text-xs font-bold border border-[#00a86b]/20">
+               <span className="theme-accent-chip px-2.5 py-0.5 rounded-full text-xs font-bold">
                 {t({ en: 'Save 20%', ar: 'وفر 20%' })}
               </span>
             </div>
@@ -116,22 +116,22 @@ export default function Pricing() {
                 variants={itemVariants}
                 className={`group relative flex flex-col p-5 lg:p-6 rounded-[24px] backdrop-blur-md transition-all duration-500 border ${
                   (plan.highlighted || plan.popular)
-                    ? 'theme-panel-strong border-[#00a86b]/60 shadow-[0_12px_40px_rgba(0,168,107,0.15)] transform md:-translate-y-3 z-20 scale-[1.02]' 
+                    ? 'theme-panel-strong theme-accent-ring transform md:-translate-y-3 z-20 scale-[1.02]' 
                     : 'theme-panel border-border'
                 }`}
               >
                 {/* Highlight Glow Effect */}
                 {(plan.highlighted || plan.popular) && (
-                  <div className="absolute -inset-[1px] rounded-[24px] bg-gradient-to-b from-[#00a86b]/40 to-transparent opacity-20 pointer-events-none" />
+                  <div className="absolute -inset-[1px] rounded-[24px] bg-gradient-to-b from-[color:var(--accent-border)] to-transparent opacity-20 pointer-events-none" />
                 )}
 
                 <div className="mb-6 relative z-10 pt-2 border-b border-border/60 pb-6">
                   <div className="flex items-center justify-between gap-3 mb-4">
                     <h3 className="text-xl sm:text-2xl font-bold text-foreground leading-none">{t(plan.name)}</h3>
                     {plan.badge && (
-                      <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-gradient-to-r from-[#00a86b]/10 to-transparent border border-[#00a86b]/20 shadow-[0_0_12px_rgba(0,168,107,0.15)] relative overflow-hidden group-hover:shadow-[0_0_20px_rgba(0,168,107,0.3)] transition-all duration-300 shrink-0">
-                        <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#00a86b]/20 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-                        <span className="relative text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#00a86b]">
+                      <div className="theme-accent-chip inline-flex items-center justify-center px-3 py-1 rounded-full relative overflow-hidden transition-all duration-300 shrink-0">
+                        <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[color:var(--accent-soft)] to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+                        <span className="relative text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
                           {t(plan.badge)}
                         </span>
                       </div>
@@ -166,7 +166,7 @@ export default function Pricing() {
                         </span>
                       </div>
                       {isAnnual && plan.billingPeriod !== 'monthly' && (
-                        <p className="text-xs text-[#00a86b] mt-1.5 font-medium">
+                        <p className="theme-accent-text text-xs mt-1.5 font-medium">
                           {t({ en: 'Billed annually', ar: 'تدفع سنوياً' })}
                         </p>
                       )}
@@ -179,7 +179,7 @@ export default function Pricing() {
                 {plan.features.map((feature: any, fIndex: number) => (
                   <li key={fIndex} className="flex items-start gap-2.5">
                     {feature.included !== false ? (
-                       <CheckCircle2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#00a86b] shrink-0 mt-0.5" />
+                       <CheckCircle2 className="theme-accent-text w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 mt-0.5" />
                     ) : (
                       <X className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-foreground/20 shrink-0 mt-0.5" />
                     )}
@@ -192,7 +192,7 @@ export default function Pricing() {
 
               <button className={`w-full py-3 sm:py-3.5 rounded-xl text-sm sm:text-base font-medium transition-all relative z-10 mt-auto ${
                 (plan.highlighted || plan.popular)
-                   ? 'bg-[#00a86b] hover:bg-[#008f5b] text-white shadow-[0_0_20px_rgba(0,168,107,0.3)]' 
+                   ? 'theme-button-primary' 
                    : 'theme-soft-surface hover:bg-foreground/5 text-foreground'
                }`}>
                 {t(plan.cta || { en: 'Get Started', ar: 'ابدأ الآن' })}

@@ -42,7 +42,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="theme-panel group relative p-8 rounded-2xl hover:border-[#00a86b]/30 transition-all duration-500 flex flex-col h-full overflow-hidden"
+              className="theme-panel group relative p-8 rounded-2xl hover:border-[color:var(--accent-border)] transition-all duration-500 flex flex-col h-full overflow-hidden"
             >
               {/* Subtle Glow on Hover */}
               <div className="theme-accent-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />

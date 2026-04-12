@@ -140,7 +140,7 @@ export default function Contact() {
                       value={formData.name}
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
                       placeholder={t({ en: 'Enter your name', ar: 'أدخل اسمك' })}
-                      className="theme-input w-full px-4 py-3 rounded-xl focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 transition-all duration-300 outline-none text-foreground"
+                      className="theme-input theme-focus-accent w-full px-4 py-3 rounded-xl transition-all duration-300 text-foreground"
                     />
                   </div>
                   
@@ -154,7 +154,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
                       placeholder={t({ en: 'Enter your email', ar: 'أدخل بريدك الإلكتروني' })}
-                      className="theme-input w-full px-4 py-3 rounded-xl focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 transition-all duration-300 outline-none text-foreground"
+                      className="theme-input theme-focus-accent w-full px-4 py-3 rounded-xl transition-all duration-300 text-foreground"
                     />
                   </div>
                   
@@ -168,7 +168,7 @@ export default function Contact() {
                       value={formData.message}
                       onChange={e => setFormData({ ...formData, message: e.target.value })}
                       placeholder={t({ en: 'Tell us how we can help...', ar: 'أخبرنا كيف يمكننا مساعدتك...' })}
-                      className="theme-input w-full px-4 py-3 rounded-xl focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 transition-all duration-300 outline-none text-foreground resize-none"
+                      className="theme-input theme-focus-accent w-full px-4 py-3 rounded-xl transition-all duration-300 text-foreground resize-none"
                     />
                   </div>
                   

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
-import { ArrowRight, Wifi, ScanFace, ShieldCheck, Loader2 } from 'lucide-react';
+import { ArrowRight, Wifi, ScanFace, ShieldCheck, Loader2, Rocket } from 'lucide-react';
 import { createSubscriber } from '../../api/client';
 
 export default function CTASection() {
@@ -54,7 +54,7 @@ export default function CTASection() {
 
             {/* Badge */}
             <div className="theme-badge theme-section-badge">
-              <span className="theme-section-badge-dot"></span>
+              <Rocket className="theme-section-badge-icon" />
               <span>
                 {t({ en: 'Sign up for Skooture.AI today', ar: 'سجّل في Skooture.AI اليوم' })}
               </span>
@@ -97,7 +97,7 @@ export default function CTASection() {
                   onChange={e => setEmail(e.target.value)}
                   placeholder={t({ en: 'Email Address', ar: 'البريد الإلكتروني' })}
                   disabled={status === 'loading' || status === 'success'}
-                  className="theme-input w-full h-[44px] rounded-[8px] border px-3.5 text-[14px] text-foreground outline-none transition-colors duration-200 focus:border-[#00a86b]/40 disabled:opacity-50"
+                  className="theme-input theme-focus-accent w-full h-[44px] rounded-[8px] border px-3.5 text-[14px] text-foreground transition-colors duration-200 disabled:opacity-50"
                   style={{
                     borderColor: status === 'error' ? 'rgba(239,68,68,0.5)' : undefined,
                   }}

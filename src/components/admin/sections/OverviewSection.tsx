@@ -15,14 +15,14 @@ export default function OverviewSection() {
       label: t('overview.trustedPartners'),
       value: contentData.partners?.logos?.length || 0,
       icon: Globe,
-      color: 'text-[#00a86b]',
+      color: 'theme-accent-text',
       bgColor: 'bg-foreground/5'
     },
     {
       label: t('overview.activeSections'),
       value: '12',
       icon: LayoutTemplate,
-      color: 'text-[#00a86b]',
+      color: 'theme-accent-text',
       bgColor: 'bg-foreground/5'
     }
   ];
@@ -36,7 +36,7 @@ export default function OverviewSection() {
             <div key={index} className="bg-background p-6 border border-border rounded-[24px] shadow-[inset_0_1px_16px_rgba(255,255,255,0.02)] relative overflow-hidden group">
               <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full ${stat.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl`} />
               <div className="flex items-center gap-5 relative z-10">
-                <div className="p-4 rounded-[16px] bg-muted border border-border shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] group-hover:border-[#00a86b]/20 transition-colors">
+                <div className="p-4 rounded-[16px] bg-muted border border-border shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] group-hover:border-[color:var(--accent-border)] transition-colors">
                   <Icon className={`w-6 h-6 ${stat.color}`} />
                 </div>
                 <div>

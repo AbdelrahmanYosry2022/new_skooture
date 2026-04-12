@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { History } from 'lucide-react';
 import { useContent } from '../../context/ContentContext';
 
 export default function Legacy() {
@@ -30,7 +31,7 @@ export default function Legacy() {
             viewport={{ once: true }}
             className="theme-badge theme-section-badge mb-6"
           >
-            <span className="theme-section-badge-dot"></span>
+            <History className="theme-section-badge-icon" />
             <span>
               {t(content.legacy.title)}
             </span>
@@ -78,8 +79,8 @@ export default function Legacy() {
                   <div className="w-full md:w-[45%] hidden md:block" />
                   
                   {/* Timeline Dot */}
-                  <div className="absolute left-6 md:left-1/2 transform -translate-x-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full theme-panel-strong shadow-[0_0_15px_rgba(0,168,107,0.15)]">
-                    <div className="w-3 h-3 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[0_0_10px_rgba(0,168,107,0.5)]" />
+                  <div className="theme-panel-strong theme-accent-ring absolute left-6 md:left-1/2 transform -translate-x-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full">
+                    <div className="theme-brand-dot w-3 h-3 rounded-full" />
                   </div>
                   
                   <div className={`w-full md:w-[45%] pl-16 md:pl-0 ${
@@ -92,7 +93,7 @@ export default function Legacy() {
                       dir={isRTL ? 'rtl' : 'ltr'}
                       style={{ textAlign: isRTL ? 'right' : 'left' }}
                     >
-                      <span className="inline-block mb-4 text-[14px] font-medium tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
+                      <span className="theme-link-accent inline-block mb-4 text-[14px] font-medium tracking-wider">
                         {item.year}
                       </span>
                       <h3 className="text-[20px] md:text-[24px] font-medium text-foreground mb-3">

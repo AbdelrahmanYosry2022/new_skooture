@@ -29,9 +29,6 @@ export default function Footer() {
 
   return (
     <footer className="bg-background pt-24 pb-12 relative overflow-hidden">
-      {/* Background Glow (kept but subtle) */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#00a86b]/[0.01] rounded-[100%] blur-[120px] pointer-events-none" />
-
       <div className="container mx-auto px-6 relative z-10">
         <motion.div 
           variants={containerVariants}
@@ -43,7 +40,7 @@ export default function Footer() {
           {/* Brand Column */}
           <motion.div variants={itemVariants} className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00a86b] to-[#34d399] flex items-center justify-center text-foreground font-bold text-xl shadow-[0_0_15px_rgba(0,168,107,0.4)]">
+              <div className="theme-brand-icon w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xl">
                 S
               </div>
               <span className="font-bold text-2xl text-foreground tracking-tight">Skooture</span>
@@ -56,7 +53,7 @@ export default function Footer() {
                 <a 
                   key={index}
                   href={social.url}
-                  className="theme-icon-shell w-10 h-10 rounded-full hover:border-[#00a86b]/50 hover:bg-[#00a86b]/10 flex items-center justify-center text-[color:var(--text-soft)] hover:text-[#00a86b] transition-all duration-300"
+                  className="theme-icon-shell w-10 h-10 rounded-full hover:border-[color:var(--accent-border)] hover:bg-[color:var(--accent-soft)] flex items-center justify-center text-[color:var(--text-soft)] hover:text-[color:var(--accent)] transition-all duration-300"
                 >
                   <DynamicIcon name={social.icon} className="w-5 h-5" />
                 </a>

@@ -196,7 +196,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
         {/* Header */}
         <div className="p-6 md:p-8 border-b border-border flex flex-col md:flex-row items-start md:items-center justify-between bg-muted/40 gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-[16px] bg-muted border border-border flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
+            <div className="theme-accent-text w-12 h-12 rounded-[16px] bg-muted border border-border flex items-center justify-center shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
               <CreditCard size={24} />
             </div>
             <div>
@@ -209,13 +209,13 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
             <div className="flex bg-muted p-1 rounded-[12px] border border-border w-full md:w-auto mr-4">
               <button 
                 onClick={() => setMatrixLang('en')}
-                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'en' ? 'bg-[#00a86b] text-foreground shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-muted-foreground hover:text-foreground'}`}
+                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'en' ? 'theme-button-primary text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
               >
                 English
               </button>
               <button 
                 onClick={() => setMatrixLang('ar')}
-                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'ar' ? 'bg-[#00a86b] text-foreground shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-muted-foreground hover:text-foreground'}`}
+                className={`flex-1 md:flex-none px-6 py-2 text-xs font-bold rounded-[8px] transition-all whitespace-nowrap ${matrixLang === 'ar' ? 'theme-button-primary text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
               >
                 العربية
               </button>
@@ -283,7 +283,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                     {localPlans.map((plan: any, idx: number) => (
                       <th key={plan._id} className="p-4 align-top border-b border-border min-w-[240px] w-[280px] relative">
                         {/* Smart Plan Header */}
-                        <div className={`p-4 rounded-[16px] border transition-all ${plan.highlighted ? 'bg-[#00a86b]/5 border-[#00a86b]/30 shadow-[inset_0_0_20px_rgba(0,168,107,0.1)]' : 'theme-panel-strong border-border'}`}>
+                        <div className={`p-4 rounded-[16px] border transition-all ${plan.highlighted ? 'theme-accent-card' : 'theme-panel-strong border-border'}`}>
                           
                           {/* Plan Name Editable */}
                           <div className="relative mb-3">
@@ -291,18 +291,18 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               type="text"
                               value={plan.name?.[matrixLang] || ''}
                               onChange={(e) => handleUpdatePlanProperty(plan._id, 'name', matrixLang, e.target.value)}
-                              className="w-full bg-transparent border-b border-dashed border-border hover:border-foreground/40 focus:border-[#00a86b] focus:bg-background text-foreground font-bold text-lg px-2 py-1 outline-none transition-all placeholder:text-muted-foreground/40"
+                              className="theme-focus-accent w-full bg-transparent border-b border-dashed border-border hover:border-foreground/40 focus:bg-background text-foreground font-bold text-lg px-2 py-1 transition-all placeholder:text-muted-foreground/40"
                               dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                               placeholder={matrixLang === 'en' ? 'Plan Name...' : 'اسم الباقة...'}
                             />
                             {plan.highlighted && (
-                              <Star className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-[#00a86b] opacity-50 pointer-events-none" />
+                              <Star className="theme-accent-text absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 opacity-50 pointer-events-none" />
                             )}
                           </div>
 
                           <button
                             onClick={() => setActiveSettingsPlanId(activeSettingsPlanId === plan._id ? null : plan._id)}
-                            className={`w-full py-2.5 px-3 rounded-[10px] text-xs font-bold uppercase tracking-wider flex items-center justify-between border transition-all ${activeSettingsPlanId === plan._id ? 'bg-[#00a86b] text-foreground border-[#00a86b] shadow-[0_4px_12px_rgba(0,168,107,0.4)]' : 'bg-muted text-muted-foreground border-border hover:border-[#00a86b]/50 hover:text-foreground'}`}
+                            className={`w-full py-2.5 px-3 rounded-[10px] text-xs font-bold uppercase tracking-wider flex items-center justify-between border transition-all ${activeSettingsPlanId === plan._id ? 'theme-button-primary text-foreground' : 'bg-muted text-muted-foreground border-border hover:border-[color:var(--accent-border)] hover:text-foreground'}`}
                           >
                             <span>{matrixLang === 'en' ? 'Plan Settings' : 'إعدادات الباقة'}</span>
                             <Settings2 className="w-4 h-4" />
@@ -317,10 +317,10 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: -10, scale: 0.95 }}
                               transition={{ duration: 0.15 }}
-                              className="absolute top-full left-4 right-4 mt-2 bg-muted border border-[#00a86b]/30 shadow-[0_20px_40px_rgba(0,0,0,0.8)] rounded-[16px] z-50 overflow-hidden flex flex-col"
+                              className="absolute top-full left-4 right-4 mt-2 bg-muted border border-[color:var(--accent-border)] shadow-[0_20px_40px_rgba(0,0,0,0.8)] rounded-[16px] z-50 overflow-hidden flex flex-col"
                             >
                               <div className="p-4 bg-muted border-b border-border flex items-center justify-between">
-                                <span className="text-xs font-bold text-[#00a86b] uppercase tracking-wider flex items-center gap-2">
+                                <span className="theme-accent-text text-xs font-bold uppercase tracking-wider flex items-center gap-2">
                                   <Settings2 className="w-3 h-3" />
                                   {plan.name?.[matrixLang] || 'Settings'}
                                 </span>
@@ -338,7 +338,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                     type="text"
                                     value={plan.badge?.[matrixLang] || ''}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'badge', matrixLang, e.target.value)}
-                                    className="w-full bg-card border border-border focus:border-[#00a86b] text-foreground rounded-[8px] px-3 py-2 text-sm outline-none transition-all placeholder:text-foreground/10"
+                                    className="theme-focus-accent w-full bg-card border border-border text-foreground rounded-[8px] px-3 py-2 text-sm transition-all placeholder:text-foreground/10"
                                     dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                                     placeholder={matrixLang === 'en' ? 'Badge text...' : 'نص الشارة...'}
                                   />
@@ -349,7 +349,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                     type="checkbox"
                                     checked={plan.highlighted || false}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'highlighted', matrixLang, e.target.checked)}
-                                    className="w-4 h-4 rounded-[4px] border-border text-[#00a86b] focus:ring-[#00a86b] bg-transparent"
+                                    className="w-4 h-4 rounded-[4px] border-border bg-transparent accent-[color:var(--accent)] focus:ring-[color:var(--accent)]"
                                   />
                                   <span className="text-xs font-medium text-foreground leading-tight">
                                     {matrixLang === 'en' ? 'Highlight & Glow (Stand out)' : 'تمييز ساطع (لإبرازها)'}
@@ -360,7 +360,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                     type="checkbox"
                                     checked={plan.popular || false}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'popular', matrixLang, e.target.checked)}
-                                    className="w-4 h-4 rounded-[4px] border-border text-[#00a86b] focus:ring-[#00a86b] bg-transparent"
+                                    className="w-4 h-4 rounded-[4px] border-border bg-transparent accent-[color:var(--accent)] focus:ring-[color:var(--accent)]"
                                   />
                                   <span className="text-xs font-medium text-foreground leading-tight">
                                     {matrixLang === 'en' ? 'Mark as popular' : 'تمييز كخطة شائعة'}
@@ -373,7 +373,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                   <select
                                     value={plan.billingPeriod || 'both'}
                                     onChange={(e) => handleUpdatePlanProperty(plan._id, 'billingPeriod', matrixLang, e.target.value)}
-                                    className="w-full bg-card border border-border focus:border-[#00a86b] text-foreground rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
+                                    className="theme-focus-accent w-full bg-card border border-border text-foreground rounded-[8px] px-3 py-2 text-sm transition-all"
                                   >
                                     <option value="both">{matrixLang === 'en' ? 'Monthly + Annual' : 'شهري + سنوي'}</option>
                                     <option value="monthly">{matrixLang === 'en' ? 'Monthly only' : 'شهري فقط'}</option>
@@ -396,7 +396,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                         setLocalPlans(newPlans);
                                         updateNestedContent(['pricing', 'plans'], newPlans.map(({ _id, ...rest }) => rest));
                                       }}
-                                      className="w-full bg-card border border-border focus:border-[#00a86b] text-foreground rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
+                                      className="theme-focus-accent w-full bg-card border border-border text-foreground rounded-[8px] px-3 py-2 text-sm transition-all"
                                       placeholder="$49"
                                     />
                                   </div>
@@ -415,7 +415,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                         setLocalPlans(newPlans);
                                         updateNestedContent(['pricing', 'plans'], newPlans.map(({ _id, ...rest }) => rest));
                                       }}
-                                      className="w-full bg-card border border-border focus:border-[#00a86b] text-foreground rounded-[8px] px-3 py-2 text-sm outline-none transition-all"
+                                      className="theme-focus-accent w-full bg-card border border-border text-foreground rounded-[8px] px-3 py-2 text-sm transition-all"
                                       placeholder="$490"
                                     />
                                   </div>
@@ -426,7 +426,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                     <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
                                       {matrixLang === 'en' ? 'Pricing & Limits Details' : 'تفاصيل السعر والحدود'}
                                     </label>
-                                    <button onClick={() => handleAddDetail(plan._id)} className="text-[10px] font-bold text-[#00a86b] hover:text-foreground transition-colors">
+                                    <button onClick={() => handleAddDetail(plan._id)} className="theme-accent-text text-[10px] font-bold hover:text-foreground transition-colors">
                                       + ADD
                                     </button>
                                   </div>
@@ -437,7 +437,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                           type="text"
                                           value={detail[matrixLang] || ''}
                                           onChange={(e) => handleUpdateDetails(plan._id, dIndex, matrixLang, e.target.value)}
-                                          className="flex-1 bg-card border border-border focus:border-[#00a86b] text-foreground text-xs rounded-[8px] px-3 py-2 outline-none transition-all"
+                                          className="theme-focus-accent flex-1 bg-card border border-border text-foreground text-xs rounded-[8px] px-3 py-2 transition-all"
                                           dir={matrixLang === 'ar' ? 'rtl' : 'ltr'}
                                         />
                                         <button onClick={() => handleDeleteDetail(plan._id, dIndex)} className="p-2 text-[color:var(--text-dim)] hover:text-red-500 bg-red-500/5 hover:bg-red-500/20 rounded-[8px] transition-colors">
@@ -462,7 +462,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                     <th className="p-4 align-top w-[80px] border-b border-border">
                       <button 
                         onClick={handleAddPlan}
-                        className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 rounded-[16px] border border-dashed border-border text-[color:var(--text-dim)] hover:border-[#00a86b]/50 hover:bg-[#00a86b]/5 hover:text-[#00a86b] transition-colors"
+                        className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 rounded-[16px] border border-dashed border-border text-[color:var(--text-dim)] hover:border-[color:var(--accent-border)] hover:bg-[color:var(--accent-soft)] hover:text-[color:var(--accent)] transition-colors"
                         title="Add New Plan Column"
                       >
                         <Plus size={24} />
@@ -488,7 +488,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                 type="text"
                                 value={feature.en}
                                 onChange={(e) => handleUpdateFeatureName(feature.en, e.target.value, feature.ar)}
-                                className="w-full text-[13px] font-medium text-foreground bg-transparent border-b border-transparent focus:border-[#00a86b]/50 px-1 py-1 placeholder-zinc-600 transition-all outline-none"
+                                className="theme-focus-accent w-full text-[13px] font-medium text-foreground bg-transparent border-b border-transparent px-1 py-1 placeholder-zinc-600 transition-all"
                                 placeholder="Type English Feature Name..."
                               />
                             ) : (
@@ -496,7 +496,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                                 type="text"
                                 value={feature.ar}
                                 onChange={(e) => handleUpdateFeatureName(feature.en, feature.en, e.target.value)}
-                                className="w-full text-[13px] font-medium text-foreground bg-transparent border-b border-transparent focus:border-[#00a86b]/50 px-1 py-1 placeholder-zinc-600 text-right font-arabic transition-all outline-none"
+                                className="theme-focus-accent w-full text-[13px] font-medium text-foreground bg-transparent border-b border-transparent px-1 py-1 placeholder-zinc-600 text-right font-arabic transition-all"
                                 placeholder="اكتب اسم الميزة..."
                                 dir="rtl"
                               />
@@ -514,7 +514,7 @@ export default function PricingSection({ localContent, updateNestedContent }: Ad
                               onClick={() => handleToggleFeature(planIndex, feature.en, !isIncluded)}
                               className={`inline-flex items-center justify-center w-[38px] h-[38px] rounded-[10px] transition-all duration-200 shadow-sm ${
                                 isIncluded 
-                                  ? 'bg-gradient-to-br from-[#00a86b] to-[#008f5b] text-foreground shadow-[0_4px_12px_rgba(0,168,107,0.4)]' 
+                                  ? 'theme-button-primary text-foreground' 
                                   : 'bg-muted border border-border text-[color:var(--text-dim)] hover:border-foreground/20 hover:text-foreground'
                               }`}
                             >

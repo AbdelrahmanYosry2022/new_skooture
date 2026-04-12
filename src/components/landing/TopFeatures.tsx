@@ -102,15 +102,15 @@ export default function TopFeatures() {
               <motion.div 
                 key={index} 
                 variants={itemVariants}
-                className="theme-panel group relative flex items-center gap-4 p-4 rounded-2xl hover:border-[#00a86b]/40 duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(0,168,107,0.08)] cursor-default overflow-hidden"
+                className="theme-panel group relative flex items-center gap-4 p-4 rounded-2xl hover:border-[color:var(--accent-border)] duration-300 hover:-translate-y-1 hover:shadow-[var(--card-shadow-hover)] cursor-default overflow-hidden"
               >
                 {/* Soft background glow on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#00a86b]/0 to-[#00a86b]/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="theme-accent-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 
                 {/* Subtle side highlight line */}
-                <div className={`absolute top-0 bottom-0 w-[2px] bg-[#00a86b] transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center ${isRTL ? 'right-0' : 'left-0'}`} />
+                <div className={`absolute top-0 bottom-0 w-[2px] bg-[color:var(--accent)] transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center ${isRTL ? 'right-0' : 'left-0'}`} />
                 
-                <div className="theme-icon-shell w-12 h-12 shrink-0 rounded-xl flex items-center justify-center text-muted-foreground group-hover:text-[#00a86b] group-hover:border-[#00a86b]/30 group-hover:bg-[#00a86b]/10 transition-all duration-300 shadow-inner">
+                <div className="theme-icon-shell w-12 h-12 shrink-0 rounded-xl flex items-center justify-center text-muted-foreground group-hover:text-[color:var(--accent)] group-hover:border-[color:var(--accent-border)] group-hover:bg-[color:var(--accent-soft)] transition-all duration-300 shadow-inner">
                   <DynamicIcon name={iconName} className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <span className="text-[14px] leading-tight font-medium text-[color:var(--text-soft)] group-hover:text-foreground transition-colors duration-300 flex-1">

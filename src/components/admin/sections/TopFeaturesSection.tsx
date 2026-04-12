@@ -95,7 +95,7 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
         {/* Header */}
         <div className="p-6 md:p-8 border-b border-border flex items-center justify-between bg-muted/40">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-[16px] bg-muted border border-border flex items-center justify-center text-[#00a86b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
+            <div className="theme-accent-text w-12 h-12 rounded-[16px] bg-muted border border-border flex items-center justify-center shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
               <LayoutGrid size={24} />
             </div>
             <div>
@@ -173,7 +173,7 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
                     onDragEnd={handleDragEnd}
                     className={`relative flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border cursor-grab active:cursor-grabbing select-none group ${
                       isActive 
-                        ? 'bg-[#00a86b] border-[#00a86b] text-foreground shadow-[0_4px_20px_rgba(0,168,107,0.4)] z-10' 
+                        ? 'theme-button-primary text-foreground z-10' 
                         : 'bg-muted border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground hover:border-border z-0'
                     }`}
                     onClick={() => setActiveFeatureId(feature._id)}
@@ -190,7 +190,7 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
 
             <button 
               onClick={handleAddFeature} 
-              className="flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border border-dashed border-border bg-muted text-muted-foreground hover:bg-[#00a86b]/10 hover:border-[#00a86b]/50 hover:text-[#00a86b] transition-colors shrink-0"
+              className="flex items-center justify-center min-w-[56px] h-[56px] rounded-[16px] border border-dashed border-border bg-muted text-muted-foreground hover:bg-[color:var(--accent-soft)] hover:border-[color:var(--accent-border)] hover:text-[color:var(--accent)] transition-colors shrink-0"
               title="Add New Feature"
             >
               <Plus size={24} />
@@ -211,7 +211,7 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
                 {/* Card Header */}
                 <div className="p-6 md:px-8 border-b border-border flex flex-col md:flex-row md:items-center justify-between gap-6 bg-muted/40">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-[14px] border border-border bg-muted flex items-center justify-center shrink-0 text-[#00a86b]">
+                    <div className="theme-accent-text w-12 h-12 rounded-[14px] border border-border bg-muted flex items-center justify-center shrink-0">
                       <LayoutGrid className="w-6 h-6" />
                     </div>
 
@@ -227,13 +227,13 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
                     <div className="flex bg-background p-1 rounded-[12px] border border-border">
                       <button 
                         onClick={() => setCardLang('en')}
-                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'en' ? 'bg-[#00a86b] text-foreground shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'en' ? 'theme-button-primary text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                       >
                         EN
                       </button>
                       <button 
                         onClick={() => setCardLang('ar')}
-                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'ar' ? 'bg-[#00a86b] text-foreground shadow-[0_2px_8px_rgba(0,168,107,0.4)]' : 'text-muted-foreground hover:text-foreground'}`}
+                        className={`px-5 py-2 text-xs font-bold rounded-[8px] transition-all ${cardLang === 'ar' ? 'theme-button-primary text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                       >
                         AR
                       </button>
@@ -261,7 +261,7 @@ export default function TopFeaturesSection({ localContent, updateNestedContent }
                       type="text"
                       value={activeFeature[cardLang] || ''}
                       onChange={(e) => handleUpdateFeature(cardLang, e.target.value)}
-                      className={`w-full bg-card border border-border focus:border-[#00a86b]/50 focus:bg-muted text-foreground rounded-[16px] px-5 py-4 outline-none transition-all placeholder:text-foreground/10 ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
+                      className={`theme-focus-accent w-full bg-card border border-border focus:bg-muted text-foreground rounded-[16px] px-5 py-4 transition-all placeholder:text-foreground/10 ${cardLang === 'ar' ? 'text-right' : 'text-left'}`}
                       dir={cardLang === 'ar' ? 'rtl' : 'ltr'}
                       placeholder={cardLang === 'en' ? 'Type feature name...' : 'اكتب اسم الميزة هنا...'}
                     />

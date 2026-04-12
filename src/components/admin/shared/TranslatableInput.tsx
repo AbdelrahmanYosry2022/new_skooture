@@ -21,8 +21,8 @@ export default function TranslatableInput({
   const { adminLanguage } = useContent();
   const [activeLang, setActiveLang] = useState<'en' | 'ar'>(adminLanguage);
 
-  const inputClasses = "theme-input w-full min-h-[40px] px-4 py-2 rounded-[12px] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-sm text-foreground placeholder:text-muted-foreground/30";
-  const textareaClasses = "theme-input w-full min-h-[100px] px-4 py-3 rounded-[12px] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-sm text-foreground placeholder:text-muted-foreground/30 resize-y";
+  const inputClasses = "theme-input theme-focus-accent w-full min-h-[40px] px-4 py-2 rounded-[12px] transition-all text-sm text-foreground placeholder:text-muted-foreground/30";
+  const textareaClasses = "theme-input theme-focus-accent w-full min-h-[100px] px-4 py-3 rounded-[12px] transition-all text-sm text-foreground placeholder:text-muted-foreground/30 resize-y";
 
   return (
     <div className="space-y-2">
@@ -37,7 +37,7 @@ export default function TranslatableInput({
             onClick={() => setActiveLang('en')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase transition-all cursor-pointer ${
               activeLang === 'en' 
-                ? 'theme-panel-strong text-[#00a86b]' 
+                ? 'theme-panel-strong theme-accent-text' 
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -47,7 +47,7 @@ export default function TranslatableInput({
             onClick={() => setActiveLang('ar')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase transition-all cursor-pointer ${
               activeLang === 'ar' 
-                ? 'theme-panel-strong text-[#00a86b]' 
+                ? 'theme-panel-strong theme-accent-text' 
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >

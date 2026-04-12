@@ -1,4 +1,5 @@
 import { motion, useInView } from 'framer-motion';
+import { BarChart3 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import { useContent } from '../../context/ContentContext';
 import DynamicIcon from '../shared/DynamicIcon';
@@ -49,7 +50,7 @@ function Counter({ value, label, iconName, delay }: { value: number; label: stri
         </div>
         <div className="theme-headline text-[40px] font-medium tracking-tight mb-2 leading-[1.1]">
           {formatNumber(count)}
-          <span className="text-[#00a86b] ml-1">+</span>
+          <span className="theme-accent-text ml-1">+</span>
         </div>
         <div className="text-[14px] text-muted-foreground leading-[1.6]">
           {label}
@@ -74,7 +75,7 @@ export default function Traction() {
             viewport={{ once: true }}
             className="theme-badge theme-section-badge mb-6"
           >
-            <span className="theme-section-badge-dot"></span>
+            <BarChart3 className="theme-section-badge-icon" />
             <span>
               {t({ en: 'Real Impact', ar: 'تأثير حقيقي' })}
             </span>

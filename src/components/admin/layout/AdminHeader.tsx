@@ -52,7 +52,7 @@ export default function AdminHeader({ onMenuClick, title, onSave, onReset, onLog
                 className={`h-[40px] px-[20px] text-sm font-medium text-foreground rounded-[10px] transition-all duration-200 border-0 flex items-center justify-center gap-2 ${
                   isSaved 
                     ? 'bg-emerald-500 text-white shadow-[0_1px_2px_rgba(16,185,129,0.2)]' 
-                    : 'bg-[#00a86b] hover:bg-[#008f5b] text-white shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(0,168,107,0.35)]'
+                    : 'theme-button-primary text-white'
                 }`}
               >
                 {isSaved ? t('actions.saved') : t('actions.saveChanges')}

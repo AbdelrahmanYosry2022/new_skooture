@@ -46,7 +46,7 @@ export default function Login() {
               ) : (
                 <div className="flex items-center gap-3">
                   <div className="theme-icon-shell w-12 h-12 rounded-[12px] flex items-center justify-center font-bold text-2xl">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00a86b] to-[#b3f0d4]">S</span>
+                    <span className="theme-brand-gradient-text">S</span>
                   </div>
                   <span className="font-bold text-2xl tracking-tight text-foreground">Skooture</span>
                 </div>
@@ -63,13 +63,13 @@ export default function Login() {
           <form onSubmit={handleLogin} className="space-y-5 relative z-10">
             <div className="space-y-2">
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-[#00a86b] transition-colors" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-[color:var(--accent)] transition-colors" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
-                  className="theme-input w-full pl-12 pr-4 h-[52px] rounded-[12px] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-foreground placeholder:text-muted-foreground/50"
+                  className="theme-input theme-focus-accent w-full pl-12 pr-4 h-[52px] rounded-[12px] transition-all text-foreground placeholder:text-muted-foreground/50"
                   autoFocus
                   required
                 />
@@ -78,14 +78,14 @@ export default function Login() {
 
             <div className="space-y-2">
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-[#00a86b] transition-colors" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-[color:var(--accent)] transition-colors" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                   className={`theme-input w-full pl-12 pr-4 h-[52px] rounded-[12px] outline-none transition-all text-foreground placeholder:text-muted-foreground/50 ${
-                    error ? 'border-red-500/50 ring-1 ring-red-500/50' : 'focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50'
+                    error ? 'border-red-500/50 ring-1 ring-red-500/50' : 'theme-focus-accent'
                   }`}
                   required
                 />
@@ -104,7 +104,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-6 h-[48px] px-[20px] rounded-[10px] bg-[#00a86b] hover:bg-[#008f5b] text-white font-medium text-[16px] transition-all duration-200 shadow-[0_1px_2px_rgba(82,88,102,0.06)] hover:shadow-[0_0_20px_rgba(51,219,159,0.4)] border-0 flex items-center justify-center gap-2 disabled:opacity-60 disabled:hover:shadow-none"
+              className="theme-button-primary w-full mt-6 h-[48px] px-[20px] rounded-[10px] font-medium text-[16px] transition-all duration-200 border-0 flex items-center justify-center gap-2 disabled:opacity-60 disabled:hover:shadow-none"
             >
               {isLoading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -120,7 +120,7 @@ export default function Login() {
           <div className="mt-8 pt-6 border-t border-border text-center relative z-10">
             <button
               onClick={() => navigate('/')}
-              className="text-sm font-medium text-muted-foreground hover:text-[#00a86b] transition-colors"
+              className="text-sm font-medium text-muted-foreground hover:text-[color:var(--accent)] transition-colors"
             >
               Back to Website
             </button>

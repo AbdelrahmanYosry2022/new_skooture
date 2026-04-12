@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Bot } from 'lucide-react';
 import { useContent } from '../../context/ContentContext';
 import DynamicIcon from '../shared/DynamicIcon';
 
@@ -28,7 +29,7 @@ export default function AICore() {
             viewport={{ once: true }}
             className="theme-badge theme-section-badge mb-6"
           >
-            <span className="theme-section-badge-dot"></span>
+            <Bot className="theme-section-badge-icon" />
             <span>
               {t({ en: 'AI Powered', ar: 'مدعوم بالذكاء الاصطناعي' })}
             </span>
@@ -74,11 +75,11 @@ export default function AICore() {
 
                 <div className="mt-auto pt-8 w-full flex items-center justify-between group/link cursor-pointer relative z-10">
                   <div className="h-[1px] w-full bg-foreground/5 absolute top-0 left-0" />
-                  <span className="text-[14px] font-medium text-[#00a86b] transition-colors mt-6">
+                  <span className="theme-link-accent text-[14px] font-medium transition-colors mt-6">
                     {t({ en: 'Learn More', ar: 'تعرف على المزيد' })}
                   </span>
-                  <div className="w-8 h-8 mt-6 rounded-full bg-muted border border-border flex items-center justify-center transform group-hover/link:translate-x-1 group-hover/link:bg-[#00a86b]/10 group-hover/link:border-[#00a86b]/30 transition-all duration-300">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#00a86b] rtl:rotate-180">
+                  <div className="w-8 h-8 mt-6 rounded-full bg-muted border border-border flex items-center justify-center transform group-hover/link:translate-x-1 group-hover/link:bg-[color:var(--accent-soft)] group-hover/link:border-[color:var(--accent-border)] transition-all duration-300">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="theme-accent-text rtl:rotate-180">
                       <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>

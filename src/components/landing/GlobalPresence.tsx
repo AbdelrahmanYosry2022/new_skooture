@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useContent } from '../../context/ContentContext';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Globe2 } from 'lucide-react';
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
@@ -66,7 +66,7 @@ export default function GlobalPresence() {
               viewport={{ once: true }}
               className="theme-badge theme-section-badge mb-6"
             >
-              <span className="theme-section-badge-dot"></span>
+              <Globe2 className="theme-section-badge-icon" />
               <span>
                 {t(content.global.title)}
               </span>
@@ -139,15 +139,15 @@ export default function GlobalPresence() {
                     const isActive = activeCountries.includes(enName);
 
                     const styleProps = isActive ? {
-                      default: { outline: 'none', fill: '#00a86b', stroke: '#222222', strokeWidth: 0.5 },
+                      default: { outline: 'none', fill: 'var(--accent)', stroke: 'var(--foreground)', strokeWidth: 0.5 },
                       hover: { 
                         outline: 'none', 
-                        fill: '#00a86b', 
-                        stroke: '#34d399',
+                        fill: 'var(--accent)', 
+                        stroke: 'var(--accent)',
                         strokeWidth: 1,
-                        filter: 'drop-shadow(0px 0px 16px rgba(0, 210, 135, 0.9))',
+                        filter: 'drop-shadow(0px 0px 16px color-mix(in srgb, var(--accent) 70%, transparent))',
                       },
-                      pressed: { outline: 'none', fill: '#008f5b' },
+                      pressed: { outline: 'none', fill: 'var(--accent-strong)' },
                     } : {
                       default: { outline: 'none', fill: 'var(--map-fill)', stroke: 'var(--map-stroke)', strokeWidth: 0.5 },
                       hover: { outline: 'none', fill: 'var(--map-fill)', stroke: 'var(--map-stroke)', strokeWidth: 0.5 },
@@ -177,7 +177,7 @@ export default function GlobalPresence() {
       {/* Modern Tooltip for Active Countries Only */}
       {tooltip.show && (
         <div 
-          className="theme-tooltip fixed pointer-events-none z-[9999] px-4 py-2 flex flex-col items-center gap-1 rounded-[12px] shadow-[0_8px_32px_0_rgba(0,168,107,0.2)]"
+          className="theme-tooltip fixed pointer-events-none z-[9999] px-4 py-2 flex flex-col items-center gap-1 rounded-[12px] shadow-[0_8px_32px_0_color-mix(in_srgb,var(--accent)_20%,transparent)]"
           style={{
             left: `${tooltip.x}px`,
             top: `${tooltip.y - 15}px`,
@@ -188,7 +188,7 @@ export default function GlobalPresence() {
           <span className="font-medium text-foreground text-[14px]">
             {tooltip.ar}
           </span>
-          <span className="text-[#00a86b] font-medium text-[12px]">
+          <span className="theme-accent-text font-medium text-[12px]">
             {tooltip.en}
           </span>
         </div>

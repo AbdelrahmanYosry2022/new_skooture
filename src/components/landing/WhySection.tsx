@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { ShieldCheck } from 'lucide-react';
 import { useContent } from '../../context/ContentContext';
 
 export default function WhySection() {
@@ -31,7 +32,7 @@ export default function WhySection() {
             className="space-y-8"
           >
             <motion.div variants={itemVariants} className="theme-badge theme-section-badge">
-              <span className="theme-section-badge-dot"></span>
+              <ShieldCheck className="theme-section-badge-icon" />
               <span>
                 {t(content.why.title)}
               </span>
@@ -63,6 +64,13 @@ export default function WhySection() {
             {/* Main Visual Container */}
             <div className="theme-panel relative rounded-[24px] p-8 overflow-hidden">
               <div className="space-y-6 relative z-10">
+                <div className="theme-panel-strong overflow-hidden rounded-[20px] border border-border">
+                  <img
+                    src="/images/dashboard-preview.png"
+                    alt="Skooture dashboard preview"
+                    className="w-full h-[220px] object-cover object-top"
+                  />
+                </div>
                 
                 {/* Legacy System Card */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] theme-soft-surface transition-all duration-300 opacity-70 grayscale hover:opacity-100 hover:grayscale-0 gap-4 sm:gap-0">
@@ -82,24 +90,24 @@ export default function WhySection() {
 
                 {/* Connection Line */}
                 <div className="flex items-center justify-center -my-2 relative z-0">
-                  <div className="w-[1px] h-8 bg-gradient-to-b from-border to-[#00a86b]/50" />
+                  <div className="w-[1px] h-8 bg-gradient-to-b from-border to-[color:var(--accent-border)]" />
                 </div>
 
                 {/* New AI Infrastructure Card */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] bg-gradient-to-r from-[#00a86b]/10 to-transparent border border-[#00a86b]/20 shadow-[0_0_30px_rgba(0,168,107,0.1)] relative overflow-hidden group gap-4 sm:gap-0">
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(0,168,107,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="theme-accent-card flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 rounded-[16px] relative overflow-hidden group gap-4 sm:gap-0">
+                  <div className="theme-accent-overlay absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="flex items-center gap-4 relative z-10">
-                    <div className="w-12 h-12 shrink-0 rounded-[12px] bg-[#00a86b] flex items-center justify-center shadow-[0_2px_10px_rgba(0,168,107,0.3)]">
+                    <div className="theme-brand-icon w-12 h-12 shrink-0 rounded-[12px] flex items-center justify-center">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="white"/>
                       </svg>
                     </div>
                     <div>
                       <h4 className="text-foreground font-medium text-[18px] tracking-tight">Skooture.AI</h4>
-                      <p className="text-[#00e695] text-[13px] mt-0.5">{t(content.why.labels?.globalAi || 'Global AI Infrastructure')}</p>
+                      <p className="theme-link-accent text-[13px] mt-0.5">{t(content.why.labels?.globalAi || 'Global AI Infrastructure')}</p>
                     </div>
                   </div>
-                  <div className="text-[#00a86b] font-medium text-[12px] bg-[#00a86b]/10 border border-[#00a86b]/20 px-3 py-1 rounded-full relative z-10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] whitespace-nowrap">
+                  <div className="theme-accent-chip font-medium text-[12px] px-3 py-1 rounded-full relative z-10 whitespace-nowrap">
                     {t(content.why.labels?.scalable || 'Scalable')}
                   </div>
                 </div>

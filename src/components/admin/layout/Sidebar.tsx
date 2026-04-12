@@ -79,7 +79,7 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
             ) : (
               <>
                 <div className="theme-icon-shell w-10 h-10 rounded-[10px] flex items-center justify-center font-bold text-xl">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00a86b] to-[#b3f0d4]">S</span>
+                  <span className="theme-brand-gradient-text">S</span>
                 </div>
                 <span className="font-bold text-xl text-foreground">Skooture</span>
               </>
@@ -115,7 +115,7 @@ export default function Sidebar({ currentSection, onSectionChange, isOpen, setIs
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                <Icon className={cn("w-5 h-5 shrink-0", isActive ? "text-[#00a86b]" : "opacity-70")} />
+                <Icon className={cn("w-5 h-5 shrink-0", isActive ? "theme-accent-text" : "opacity-70")} />
                 <span className="truncate">{t(item.labelKey)}</span>
               </Button>
             );

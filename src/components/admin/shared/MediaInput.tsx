@@ -34,7 +34,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
     reader.readAsDataURL(file);
   };
 
-  const inputClasses = "theme-input w-full h-[40px] px-3 rounded-[10px] focus:border-[#00a86b]/50 focus:ring-1 focus:ring-[#00a86b]/50 outline-none transition-all text-sm text-foreground placeholder:text-muted-foreground/50";
+  const inputClasses = "theme-input theme-focus-accent w-full h-[40px] px-3 rounded-[10px] transition-all text-sm text-foreground placeholder:text-muted-foreground/50";
 
   return (
     <div className="space-y-3">
@@ -47,7 +47,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
           <button
             onClick={() => setMode('url')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
-              mode === 'url' ? 'theme-panel-strong text-[#00a86b]' : 'text-muted-foreground hover:text-foreground'
+              mode === 'url' ? 'theme-panel-strong theme-accent-text' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             URL
@@ -55,7 +55,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
           <button
             onClick={() => setMode('upload')}
             className={`px-3 py-1 rounded-[6px] text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
-              mode === 'upload' ? 'theme-panel-strong text-[#00a86b]' : 'text-muted-foreground hover:text-foreground'
+              mode === 'upload' ? 'theme-panel-strong theme-accent-text' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             Upload
@@ -74,7 +74,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
               transition={{ duration: 0.2 }}
               className="relative group"
             >
-              <Link className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-[#00a86b] transition-colors ${isRTL ? 'right-3' : 'left-3'}`} />
+              <Link className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-[color:var(--accent)] transition-colors ${isRTL ? 'right-3' : 'left-3'}`} />
               <input
                 type="text"
                 value={value?.startsWith('data:') ? '' : value}
@@ -97,7 +97,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
                 className={`w-full group px-6 py-6 rounded-[12px] border flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-300 ${
                   value?.startsWith('data:') 
                     ? 'border-emerald-500/30 bg-emerald-500/5' 
-                    : 'border-dashed border-border hover:border-[#00a86b]/50 hover:bg-[#00a86b]/5'
+                    : 'border-dashed border-border hover:border-[color:var(--accent-border)] hover:bg-[color:var(--accent-soft)]'
                 }`}
               >
                 <input
@@ -125,7 +125,7 @@ export default function MediaInput({ label, value, onChange, type = 'image' }: M
                   </div>
                 ) : (
                   <div className="flex items-center gap-4">
-                    <div className="theme-icon-shell w-10 h-10 rounded-[10px] text-muted-foreground flex items-center justify-center group-hover:text-[#00a86b] transition-colors">
+                    <div className="theme-icon-shell w-10 h-10 rounded-[10px] text-muted-foreground flex items-center justify-center group-hover:text-[color:var(--accent)] transition-colors">
                       {type === 'image' ? <ImageIcon size={20} /> : <Film size={20} />}
                     </div>
                     <div className="text-left">
