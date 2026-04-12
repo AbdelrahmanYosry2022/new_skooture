@@ -18,7 +18,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="theme-badge theme-accent-text inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium mb-6"
+            className="theme-badge theme-section-badge mb-6"
           >
             <DynamicIcon name="MessageSquareQuote" className="w-4 h-4" />
             <span>{t({ en: 'Testimonials', ar: 'آراء العملاء' })}</span>

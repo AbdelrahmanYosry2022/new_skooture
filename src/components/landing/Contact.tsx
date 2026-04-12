@@ -54,7 +54,7 @@ export default function Contact() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="theme-badge theme-accent-text inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium mb-6"
+                className="theme-badge theme-section-badge mb-6"
               >
                 <DynamicIcon name="MessageSquareHeart" className="w-4 h-4" />
                 <span>{t({ en: 'Contact Us', ar: 'اتصل بنا' })}</span>

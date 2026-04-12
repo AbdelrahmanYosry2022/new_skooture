@@ -64,10 +64,10 @@ export default function GlobalPresence() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="theme-badge mb-6 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-[21px]"
+              className="theme-badge theme-section-badge mb-6"
             >
-              <span className="w-2 h-2 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[0_0_12px_rgba(0,168,107,0.35)] shrink-0"></span>
-              <span className="text-[13px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
+              <span className="theme-section-badge-dot"></span>
+              <span>
                 {t(content.global.title)}
               </span>
             </motion.div>
@@ -100,8 +100,7 @@ export default function GlobalPresence() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="group inline-flex h-[48px] shrink-0 items-center justify-center gap-2 rounded-[8px] px-6 text-[15px] font-medium text-foreground transition-all duration-200 hover:brightness-110 shadow-[0_0_20px_rgba(0,168,107,0.2)]"
-              style={{ backgroundColor: 'rgb(0,168,107)' }}
+              className="theme-button-primary group inline-flex h-[48px] shrink-0 items-center justify-center gap-2 rounded-[8px] px-6 text-[15px] font-medium transition-all duration-200 hover:brightness-110"
               onClick={() => {
                 const element = document.getElementById('contact');
                 element?.scrollIntoView({ behavior: 'smooth' });

@@ -30,9 +30,9 @@ export default function WhySection() {
             viewport={{ once: true, margin: "-50px" }}
             className="space-y-8"
           >
-            <motion.div variants={itemVariants} className="theme-badge inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px]">
-              <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] shadow-[0_0_12px_rgba(0,168,107,0.35)] shrink-0"></span>
-              <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
+            <motion.div variants={itemVariants} className="theme-badge theme-section-badge">
+              <span className="theme-section-badge-dot"></span>
+              <span>
                 {t(content.why.title)}
               </span>
             </motion.div>

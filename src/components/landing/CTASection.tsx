@@ -53,11 +53,9 @@ export default function CTASection() {
           <div className="flex flex-col items-center gap-6 px-8 pb-16 pt-14 text-center md:px-20">
 
             {/* Badge */}
-            <div className="theme-badge inline-flex items-center gap-2.5 rounded-[21px] px-3.5 py-1.5">
-              <span
-                className="theme-brand-dot h-2 w-2 shrink-0 rounded-full"
-              />
-              <span className="theme-brand-gradient-text text-[13px] font-medium">
+            <div className="theme-badge theme-section-badge">
+              <span className="theme-section-badge-dot"></span>
+              <span>
                 {t({ en: 'Sign up for Skooture.AI today', ar: 'سجّل في Skooture.AI اليوم' })}
               </span>
             </div>

@@ -41,7 +41,7 @@ export default function Pricing() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="theme-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[#00a86b] text-sm font-medium mb-6"
+            className="theme-badge theme-section-badge mb-6"
           >
             <DynamicIcon name="Tag" className="w-4 h-4" />
             <span>{t({ en: 'Pricing', ar: 'الأسعار' })}</span>

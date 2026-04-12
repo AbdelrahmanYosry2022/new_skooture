@@ -36,9 +36,9 @@ export default function Hero() {
             {/* Top Badge */}
             {content.hero?.topBadge && (
               <motion.div variants={itemVariants} className="mb-6 flex justify-start">
-                <div className="theme-badge inline-flex items-center gap-2.5 px-3 py-1.5 rounded-[21px]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[radial-gradient(100%_100%_at_50%_0%,#80ebb8_0%,#00a86b_100%)] flex-shrink-0 shadow-[0_0_12px_rgba(0,168,107,0.35)]"></span>
-                  <span className="text-[14px] font-medium bg-clip-text text-transparent bg-gradient-to-r from-[#00e695] to-[#b3f0d4]">
+                <div className="theme-badge theme-section-badge">
+                  <span className="theme-section-badge-dot"></span>
+                  <span>
                     {t(content.hero.topBadge) || t({ en: 'We raised $200,000 series A', ar: 'جمعنا 200,000 دولار في السلسلة أ' })}
                   </span>
                 </div>
